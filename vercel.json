@@ -4,10 +4,6 @@
     {
       "source": "/attendance",
       "destination": "/index.html"
-    },
-    {
-      "source": "/plan",
-      "destination": "/presentation.html"
     }
   ]
 }

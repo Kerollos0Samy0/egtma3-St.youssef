@@ -78,60 +78,93 @@
       transition: background-color 0.3s ease, color 0.3s ease;
     }
 
-    /* Top App Header */
+    /* Top App Header (Streamlined & Clean - Zero Clutter) */
     header.app-header {
-      background: rgba(15, 23, 42, 0.92);
+      background: rgba(15, 23, 42, 0.96);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
       position: sticky;
       top: 0;
       z-index: 100;
-      padding: 0.75rem 2rem;
+      padding: 0.55rem 1.5rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
+      flex-wrap: wrap;
     }
 
     body.light-theme header.app-header {
-      background: rgba(255, 255, 255, 0.92);
+      background: rgba(255, 255, 255, 0.96);
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 0.9rem;
-    }
-
-    .brand-logo {
-      width: 44px;
-      height: 44px;
-      border-radius: var(--radius-md);
-      background: var(--accent-gold-gradient);
-      color: #0f172a;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.4rem;
-      box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
+      gap: 0.75rem;
     }
 
     .brand-title {
-      font-size: 1.15rem;
+      font-size: 1.05rem;
       font-weight: 800;
       line-height: 1.2;
+      color: var(--text-main);
     }
 
-    .brand-subtitle {
-      font-size: 0.75rem;
-      color: var(--accent-gold);
+    .header-center {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: rgba(30, 41, 59, 0.6);
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border);
+    }
+
+    .session-select-clean {
+      background: transparent;
+      border: none;
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 0.85rem;
       font-weight: 700;
+      outline: none;
+      cursor: pointer;
+      max-width: 260px;
+    }
+
+    .session-select-clean option {
+      background: #0f172a;
+      color: #fff;
+    }
+
+    .attendee-stat-pill {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      border-right: 1px solid var(--border);
+      padding-right: 0.75rem;
+      white-space: nowrap;
+    }
+
+    .session-badge-clean {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-full);
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--accent-emerald);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      font-size: 0.78rem;
+      font-weight: 700;
+      white-space: nowrap;
     }
 
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 0.6rem;
+      gap: 0.5rem;
     }
 
     /* Buttons */
@@ -173,61 +206,16 @@
       color: #000;
     }
 
-    .btn-success {
-      background: var(--accent-emerald);
-      color: #fff;
-      border: none;
+    .btn-sm {
+      padding: 0.3rem 0.65rem;
+      font-size: 0.8rem;
     }
 
     .btn-icon-only {
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
       padding: 0;
       border-radius: var(--radius-full);
-    }
-
-    /* Active Session Banner */
-    .session-banner {
-      background: rgba(30, 41, 59, 0.5);
-      border-bottom: 1px solid var(--border);
-      padding: 0.75rem 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .session-info {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .session-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.3rem 0.8rem;
-      border-radius: var(--radius-full);
-      background: rgba(245, 158, 11, 0.15);
-      color: var(--accent-gold);
-      border: 1px solid rgba(245, 158, 11, 0.3);
-      font-size: 0.82rem;
-      font-weight: 800;
-    }
-
-    .session-select {
-      background: var(--bg-secondary);
-      border: 1px solid var(--border);
-      color: var(--text-main);
-      padding: 0.4rem 0.8rem;
-      border-radius: var(--radius-sm);
-      font-family: inherit;
-      font-size: 0.88rem;
-      outline: none;
-      font-weight: 700;
-      cursor: pointer;
     }
 
     /* Main Navigation Tabs */
@@ -923,78 +911,66 @@
 </head>
 <body>
 
-  <!-- App Header -->
+  <!-- Streamlined App Header (Zero Clutter & No Presentation) -->
   <header class="app-header">
     <div class="brand">
-      <img src="Logo.svg" alt="Egtma3 Youssef ElSedek" style="width:46px;height:46px;border-radius:50%;object-fit:cover;box-shadow:0 0 12px rgba(245,158,11,0.4);border:2px solid rgba(245,158,11,0.6);">
+      <img src="Logo.svg" alt="Egtma3 Youssef ElSedek" style="width:38px;height:38px;border-radius:50%;object-fit:cover;box-shadow:0 0 10px rgba(245,158,11,0.35);">
       <div>
         <div class="brand-title">Egtma3 Youssef ElSedek</div>
-        <div class="brand-subtitle">كنيسة السيدة العذراء بالقناطر — نظام تسجيل الحضور والغياب بالـ QR</div>
+        <div style="font-size:0.7rem;color:var(--text-muted);font-weight:600;">كنيسة العذراء بالقناطر الخيرية</div>
       </div>
     </div>
 
-    <div class="header-actions">
-      <!-- Sync Status -->
-      <span id="syncStatusBadge" class="session-badge" style="background:rgba(16,185,129,0.15);color:var(--accent-emerald);border-color:rgba(16,185,129,0.3);">
-        ● متصل ومحفوظ محلياً
-      </span>
+    <!-- Active Meeting & Live Attendance (Combined in one clean pill) -->
+    <div class="header-center">
+      <div style="display:flex;align-items:center;gap:0.35rem;">
+        <select id="activeSessionSelect" class="session-select-clean" title="اختر اللقاء"></select>
+        <button class="btn btn-icon-only btn-sm" id="newSessionBtn" title="إضافة لقاء جديد" style="width:28px;height:28px;font-size:1rem;padding:0;border-radius:var(--radius-full);">+</button>
+      </div>
 
-      <!-- Theme Switcher -->
-      <button class="btn btn-icon-only" id="themeToggleBtn" title="تبديل المظهر النهاري/الليلي">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      <div class="attendee-stat-pill" title="حضور لقاء اليوم">
+        <span>الحاضرون: <strong id="sessionAttendeeCount" style="color:var(--accent-gold);font-size:1.05rem;">0</strong> (<span id="sessionAttendanceRate" style="color:var(--accent-emerald);">0%</span>)</span>
+      </div>
+    </div>
+
+    <!-- Actions (Projector QR, Sync Status, Theme) -->
+    <div class="header-actions">
+      <button class="btn btn-gold btn-sm" id="showProjectorQrBtn" title="عرض كود QR للشباب على الشاشة">
+        🖥️ كود الشاشة
       </button>
 
-      <!-- Back to Presentation -->
-      <a href="../presentation.html" class="btn" title="عرض خطة الخدمة السنوية">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-        <span>خطة السنة</span>
-      </a>
+      <span id="syncStatusBadge" class="session-badge-clean" title="حالة الاتصال السحابي">
+        ● متصل سحابياً
+      </span>
+
+      <button class="btn btn-icon-only btn-sm" id="themeToggleBtn" title="تبديل المظهر">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      </button>
     </div>
   </header>
 
-  <!-- Active Session Selector & Stats Banner -->
-  <div class="session-banner">
-    <div class="session-info">
-      <span style="font-weight:700;color:var(--text-muted);font-size:0.9rem;">لقاء اليوم النشط:</span>
-      <select id="activeSessionSelect" class="session-select"></select>
-      <button class="btn" id="newSessionBtn" style="padding:0.35rem 0.75rem;font-size:0.8rem;">+ لقاء جديد</button>
-    </div>
-
-    <div style="display:flex;align-items:center;gap:1.5rem;">
-      <div style="font-size:0.9rem;font-weight:700;">
-        الحاضرون اليوم: <span id="sessionAttendeeCount" style="color:var(--accent-gold);font-size:1.2rem;font-weight:900;">0</span>
-      </div>
-      <div style="font-size:0.9rem;font-weight:700;">
-        نسبة الحضور: <span id="sessionAttendanceRate" style="color:var(--accent-emerald);font-size:1.2rem;font-weight:900;">0%</span>
-      </div>
-      <button class="btn btn-gold" id="showProjectorQrBtn" style="padding:0.35rem 0.85rem;font-size:0.82rem;">
-        🖥️ كود الشاشة للشباب
-      </button>
-    </div>
-  </div>
-
-  <!-- Navigation Tabs -->
+  <!-- Modern Direct Navigation Tabs -->
   <div class="nav-tabs">
     <button class="tab-btn active" data-tab="tabScanner">
-      📷 تسجيل الحضور بالكاميرا
+      📷 تسجيل الحضور
     </button>
     <button class="tab-btn" data-tab="tabBadges">
-      🪪 بطاقات الـ QR والكارنيهات
-      <span class="tab-count" id="badgeCountPill">0</span>
+      🪪 الكروت والكارنيهات
+      <span class="tab-count" id="badgeCountPill">157</span>
     </button>
     <button class="tab-btn" data-tab="tabMembers">
       👥 دليل الشباب والأسر
-      <span class="tab-count" id="memberCountPill">0</span>
+      <span class="tab-count" id="memberCountPill">157</span>
     </button>
     <button class="tab-btn" data-tab="tabSessions">
-      📅 سجل اللقاءات والأسابيع
+      📅 جدول اللقاءات
     </button>
     <button class="tab-btn" data-tab="tabVisitation">
-      📞 لجنة الافتقاد ومتابعة الغياب
+      📞 الافتقاد ومتابعة الغياب
       <span class="tab-count" id="absentCountPill" style="background:rgba(244,63,94,0.2);color:#fb7185;">0</span>
     </button>
     <button class="tab-btn" data-tab="tabAnalytics">
-      📊 الإحصائيات وتصدير إكسل
+      📊 الإحصائيات وإكسل
     </button>
   </div>
 
@@ -5835,12 +5811,12 @@
       const badge = document.getElementById('syncStatusBadge');
       if (!badge) return;
       if (online) {
-        badge.textContent = text || '● متصل سحابياً مع Firebase (لحظي ⚡)';
+        badge.textContent = text || '● متصل سحابياً';
         badge.style.background = 'rgba(16, 185, 129, 0.2)';
         badge.style.color = '#10b981';
         badge.style.borderColor = 'rgba(16, 185, 129, 0.4)';
       } else {
-        badge.textContent = text || '● يعمل محلياً (Offline Ready)';
+        badge.textContent = text || '● يعمل محلياً';
         badge.style.background = 'rgba(245, 158, 11, 0.2)';
         badge.style.color = '#f59e0b';
         badge.style.borderColor = 'rgba(245, 158, 11, 0.4)';
@@ -5942,7 +5918,7 @@
             saveLocalData();
             refreshUI();
           }
-          updateSyncStatusBadge(true, '● متصل سحابياً مع Firebase (لحظي ⚡)');
+          updateSyncStatusBadge(true, '● متصل سحابياً');
         }, (error) => {
           console.warn("Firestore snapshot error:", error);
           updateSyncStatusBadge(false, '● متصل محلياً (Offline Ready)');
