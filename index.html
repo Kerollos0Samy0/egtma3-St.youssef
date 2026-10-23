@@ -961,11 +961,11 @@
       border-color: #fb7185 !important;
     }
 
-    /* Fullscreen Login Modal */
+    /* Fullscreen Login Modal (Clean & Perfectly Aligned) */
     .login-overlay-backdrop {
       position: fixed;
       inset: 0;
-      background: radial-gradient(circle at center, rgba(15, 23, 42, 0.96) 0%, rgba(2, 6, 23, 0.99) 100%);
+      background: radial-gradient(circle at center, rgba(15, 23, 42, 0.92) 0%, rgba(2, 6, 23, 0.98) 100%);
       backdrop-filter: blur(16px);
       z-index: 9999;
       display: flex;
@@ -979,13 +979,117 @@
     }
     .login-card-container {
       background: var(--bg-card);
-      border: 1px solid rgba(245, 158, 11, 0.3);
-      border-radius: var(--radius-lg);
-      box-shadow: 0 25px 65px rgba(0, 0, 0, 0.75), 0 0 35px rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      border-radius: 20px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75), 0 0 35px rgba(16, 185, 129, 0.15);
       width: 100%;
-      max-width: 420px;
-      padding: 2.25rem 2rem;
+      max-width: 430px;
+      padding: 2.5rem 2.25rem;
       animation: popIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      box-sizing: border-box;
+    }
+    .login-field-wrap {
+      margin-bottom: 1.25rem;
+      text-align: right;
+    }
+    .login-field-label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 0.5rem;
+    }
+    .login-input-box {
+      position: relative;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      box-sizing: border-box;
+    }
+    .login-input {
+      width: 100% !important;
+      box-sizing: border-box !important;
+      height: 48px;
+      padding: 0 2.75rem 0 2.75rem !important;
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.65);
+      border: 1.5px solid rgba(148, 163, 184, 0.2);
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 0.95rem;
+      outline: none;
+      transition: all 0.2s ease;
+      text-align: right;
+    }
+    .login-input:focus {
+      border-color: var(--accent-emerald);
+      background: rgba(15, 23, 42, 0.95);
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+    }
+    .login-input-icon {
+      position: absolute;
+      right: 0.9rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .login-input-toggle {
+      position: absolute;
+      left: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 0.3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      transition: color 0.2s ease;
+    }
+    .login-input-toggle:hover {
+      color: var(--accent-gold);
+    }
+    .login-error-alert {
+      display: none;
+      background: rgba(244, 63, 94, 0.12);
+      border: 1px solid rgba(244, 63, 94, 0.35);
+      border-radius: 8px;
+      padding: 0.65rem 0.85rem;
+      color: #fb7185;
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-top: 0.65rem;
+      text-align: right;
+    }
+    .login-submit-btn {
+      width: 100%;
+      height: 48px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      color: #0f172a;
+      font-weight: 800;
+      font-size: 1.05rem;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      box-shadow: 0 4px 18px rgba(245, 158, 11, 0.35);
+      transition: all 0.25s ease;
+      margin-top: 0.75rem;
+    }
+    .login-submit-btn:hover {
+      background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+      box-shadow: 0 6px 24px rgba(245, 158, 11, 0.5);
+      transform: translateY(-2px);
     }
 
     .form-group {
@@ -1002,6 +1106,8 @@
     }
 
     .form-control {
+      width: 100%;
+      box-sizing: border-box;
       padding: 0.75rem 1rem;
       border-radius: var(--radius-md);
       background: var(--bg-card);
@@ -1609,39 +1715,44 @@
   <!-- ============================================== -->
   <div class="login-overlay-backdrop" id="loginOverlay">
     <div class="login-card-container">
-      <div style="text-align:center;margin-bottom:1.5rem;">
-        <img src="Logo.svg" alt="Egtma3 Youssef ElSedek" style="width:75px;height:75px;border-radius:50%;object-fit:cover;box-shadow:0 0 20px rgba(245,158,11,0.4);margin-bottom:0.75rem;">
-        <h2 style="font-size:1.45rem;font-weight:800;color:var(--text-main);margin-bottom:0.25rem;">اجتماع يوسف الصديق للشباب</h2>
-        <p style="font-size:0.82rem;color:var(--text-muted);">كنيسة السيدة العذراء مريم بالقناطر الخيرية • منظومة الخدمة</p>
+      <!-- Header / Logo -->
+      <div style="text-align:center;margin-bottom:1.75rem;">
+        <img src="Logo.svg" alt="Egtma3 Youssef ElSedek" style="width:78px;height:78px;border-radius:50%;object-fit:cover;box-shadow:0 0 25px rgba(245,158,11,0.35);margin-bottom:0.75rem;">
+        <h2 style="font-size:1.45rem;font-weight:800;color:var(--text-main);margin-bottom:0.35rem;">اجتماع يوسف الصديق للشباب</h2>
+        <p style="font-size:0.8rem;color:var(--text-muted);font-weight:600;">كنيسة السيدة العذراء مريم بالقناطر الخيرية • منظومة الخدمة</p>
       </div>
 
-      <!-- Clean Login Form: Username & Password -->
+      <!-- Clean & Perfectly Balanced Form -->
       <form id="servantLoginForm" onsubmit="event.preventDefault(); handleLoginAttempt();">
-        <div style="margin-bottom:1.1rem;">
-          <label style="display:block;font-size:0.85rem;font-weight:700;color:var(--text-main);margin-bottom:0.4rem;text-align:right;">
-            👤 اسم المستخدم (Username):
-          </label>
-          <div style="position:relative;">
-            <input type="text" id="loginUsernameInput" class="form-control" placeholder="أدخل اسم المستخدم..." style="font-size:0.95rem;text-align:right;padding-right:2.4rem;" autocomplete="username" required>
-            <span style="position:absolute;right:0.85rem;top:50%;transform:translateY(-50%);font-size:1.05rem;color:var(--text-muted);pointer-events:none;">👤</span>
+        <!-- Username Field -->
+        <div class="login-field-wrap">
+          <label class="login-field-label" for="loginUsernameInput">اسم المستخدم:</label>
+          <div class="login-input-box">
+            <input type="text" id="loginUsernameInput" class="login-input" placeholder="أدخل اسم المستخدم..." autocomplete="username" required>
+            <span class="login-input-icon">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            </span>
           </div>
         </div>
 
-        <div style="margin-bottom:1.25rem;">
-          <label style="display:block;font-size:0.85rem;font-weight:700;color:var(--text-main);margin-bottom:0.4rem;text-align:right;">
-            🔒 كلمة المرور (Password):
-          </label>
-          <div style="position:relative;">
-            <input type="password" id="loginPasswordInput" class="form-control" placeholder="أدخل كلمة المرور..." style="font-size:0.95rem;padding-left:2.5rem;padding-right:2.4rem;letter-spacing:1px;" autocomplete="current-password" required>
-            <span style="position:absolute;right:0.85rem;top:50%;transform:translateY(-50%);font-size:1.05rem;color:var(--text-muted);pointer-events:none;">🔒</span>
-            <button type="button" id="toggleLoginPasswordBtn" style="position:absolute;left:0.75rem;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:1.1rem;padding:0;" title="إظهار/إخفاء كلمة المرور">👁️</button>
+        <!-- Password Field -->
+        <div class="login-field-wrap" style="margin-bottom:1.4rem;">
+          <label class="login-field-label" for="loginPasswordInput">كلمة المرور:</label>
+          <div class="login-input-box">
+            <input type="password" id="loginPasswordInput" class="login-input" placeholder="أدخل كلمة المرور..." autocomplete="current-password" required>
+            <span class="login-input-icon">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            </span>
+            <button type="button" id="toggleLoginPasswordBtn" class="login-input-toggle" title="إظهار/إخفاء كلمة المرور">
+              <svg id="eyeIconSvg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            </button>
           </div>
-          <div id="loginErrorMessage" style="display:none;color:#fb7185;font-size:0.82rem;font-weight:700;margin-top:0.5rem;text-align:right;">
+          <div id="loginErrorMessage" class="login-error-alert">
             ⚠️ اسم المستخدم أو كلمة المرور غير صحيحة، برجاء مراجعة أمناء الاجتماع.
           </div>
         </div>
 
-        <button type="submit" id="submitLoginBtn" class="btn btn-gold" style="width:100%;padding:0.85rem;font-size:1.05rem;box-shadow:0 6px 20px rgba(245,158,11,0.35);">
+        <button type="submit" id="submitLoginBtn" class="login-submit-btn">
           تسجيل الدخول إلى المنظومة
         </button>
       </form>
@@ -7293,9 +7404,16 @@
       // 2. Password visibility toggle
       const toggleBtn = document.getElementById('toggleLoginPasswordBtn');
       const passInput = document.getElementById('loginPasswordInput');
+      const eyeSvg = document.getElementById('eyeIconSvg');
       if (toggleBtn && passInput) {
         toggleBtn.addEventListener('click', () => {
-          passInput.type = passInput.type === 'password' ? 'text' : 'password';
+          const isPass = passInput.type === 'password';
+          passInput.type = isPass ? 'text' : 'password';
+          if (eyeSvg) {
+            eyeSvg.innerHTML = isPass
+              ? '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line>'
+              : '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>';
+          }
         });
       }
 
