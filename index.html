@@ -573,6 +573,10 @@
     .family-a { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border-color: rgba(245, 158, 11, 0.4); }
     .family-b { background: rgba(56, 189, 248, 0.2); color: #38bdf8; border-color: rgba(56, 189, 248, 0.4); }
     .family-c { background: rgba(16, 185, 129, 0.2); color: #34d399; border-color: rgba(16, 185, 129, 0.4); }
+    .family-d { background: rgba(139, 92, 246, 0.2); color: #a78bfa; border-color: rgba(139, 92, 246, 0.4); }
+    .family-e { background: rgba(236, 72, 153, 0.2); color: #f472b6; border-color: rgba(236, 72, 153, 0.4); }
+    .family-t { background: rgba(20, 184, 166, 0.2); color: #2dd4bf; border-color: rgba(20, 184, 166, 0.4); }
+    .family-unassigned { background: rgba(148, 163, 184, 0.15); color: #94a3b8; border-color: rgba(148, 163, 184, 0.3); }
     .family-leaders { background: rgba(168, 85, 247, 0.2); color: #c084fc; border-color: rgba(168, 85, 247, 0.4); }
 
     /* Recent Attendees List */
@@ -1458,17 +1462,17 @@
 
         <div class="filter-divider"></div>
 
-        <!-- Row 1: Groups Filter -->
+        <!-- Row 1: Area Filter (المناطق السكنية) -->
         <div class="filter-row">
-          <span class="filter-row-label">المجموعة:</span>
+          <span class="filter-row-label">المنطقة:</span>
           <div class="filter-pills-wrap">
             <button class="pill-btn group-filter-btn active" data-grp="all">الكل (157)</button>
-            <button class="pill-btn group-filter-btn" data-grp="A">مجموعة A</button>
-            <button class="pill-btn group-filter-btn" data-grp="B">مجموعة B</button>
-            <button class="pill-btn group-filter-btn" data-grp="C">مجموعة C</button>
-            <button class="pill-btn group-filter-btn" data-grp="D">مجموعة D</button>
-            <button class="pill-btn group-filter-btn" data-grp="E">مجموعة E</button>
-            <button class="pill-btn group-filter-btn" data-grp="T">مجموعة T (خارج القناطر)</button>
+            <button class="pill-btn group-filter-btn" data-grp="A">منطقة A</button>
+            <button class="pill-btn group-filter-btn" data-grp="B">منطقة B</button>
+            <button class="pill-btn group-filter-btn" data-grp="C">منطقة C</button>
+            <button class="pill-btn group-filter-btn" data-grp="D">منطقة D</button>
+            <button class="pill-btn group-filter-btn" data-grp="E">منطقة E</button>
+            <button class="pill-btn group-filter-btn" data-grp="T">منطقة T (خارج القناطر)</button>
           </div>
         </div>
 
@@ -1502,11 +1506,12 @@
             <tr>
               <th>الكود</th>
               <th>الاسم</th>
-              <th>المجموعة</th>
-              <th>الدفعة</th>
+              <th>المنطقة</th>
+              <th>الأسرة</th>
+              <th>الدفعة / الكلية</th>
               <th>النوع</th>
-              <th>اب الاعتراف</th>
-              <th>المنطقة / العنوان</th>
+              <th>أب الاعتراف</th>
+              <th>العنوان السكني</th>
               <th>الموبايل</th>
               <th>واتساب</th>
             </tr>
@@ -1584,6 +1589,7 @@
           <thead>
             <tr>
               <th>الاسم</th>
+              <th>المنطقة</th>
               <th>الأسرة</th>
               <th>الموبايل</th>
               <th>حالة الحضور اليوم</th>
@@ -2032,7 +2038,7 @@
       "birthDateText": "13 يونيو 2005",
       "birthDateIso": "2005-06-13",
       "college": "",
-      "family": "مجموعة E",
+      "areaGroup": "منطقة E", "family": "لم تحدد بعد",
       "groupCode": "E",
       "phone": "01288474508",
       "phone2": "",
@@ -2058,7 +2064,7 @@
       "birthDateText": "30 أكتوبر 2004",
       "birthDateIso": "2004-10-30",
       "college": "",
-      "family": "غير محدد",
+      "areaGroup": "غير محدد", "family": "لم تحدد بعد",
       "groupCode": "Missing",
       "phone": "01270262719",
       "phone2": "",
@@ -2084,7 +2090,7 @@
       "birthDateText": "مواليد 2005",
       "birthDateIso": null,
       "college": "",
-      "family": "غير محدد",
+      "areaGroup": "غير محدد", "family": "لم تحدد بعد",
       "groupCode": "Missing",
       "phone": "01229680052",
       "phone2": "",
@@ -2110,7 +2116,7 @@
       "birthDateText": "مواليد 2008",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة E",
+      "areaGroup": "منطقة E", "family": "لم تحدد بعد",
       "groupCode": "E",
       "phone": "01229495458",
       "phone2": "",
@@ -2136,7 +2142,7 @@
       "birthDateText": "مواليد 2006",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة E",
+      "areaGroup": "منطقة E", "family": "لم تحدد بعد",
       "groupCode": "E",
       "phone": "01221474285",
       "phone2": "",
@@ -2162,7 +2168,7 @@
       "birthDateText": "20 أكتوبر 2007",
       "birthDateIso": "2007-10-20",
       "college": "",
-      "family": "غير محدد",
+      "areaGroup": "غير محدد", "family": "لم تحدد بعد",
       "groupCode": "Missing",
       "phone": "01060537225",
       "phone2": "01205732411",
@@ -2188,7 +2194,7 @@
       "birthDateText": "8 يونيو 2006",
       "birthDateIso": "2006-06-08",
       "college": "",
-      "family": "مجموعة C",
+      "areaGroup": "منطقة C", "family": "لم تحدد بعد",
       "groupCode": "C",
       "phone": "01208368919",
       "phone2": "",
@@ -2214,7 +2220,7 @@
       "birthDateText": "مواليد 2004",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة T (خارج القناطر)",
+      "areaGroup": "منطقة T (خارج القناطر)", "family": "لم تحدد بعد",
       "groupCode": "T",
       "phone": "01278430910",
       "phone2": "",
@@ -2240,7 +2246,7 @@
       "birthDateText": "2 مارس 2008",
       "birthDateIso": "2008-03-02",
       "college": "",
-      "family": "مجموعة E",
+      "areaGroup": "منطقة E", "family": "لم تحدد بعد",
       "groupCode": "E",
       "phone": "01011955007",
       "phone2": "",
@@ -2266,7 +2272,7 @@
       "birthDateText": "1 سبتمبر 2008",
       "birthDateIso": "2008-09-01",
       "college": "",
-      "family": "غير محدد",
+      "areaGroup": "غير محدد", "family": "لم تحدد بعد",
       "groupCode": "Missing",
       "phone": "01203483478",
       "phone2": "",
@@ -2292,7 +2298,7 @@
       "birthDateText": "1 أكتوبر 2007",
       "birthDateIso": "2007-10-01",
       "college": "",
-      "family": "مجموعة D",
+      "areaGroup": "منطقة D", "family": "لم تحدد بعد",
       "groupCode": "D",
       "phone": "01271721319",
       "phone2": "",
@@ -2318,7 +2324,7 @@
       "birthDateText": "12 سبتمبر 2007",
       "birthDateIso": "2007-09-12",
       "college": "",
-      "family": "مجموعة E",
+      "areaGroup": "منطقة E", "family": "لم تحدد بعد",
       "groupCode": "E",
       "phone": "01145473490",
       "phone2": "",
@@ -2344,7 +2350,7 @@
       "birthDateText": "12 فبراير 2004",
       "birthDateIso": "2004-02-12",
       "college": "",
-      "family": "مجموعة B",
+      "areaGroup": "منطقة B", "family": "لم تحدد بعد",
       "groupCode": "B",
       "phone": "01273860435",
       "phone2": "",
@@ -2370,7 +2376,7 @@
       "birthDateText": "17 أبريل 2006",
       "birthDateIso": "2006-04-17",
       "college": "",
-      "family": "غير محدد",
+      "areaGroup": "غير محدد", "family": "لم تحدد بعد",
       "groupCode": "Missing",
       "phone": "01210943516",
       "phone2": "",
@@ -2396,7 +2402,7 @@
       "birthDateText": "7 يوليو 2008",
       "birthDateIso": "2008-07-07",
       "college": "",
-      "family": "مجموعة C",
+      "areaGroup": "منطقة C", "family": "لم تحدد بعد",
       "groupCode": "C",
       "phone": "01153095147",
       "phone2": "",
@@ -2422,7 +2428,7 @@
       "birthDateText": "مواليد 2008",
       "birthDateIso": null,
       "college": "",
-      "family": "غير محدد",
+      "areaGroup": "غير محدد", "family": "لم تحدد بعد",
       "groupCode": "Missing",
       "phone": "01211340616",
       "phone2": "",
@@ -2448,7 +2454,7 @@
       "birthDateText": "24 سبتمبر 2004",
       "birthDateIso": "2004-09-24",
       "college": "",
-      "family": "مجموعة T (خارج القناطر)",
+      "areaGroup": "منطقة T (خارج القناطر)", "family": "لم تحدد بعد",
       "groupCode": "T",
       "phone": "01200799193",
       "phone2": "",
@@ -2474,7 +2480,7 @@
       "birthDateText": "12 مايو 2005",
       "birthDateIso": "2005-05-12",
       "college": "",
-      "family": "مجموعة D",
+      "areaGroup": "منطقة D", "family": "لم تحدد بعد",
       "groupCode": "D",
       "phone": "01223757761",
       "phone2": "",
@@ -2500,7 +2506,7 @@
       "birthDateText": "مواليد 2005",
       "birthDateIso": null,
       "college": "",
-      "family": "غير محدد",
+      "areaGroup": "غير محدد", "family": "لم تحدد بعد",
       "groupCode": "Missing",
       "phone": "01204982339",
       "phone2": "",
@@ -2526,7 +2532,7 @@
       "birthDateText": "مواليد 2006",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة A",
+      "areaGroup": "منطقة A", "family": "لم تحدد بعد",
       "groupCode": "A",
       "phone": "01207205034",
       "phone2": "",
@@ -2552,7 +2558,7 @@
       "birthDateText": "10 أكتوبر 2007",
       "birthDateIso": "2007-10-10",
       "college": "",
-      "family": "مجموعة D",
+      "areaGroup": "منطقة D", "family": "لم تحدد بعد",
       "groupCode": "D",
       "phone": "01097894518",
       "phone2": "",
@@ -2578,7 +2584,7 @@
       "birthDateText": "26 أغسطس 2007",
       "birthDateIso": "2007-08-26",
       "college": "",
-      "family": "مجموعة A",
+      "areaGroup": "منطقة A", "family": "لم تحدد بعد",
       "groupCode": "A",
       "phone": "01208751074",
       "phone2": "",
@@ -2604,7 +2610,7 @@
       "birthDateText": "مواليد 2008",
       "birthDateIso": null,
       "college": "",
-      "family": "غير محدد",
+      "areaGroup": "غير محدد", "family": "لم تحدد بعد",
       "groupCode": "Missing",
       "phone": "01271865533",
       "phone2": "",
@@ -2630,7 +2636,7 @@
       "birthDateText": "10 مايو 2007",
       "birthDateIso": "2007-05-10",
       "college": "",
-      "family": "مجموعة T (خارج القناطر)",
+      "areaGroup": "منطقة T (خارج القناطر)", "family": "لم تحدد بعد",
       "groupCode": "T",
       "phone": "01226077974",
       "phone2": "",
@@ -2656,7 +2662,7 @@
       "birthDateText": "7 نوفمبر 2006",
       "birthDateIso": "2006-11-07",
       "college": "",
-      "family": "مجموعة D",
+      "areaGroup": "منطقة D", "family": "لم تحدد بعد",
       "groupCode": "D",
       "phone": "01289088488",
       "phone2": "",
@@ -2682,7 +2688,7 @@
       "birthDateText": "16 أغسطس 2007",
       "birthDateIso": "2007-08-16",
       "college": "",
-      "family": "مجموعة E",
+      "areaGroup": "منطقة E", "family": "لم تحدد بعد",
       "groupCode": "E",
       "phone": "01204086189",
       "phone2": "",
@@ -2708,7 +2714,7 @@
       "birthDateText": "مواليد 2005",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة D",
+      "areaGroup": "منطقة D", "family": "لم تحدد بعد",
       "groupCode": "D",
       "phone": "01211027467",
       "phone2": "",
@@ -2734,7 +2740,7 @@
       "birthDateText": "11 سبتمبر 2007",
       "birthDateIso": "2007-09-11",
       "college": "",
-      "family": "مجموعة C",
+      "areaGroup": "منطقة C", "family": "لم تحدد بعد",
       "groupCode": "C",
       "phone": "01277847021",
       "phone2": "",
@@ -2760,7 +2766,7 @@
       "birthDateText": "20 يوليو 2005",
       "birthDateIso": "2005-07-20",
       "college": "",
-      "family": "مجموعة T (خارج القناطر)",
+      "areaGroup": "منطقة T (خارج القناطر)", "family": "لم تحدد بعد",
       "groupCode": "T",
       "phone": "01286763406",
       "phone2": "",
@@ -2786,7 +2792,7 @@
       "birthDateText": "21 يوليو 2006",
       "birthDateIso": "2006-07-21",
       "college": "",
-      "family": "مجموعة A",
+      "areaGroup": "منطقة A", "family": "لم تحدد بعد",
       "groupCode": "A",
       "phone": "01287284098",
       "phone2": "",
@@ -2812,7 +2818,7 @@
       "birthDateText": "12 سبتمبر 2006",
       "birthDateIso": "2006-09-12",
       "college": "",
-      "family": "مجموعة B",
+      "areaGroup": "منطقة B", "family": "لم تحدد بعد",
       "groupCode": "B",
       "phone": "01203419941",
       "phone2": "",
@@ -2838,7 +2844,7 @@
       "birthDateText": "مواليد 2004",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة C",
+      "areaGroup": "منطقة C", "family": "لم تحدد بعد",
       "groupCode": "C",
       "phone": "01200733842",
       "phone2": "",
@@ -2864,7 +2870,7 @@
       "birthDateText": "1 يناير 2008",
       "birthDateIso": "2008-01-01",
       "college": "",
-      "family": "مجموعة C",
+      "areaGroup": "منطقة C", "family": "لم تحدد بعد",
       "groupCode": "C",
       "phone": "01270711288",
       "phone2": "",
@@ -2890,7 +2896,7 @@
       "birthDateText": "مواليد 2004",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة T (خارج القناطر)",
+      "areaGroup": "منطقة T (خارج القناطر)", "family": "لم تحدد بعد",
       "groupCode": "T",
       "phone": "01555952693",
       "phone2": "",
@@ -2916,7 +2922,7 @@
       "birthDateText": "مواليد 2006",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة B",
+      "areaGroup": "منطقة B", "family": "لم تحدد بعد",
       "groupCode": "B",
       "phone": "01228395147",
       "phone2": "",
@@ -2942,7 +2948,7 @@
       "birthDateText": "20 مايو 2007",
       "birthDateIso": "2007-05-20",
       "college": "",
-      "family": "مجموعة A",
+      "areaGroup": "منطقة A", "family": "لم تحدد بعد",
       "groupCode": "A",
       "phone": "01112929912",
       "phone2": "",
@@ -2968,7 +2974,7 @@
       "birthDateText": "21 نوفمبر 2008",
       "birthDateIso": "2008-11-21",
       "college": "",
-      "family": "مجموعة T (خارج القناطر)",
+      "areaGroup": "منطقة T (خارج القناطر)", "family": "لم تحدد بعد",
       "groupCode": "T",
       "phone": "01206933090",
       "phone2": "",
@@ -2994,7 +3000,7 @@
       "birthDateText": "مواليد 2006",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة T (خارج القناطر)",
+      "areaGroup": "منطقة T (خارج القناطر)", "family": "لم تحدد بعد",
       "groupCode": "T",
       "phone": "01204726009",
       "phone2": "",
@@ -3020,7 +3026,7 @@
       "birthDateText": "2 مايو 2007",
       "birthDateIso": "2007-05-02",
       "college": "",
-      "family": "غير محدد",
+      "areaGroup": "غير محدد", "family": "لم تحدد بعد",
       "groupCode": "Missing",
       "phone": "01210720096",
       "phone2": "",
@@ -3046,7 +3052,7 @@
       "birthDateText": "10 نوفمبر 2004",
       "birthDateIso": "2004-11-10",
       "college": "",
-      "family": "مجموعة E",
+      "areaGroup": "منطقة E", "family": "لم تحدد بعد",
       "groupCode": "E",
       "phone": "01202656756",
       "phone2": "",
@@ -3072,7 +3078,7 @@
       "birthDateText": "مواليد 2006",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة T (خارج القناطر)",
+      "areaGroup": "منطقة T (خارج القناطر)", "family": "لم تحدد بعد",
       "groupCode": "T",
       "phone": "01288477418",
       "phone2": "",
@@ -3098,7 +3104,7 @@
       "birthDateText": "مواليد 2006",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة D",
+      "areaGroup": "منطقة D", "family": "لم تحدد بعد",
       "groupCode": "D",
       "phone": "01220201642",
       "phone2": "",
@@ -3124,7 +3130,7 @@
       "birthDateText": "مواليد 2006",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة T (خارج القناطر)",
+      "areaGroup": "منطقة T (خارج القناطر)", "family": "لم تحدد بعد",
       "groupCode": "T",
       "phone": "01279885494",
       "phone2": "",
@@ -3150,7 +3156,7 @@
       "birthDateText": "مواليد 2008",
       "birthDateIso": null,
       "college": "",
-      "family": "غير محدد",
+      "areaGroup": "غير محدد", "family": "لم تحدد بعد",
       "groupCode": "Missing",
       "phone": "01555925994",
       "phone2": "",
@@ -3176,7 +3182,7 @@
       "birthDateText": "مواليد 2006",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة T (خارج القناطر)",
+      "areaGroup": "منطقة T (خارج القناطر)", "family": "لم تحدد بعد",
       "groupCode": "T",
       "phone": "01557514054",
       "phone2": "",
@@ -3202,7 +3208,7 @@
       "birthDateText": "11 فبراير 2007",
       "birthDateIso": "2007-02-11",
       "college": "",
-      "family": "مجموعة T (خارج القناطر)",
+      "areaGroup": "منطقة T (خارج القناطر)", "family": "لم تحدد بعد",
       "groupCode": "T",
       "phone": "01277868115",
       "phone2": "",
@@ -3228,7 +3234,7 @@
       "birthDateText": "مواليد 2005",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة C",
+      "areaGroup": "منطقة C", "family": "لم تحدد بعد",
       "groupCode": "C",
       "phone": "01278083378",
       "phone2": "",
@@ -3254,7 +3260,7 @@
       "birthDateText": "مواليد 2008",
       "birthDateIso": null,
       "college": "",
-      "family": "غير محدد",
+      "areaGroup": "غير محدد", "family": "لم تحدد بعد",
       "groupCode": "Missing",
       "phone": "01208562360",
       "phone2": "",
@@ -3280,7 +3286,7 @@
       "birthDateText": "1 نوفمبر 2008",
       "birthDateIso": "2008-11-01",
       "college": "",
-      "family": "غير محدد",
+      "areaGroup": "غير محدد", "family": "لم تحدد بعد",
       "groupCode": "Missing",
       "phone": "01277424799",
       "phone2": "",
@@ -3306,7 +3312,7 @@
       "birthDateText": "6 أكتوبر 2007",
       "birthDateIso": "2007-10-06",
       "college": "",
-      "family": "مجموعة E",
+      "areaGroup": "منطقة E", "family": "لم تحدد بعد",
       "groupCode": "E",
       "phone": "01271616721",
       "phone2": "",
@@ -3332,7 +3338,7 @@
       "birthDateText": "6 يناير 2022",
       "birthDateIso": "2022-01-06",
       "college": "",
-      "family": "مجموعة E",
+      "areaGroup": "منطقة E", "family": "لم تحدد بعد",
       "groupCode": "E",
       "phone": "01271121731",
       "phone2": "",
@@ -3358,7 +3364,7 @@
       "birthDateText": "مواليد 2005",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة B",
+      "areaGroup": "منطقة B", "family": "لم تحدد بعد",
       "groupCode": "B",
       "phone": "01275545315",
       "phone2": "",
@@ -3384,7 +3390,7 @@
       "birthDateText": "16 ديسمبر 2006",
       "birthDateIso": "2006-12-16",
       "college": "",
-      "family": "مجموعة C",
+      "areaGroup": "منطقة C", "family": "لم تحدد بعد",
       "groupCode": "C",
       "phone": "01220938936",
       "phone2": "",
@@ -3410,7 +3416,7 @@
       "birthDateText": "مواليد 2006",
       "birthDateIso": null,
       "college": "",
-      "family": "غير محدد",
+      "areaGroup": "غير محدد", "family": "لم تحدد بعد",
       "groupCode": "Missing",
       "phone": "01228454332",
       "phone2": "",
@@ -3436,7 +3442,7 @@
       "birthDateText": "مواليد 2006",
       "birthDateIso": null,
       "college": "",
-      "family": "غير محدد",
+      "areaGroup": "غير محدد", "family": "لم تحدد بعد",
       "groupCode": "Missing",
       "phone": "01152677447",
       "phone2": "",
@@ -3462,7 +3468,7 @@
       "birthDateText": "مواليد 2005",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة B",
+      "areaGroup": "منطقة B", "family": "لم تحدد بعد",
       "groupCode": "B",
       "phone": "01202843016",
       "phone2": "",
@@ -3488,7 +3494,7 @@
       "birthDateText": "11 سبتمبر 2007",
       "birthDateIso": "2007-09-11",
       "college": "",
-      "family": "مجموعة C",
+      "areaGroup": "منطقة C", "family": "لم تحدد بعد",
       "groupCode": "C",
       "phone": "01276412023",
       "phone2": "",
@@ -3514,7 +3520,7 @@
       "birthDateText": "مواليد 2004",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة D",
+      "areaGroup": "منطقة D", "family": "لم تحدد بعد",
       "groupCode": "D",
       "phone": "01554822273",
       "phone2": "",
@@ -3540,7 +3546,7 @@
       "birthDateText": "24 يونيو 2007",
       "birthDateIso": "2007-06-24",
       "college": "",
-      "family": "مجموعة B",
+      "areaGroup": "منطقة B", "family": "لم تحدد بعد",
       "groupCode": "B",
       "phone": "01228552895",
       "phone2": "",
@@ -3566,7 +3572,7 @@
       "birthDateText": "18 فبراير 2005",
       "birthDateIso": "2005-02-18",
       "college": "",
-      "family": "مجموعة C",
+      "areaGroup": "منطقة C", "family": "لم تحدد بعد",
       "groupCode": "C",
       "phone": "01200856558",
       "phone2": "",
@@ -3592,7 +3598,7 @@
       "birthDateText": "مواليد 2006",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة C",
+      "areaGroup": "منطقة C", "family": "لم تحدد بعد",
       "groupCode": "C",
       "phone": "01206164529",
       "phone2": "",
@@ -3618,7 +3624,7 @@
       "birthDateText": "مواليد 2006",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة E",
+      "areaGroup": "منطقة E", "family": "لم تحدد بعد",
       "groupCode": "E",
       "phone": "01228754558",
       "phone2": "",
@@ -3644,7 +3650,7 @@
       "birthDateText": "7 مايو 2004",
       "birthDateIso": "2004-05-07",
       "college": "",
-      "family": "مجموعة E",
+      "areaGroup": "منطقة E", "family": "لم تحدد بعد",
       "groupCode": "E",
       "phone": "01279428863",
       "phone2": "",
@@ -3670,7 +3676,7 @@
       "birthDateText": "مواليد 2008",
       "birthDateIso": null,
       "college": "",
-      "family": "غير محدد",
+      "areaGroup": "غير محدد", "family": "لم تحدد بعد",
       "groupCode": "Missing",
       "phone": "01278438977",
       "phone2": "",
@@ -3696,7 +3702,7 @@
       "birthDateText": "مواليد 2006",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة E",
+      "areaGroup": "منطقة E", "family": "لم تحدد بعد",
       "groupCode": "E",
       "phone": "01274013893",
       "phone2": "",
@@ -3722,7 +3728,7 @@
       "birthDateText": "17 نوفمبر 2008",
       "birthDateIso": "2008-11-17",
       "college": "",
-      "family": "غير محدد",
+      "areaGroup": "غير محدد", "family": "لم تحدد بعد",
       "groupCode": "Missing",
       "phone": "01225327713",
       "phone2": "",
@@ -3748,7 +3754,7 @@
       "birthDateText": "28 أكتوبر 2005",
       "birthDateIso": "2005-10-28",
       "college": "",
-      "family": "مجموعة C",
+      "areaGroup": "منطقة C", "family": "لم تحدد بعد",
       "groupCode": "C",
       "phone": "01221934211",
       "phone2": "",
@@ -3774,7 +3780,7 @@
       "birthDateText": "مواليد 2006",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة T (خارج القناطر)",
+      "areaGroup": "منطقة T (خارج القناطر)", "family": "لم تحدد بعد",
       "groupCode": "T",
       "phone": "01154399320",
       "phone2": "",
@@ -3800,7 +3806,7 @@
       "birthDateText": "22 ديسمبر 2006",
       "birthDateIso": "2006-12-22",
       "college": "",
-      "family": "مجموعة D",
+      "areaGroup": "منطقة D", "family": "لم تحدد بعد",
       "groupCode": "D",
       "phone": "01276680787",
       "phone2": "",
@@ -3826,7 +3832,7 @@
       "birthDateText": "مواليد 2008",
       "birthDateIso": null,
       "college": "",
-      "family": "غير محدد",
+      "areaGroup": "غير محدد", "family": "لم تحدد بعد",
       "groupCode": "Missing",
       "phone": "01124016454",
       "phone2": "",
@@ -3852,7 +3858,7 @@
       "birthDateText": "مواليد 2005",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة B",
+      "areaGroup": "منطقة B", "family": "لم تحدد بعد",
       "groupCode": "B",
       "phone": "01284205756",
       "phone2": "",
@@ -3878,7 +3884,7 @@
       "birthDateText": "26 أبريل 2005",
       "birthDateIso": "2005-04-26",
       "college": "",
-      "family": "مجموعة A",
+      "areaGroup": "منطقة A", "family": "لم تحدد بعد",
       "groupCode": "A",
       "phone": "01282076103",
       "phone2": "",
@@ -3904,7 +3910,7 @@
       "birthDateText": "مواليد 2008",
       "birthDateIso": null,
       "college": "",
-      "family": "غير محدد",
+      "areaGroup": "غير محدد", "family": "لم تحدد بعد",
       "groupCode": "Missing",
       "phone": "01279962619",
       "phone2": "",
@@ -3930,7 +3936,7 @@
       "birthDateText": "مواليد 2004",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة T (خارج القناطر)",
+      "areaGroup": "منطقة T (خارج القناطر)", "family": "لم تحدد بعد",
       "groupCode": "T",
       "phone": "01223708282",
       "phone2": "",
@@ -3956,7 +3962,7 @@
       "birthDateText": "مواليد 2006",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة E",
+      "areaGroup": "منطقة E", "family": "لم تحدد بعد",
       "groupCode": "E",
       "phone": "01277125305",
       "phone2": "",
@@ -3982,7 +3988,7 @@
       "birthDateText": "18 أغسطس 2007",
       "birthDateIso": "2007-08-18",
       "college": "",
-      "family": "مجموعة T (خارج القناطر)",
+      "areaGroup": "منطقة T (خارج القناطر)", "family": "لم تحدد بعد",
       "groupCode": "T",
       "phone": "01229351548",
       "phone2": "",
@@ -4008,7 +4014,7 @@
       "birthDateText": "مواليد 2006",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة B",
+      "areaGroup": "منطقة B", "family": "لم تحدد بعد",
       "groupCode": "B",
       "phone": "01207466447",
       "phone2": "",
@@ -4034,7 +4040,7 @@
       "birthDateText": "25 أبريل 2004",
       "birthDateIso": "2004-04-25",
       "college": "",
-      "family": "مجموعة B",
+      "areaGroup": "منطقة B", "family": "لم تحدد بعد",
       "groupCode": "B",
       "phone": "01201602431",
       "phone2": "",
@@ -4060,7 +4066,7 @@
       "birthDateText": "مواليد 2006",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة T (خارج القناطر)",
+      "areaGroup": "منطقة T (خارج القناطر)", "family": "لم تحدد بعد",
       "groupCode": "T",
       "phone": "01202569591",
       "phone2": "",
@@ -4086,7 +4092,7 @@
       "birthDateText": "6 يونيو 2006",
       "birthDateIso": "2006-06-06",
       "college": "",
-      "family": "مجموعة A",
+      "areaGroup": "منطقة A", "family": "لم تحدد بعد",
       "groupCode": "A",
       "phone": "01278397082",
       "phone2": "",
@@ -4112,7 +4118,7 @@
       "birthDateText": "مواليد 2006",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة A",
+      "areaGroup": "منطقة A", "family": "لم تحدد بعد",
       "groupCode": "A",
       "phone": "01060002268",
       "phone2": "",
@@ -4138,7 +4144,7 @@
       "birthDateText": "1 مايو 2007",
       "birthDateIso": "2007-05-01",
       "college": "",
-      "family": "مجموعة T (خارج القناطر)",
+      "areaGroup": "منطقة T (خارج القناطر)", "family": "لم تحدد بعد",
       "groupCode": "T",
       "phone": "01201816176",
       "phone2": "",
@@ -4164,7 +4170,7 @@
       "birthDateText": "19 يوليو 2006",
       "birthDateIso": "2006-07-19",
       "college": "",
-      "family": "مجموعة A",
+      "areaGroup": "منطقة A", "family": "لم تحدد بعد",
       "groupCode": "A",
       "phone": "01552112615",
       "phone2": "",
@@ -4190,7 +4196,7 @@
       "birthDateText": "23 مايو 2006",
       "birthDateIso": "2006-05-23",
       "college": "",
-      "family": "مجموعة A",
+      "areaGroup": "منطقة A", "family": "لم تحدد بعد",
       "groupCode": "A",
       "phone": "01222716609",
       "phone2": "",
@@ -4216,7 +4222,7 @@
       "birthDateText": "مواليد 2005",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة C",
+      "areaGroup": "منطقة C", "family": "لم تحدد بعد",
       "groupCode": "C",
       "phone": "01228688715",
       "phone2": "",
@@ -4242,7 +4248,7 @@
       "birthDateText": "مواليد 2004",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة E",
+      "areaGroup": "منطقة E", "family": "لم تحدد بعد",
       "groupCode": "E",
       "phone": "01277089408",
       "phone2": "",
@@ -4268,7 +4274,7 @@
       "birthDateText": "27 يوليو 2006",
       "birthDateIso": "2006-07-27",
       "college": "",
-      "family": "مجموعة B",
+      "areaGroup": "منطقة B", "family": "لم تحدد بعد",
       "groupCode": "B",
       "phone": "01128650766",
       "phone2": "01286784134",
@@ -4294,7 +4300,7 @@
       "birthDateText": "مواليد 2006",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة A",
+      "areaGroup": "منطقة A", "family": "لم تحدد بعد",
       "groupCode": "A",
       "phone": "01277887909",
       "phone2": "",
@@ -4320,7 +4326,7 @@
       "birthDateText": "4 يونيو 2007",
       "birthDateIso": "2007-06-04",
       "college": "",
-      "family": "مجموعة C",
+      "areaGroup": "منطقة C", "family": "لم تحدد بعد",
       "groupCode": "C",
       "phone": "01275991255",
       "phone2": "",
@@ -4346,7 +4352,7 @@
       "birthDateText": "مواليد 2008",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة T (خارج القناطر)",
+      "areaGroup": "منطقة T (خارج القناطر)", "family": "لم تحدد بعد",
       "groupCode": "T",
       "phone": "",
       "phone2": "",
@@ -4372,7 +4378,7 @@
       "birthDateText": "29 نوفمبر 2006",
       "birthDateIso": "2006-11-29",
       "college": "",
-      "family": "مجموعة T (خارج القناطر)",
+      "areaGroup": "منطقة T (خارج القناطر)", "family": "لم تحدد بعد",
       "groupCode": "T",
       "phone": "01286956838",
       "phone2": "",
@@ -4398,7 +4404,7 @@
       "birthDateText": "7 أبريل 2008",
       "birthDateIso": "2008-04-07",
       "college": "",
-      "family": "غير محدد",
+      "areaGroup": "غير محدد", "family": "لم تحدد بعد",
       "groupCode": "Missing",
       "phone": "01286725997",
       "phone2": "",
@@ -4424,7 +4430,7 @@
       "birthDateText": "31 يناير 2007",
       "birthDateIso": "2007-01-31",
       "college": "",
-      "family": "مجموعة D",
+      "areaGroup": "منطقة D", "family": "لم تحدد بعد",
       "groupCode": "D",
       "phone": "01226833911",
       "phone2": "",
@@ -4450,7 +4456,7 @@
       "birthDateText": "16 فبراير 2008",
       "birthDateIso": "2008-02-16",
       "college": "",
-      "family": "غير محدد",
+      "areaGroup": "غير محدد", "family": "لم تحدد بعد",
       "groupCode": "Missing",
       "phone": "01207633807",
       "phone2": "",
@@ -4476,7 +4482,7 @@
       "birthDateText": "12 مايو 2006",
       "birthDateIso": "2006-05-12",
       "college": "",
-      "family": "مجموعة A",
+      "areaGroup": "منطقة A", "family": "لم تحدد بعد",
       "groupCode": "A",
       "phone": "01282313266",
       "phone2": "",
@@ -4502,7 +4508,7 @@
       "birthDateText": "18 نوفمبر 2006",
       "birthDateIso": "2006-11-18",
       "college": "",
-      "family": "مجموعة E",
+      "areaGroup": "منطقة E", "family": "لم تحدد بعد",
       "groupCode": "E",
       "phone": "01282443239",
       "phone2": "",
@@ -4528,7 +4534,7 @@
       "birthDateText": "11 مايو 2006",
       "birthDateIso": "2006-05-11",
       "college": "",
-      "family": "مجموعة A",
+      "areaGroup": "منطقة A", "family": "لم تحدد بعد",
       "groupCode": "A",
       "phone": "01211662429",
       "phone2": "",
@@ -4554,7 +4560,7 @@
       "birthDateText": "مواليد 2005",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة E",
+      "areaGroup": "منطقة E", "family": "لم تحدد بعد",
       "groupCode": "E",
       "phone": "01285215611",
       "phone2": "",
@@ -4580,7 +4586,7 @@
       "birthDateText": "مواليد 2006",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة T (خارج القناطر)",
+      "areaGroup": "منطقة T (خارج القناطر)", "family": "لم تحدد بعد",
       "groupCode": "T",
       "phone": "01066028309",
       "phone2": "",
@@ -4606,7 +4612,7 @@
       "birthDateText": "مواليد 2006",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة C",
+      "areaGroup": "منطقة C", "family": "لم تحدد بعد",
       "groupCode": "C",
       "phone": "01275067097",
       "phone2": "",
@@ -4632,7 +4638,7 @@
       "birthDateText": "24 أغسطس 2008",
       "birthDateIso": "2008-08-24",
       "college": "",
-      "family": "مجموعة C",
+      "areaGroup": "منطقة C", "family": "لم تحدد بعد",
       "groupCode": "C",
       "phone": "01210210719",
       "phone2": "",
@@ -4658,7 +4664,7 @@
       "birthDateText": "17 يناير 2008",
       "birthDateIso": "2008-01-17",
       "college": "",
-      "family": "مجموعة C",
+      "areaGroup": "منطقة C", "family": "لم تحدد بعد",
       "groupCode": "C",
       "phone": "01551865325",
       "phone2": "",
@@ -4684,7 +4690,7 @@
       "birthDateText": "6 يونيو 2006",
       "birthDateIso": "2006-06-06",
       "college": "",
-      "family": "مجموعة A",
+      "areaGroup": "منطقة A", "family": "لم تحدد بعد",
       "groupCode": "A",
       "phone": "01270038496",
       "phone2": "01277615582",
@@ -4710,7 +4716,7 @@
       "birthDateText": "27 سبتمبر 2008",
       "birthDateIso": "2008-09-27",
       "college": "",
-      "family": "غير محدد",
+      "areaGroup": "غير محدد", "family": "لم تحدد بعد",
       "groupCode": "Missing",
       "phone": "01277497973",
       "phone2": "",
@@ -4736,7 +4742,7 @@
       "birthDateText": "مواليد 2008",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة E",
+      "areaGroup": "منطقة E", "family": "لم تحدد بعد",
       "groupCode": "E",
       "phone": "01200969572",
       "phone2": "",
@@ -4762,7 +4768,7 @@
       "birthDateText": "مواليد 2006",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة B",
+      "areaGroup": "منطقة B", "family": "لم تحدد بعد",
       "groupCode": "B",
       "phone": "01279961721",
       "phone2": "",
@@ -4788,7 +4794,7 @@
       "birthDateText": "مواليد 2005",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة T (خارج القناطر)",
+      "areaGroup": "منطقة T (خارج القناطر)", "family": "لم تحدد بعد",
       "groupCode": "T",
       "phone": "01281879028",
       "phone2": "",
@@ -4814,7 +4820,7 @@
       "birthDateText": "8 فبراير 2022",
       "birthDateIso": "2022-02-08",
       "college": "",
-      "family": "مجموعة T (خارج القناطر)",
+      "areaGroup": "منطقة T (خارج القناطر)", "family": "لم تحدد بعد",
       "groupCode": "T",
       "phone": "01270700548",
       "phone2": "",
@@ -4840,7 +4846,7 @@
       "birthDateText": "مواليد 2005",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة T (خارج القناطر)",
+      "areaGroup": "منطقة T (خارج القناطر)", "family": "لم تحدد بعد",
       "groupCode": "T",
       "phone": "",
       "phone2": "",
@@ -4866,7 +4872,7 @@
       "birthDateText": "16 أبريل 2006",
       "birthDateIso": "2006-04-16",
       "college": "",
-      "family": "مجموعة C",
+      "areaGroup": "منطقة C", "family": "لم تحدد بعد",
       "groupCode": "C",
       "phone": "01204403539",
       "phone2": "",
@@ -4892,7 +4898,7 @@
       "birthDateText": "7 مارس 2007",
       "birthDateIso": "2007-03-07",
       "college": "",
-      "family": "مجموعة D",
+      "areaGroup": "منطقة D", "family": "لم تحدد بعد",
       "groupCode": "D",
       "phone": "01275486757",
       "phone2": "",
@@ -4918,7 +4924,7 @@
       "birthDateText": "مواليد 2004",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة T (خارج القناطر)",
+      "areaGroup": "منطقة T (خارج القناطر)", "family": "لم تحدد بعد",
       "groupCode": "T",
       "phone": "01226191387",
       "phone2": "",
@@ -4944,7 +4950,7 @@
       "birthDateText": "مواليد 2006",
       "birthDateIso": null,
       "college": "",
-      "family": "غير محدد",
+      "areaGroup": "غير محدد", "family": "لم تحدد بعد",
       "groupCode": "Missing",
       "phone": "01201978361",
       "phone2": "",
@@ -4970,7 +4976,7 @@
       "birthDateText": "مواليد 2004",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة T (خارج القناطر)",
+      "areaGroup": "منطقة T (خارج القناطر)", "family": "لم تحدد بعد",
       "groupCode": "T",
       "phone": "01211411708",
       "phone2": "",
@@ -4996,7 +5002,7 @@
       "birthDateText": "15 نوفمبر 2008",
       "birthDateIso": "2008-11-15",
       "college": "",
-      "family": "غير محدد",
+      "areaGroup": "غير محدد", "family": "لم تحدد بعد",
       "groupCode": "Missing",
       "phone": "01202844383",
       "phone2": "",
@@ -5022,7 +5028,7 @@
       "birthDateText": "مواليد 2008",
       "birthDateIso": null,
       "college": "",
-      "family": "غير محدد",
+      "areaGroup": "غير محدد", "family": "لم تحدد بعد",
       "groupCode": "Missing",
       "phone": "01024113812",
       "phone2": "",
@@ -5048,7 +5054,7 @@
       "birthDateText": "20 أكتوبر 2007",
       "birthDateIso": "2007-10-20",
       "college": "",
-      "family": "مجموعة T (خارج القناطر)",
+      "areaGroup": "منطقة T (خارج القناطر)", "family": "لم تحدد بعد",
       "groupCode": "T",
       "phone": "01272814728",
       "phone2": "01024113812",
@@ -5074,7 +5080,7 @@
       "birthDateText": "11 يناير 2005",
       "birthDateIso": "2005-01-11",
       "college": "",
-      "family": "مجموعة T (خارج القناطر)",
+      "areaGroup": "منطقة T (خارج القناطر)", "family": "لم تحدد بعد",
       "groupCode": "T",
       "phone": "01288940060",
       "phone2": "",
@@ -5100,7 +5106,7 @@
       "birthDateText": "مواليد 2004",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة E",
+      "areaGroup": "منطقة E", "family": "لم تحدد بعد",
       "groupCode": "E",
       "phone": "01200279165",
       "phone2": "",
@@ -5126,7 +5132,7 @@
       "birthDateText": "مواليد 2006",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة T (خارج القناطر)",
+      "areaGroup": "منطقة T (خارج القناطر)", "family": "لم تحدد بعد",
       "groupCode": "T",
       "phone": "01206606129",
       "phone2": "",
@@ -5152,7 +5158,7 @@
       "birthDateText": "مواليد 2006",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة A",
+      "areaGroup": "منطقة A", "family": "لم تحدد بعد",
       "groupCode": "A",
       "phone": "01550793010",
       "phone2": "",
@@ -5178,7 +5184,7 @@
       "birthDateText": "25 يونيو 2008",
       "birthDateIso": "2008-06-25",
       "college": "",
-      "family": "مجموعة T (خارج القناطر)",
+      "areaGroup": "منطقة T (خارج القناطر)", "family": "لم تحدد بعد",
       "groupCode": "T",
       "phone": "01270538526",
       "phone2": "",
@@ -5204,7 +5210,7 @@
       "birthDateText": "1 سبتمبر 2004",
       "birthDateIso": "2004-09-01",
       "college": "",
-      "family": "مجموعة A",
+      "areaGroup": "منطقة A", "family": "لم تحدد بعد",
       "groupCode": "A",
       "phone": "01200413453",
       "phone2": "",
@@ -5230,7 +5236,7 @@
       "birthDateText": "1 أكتوبر 2007",
       "birthDateIso": "2007-10-01",
       "college": "",
-      "family": "مجموعة D",
+      "areaGroup": "منطقة D", "family": "لم تحدد بعد",
       "groupCode": "D",
       "phone": "01278166583",
       "phone2": "",
@@ -5256,7 +5262,7 @@
       "birthDateText": "مواليد 2005",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة A",
+      "areaGroup": "منطقة A", "family": "لم تحدد بعد",
       "groupCode": "A",
       "phone": "01289955837",
       "phone2": "",
@@ -5282,7 +5288,7 @@
       "birthDateText": "مواليد 2005",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة B",
+      "areaGroup": "منطقة B", "family": "لم تحدد بعد",
       "groupCode": "B",
       "phone": "01281191367",
       "phone2": "",
@@ -5308,7 +5314,7 @@
       "birthDateText": "مواليد 2006",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة T (خارج القناطر)",
+      "areaGroup": "منطقة T (خارج القناطر)", "family": "لم تحدد بعد",
       "groupCode": "T",
       "phone": "",
       "phone2": "",
@@ -5334,7 +5340,7 @@
       "birthDateText": "29 يناير 2008",
       "birthDateIso": "2008-01-29",
       "college": "",
-      "family": "مجموعة T (خارج القناطر)",
+      "areaGroup": "منطقة T (خارج القناطر)", "family": "لم تحدد بعد",
       "groupCode": "T",
       "phone": "01280556608",
       "phone2": "",
@@ -5360,7 +5366,7 @@
       "birthDateText": "11 ديسمبر 2006",
       "birthDateIso": "2006-12-11",
       "college": "",
-      "family": "مجموعة D",
+      "areaGroup": "منطقة D", "family": "لم تحدد بعد",
       "groupCode": "D",
       "phone": "01287142498",
       "phone2": "",
@@ -5386,7 +5392,7 @@
       "birthDateText": "9 سبتمبر 2005",
       "birthDateIso": "2005-09-09",
       "college": "",
-      "family": "مجموعة A",
+      "areaGroup": "منطقة A", "family": "لم تحدد بعد",
       "groupCode": "A",
       "phone": "01278865619",
       "phone2": "",
@@ -5412,7 +5418,7 @@
       "birthDateText": "مواليد 2008",
       "birthDateIso": null,
       "college": "",
-      "family": "غير محدد",
+      "areaGroup": "غير محدد", "family": "لم تحدد بعد",
       "groupCode": "Missing",
       "phone": "01224409830",
       "phone2": "",
@@ -5438,7 +5444,7 @@
       "birthDateText": "مواليد 2008",
       "birthDateIso": null,
       "college": "",
-      "family": "غير محدد",
+      "areaGroup": "غير محدد", "family": "لم تحدد بعد",
       "groupCode": "Missing",
       "phone": "01202297056",
       "phone2": "",
@@ -5464,7 +5470,7 @@
       "birthDateText": "مواليد 2006",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة E",
+      "areaGroup": "منطقة E", "family": "لم تحدد بعد",
       "groupCode": "E",
       "phone": "01211781132",
       "phone2": "",
@@ -5490,7 +5496,7 @@
       "birthDateText": "مواليد 2008",
       "birthDateIso": null,
       "college": "",
-      "family": "غير محدد",
+      "areaGroup": "غير محدد", "family": "لم تحدد بعد",
       "groupCode": "Missing",
       "phone": "01212295618",
       "phone2": "",
@@ -5516,7 +5522,7 @@
       "birthDateText": "مواليد 2005",
       "birthDateIso": null,
       "college": "",
-      "family": "غير محدد",
+      "areaGroup": "غير محدد", "family": "لم تحدد بعد",
       "groupCode": "Missing",
       "phone": "01206286595",
       "phone2": "",
@@ -5542,7 +5548,7 @@
       "birthDateText": "مواليد 2006",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة B",
+      "areaGroup": "منطقة B", "family": "لم تحدد بعد",
       "groupCode": "B",
       "phone": "01200733974",
       "phone2": "",
@@ -5568,7 +5574,7 @@
       "birthDateText": "27 أغسطس 2004",
       "birthDateIso": "2004-08-27",
       "college": "",
-      "family": "مجموعة A",
+      "areaGroup": "منطقة A", "family": "لم تحدد بعد",
       "groupCode": "A",
       "phone": "01229278330",
       "phone2": "",
@@ -5594,7 +5600,7 @@
       "birthDateText": "7 مارس 2008",
       "birthDateIso": "2008-03-07",
       "college": "",
-      "family": "مجموعة D",
+      "areaGroup": "منطقة D", "family": "لم تحدد بعد",
       "groupCode": "D",
       "phone": "01227518767",
       "phone2": "",
@@ -5620,7 +5626,7 @@
       "birthDateText": "18 أبريل 2006",
       "birthDateIso": "2006-04-18",
       "college": "",
-      "family": "مجموعة E",
+      "areaGroup": "منطقة E", "family": "لم تحدد بعد",
       "groupCode": "E",
       "phone": "01550920680",
       "phone2": "",
@@ -5646,7 +5652,7 @@
       "birthDateText": "27 أكتوبر 2006",
       "birthDateIso": "2006-10-27",
       "college": "",
-      "family": "مجموعة E",
+      "areaGroup": "منطقة E", "family": "لم تحدد بعد",
       "groupCode": "E",
       "phone": "01271103673",
       "phone2": "",
@@ -5672,7 +5678,7 @@
       "birthDateText": "30 أكتوبر 2008",
       "birthDateIso": "2008-10-30",
       "college": "",
-      "family": "غير محدد",
+      "areaGroup": "غير محدد", "family": "لم تحدد بعد",
       "groupCode": "Missing",
       "phone": "01273056393",
       "phone2": "",
@@ -5698,7 +5704,7 @@
       "birthDateText": "10 أغسطس 2006",
       "birthDateIso": "2006-08-10",
       "college": "",
-      "family": "مجموعة C",
+      "areaGroup": "منطقة C", "family": "لم تحدد بعد",
       "groupCode": "C",
       "phone": "01226544029",
       "phone2": "",
@@ -5724,7 +5730,7 @@
       "birthDateText": "مواليد 2006",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة T (خارج القناطر)",
+      "areaGroup": "منطقة T (خارج القناطر)", "family": "لم تحدد بعد",
       "groupCode": "T",
       "phone": "01503770481",
       "phone2": "",
@@ -5750,7 +5756,7 @@
       "birthDateText": "مواليد 2008",
       "birthDateIso": null,
       "college": "",
-      "family": "غير محدد",
+      "areaGroup": "غير محدد", "family": "لم تحدد بعد",
       "groupCode": "Missing",
       "phone": "01280522562",
       "phone2": "",
@@ -5776,7 +5782,7 @@
       "birthDateText": "3 ديسمبر 2005",
       "birthDateIso": "2005-12-03",
       "college": "",
-      "family": "مجموعة A",
+      "areaGroup": "منطقة A", "family": "لم تحدد بعد",
       "groupCode": "A",
       "phone": "01210555392",
       "phone2": "",
@@ -5802,7 +5808,7 @@
       "birthDateText": "15 أبريل 2007",
       "birthDateIso": "2007-04-15",
       "college": "",
-      "family": "مجموعة B",
+      "areaGroup": "منطقة B", "family": "لم تحدد بعد",
       "groupCode": "B",
       "phone": "01278666753",
       "phone2": "",
@@ -5828,7 +5834,7 @@
       "birthDateText": "28 ديسمبر 2003",
       "birthDateIso": "2003-12-28",
       "college": "",
-      "family": "مجموعة C",
+      "areaGroup": "منطقة C", "family": "لم تحدد بعد",
       "groupCode": "C",
       "phone": "01288808642",
       "phone2": "",
@@ -5854,7 +5860,7 @@
       "birthDateText": "مواليد 2006",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة T (خارج القناطر)",
+      "areaGroup": "منطقة T (خارج القناطر)", "family": "لم تحدد بعد",
       "groupCode": "T",
       "phone": "01275655126",
       "phone2": "",
@@ -5880,7 +5886,7 @@
       "birthDateText": "1 يناير 2009",
       "birthDateIso": "2009-01-01",
       "college": "",
-      "family": "غير محدد",
+      "areaGroup": "غير محدد", "family": "لم تحدد بعد",
       "groupCode": "Missing",
       "phone": "01273222898",
       "phone2": "",
@@ -5906,7 +5912,7 @@
       "birthDateText": "مواليد 2006",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة T (خارج القناطر)",
+      "areaGroup": "منطقة T (خارج القناطر)", "family": "لم تحدد بعد",
       "groupCode": "T",
       "phone": "01271050361",
       "phone2": "",
@@ -5932,7 +5938,7 @@
       "birthDateText": "مواليد 2006",
       "birthDateIso": null,
       "college": "",
-      "family": "مجموعة E",
+      "areaGroup": "منطقة E", "family": "لم تحدد بعد",
       "groupCode": "E",
       "phone": "01203727644",
       "phone2": "",
@@ -5958,7 +5964,7 @@
       "birthDateText": "1 يوليو 2005",
       "birthDateIso": "2005-07-01",
       "college": "",
-      "family": "مجموعة T (خارج القناطر)",
+      "areaGroup": "منطقة T (خارج القناطر)", "family": "لم تحدد بعد",
       "groupCode": "T",
       "phone": "01551769856",
       "phone2": "",
@@ -5984,7 +5990,7 @@
       "birthDateText": "7 فبراير 2007",
       "birthDateIso": "2007-02-07",
       "college": "",
-      "family": "مجموعة A",
+      "areaGroup": "منطقة A", "family": "لم تحدد بعد",
       "groupCode": "A",
       "phone": "01227900407",
       "phone2": "",
@@ -6010,7 +6016,7 @@
       "birthDateText": "10 يناير 2004",
       "birthDateIso": "2004-01-10",
       "college": "",
-      "family": "مجموعة T (خارج القناطر)",
+      "areaGroup": "منطقة T (خارج القناطر)", "family": "لم تحدد بعد",
       "groupCode": "T",
       "phone": "01229303434",
       "phone2": "",
@@ -6036,7 +6042,7 @@
       "birthDateText": "مواليد 2008",
       "birthDateIso": null,
       "college": "",
-      "family": "غير محدد",
+      "areaGroup": "غير محدد", "family": "لم تحدد بعد",
       "groupCode": "Missing",
       "phone": "01553757604",
       "phone2": "",
@@ -6062,7 +6068,7 @@
       "birthDateText": "13 أغسطس 2007",
       "birthDateIso": "2007-08-13",
       "college": "",
-      "family": "مجموعة D",
+      "areaGroup": "منطقة D", "family": "لم تحدد بعد",
       "groupCode": "D",
       "phone": "01279147237",
       "phone2": "",
@@ -6088,7 +6094,7 @@
       "birthDateText": "مواليد 2008",
       "birthDateIso": null,
       "college": "",
-      "family": "غير محدد",
+      "areaGroup": "غير محدد", "family": "لم تحدد بعد",
       "groupCode": "Missing",
       "phone": "01272834382",
       "phone2": "",
@@ -6306,7 +6312,7 @@
     // Load from LocalStorage (Upgraded to v4 with foolproof fallbacks)
     function loadLocalData() {
       try {
-        const saved = localStorage.getItem('st_mariam_attendance_v5');
+        const saved = localStorage.getItem('st_mariam_attendance_v6');
         if (saved) {
           const parsed = JSON.parse(saved);
           if (parsed && parsed.members && parsed.members.length > 0) {
@@ -6373,7 +6379,7 @@
 
     function saveLocalData() {
       try {
-        localStorage.setItem('st_mariam_attendance_v5', JSON.stringify(appData));
+        localStorage.setItem('st_mariam_attendance_v6', JSON.stringify(appData));
       } catch (e) {}
     }
 
@@ -6591,12 +6597,15 @@
       }
     }
 
-    function getFamilyClass(family) {
-      if (!family) return 'family-leaders';
-      if (family.includes('أ')) return 'family-a';
-      if (family.includes('ب')) return 'family-b';
-      if (family.includes('ج')) return 'family-c';
-      return 'family-leaders';
+    function getFamilyClass(str) {
+      if (!str) return 'family-unassigned';
+      if (str.includes('A') || str.includes('أ')) return 'family-a';
+      if (str.includes('B') || str.includes('ب')) return 'family-b';
+      if (str.includes('C') || str.includes('ج')) return 'family-c';
+      if (str.includes('D') || str.includes('د')) return 'family-d';
+      if (str.includes('E') || str.includes('هـ')) return 'family-e';
+      if (str.includes('T')) return 'family-t';
+      return 'family-unassigned';
     }
 
     function getCurrentSession() {
@@ -6794,6 +6803,7 @@
         const badge = document.createElement('div');
         badge.className = 'id-badge';
         const qrContainerId = `qr-${m.id}`;
+        const areaName = m.areaGroup || (m.groupCode ? ('منطقة ' + m.groupCode) : 'غير محدد');
 
         badge.innerHTML = `
           <!-- Card Top Bar: Title & Code -->
@@ -6803,7 +6813,7 @@
             </div>
             <div class="badge-chips">
               <span class="badge-id">${m.id}</span>
-              <span class="family-pill ${getFamilyClass(m.family)}">${m.family}</span>
+              <span class="family-pill ${getFamilyClass(areaName)}">${areaName}</span>
             </div>
           </div>
 
@@ -6928,16 +6938,20 @@
       if (countEl) countEl.textContent = list.length;
 
       if (list.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;padding:2rem;color:var(--text-muted);">لا توجد نتائج مطابقة للتصفية الحالية.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;padding:2rem;color:var(--text-muted);">لا توجد نتائج مطابقة للتصفية الحالية.</td></tr>';
         return;
       }
 
       list.forEach((m) => {
         const tr = document.createElement('tr');
+        const areaName = m.areaGroup || (m.groupCode ? ('منطقة ' + m.groupCode) : 'غير محدد');
+        const familyName = (m.family && m.family !== 'غير محدد' && !m.family.includes('مجموعة') && !m.family.includes('منطقة')) ? m.family : 'لم تحدد بعد';
+
         tr.innerHTML = `
           <td><span class="badge-id">${m.id}</span></td>
           <td><strong>${m.name}</strong></td>
-          <td><span class="family-pill ${getFamilyClass(m.family)}">${m.family}</span></td>
+          <td><span class="family-pill ${getFamilyClass(areaName)}">${areaName}</span></td>
+          <td><span class="family-pill family-unassigned">${familyName}</span></td>
           <td><span class="family-pill" style="font-weight:800;color:var(--accent-emerald);background:rgba(16,185,129,0.15);border-color:rgba(16,185,129,0.3);">${getCollegeStage(m)}</span></td>
           <td><span class="family-pill" style="font-size:0.75rem;">${m.gender || 'شاب'}</span></td>
           <td style="color:var(--accent-gold);font-weight:700;font-size:0.85rem;">${m.father || '—'}</td>
@@ -7032,9 +7046,13 @@
         const sessionTitle = session.title || 'اجتماع الشباب';
         const defaultMsg = encodeURIComponent(`سلام يا ${m.name} ❤️ وحشتنا جداً النهاردة في اجتماع الشباب! كنا بنصلي لأجلك وبنتمنى تكون بألف خير، ومستنينك الأسبوع الجاي إن شاء الله في لقاء: ${sessionTitle}`);
 
+        const areaName = m.areaGroup || (m.groupCode ? ('منطقة ' + m.groupCode) : 'غير محدد');
+        const familyName = (m.family && m.family !== 'غير محدد' && !m.family.includes('مجموعة') && !m.family.includes('منطقة')) ? m.family : 'لم تحدد بعد';
+
         tr.innerHTML = `
           <td><strong>${m.name}</strong></td>
-          <td><span class="family-pill ${getFamilyClass(m.family)}">${m.family}</span></td>
+          <td><span class="family-pill ${getFamilyClass(areaName)}">${areaName}</span></td>
+          <td><span class="family-pill family-unassigned">${familyName}</span></td>
           <td>${m.phone || '—'}</td>
           <td>
             ${isAttended 
