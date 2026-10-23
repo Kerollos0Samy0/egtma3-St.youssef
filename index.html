@@ -924,6 +924,133 @@
       animation: popIn 0.3s ease;
     }
 
+    /* Servant RBAC & Authentication */
+    .role-badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-full);
+      background: rgba(245, 158, 11, 0.12);
+      color: var(--accent-gold);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      font-size: 0.78rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .btn-outline-danger {
+      background: transparent;
+      border: 1px solid rgba(244, 63, 94, 0.3);
+      color: #fb7185;
+    }
+    .btn-outline-danger:hover {
+      background: rgba(244, 63, 94, 0.15);
+      border-color: rgba(244, 63, 94, 0.6);
+      color: #fda4af;
+      transform: translateY(-2px);
+    }
+
+    @keyframes errorShake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+    .error-shake {
+      animation: errorShake 0.35s ease;
+      border-color: #fb7185 !important;
+    }
+
+    /* Fullscreen Login Modal */
+    .login-overlay-backdrop {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(15, 23, 42, 0.94) 0%, rgba(2, 6, 23, 0.98) 100%);
+      backdrop-filter: blur(14px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.25rem;
+      transition: all 0.3s ease;
+    }
+    .login-overlay-backdrop.hidden {
+      display: none !important;
+    }
+    .login-card-container {
+      background: var(--bg-card);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(16, 185, 129, 0.15);
+      width: 100%;
+      max-width: 490px;
+      padding: 2.25rem 2rem;
+      animation: popIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .role-cards-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      margin-bottom: 1.25rem;
+    }
+    .role-selection-card {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-md);
+      border: 1.5px solid rgba(148, 163, 184, 0.15);
+      background: rgba(15, 23, 42, 0.55);
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      text-align: right;
+    }
+    .role-selection-card:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(245, 158, 11, 0.45);
+      transform: translateY(-2px);
+    }
+    .role-selection-card.selected {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(245, 158, 11, 0.12) 100%);
+      border-color: var(--accent-gold);
+      box-shadow: 0 4px 16px rgba(245, 158, 11, 0.25);
+    }
+    .role-selection-card .role-icon {
+      font-size: 1.35rem;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .role-selection-card .role-info {
+      flex: 1;
+    }
+    .role-selection-card .role-name {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 0.15rem;
+    }
+    .role-selection-card .role-desc {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      line-height: 1.35;
+    }
+    .role-selection-card .role-check {
+      font-size: 1.1rem;
+      color: var(--accent-emerald);
+      opacity: 0;
+      font-weight: 900;
+      transition: opacity 0.2s ease;
+    }
+    .role-selection-card.selected .role-check {
+      opacity: 1;
+    }
+
     .form-group {
       display: flex;
       flex-direction: column;
@@ -1061,12 +1188,25 @@
       </div>
     </div>
 
-    <!-- Actions (Projector QR, Sync Status, Theme) -->
+    <!-- Actions (Role Badge, Admin Settings, Logout, Sync Status, Theme) -->
     <div class="header-actions">
-      <button class="btn btn-gold btn-sm" id="showProjectorQrBtn" title="عرض كود QR للشباب على الشاشة">
-        🖥️ كود الشاشة
+      <!-- Active Role Badge -->
+      <div id="roleBadgeContainer" class="role-badge-pill" title="الحساب المسجل حالياً">
+        <span id="currentRoleIcon">👑</span>
+        <span id="currentRoleTitle">أمناء الاجتماع</span>
+      </div>
+
+      <!-- Admin Permissions / Settings Button (Admin Only) -->
+      <button class="btn btn-gold btn-sm" id="adminSettingsBtn" title="إعدادات الحسابات وكلمات المرور" style="display:none;">
+        ⚙️ الصلاحيات
       </button>
 
+      <!-- Logout Button -->
+      <button class="btn btn-outline-danger btn-sm" id="logoutBtn" title="تسجيل الخروج والتبديل لحساب آخر">
+        🚪 خروج
+      </button>
+
+      <!-- Sync Status Badge -->
       <span id="syncStatusBadge" class="session-badge-clean" title="حالة الاتصال السحابي">
         ● متصل سحابياً
       </span>
@@ -1339,14 +1479,20 @@
     <!-- TAB 4: SESSIONS & CALENDAR                     -->
     <!-- ============================================== -->
     <div class="tab-pane" id="tabSessions">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:1rem;">
         <div>
           <h2 style="font-size:1.4rem;font-weight:800;color:var(--accent-gold);">
-            سجل اللقاءات والأسابيع السنوية (26 لقاء)
+            سجل اللقاءات والأسابيع السنوية (<span id="sessionsCountHeader">25 لقاء</span>)
           </h2>
           <p style="font-size:0.9rem;color:var(--text-muted);">مربوط بجدول خطة الخدمة السنوية 2026 - 2027 المعتمدة بكنيسة العذراء مريم.</p>
         </div>
         <button class="btn btn-gold" id="addNewSessionModalBtn">+ إنشاء لقاء مخصص</button>
+      </div>
+
+      <!-- Schedule Cutoff Alert (Shown dynamically when schedule role is limited) -->
+      <div id="scheduleCutoffAlert" style="display:none;background:rgba(139,92,246,0.12);border:1px solid rgba(139,92,246,0.35);padding:0.75rem 1rem;border-radius:var(--radius-md);margin-bottom:1.25rem;font-size:0.85rem;color:#ddd6fe;align-items:center;gap:0.6rem;">
+        <span style="font-size:1.1rem;">📅</span> 
+        <span>يتم عرض الجدول المعتمد للتحضير حتى: <strong id="scheduleCutoffDesc" style="color:var(--accent-gold);"></strong> (وفقاً لصلاحيات أمناء الاجتماع).</span>
       </div>
 
       <div class="data-table-container">
@@ -1522,17 +1668,155 @@
   </div>
 
   <!-- ============================================== -->
-  <!-- MODAL: PROJECTOR SCREEN QR CODE                -->
+  <!-- MODAL: SERVANT AUTHENTICATION & LOGIN OVERLAY  -->
   <!-- ============================================== -->
-  <div class="modal-backdrop" id="projectorModal">
-    <div class="modal-box" style="text-align:center;max-width:440px;">
-      <h3 style="font-size:1.35rem;font-weight:800;color:var(--accent-gold);margin-bottom:0.5rem;" id="projectorSessionTitle">لقاء اليوم</h3>
-      <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:1.25rem;">امسح الكود بكاميرا موبايلك لتسجيل حضورك الذاتي السريع</p>
-      
-      <div style="background:#fff;padding:15px;border-radius:var(--radius-md);display:inline-block;box-shadow:var(--shadow-lg);margin-bottom:1rem;" id="projectorQrContainer"></div>
-      
-      <div style="font-weight:800;color:var(--accent-gold);font-size:1.1rem;margin-bottom:1.5rem;" id="projectorSessionDate"></div>
-      <button class="btn btn-gold" style="width:100%;" id="closeProjectorBtn">إغلاق شاشة العرض</button>
+  <div class="login-overlay-backdrop" id="loginOverlay">
+    <div class="login-card-container">
+      <div style="text-align:center;margin-bottom:1.5rem;">
+        <img src="Logo.svg" alt="Egtma3 Youssef ElSedek" style="width:75px;height:75px;border-radius:50%;object-fit:cover;box-shadow:0 0 20px rgba(245,158,11,0.4);margin-bottom:0.75rem;">
+        <h2 style="font-size:1.5rem;font-weight:800;color:var(--text-main);margin-bottom:0.25rem;">اجتماع يوسف الصديق للشباب</h2>
+        <p style="font-size:0.82rem;color:var(--text-muted);">كنيسة السيدة العذراء مريم بالقناطر الخيرية • منظومة الخدمة</p>
+      </div>
+
+      <div style="font-size:0.88rem;font-weight:800;color:var(--accent-gold);margin-bottom:0.75rem;text-align:right;">
+        اختر الحساب للمتابعة:
+      </div>
+
+      <!-- 4 Selectable Role Cards -->
+      <div class="role-cards-grid">
+        <div class="role-selection-card selected" data-role="admin">
+          <div class="role-icon">👑</div>
+          <div class="role-info">
+            <div class="role-name">أمناء الاجتماع (الـ 4 الكبار)</div>
+            <div class="role-desc">التحكم الكامل بجميع الأقسام وتعديل الصلاحيات والبيانات</div>
+          </div>
+          <div class="role-check">✓</div>
+        </div>
+
+        <div class="role-selection-card" data-role="secretariat">
+          <div class="role-icon">📋</div>
+          <div class="role-info">
+            <div class="role-name">السكرتارية</div>
+            <div class="role-desc">تسجيل حضور وغياب الشباب عند الباب بالـ QR والبحث السريع</div>
+          </div>
+          <div class="role-check">✓</div>
+        </div>
+
+        <div class="role-selection-card" data-role="visitation">
+          <div class="role-icon">📞</div>
+          <div class="role-info">
+            <div class="role-name">لجنة الافتقاد</div>
+            <div class="role-desc">داتا الغائبين، الاتصال الهاتفي ورسائل واتساب المباشرة</div>
+          </div>
+          <div class="role-check">✓</div>
+        </div>
+
+        <div class="role-selection-card" data-role="schedule">
+          <div class="role-icon">📅</div>
+          <div class="role-info">
+            <div class="role-name">خدام اللقاءات</div>
+            <div class="role-desc">عرض ومتابعة جدول موضوعات وأسابيع الاجتماع المعتمدة</div>
+          </div>
+          <div class="role-check">✓</div>
+        </div>
+      </div>
+
+      <!-- Password Input Field -->
+      <div style="margin-top:1.15rem;">
+        <label style="display:block;font-size:0.82rem;font-weight:700;color:var(--text-muted);margin-bottom:0.4rem;text-align:right;">
+          كلمة المرور للحساب المختار:
+        </label>
+        <div style="position:relative;">
+          <input type="password" id="loginPasswordInput" class="form-control" placeholder="أدخل كلمة المرور..." style="padding-left:2.5rem;font-size:1rem;letter-spacing:1px;" autocomplete="current-password">
+          <button type="button" id="toggleLoginPasswordBtn" style="position:absolute;left:0.75rem;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:1.1rem;padding:0;" title="إظهار/إخفاء كلمة المرور">👁️</button>
+        </div>
+        <div id="loginErrorMessage" style="display:none;color:#fb7185;font-size:0.82rem;font-weight:700;margin-top:0.5rem;text-align:right;">
+          ⚠️ كلمة المرور غير صحيحة، برجاء مراجعة أمناء الاجتماع.
+        </div>
+      </div>
+
+      <button type="button" id="submitLoginBtn" class="btn btn-gold" style="width:100%;margin-top:1.25rem;padding:0.85rem;font-size:1.05rem;box-shadow:0 6px 20px rgba(245,158,11,0.35);">
+        تسجيل الدخول إلى المنظومة
+      </button>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL: ADMIN SETTINGS & RBAC PERMISSIONS       -->
+  <!-- ============================================== -->
+  <div class="modal-backdrop" id="adminSettingsModal">
+    <div class="modal-box" style="max-width:540px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;border-bottom:1px solid var(--border);padding-bottom:0.75rem;">
+        <h3 style="font-size:1.25rem;font-weight:800;color:var(--accent-gold);margin:0;display:flex;align-items:center;gap:0.5rem;">
+          <span>👑</span> إعدادات الصلاحيات وأرقام المرور
+        </h3>
+        <button type="button" class="btn btn-icon-only btn-sm" id="closeAdminSettingsBtn" style="border:none;background:none;font-size:1.2rem;color:var(--text-muted);">✕</button>
+      </div>
+
+      <form id="adminSettingsForm">
+        <!-- Section 1: Role Passwords -->
+        <div style="margin-bottom:1.25rem;">
+          <h4 style="font-size:0.92rem;font-weight:800;color:var(--text-main);margin-bottom:0.75rem;">
+            🔑 كلمات مرور حسابات الخدام:
+          </h4>
+          
+          <div style="display:flex;flex-direction:column;gap:0.65rem;">
+            <div>
+              <label style="display:block;font-size:0.78rem;font-weight:700;color:var(--accent-gold);margin-bottom:0.25rem;">
+                👑 كلمة مرور أمناء الاجتماع (الـ 4 الكبار):
+              </label>
+              <input type="text" id="cfgAdminPass" class="form-control" style="font-family:monospace;font-size:0.95rem;" required>
+            </div>
+
+            <div>
+              <label style="display:block;font-size:0.78rem;font-weight:700;color:var(--accent-emerald);margin-bottom:0.25rem;">
+                📋 كلمة مرور السكرتارية (تسجيل الحضور فقط):
+              </label>
+              <input type="text" id="cfgSecretariatPass" class="form-control" style="font-family:monospace;font-size:0.95rem;" required>
+            </div>
+
+            <div>
+              <label style="display:block;font-size:0.78rem;font-weight:700;color:#06b6d4;margin-bottom:0.25rem;">
+                📞 كلمة مرور لجنة الافتقاد (متابعة الغياب):
+              </label>
+              <input type="text" id="cfgVisitationPass" class="form-control" style="font-family:monospace;font-size:0.95rem;" required>
+            </div>
+
+            <div>
+              <label style="display:block;font-size:0.78rem;font-weight:700;color:#8b5cf6;margin-bottom:0.25rem;">
+                📅 كلمة مرور خدام اللقاءات (عرض الجدول):
+              </label>
+              <input type="text" id="cfgSchedulePass" class="form-control" style="font-family:monospace;font-size:0.95rem;" required>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 2: Schedule Cutoff for Schedule Team -->
+        <div style="margin-bottom:1.5rem;background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.25);border-radius:var(--radius-md);padding:1rem;">
+          <h4 style="font-size:0.92rem;font-weight:800;color:#a78bfa;margin-bottom:0.4rem;display:flex;align-items:center;gap:0.4rem;">
+            <span>📅</span> ظهور جدول اللقاءات لحساب خدام اللقاءات:
+          </h4>
+          <p style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.75rem;line-height:1.4;">
+            حدد الجزء المسموح لخدام اللقاءات بالاطلاع عليه وتحضيره من الخطة السنوية (الموضوعات المعتمدة حتى الآن):
+          </p>
+
+          <select id="cfgScheduleVisibleLimit" class="form-control" style="font-weight:700;">
+            <option value="all">عرض جدول اللقاءات بالكامل (جميع الـ 25 لقاء)</option>
+            <option value="5">أول 5 لقاءات فقط (حتى 4 ديسمبر 2026)</option>
+            <option value="8">أول 8 لقاءات (حتى 25 ديسمبر 2026)</option>
+            <option value="10">حتى حفلة الكريسماس ورأس السنة (أول 10 لقاءات - 1 يناير 2027)</option>
+            <option value="13">حتى نهاية شهر يناير 2027 (أول 13 لقاء)</option>
+            <option value="16">حتى صوم يونان (أول 16 لقاء - 26 فبراير 2027)</option>
+            <option value="20">حتى الجمعة العظيمة وعيد القيامة (أول 20 لقاء)</option>
+          </select>
+        </div>
+
+        <!-- Actions -->
+        <div style="display:flex;gap:0.75rem;justify-content:flex-end;">
+          <button type="button" class="btn btn-outline-danger" id="cancelAdminSettingsBtn">إلغاء</button>
+          <button type="submit" class="btn btn-gold" style="min-width:140px;">💾 حفظ الإعدادات</button>
+        </div>
+      </form>
     </div>
   </div>
 
@@ -1540,6 +1824,80 @@
   <!-- JAVASCRIPT APPLICATION CORE                    -->
   <!-- ============================================== -->
   <script>
+    // ==============================================
+    // SERVANT ROLES & ACCESS CONTROL CONFIGURATION
+    // ==============================================
+    const DEFAULT_AUTH_SETTINGS = {
+      passwords: {
+        admin: 'admin2027',
+        secretariat: '1111',
+        visitation: '2222',
+        schedule: '3333'
+      },
+      scheduleVisibleLimit: 'all'
+    };
+
+    const ROLES = {
+      admin: {
+        id: 'admin',
+        name: 'أمناء الاجتماع (الـ 4 الكبار)',
+        badgeName: 'أمناء الاجتماع',
+        icon: '👑',
+        color: '#f59e0b',
+        allowedTabs: ['tabScanner', 'tabBadges', 'tabMembers', 'tabSessions', 'tabVisitation', 'tabAnalytics'],
+        defaultTab: 'tabScanner',
+        canManageSettings: true
+      },
+      secretariat: {
+        id: 'secretariat',
+        name: 'السكرتارية (تسجيل الحضور والغياب)',
+        badgeName: 'السكرتارية',
+        icon: '📋',
+        color: '#10b981',
+        allowedTabs: ['tabScanner'],
+        defaultTab: 'tabScanner',
+        canManageSettings: false
+      },
+      visitation: {
+        id: 'visitation',
+        name: 'لجنة الافتقاد ومتابعة الغياب',
+        badgeName: 'لجنة الافتقاد',
+        icon: '📞',
+        color: '#06b6d4',
+        allowedTabs: ['tabVisitation'],
+        defaultTab: 'tabVisitation',
+        canManageSettings: false
+      },
+      schedule: {
+        id: 'schedule',
+        name: 'خدام اللقاءات والأسابيع',
+        badgeName: 'خدام اللقاءات',
+        icon: '📅',
+        color: '#a78bfa',
+        allowedTabs: ['tabSessions'],
+        defaultTab: 'tabSessions',
+        canManageSettings: false
+      }
+    };
+
+    let authSettings = Object.assign({}, DEFAULT_AUTH_SETTINGS);
+    let currentServantRole = null;
+    let selectedLoginRole = 'admin';
+
+    function getVisibleSessions() {
+      if (!appData || !Array.isArray(appData.sessions)) return [];
+      if (currentServantRole !== 'schedule') {
+        return appData.sessions;
+      }
+      const limit = authSettings.scheduleVisibleLimit;
+      if (!limit || limit === 'all') {
+        return appData.sessions;
+      }
+      const n = parseInt(limit, 10);
+      if (isNaN(n) || n <= 0) return appData.sessions;
+      return appData.sessions.slice(0, n);
+    }
+
     // Audio Synthesizer for instant feedback sounds (No audio files needed!)
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     
@@ -6079,7 +6437,24 @@
           updateSyncStatusBadge(false, '● متصل محلياً (Offline Ready)');
         });
 
-        // 3. Real-time Listener for Members List
+        // 3. Real-time Listener for Auth Settings & Passwords
+        db.collection('app_config').doc('auth_settings').onSnapshot((docSnap) => {
+          if (docSnap.exists) {
+            const data = docSnap.data();
+            if (data && data.passwords) {
+              authSettings = Object.assign({}, DEFAULT_AUTH_SETTINGS, data);
+              try { localStorage.setItem('st_youssef_auth_settings', JSON.stringify(authSettings)); } catch(e){}
+              if (currentServantRole) {
+                applyRolePermissions(currentServantRole);
+              }
+            }
+          } else {
+            // Seed default settings to Cloud
+            db.collection('app_config').doc('auth_settings').set(DEFAULT_AUTH_SETTINGS).catch(() => {});
+          }
+        }, (err) => console.warn("Firestore auth_settings error:", err));
+
+        // 4. Real-time Listener for Members List
         db.collection('app_config').doc('members_data').onSnapshot((docSnap) => {
           if (docSnap.exists) {
             const data = docSnap.data();
@@ -6158,7 +6533,8 @@
       // Update Session Banner
       const select = document.getElementById('activeSessionSelect');
       select.innerHTML = '';
-      appData.sessions.forEach(s => {
+      const visibleSessionsForSelect = getVisibleSessions();
+      visibleSessionsForSelect.forEach(s => {
         const opt = document.createElement('option');
         opt.value = s.id;
         opt.textContent = `${s.date} — ${s.title}`;
@@ -6500,11 +6876,52 @@
     // Render Sessions Table
     function renderSessionsTable() {
       const tbody = document.getElementById('sessionsTableBody');
+      if (!tbody) return;
       tbody.innerHTML = '';
-      appData.sessions.forEach(s => {
+      
+      const visibleList = getVisibleSessions();
+
+      // Update count header in tabSessions
+      const countHeader = document.getElementById('sessionsCountHeader');
+      if (countHeader) {
+        countHeader.textContent = currentServantRole === 'schedule' && authSettings.scheduleVisibleLimit !== 'all'
+          ? `${visibleList.length} لقاء معتمد للتحضير`
+          : `${appData.sessions.length} لقاء`;
+      }
+
+      // Update cutoff alert
+      const cutoffAlert = document.getElementById('scheduleCutoffAlert');
+      const cutoffDesc = document.getElementById('scheduleCutoffDesc');
+      if (cutoffAlert && cutoffDesc) {
+        if (currentServantRole === 'schedule' && authSettings.scheduleVisibleLimit !== 'all') {
+          const lastS = visibleList[visibleList.length - 1];
+          cutoffDesc.textContent = lastS ? `اللقاء رقم (${visibleList.length}): ${lastS.title} (${lastS.date})` : `أول ${visibleList.length} لقاءات`;
+          cutoffAlert.style.display = 'flex';
+        } else {
+          cutoffAlert.style.display = 'none';
+        }
+      }
+
+      visibleList.forEach(s => {
         const count = (s.attendees || []).length;
         const rate = appData.members.length > 0 ? Math.round((count / appData.members.length) * 100) : 0;
         const tr = document.createElement('tr');
+
+        let actionColHtml = '';
+        if (currentServantRole === 'schedule') {
+          actionColHtml = `
+            <span class="family-pill" style="background:rgba(139,92,246,0.15);color:#c4b5fd;font-size:0.75rem;">
+              ${s.id === currentSessionId ? '● لقاء الأسبوع' : 'لقاء معتمد'}
+            </span>
+          `;
+        } else {
+          actionColHtml = `
+            <button class="btn btn-gold" style="padding:0.25rem 0.65rem;font-size:0.75rem;" onclick="setCurrentSession('${s.id}')">
+              ${s.id === currentSessionId ? '● النشط حالياً' : 'تفعيل هذا اللقاء'}
+            </button>
+          `;
+        }
+
         tr.innerHTML = `
           <td><span class="badge-id">${s.id}</span></td>
           <td><strong>${s.date}</strong></td>
@@ -6512,11 +6929,7 @@
           <td><span class="family-pill ${getFamilyClass(s.family)}">${s.family}</span></td>
           <td><strong style="color:var(--accent-gold);">${count}</strong> حاضر</td>
           <td><span class="family-pill family-c">${rate}%</span></td>
-          <td>
-            <button class="btn btn-gold" style="padding:0.25rem 0.65rem;font-size:0.75rem;" onclick="setCurrentSession('${s.id}')">
-              ${s.id === currentSessionId ? '● النشط حالياً' : 'تفعيل هذا اللقاء'}
-            </button>
-          </td>
+          <td>${actionColHtml}</td>
         `;
         tbody.appendChild(tr);
       });
@@ -6832,28 +7245,223 @@
       refreshUI();
     });
 
-    // Projector Modal
-    const projectorModal = document.getElementById('projectorModal');
-    document.getElementById('showProjectorQrBtn').addEventListener('click', () => {
-      const session = getCurrentSession();
-      document.getElementById('projectorSessionTitle').textContent = session.title;
-      document.getElementById('projectorSessionDate').textContent = `${session.date} | ${session.family}`;
-      
-      const container = document.getElementById('projectorQrContainer');
-      container.innerHTML = '';
-      if (typeof QRCode !== 'undefined') {
-        new QRCode(container, {
-          text: `SESSION:${session.id}:${session.date}`,
-          width: 220,
-          height: 220,
-          colorDark: "#0f172a",
-          colorLight: "#ffffff"
+    // ==============================================
+    // SERVANT RBAC & AUTHENTICATION LOGIC
+    // ==============================================
+    function applyRolePermissions(roleId) {
+      const role = ROLES[roleId] || ROLES.admin;
+      currentServantRole = role.id;
+
+      // Role badge in header
+      const badgeContainer = document.getElementById('roleBadgeContainer');
+      const roleIcon = document.getElementById('currentRoleIcon');
+      const roleTitle = document.getElementById('currentRoleTitle');
+      const adminBtn = document.getElementById('adminSettingsBtn');
+      const newSessBtn = document.getElementById('newSessionBtn');
+      const addSessModalBtn = document.getElementById('addNewSessionModalBtn');
+      const addMemberBtn = document.getElementById('openAddMemberModalBtn');
+
+      if (roleIcon) roleIcon.textContent = role.icon;
+      if (roleTitle) roleTitle.textContent = role.badgeName;
+      if (badgeContainer) {
+        badgeContainer.title = `الحساب الحالي: ${role.name}`;
+        badgeContainer.style.borderColor = role.color;
+        badgeContainer.style.color = role.color;
+      }
+
+      // Admin only controls
+      const isAdmin = (role.id === 'admin');
+      if (adminBtn) adminBtn.style.display = isAdmin ? 'inline-flex' : 'none';
+      if (newSessBtn) newSessBtn.style.display = isAdmin ? 'inline-flex' : 'none';
+      if (addSessModalBtn) addSessModalBtn.style.display = isAdmin ? 'inline-flex' : 'none';
+      if (addMemberBtn) addMemberBtn.style.display = isAdmin ? 'inline-flex' : 'none';
+
+      // Navigation Tabs visibility
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        const tabName = btn.getAttribute('data-tab');
+        if (role.allowedTabs.includes(tabName)) {
+          btn.style.display = 'inline-flex';
+        } else {
+          btn.style.display = 'none';
+        }
+      });
+
+      // Switch to default allowed tab if current active tab is not allowed
+      const currentActiveBtn = document.querySelector('.tab-btn.active');
+      const currentTab = currentActiveBtn ? currentActiveBtn.getAttribute('data-tab') : null;
+      if (!currentTab || !role.allowedTabs.includes(currentTab)) {
+        const defaultBtn = document.querySelector(`.tab-btn[data-tab="${role.defaultTab}"]`);
+        if (defaultBtn) {
+          defaultBtn.click();
+        }
+      }
+
+      refreshUI();
+      renderSessionsTable();
+      if (role.id === 'visitation') {
+        renderVisitationTable();
+      }
+    }
+
+    function initAuth() {
+      // 1. Load auth settings from localStorage if present
+      try {
+        const savedSettings = localStorage.getItem('st_youssef_auth_settings');
+        if (savedSettings) {
+          authSettings = Object.assign({}, DEFAULT_AUTH_SETTINGS, JSON.parse(savedSettings));
+        }
+      } catch (e) {}
+
+      // 2. Wire role cards selection in login modal
+      document.querySelectorAll('.role-selection-card').forEach(card => {
+        card.addEventListener('click', () => {
+          document.querySelectorAll('.role-selection-card').forEach(c => c.classList.remove('selected'));
+          card.classList.add('selected');
+          selectedLoginRole = card.getAttribute('data-role');
+          const passInput = document.getElementById('loginPasswordInput');
+          if (passInput) {
+            passInput.value = '';
+            passInput.focus();
+          }
+          const errMsg = document.getElementById('loginErrorMessage');
+          if (errMsg) errMsg.style.display = 'none';
+        });
+      });
+
+      // 3. Password visibility toggle
+      const toggleBtn = document.getElementById('toggleLoginPasswordBtn');
+      const passInput = document.getElementById('loginPasswordInput');
+      if (toggleBtn && passInput) {
+        toggleBtn.addEventListener('click', () => {
+          passInput.type = passInput.type === 'password' ? 'text' : 'password';
         });
       }
-      projectorModal.classList.add('open');
-    });
 
-    document.getElementById('closeProjectorBtn').addEventListener('click', () => projectorModal.classList.remove('open'));
+      // 4. Submit login handler
+      const submitBtn = document.getElementById('submitLoginBtn');
+      if (submitBtn) {
+        submitBtn.addEventListener('click', handleLoginAttempt);
+      }
+      if (passInput) {
+        passInput.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') handleLoginAttempt();
+        });
+      }
+
+      // 5. Logout button
+      const logoutBtn = document.getElementById('logoutBtn');
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+          if (confirm("هل ترغب في تسجيل الخروج والتبديل لحساب آخر؟")) {
+            localStorage.removeItem('st_youssef_servant_role');
+            currentServantRole = null;
+            showLoginOverlay();
+          }
+        });
+      }
+
+      // 6. Admin Settings Modal Handlers
+      const adminBtn = document.getElementById('adminSettingsBtn');
+      const adminModal = document.getElementById('adminSettingsModal');
+      const closeAdminBtn = document.getElementById('closeAdminSettingsBtn');
+      const cancelAdminBtn = document.getElementById('cancelAdminSettingsBtn');
+      const adminForm = document.getElementById('adminSettingsForm');
+
+      if (adminBtn && adminModal) {
+        adminBtn.addEventListener('click', () => {
+          document.getElementById('cfgAdminPass').value = authSettings.passwords.admin || 'admin2027';
+          document.getElementById('cfgSecretariatPass').value = authSettings.passwords.secretariat || '1111';
+          document.getElementById('cfgVisitationPass').value = authSettings.passwords.visitation || '2222';
+          document.getElementById('cfgSchedulePass').value = authSettings.passwords.schedule || '3333';
+          document.getElementById('cfgScheduleVisibleLimit').value = authSettings.scheduleVisibleLimit || 'all';
+          adminModal.classList.add('open');
+        });
+      }
+      if (closeAdminBtn && adminModal) {
+        closeAdminBtn.addEventListener('click', () => adminModal.classList.remove('open'));
+      }
+      if (cancelAdminBtn && adminModal) {
+        cancelAdminBtn.addEventListener('click', () => adminModal.classList.remove('open'));
+      }
+      if (adminForm) {
+        adminForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          saveAdminSettings();
+        });
+      }
+
+      // 7. Check saved session role
+      const savedRole = localStorage.getItem('st_youssef_servant_role');
+      if (savedRole && ROLES[savedRole]) {
+        hideLoginOverlay();
+        applyRolePermissions(savedRole);
+      } else {
+        showLoginOverlay();
+      }
+    }
+
+    function handleLoginAttempt() {
+      const passInput = document.getElementById('loginPasswordInput');
+      const errMsg = document.getElementById('loginErrorMessage');
+      const typedPass = (passInput ? passInput.value : '').trim();
+      const expectedPass = (authSettings.passwords && authSettings.passwords[selectedLoginRole]) || DEFAULT_AUTH_SETTINGS.passwords[selectedLoginRole];
+
+      if (typedPass === expectedPass) {
+        if (errMsg) errMsg.style.display = 'none';
+        localStorage.setItem('st_youssef_servant_role', selectedLoginRole);
+        hideLoginOverlay();
+        applyRolePermissions(selectedLoginRole);
+        playBeepSuccess();
+      } else {
+        if (errMsg) errMsg.style.display = 'block';
+        if (passInput) {
+          passInput.classList.add('error-shake');
+          setTimeout(() => passInput.classList.remove('error-shake'), 400);
+          passInput.focus();
+        }
+      }
+    }
+
+    function showLoginOverlay() {
+      const overlay = document.getElementById('loginOverlay');
+      if (overlay) {
+        overlay.classList.remove('hidden');
+        const passInput = document.getElementById('loginPasswordInput');
+        if (passInput) {
+          passInput.value = '';
+          setTimeout(() => passInput.focus(), 100);
+        }
+        const errMsg = document.getElementById('loginErrorMessage');
+        if (errMsg) errMsg.style.display = 'none';
+      }
+    }
+
+    function hideLoginOverlay() {
+      const overlay = document.getElementById('loginOverlay');
+      if (overlay) overlay.classList.add('hidden');
+    }
+
+    function saveAdminSettings() {
+      authSettings.passwords.admin = document.getElementById('cfgAdminPass').value.trim() || 'admin2027';
+      authSettings.passwords.secretariat = document.getElementById('cfgSecretariatPass').value.trim() || '1111';
+      authSettings.passwords.visitation = document.getElementById('cfgVisitationPass').value.trim() || '2222';
+      authSettings.passwords.schedule = document.getElementById('cfgSchedulePass').value.trim() || '3333';
+      authSettings.scheduleVisibleLimit = document.getElementById('cfgScheduleVisibleLimit').value;
+
+      localStorage.setItem('st_youssef_auth_settings', JSON.stringify(authSettings));
+
+      if (isFirebaseReady && db) {
+        db.collection('app_config').doc('auth_settings').set(authSettings).catch(err => {
+          console.warn("Firestore auth settings save fallback:", err);
+        });
+      }
+
+      const modal = document.getElementById('adminSettingsModal');
+      if (modal) modal.classList.remove('open');
+
+      applyRolePermissions(currentServantRole);
+      alert("✅ تم حفظ كلمات المرور وحدود ظهور جدول اللقاءات بنجاح ومزامنتها سحابياً!");
+    }
 
     // Visitation Filters
     document.getElementById('btnFilterAbsentToday').addEventListener('click', () => renderVisitationTable('absent_today'));
@@ -6958,6 +7566,7 @@
     initFirebase();
     syncWithServer();
     initCameras();
+    initAuth();
     refreshUI();
   </script>
 </body>
