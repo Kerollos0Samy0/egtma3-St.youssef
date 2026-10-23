@@ -218,6 +218,134 @@
       border-radius: var(--radius-full);
     }
 
+    /* Brand Primary Action Button */
+    .btn-brand-primary {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: #ffffff;
+      border: none;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+    }
+    .btn-brand-primary:hover {
+      background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+      box-shadow: 0 6px 18px rgba(16, 185, 129, 0.45);
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    /* Structured Filter Panel (Clean & Segmented Brand Design) */
+    .members-filter-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.15rem 1.4rem;
+      margin-bottom: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .filter-row {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-row-label {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--accent-gold);
+      min-width: 65px;
+    }
+
+    .filter-pills-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .pill-btn {
+      padding: 0.3rem 0.75rem;
+      border-radius: var(--radius-full);
+      font-family: inherit;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      background: rgba(15, 23, 42, 0.6);
+      color: var(--text-muted);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      outline: none;
+    }
+
+    .pill-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-main);
+      border-color: rgba(16, 185, 129, 0.4);
+    }
+
+    /* Active Brand State (St. Youssef Emerald Green) */
+    .pill-btn.active, .btn.group-filter-btn.active, .btn.stage-filter-btn.active, .btn.badge-stage-btn.active, .btn.gender-filter-btn.active {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+      color: #ffffff !important;
+      border-color: #10b981 !important;
+      font-weight: 800 !important;
+      box-shadow: 0 2px 10px rgba(16, 185, 129, 0.35) !important;
+    }
+
+    /* Filter Search Row */
+    .filter-search-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-search-wrap {
+      position: relative;
+      flex: 1;
+      max-width: 480px;
+      min-width: 250px;
+    }
+
+    .filter-search-wrap .search-icon {
+      position: absolute;
+      right: 0.85rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .member-search-box {
+      width: 100%;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-full);
+      padding: 0.45rem 2.2rem 0.45rem 1rem;
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 600;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .member-search-box:focus {
+      border-color: var(--accent-emerald);
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.25);
+    }
+
+    .filter-divider {
+      height: 1px;
+      background: var(--border);
+      width: 100%;
+      opacity: 0.5;
+    }
+
     /* Main Navigation Tabs */
     .nav-tabs {
       display: flex;
@@ -1088,25 +1216,25 @@
         <div class="toolbar-pills-line">
           <!-- Group Filters -->
           <div class="pills-subgroup">
-            <span class="pills-label">المجموعة:</span>
-            <button class="btn btn-gold group-filter-btn active" data-grp="all" style="padding:0.25rem 0.6rem;font-size:0.78rem;">الكل (157)</button>
-            <button class="btn group-filter-btn" data-grp="A" style="padding:0.25rem 0.55rem;font-size:0.78rem;">A</button>
-            <button class="btn group-filter-btn" data-grp="B" style="padding:0.25rem 0.55rem;font-size:0.78rem;">B</button>
-            <button class="btn group-filter-btn" data-grp="C" style="padding:0.25rem 0.55rem;font-size:0.78rem;">C</button>
-            <button class="btn group-filter-btn" data-grp="D" style="padding:0.25rem 0.55rem;font-size:0.78rem;">D</button>
-            <button class="btn group-filter-btn" data-grp="E" style="padding:0.25rem 0.55rem;font-size:0.78rem;">E</button>
-            <button class="btn group-filter-btn" data-grp="T" style="padding:0.25rem 0.55rem;font-size:0.78rem;">T (خارج القناطر)</button>
+            <span class="pills-label" style="font-weight:800;color:var(--brand-gold);">المجموعة:</span>
+            <button class="pill-btn group-filter-btn active" data-grp="all">الكل (157)</button>
+            <button class="pill-btn group-filter-btn" data-grp="A">A</button>
+            <button class="pill-btn group-filter-btn" data-grp="B">B</button>
+            <button class="pill-btn group-filter-btn" data-grp="C">C</button>
+            <button class="pill-btn group-filter-btn" data-grp="D">D</button>
+            <button class="pill-btn group-filter-btn" data-grp="E">E</button>
+            <button class="pill-btn group-filter-btn" data-grp="T">T (خارج القناطر)</button>
           </div>
 
           <!-- Stage Filters -->
           <div class="pills-subgroup">
-            <span class="pills-label">المرحلة:</span>
-            <button class="btn badge-stage-btn active btn-gold" data-stage="all" style="padding:0.25rem 0.55rem;font-size:0.78rem;">الكل</button>
-            <button class="btn badge-stage-btn" data-stage="أولى كلية" style="padding:0.25rem 0.55rem;font-size:0.78rem;">أولى كلية (33)</button>
-            <button class="btn badge-stage-btn" data-stage="تانية كلية" style="padding:0.25rem 0.55rem;font-size:0.78rem;">تانية كلية (29)</button>
-            <button class="btn badge-stage-btn" data-stage="تالتة كلية" style="padding:0.25rem 0.55rem;font-size:0.78rem;">تالتة كلية (54)</button>
-            <button class="btn badge-stage-btn" data-stage="رابعة كلية" style="padding:0.25rem 0.55rem;font-size:0.78rem;">رابعة كلية (21)</button>
-            <button class="btn badge-stage-btn" data-stage="خامسة كلية" style="padding:0.25rem 0.55rem;font-size:0.78rem;">خامسة كلية (20)</button>
+            <span class="pills-label" style="font-weight:800;color:var(--brand-gold);">المرحلة:</span>
+            <button class="pill-btn badge-stage-btn active" data-stage="all">الكل</button>
+            <button class="pill-btn badge-stage-btn" data-stage="أولى كلية">أولى كلية (33)</button>
+            <button class="pill-btn badge-stage-btn" data-stage="تانية كلية">تانية كلية (29)</button>
+            <button class="pill-btn badge-stage-btn" data-stage="تالتة كلية">تالتة كلية (54)</button>
+            <button class="pill-btn badge-stage-btn" data-stage="رابعة كلية">رابعة كلية (21)</button>
+            <button class="pill-btn badge-stage-btn" data-stage="خامسة كلية">خامسة كلية (20)</button>
           </div>
         </div>
       </div>
@@ -1118,44 +1246,71 @@
     <!-- TAB 3: MEMBERS DIRECTORY                      -->
     <!-- ============================================== -->
     <div class="tab-pane" id="tabMembers">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:1rem;">
         <div>
-          <h2 style="font-size:1.4rem;font-weight:800;color:var(--accent-gold);">
-            دليل شباب وخُدام الاجتماع (<span id="totalMembersHeader">0</span>)
+          <h2 style="font-size:1.35rem;font-weight:800;color:var(--brand-gold);">
+            دليل شباب وخُدام الاجتماع (<span id="totalMembersHeader">157</span>)
           </h2>
-          <p style="font-size:0.9rem;color:var(--text-muted);">إدارة قاعدة بيانات المخدومين والخدام وتعديل أرقام الهواتف والأسر.</p>
+          <p style="font-size:0.85rem;color:var(--text-muted);">إدارة قاعدة بيانات المخدومين والخدام والمجموعات السكنية والمراحل الجامعية.</p>
         </div>
 
-        <div style="display:flex;gap:0.75rem;">
-          <button class="btn btn-gold" id="openAddMemberModalBtn">+ إضافة عضو جديد</button>
-          <button class="btn" id="exportMembersBtn">تصدير إكسل (CSV)</button>
+        <div style="display:flex;gap:0.6rem;align-items:center;">
+          <button class="btn btn-brand-primary" id="openAddMemberModalBtn">+ إضافة مخدوم جديد</button>
+          <button class="btn btn-sm" id="exportMembersBtn">تصدير إكسل (CSV)</button>
         </div>
       </div>
 
-      
-      <div style="display:flex;flex-wrap:wrap;gap:0.5rem;align-items:center;margin-bottom:1rem;background:var(--bg-card);padding:0.75rem 1rem;border-radius:var(--radius-md);border:1px solid var(--border);">
-        <span style="font-size:0.85rem;font-weight:800;color:var(--text-muted);">تصفية المجموعات:</span>
-        <button class="btn btn-gold group-filter-btn active" data-grp="all" style="padding:0.25rem 0.65rem;font-size:0.8rem;">الكل (157)</button>
-        <button class="btn group-filter-btn" data-grp="A" style="padding:0.25rem 0.65rem;font-size:0.8rem;">مجموعة A</button>
-        <button class="btn group-filter-btn" data-grp="B" style="padding:0.25rem 0.65rem;font-size:0.8rem;">مجموعة B</button>
-        <button class="btn group-filter-btn" data-grp="C" style="padding:0.25rem 0.65rem;font-size:0.8rem;">مجموعة C</button>
-        <button class="btn group-filter-btn" data-grp="D" style="padding:0.25rem 0.65rem;font-size:0.8rem;">مجموعة D</button>
-        <button class="btn group-filter-btn" data-grp="E" style="padding:0.25rem 0.65rem;font-size:0.8rem;">مجموعة E</button>
-        <button class="btn group-filter-btn" data-grp="T" style="padding:0.25rem 0.65rem;font-size:0.8rem;">مجموعة T (خارج القناطر)</button>
-        
-        <span style="font-size:0.85rem;font-weight:800;color:var(--text-muted);margin-right:1rem;">النوع:</span>
-        <button class="btn gender-filter-btn" data-gen="all" style="padding:0.25rem 0.65rem;font-size:0.8rem;">الكل</button>
-        <button class="btn gender-filter-btn" data-gen="شاب" style="padding:0.25rem 0.65rem;font-size:0.8rem;">شباب (87)</button>
-        <button class="btn gender-filter-btn" data-gen="شابة" style="padding:0.25rem 0.65rem;font-size:0.8rem;">شابات (70)</button>
+      <!-- Organized Brand Filter Card -->
+      <div class="members-filter-card">
+        <!-- Quick Search & Count -->
+        <div class="filter-search-row">
+          <div class="filter-search-wrap">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="memberSearchInput" class="member-search-box" placeholder="ابحث بالاسم، الكود، التليفون، المنطقة، أو أب الاعتراف...">
+          </div>
+          <div class="filter-count-badge">
+            المعروض حالياً: <strong id="displayedMembersCount" style="color:var(--accent-emerald);">157</strong> عضو
+          </div>
+        </div>
 
-        <span style="font-size:0.85rem;font-weight:800;color:var(--text-muted);margin-right:1rem;">المرحلة الجامعية:</span>
-        <button class="btn stage-filter-btn active btn-gold" data-stage="all" style="padding:0.25rem 0.65rem;font-size:0.8rem;">الكل</button>
-        <button class="btn stage-filter-btn" data-stage="أولى كلية" style="padding:0.25rem 0.65rem;font-size:0.8rem;">أولى كلية (33)</button>
-        <button class="btn stage-filter-btn" data-stage="تانية كلية" style="padding:0.25rem 0.65rem;font-size:0.8rem;">تانية كلية (29)</button>
-        <button class="btn stage-filter-btn" data-stage="تالتة كلية" style="padding:0.25rem 0.65rem;font-size:0.8rem;">تالتة كلية (54)</button>
-        <button class="btn stage-filter-btn" data-stage="رابعة كلية" style="padding:0.25rem 0.65rem;font-size:0.8rem;">رابعة كلية (21)</button>
-        <button class="btn stage-filter-btn" data-stage="خامسة كلية" style="padding:0.25rem 0.65rem;font-size:0.8rem;">خامسة كلية (20)</button>
+        <div class="filter-divider"></div>
 
+        <!-- Row 1: Groups Filter -->
+        <div class="filter-row">
+          <span class="filter-row-label">المجموعة:</span>
+          <div class="filter-pills-wrap">
+            <button class="pill-btn group-filter-btn active" data-grp="all">الكل (157)</button>
+            <button class="pill-btn group-filter-btn" data-grp="A">مجموعة A</button>
+            <button class="pill-btn group-filter-btn" data-grp="B">مجموعة B</button>
+            <button class="pill-btn group-filter-btn" data-grp="C">مجموعة C</button>
+            <button class="pill-btn group-filter-btn" data-grp="D">مجموعة D</button>
+            <button class="pill-btn group-filter-btn" data-grp="E">مجموعة E</button>
+            <button class="pill-btn group-filter-btn" data-grp="T">مجموعة T (خارج القناطر)</button>
+          </div>
+        </div>
+
+        <!-- Row 2: College Stages Filter -->
+        <div class="filter-row">
+          <span class="filter-row-label">المرحلة:</span>
+          <div class="filter-pills-wrap">
+            <button class="pill-btn stage-filter-btn active" data-stage="all">الكل</button>
+            <button class="pill-btn stage-filter-btn" data-stage="أولى كلية">أولى كلية (33)</button>
+            <button class="pill-btn stage-filter-btn" data-stage="تانية كلية">تانية كلية (29)</button>
+            <button class="pill-btn stage-filter-btn" data-stage="تالتة كلية">تالتة كلية (54)</button>
+            <button class="pill-btn stage-filter-btn" data-stage="رابعة كلية">رابعة كلية (21)</button>
+            <button class="pill-btn stage-filter-btn" data-stage="خامسة كلية">خامسة كلية (20)</button>
+          </div>
+        </div>
+
+        <!-- Row 3: Gender Filter -->
+        <div class="filter-row" style="margin-bottom:0;">
+          <span class="filter-row-label">النوع:</span>
+          <div class="filter-pills-wrap">
+            <button class="pill-btn gender-filter-btn active" data-gen="all">الكل</button>
+            <button class="pill-btn gender-filter-btn" data-gen="شاب">شباب (87)</button>
+            <button class="pill-btn gender-filter-btn" data-gen="شابة">شابات (70)</button>
+          </div>
+        </div>
       </div>
 
       <div class="data-table-container">
@@ -6293,6 +6448,7 @@
     let selectedGenderFilter = 'all';
     let selectedStageFilter = 'all';
     let selectedBadgeStageFilter = 'all';
+    let memberSearchQuery = '';
 
     function renderMembersTable() {
       const tbody = document.getElementById('membersTableBody');
@@ -6302,8 +6458,25 @@
         const matchGroup = selectedGroupFilter === 'all' || m.groupCode === selectedGroupFilter;
         const matchGender = selectedGenderFilter === 'all' || m.gender === selectedGenderFilter;
         const matchStage = selectedStageFilter === 'all' || getCollegeStage(m) === selectedStageFilter;
-        return matchGroup && matchGender && matchStage;
+        const q = (memberSearchQuery || '').toLowerCase().trim();
+        const matchSearch = !q || (
+          m.name.toLowerCase().includes(q) ||
+          m.id.toLowerCase().includes(q) ||
+          (m.phone && m.phone.includes(q)) ||
+          (m.fullAddress && m.fullAddress.toLowerCase().includes(q)) ||
+          (m.father && m.father.toLowerCase().includes(q)) ||
+          (m.collegeStage && m.collegeStage.toLowerCase().includes(q))
+        );
+        return matchGroup && matchGender && matchStage && matchSearch;
       });
+
+      const countEl = document.getElementById('displayedMembersCount');
+      if (countEl) countEl.textContent = list.length;
+
+      if (list.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;padding:2rem;color:var(--text-muted);">لا توجد نتائج مطابقة للتصفية الحالية.</td></tr>';
+        return;
+      }
 
       list.forEach((m) => {
         const tr = document.createElement('tr');
@@ -6311,7 +6484,7 @@
           <td><span class="badge-id">${m.id}</span></td>
           <td><strong>${m.name}</strong></td>
           <td><span class="family-pill ${getFamilyClass(m.family)}">${m.family}</span></td>
-          <td><span class="family-pill" style="font-weight:800;color:var(--accent-gold);background:rgba(245,158,11,0.15);">${getCollegeStage(m)}</span></td>
+          <td><span class="family-pill" style="font-weight:800;color:var(--accent-emerald);background:rgba(16,185,129,0.15);border-color:rgba(16,185,129,0.3);">${getCollegeStage(m)}</span></td>
           <td><span class="family-pill" style="font-size:0.75rem;">${m.gender || 'شاب'}</span></td>
           <td style="color:var(--accent-gold);font-weight:700;font-size:0.85rem;">${m.father || '—'}</td>
           <td style="color:var(--text-muted);font-size:0.82rem;">${m.area || ''} ${m.street ? '— ' + m.street : ''}</td>
@@ -6773,6 +6946,10 @@
       if (e.target && e.target.id === 'badgeSearchInput') {
         badgeSearchQuery = e.target.value;
         renderBadges();
+      }
+      if (e.target && e.target.id === 'memberSearchInput') {
+        memberSearchQuery = e.target.value;
+        renderMembersTable();
       }
     });
 
