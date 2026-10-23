@@ -4096,175 +4096,175 @@
     {
       "id": "SES-01",
       "date": "2026-11-03",
-      "title": "خدام (لقاء خدام الاجتماع)",
+      "title": "خدام",
       "family": "خدام",
       "attendees": []
     },
     {
       "id": "SES-02",
       "date": "2026-11-10",
-      "title": "أسرة 1 (لقاء أسرة 1)",
-      "family": "أسرة 1",
+      "title": "أسرة 1",
+      "family": "أسرة",
       "attendees": []
     },
     {
       "id": "SES-03",
       "date": "2026-11-17",
-      "title": "أسرة 2 (لقاء أسرة 2)",
-      "family": "أسرة 2",
+      "title": "أسرة 2",
+      "family": "أسرة",
       "attendees": []
     },
     {
       "id": "SES-04",
       "date": "2026-11-24",
-      "title": "أسرة 3 (رفاع صوم الميلاد)",
-      "family": "أسرة 3",
+      "title": "أسرة 3 (رفاع)",
+      "family": "أسرة",
       "attendees": []
     },
     {
       "id": "SES-05",
       "date": "2026-12-01",
-      "title": "لقاء أسرة",
+      "title": "أسرة",
       "family": "أسرة",
       "attendees": []
     },
     {
       "id": "SES-06",
       "date": "2026-12-08",
-      "title": "لقاء أسرة",
+      "title": "أسرة",
       "family": "أسرة",
       "attendees": []
     },
     {
       "id": "SES-07",
       "date": "2026-12-15",
-      "title": "لقاء أسرة",
+      "title": "أسرة",
       "family": "أسرة",
       "attendees": []
     },
     {
       "id": "SES-08",
       "date": "2026-12-22",
-      "title": "سهرة لحد 12 (سهرة كيهكية)",
-      "family": "أمناء الاجتماع",
+      "title": "سهرة لحد 12",
+      "family": "أمناء",
       "attendees": []
     },
     {
       "id": "SES-09",
       "date": "2026-12-25",
-      "title": "الجمعة سهرة 25/12 خاصة",
-      "family": "أمناء الاجتماع",
+      "title": "سهرة الجمعة 25/12",
+      "family": "أمناء",
       "attendees": []
     },
     {
       "id": "SES-10",
       "date": "2026-12-29",
       "title": "حفلة الكريسماس",
-      "family": "أمناء الاجتماع",
+      "family": "أمناء",
       "attendees": []
     },
     {
       "id": "SES-11",
       "date": "2027-01-12",
-      "title": "خدام (لقاء خدام الاجتماع)",
+      "title": "خدام",
       "family": "خدام",
       "attendees": []
     },
     {
       "id": "SES-12",
       "date": "2027-01-19",
-      "title": "خدام (لقاء خدام الاجتماع)",
+      "title": "خدام",
       "family": "خدام",
       "attendees": []
     },
     {
       "id": "SES-13",
       "date": "2027-01-26",
-      "title": "Outing (تنظيم أمناء الاجتماع)",
-      "family": "أمناء الاجتماع",
+      "title": "Outing (أمناء)",
+      "family": "أمناء",
       "attendees": []
     },
     {
       "id": "SES-14",
       "date": "2027-02-02",
-      "title": "لقاء أسرة",
+      "title": "أسرة",
       "family": "أسرة",
       "attendees": []
     },
     {
       "id": "SES-15",
       "date": "2027-02-09",
-      "title": "لقاء أسرة",
+      "title": "أسرة",
       "family": "أسرة",
       "attendees": []
     },
     {
       "id": "SES-16",
       "date": "2027-02-16",
-      "title": "لقاء أسرة",
+      "title": "أسرة",
       "family": "أسرة",
       "attendees": []
     },
     {
       "id": "SES-17",
       "date": "2027-02-23",
-      "title": "كورس (المحاضرة 1)",
+      "title": "كورس",
       "family": "كورس",
       "attendees": []
     },
     {
       "id": "SES-18",
       "date": "2027-03-02",
-      "title": "كورس (المحاضرة 2)",
+      "title": "كورس",
       "family": "كورس",
       "attendees": []
     },
     {
       "id": "SES-19",
       "date": "2027-03-09",
-      "title": "كورس (المحاضرة 3)",
+      "title": "كورس",
       "family": "كورس",
       "attendees": []
     },
     {
       "id": "SES-20",
       "date": "2027-03-16",
-      "title": "كورس (المحاضرة 4)",
+      "title": "كورس",
       "family": "كورس",
       "attendees": []
     },
     {
       "id": "SES-21",
       "date": "2027-03-23",
-      "title": "لقاء أسرة",
+      "title": "أسرة",
       "family": "أسرة",
       "attendees": []
     },
     {
       "id": "SES-22",
       "date": "2027-03-30",
-      "title": "لقاء أسرة",
+      "title": "أسرة",
       "family": "أسرة",
       "attendees": []
     },
     {
       "id": "SES-23",
       "date": "2027-04-06",
-      "title": "لقاء أسرة",
+      "title": "أسرة",
       "family": "أسرة",
       "attendees": []
     },
     {
       "id": "SES-24",
       "date": "2027-04-13",
-      "title": "بانوراما (أسبوع الآلام - 1)",
+      "title": "بانوراما",
       "family": "بانوراما",
       "attendees": []
     },
     {
       "id": "SES-25",
       "date": "2027-04-20",
-      "title": "بانوراما (أسبوع الآلام - 2)",
+      "title": "بانوراما",
       "family": "بانوراما",
       "attendees": []
     }

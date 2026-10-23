@@ -37,11 +37,31 @@ const DEFAULT_DATA = {
     { id: "SM-26", name: "ماريا ايليا", family: "أمناء الاجتماع", phone: "01200000026", role: "عضو صلاة", active: true }
   ],
   sessions: [
-    { id: "SES-01", date: "2026-11-03", title: "افتتاح الجدول والتعارف", family: "الأسرة أ", attendees: [] },
-    { id: "SES-02", date: "2026-11-10", title: "أنا مين؟ هويتي وقيمتي", family: "الأسرة ب", attendees: [] },
-    { id: "SES-03", date: "2026-11-17", title: "لعبة تعارف وتحديات جماعية", family: "الأسرة ج", attendees: [] },
-    { id: "SES-04", date: "2026-11-24", title: "استعداد لصوم الميلاد", family: "أمناء الاجتماع", attendees: [] },
-    { id: "SES-05", date: "2026-12-01", title: "التوبة: بداية جديدة", family: "الأسرة أ", attendees: [] }
+    { id: "SES-01", date: "2026-11-03", title: "خدام", family: "خدام", attendees: [] },
+    { id: "SES-02", date: "2026-11-10", title: "أسرة 1", family: "أسرة", attendees: [] },
+    { id: "SES-03", date: "2026-11-17", title: "أسرة 2", family: "أسرة", attendees: [] },
+    { id: "SES-04", date: "2026-11-24", title: "أسرة 3 (رفاع)", family: "أسرة", attendees: [] },
+    { id: "SES-05", date: "2026-12-01", title: "أسرة", family: "أسرة", attendees: [] },
+    { id: "SES-06", date: "2026-12-08", title: "أسرة", family: "أسرة", attendees: [] },
+    { id: "SES-07", date: "2026-12-15", title: "أسرة", family: "أسرة", attendees: [] },
+    { id: "SES-08", date: "2026-12-22", title: "سهرة لحد 12", family: "أمناء", attendees: [] },
+    { id: "SES-09", date: "2026-12-25", title: "سهرة الجمعة 25/12", family: "أمناء", attendees: [] },
+    { id: "SES-10", date: "2026-12-29", title: "حفلة الكريسماس", family: "أمناء", attendees: [] },
+    { id: "SES-11", date: "2027-01-12", title: "خدام", family: "خدام", attendees: [] },
+    { id: "SES-12", date: "2027-01-19", title: "خدام", family: "خدام", attendees: [] },
+    { id: "SES-13", date: "2027-01-26", title: "Outing (أمناء)", family: "أمناء", attendees: [] },
+    { id: "SES-14", date: "2027-02-02", title: "أسرة", family: "أسرة", attendees: [] },
+    { id: "SES-15", date: "2027-02-09", title: "أسرة", family: "أسرة", attendees: [] },
+    { id: "SES-16", date: "2027-02-16", title: "أسرة", family: "أسرة", attendees: [] },
+    { id: "SES-17", date: "2027-02-23", title: "كورس", family: "كورس", attendees: [] },
+    { id: "SES-18", date: "2027-03-02", title: "كورس", family: "كورس", attendees: [] },
+    { id: "SES-19", date: "2027-03-09", title: "كورس", family: "كورس", attendees: [] },
+    { id: "SES-20", date: "2027-03-16", title: "كورس", family: "كورس", attendees: [] },
+    { id: "SES-21", date: "2027-03-23", title: "أسرة", family: "أسرة", attendees: [] },
+    { id: "SES-22", date: "2027-03-30", title: "أسرة", family: "أسرة", attendees: [] },
+    { id: "SES-23", date: "2027-04-06", title: "أسرة", family: "أسرة", attendees: [] },
+    { id: "SES-24", date: "2027-04-13", title: "بانوراما", family: "بانوراما", attendees: [] },
+    { id: "SES-25", date: "2027-04-20", title: "بانوراما", family: "بانوراما", attendees: [] }
   ],
   visitationNotes: []
 };
