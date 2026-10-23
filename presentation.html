@@ -1,0 +1,2584 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>خطة خدمة الشباب السنوية 2026 - 2027 | كنيسة السيدة العذراء مريم</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-primary: #0a0f1d;
+      --bg-secondary: #0f172a;
+      --bg-card: rgba(30, 41, 59, 0.75);
+      --bg-card-hover: rgba(51, 65, 85, 0.85);
+      --border-color: rgba(148, 163, 184, 0.15);
+      --border-focus: #f59e0b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-gold: #fbbf24;
+      --accent-gold: #f59e0b;
+      --accent-gold-gradient: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      --accent-blue: #38bdf8;
+      --accent-emerald: #10b981;
+      --accent-purple: #a855f7;
+      --accent-rose: #f43f5e;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+      --shadow-lg: 0 10px 25px -3px rgba(0, 0, 0, 0.5);
+      --shadow-glow: 0 0 25px rgba(245, 158, 11, 0.25);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-full: 9999px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Light Mode */
+    body.light-theme {
+      --bg-primary: #f8fafc;
+      --bg-secondary: #f1f5f9;
+      --bg-card: rgba(255, 255, 255, 0.9);
+      --bg-card-hover: #ffffff;
+      --border-color: rgba(148, 163, 184, 0.3);
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --text-gold: #b45309;
+      --accent-gold: #d97706;
+      --shadow-sm: 0 2px 4px rgba(0,0,0,0.06);
+      --shadow-lg: 0 10px 20px rgba(0,0,0,0.08);
+      --shadow-glow: 0 0 20px rgba(217, 119, 6, 0.2);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      font-family: 'Cairo', 'Tajawal', system-ui, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      overflow-x: hidden;
+      min-height: 100vh;
+      line-height: 1.6;
+      transition: background-color 0.4s ease, color 0.4s ease;
+    }
+
+    /* Subtle background ambient glow */
+    .ambient-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background: 
+        radial-gradient(circle at 15% 20%, rgba(245, 158, 11, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 75%, rgba(56, 189, 248, 0.06) 0%, transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.04) 0%, transparent 50%);
+    }
+
+    /* Top Navigation Bar */
+    header.top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      transition: var(--transition);
+    }
+
+    body.light-theme header.top-nav {
+      background: rgba(255, 255, 255, 0.88);
+    }
+
+    .brand-section {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .church-logo-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      background: var(--accent-gold-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #0f172a;
+      box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
+    }
+
+    .brand-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--text-main);
+    }
+
+    .brand-subtitle {
+      font-size: 0.78rem;
+      color: var(--accent-gold);
+      font-weight: 600;
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    /* Timer Widget */
+    .timer-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-color);
+      padding: 0.35rem 0.85rem;
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-gold);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-md);
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      color: var(--text-main);
+      transition: var(--transition);
+      text-decoration: none;
+      outline: none;
+    }
+
+    .btn:hover {
+      background: var(--bg-card-hover);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+      border-color: var(--accent-gold);
+    }
+
+    .btn-gold {
+      background: var(--accent-gold-gradient);
+      color: #0f172a;
+      border: none;
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+    }
+
+    .btn-gold:hover {
+      box-shadow: 0 6px 18px rgba(245, 158, 11, 0.45);
+      background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+      color: #000;
+    }
+
+    .btn-icon-only {
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      border-radius: var(--radius-full);
+    }
+
+    /* Presentation Progress Bar */
+    .progress-container {
+      position: fixed;
+      top: 70px;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.08);
+      z-index: 999;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: var(--accent-gold-gradient);
+      width: 10%;
+      transition: width 0.4s ease;
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.6);
+    }
+
+    /* View Containers */
+    .main-wrapper {
+      position: relative;
+      z-index: 10;
+      padding-top: 74px;
+      min-height: calc(100vh - 74px);
+    }
+
+    /* Slide Mode Styles */
+    .presentation-mode {
+      display: block;
+    }
+
+    .dashboard-mode {
+      display: none;
+      padding: 2.5rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* Slide Deck Container */
+    .deck-container {
+      position: relative;
+      height: calc(100vh - 74px - 75px);
+      width: 100vw;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      padding: 2rem 4rem;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(60px) scale(0.98);
+      transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow-y: auto;
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0) scale(1);
+    }
+
+    .slide.prev-slide {
+      opacity: 0;
+      transform: translateX(-60px) scale(0.98);
+    }
+
+    /* Presentation Bottom Bar */
+    .bottom-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 75px;
+      background: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      z-index: 1000;
+    }
+
+    body.light-theme .bottom-bar {
+      background: rgba(255, 255, 255, 0.92);
+    }
+
+    .slide-counter {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .slide-counter span.current {
+      color: var(--accent-gold);
+      font-size: 1.25rem;
+      font-weight: 900;
+    }
+
+    .nav-buttons {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    /* Slide Header & Titles */
+    .slide-tagline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.3rem 0.9rem;
+      border-radius: var(--radius-full);
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      color: var(--accent-gold);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+      width: fit-content;
+    }
+
+    .slide-title {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--text-main);
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+
+    .slide-title span.highlight {
+      background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .slide-desc {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      max-width: 900px;
+    }
+
+    /* Hero / Cover Slide */
+    .hero-container {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.5rem 1.2rem;
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      border-radius: var(--radius-full);
+      color: var(--accent-gold);
+      font-size: 0.95rem;
+      font-weight: 800;
+      margin-bottom: 1.2rem;
+      box-shadow: 0 0 20px rgba(245, 158, 11, 0.2);
+    }
+
+    .hero-title {
+      font-size: 3.2rem;
+      font-weight: 900;
+      line-height: 1.25;
+      margin-bottom: 1.2rem;
+      color: var(--text-main);
+    }
+
+    .hero-verse {
+      background: rgba(30, 41, 59, 0.6);
+      border-right: 4px solid var(--accent-gold);
+      padding: 1rem 1.5rem;
+      border-radius: var(--radius-md);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #cbd5e1;
+      margin-bottom: 2rem;
+      font-style: italic;
+    }
+
+    body.light-theme .hero-verse {
+      background: #f1f5f9;
+      color: #334155;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 1.2rem 1rem;
+      border-radius: var(--radius-md);
+      text-align: center;
+      transition: var(--transition);
+      backdrop-filter: blur(8px);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent-gold);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--accent-gold);
+      line-height: 1.1;
+      margin-bottom: 0.3rem;
+    }
+
+    .stat-label {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .hero-visual {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      position: relative;
+    }
+
+    .visual-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 1.8rem;
+      box-shadow: var(--shadow-lg);
+      backdrop-filter: blur(12px);
+    }
+
+    /* Cards Grid */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.2rem;
+    }
+
+    /* Committee Cards */
+    .committee-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.2rem;
+      transition: var(--transition);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .committee-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent-gold);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    }
+
+    .committee-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 0.6rem;
+    }
+
+    .committee-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-sm);
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--accent-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .committee-name {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .committee-team {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      font-size: 0.88rem;
+    }
+
+    .team-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .team-badge {
+      font-size: 0.72rem;
+      padding: 0.15rem 0.55rem;
+      border-radius: var(--radius-full);
+      font-weight: 700;
+    }
+
+    .badge-leader {
+      background: rgba(245, 158, 11, 0.2);
+      color: var(--accent-gold);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .badge-assistant {
+      background: rgba(56, 189, 248, 0.18);
+      color: var(--accent-blue);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    .badge-alt {
+      background: rgba(168, 85, 247, 0.18);
+      color: var(--accent-purple);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+    }
+
+    .member-name {
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    /* Meeting Schedule Timeline & Cards */
+    .meeting-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 1rem;
+      max-height: 520px;
+      overflow-y: auto;
+      padding-left: 0.5rem;
+    }
+
+    .meeting-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.1rem;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      border-right: 4px solid var(--accent-gold);
+    }
+
+    .meeting-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-sm);
+      border-color: var(--accent-gold);
+    }
+
+    .meeting-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.6rem;
+    }
+
+    .meeting-date {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--accent-gold);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .family-pill {
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 0.2rem 0.65rem;
+      border-radius: var(--radius-full);
+      background: rgba(255, 255, 255, 0.08);
+      color: #e2e8f0;
+      border: 1px solid var(--border-color);
+    }
+
+    .family-a {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+      border-color: rgba(245, 158, 11, 0.3);
+    }
+
+    .family-b {
+      background: rgba(56, 189, 248, 0.15);
+      color: #38bdf8;
+      border-color: rgba(56, 189, 248, 0.3);
+    }
+
+    .family-c {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+
+    .family-leaders {
+      background: rgba(168, 85, 247, 0.18);
+      color: #c084fc;
+      border-color: rgba(168, 85, 247, 0.3);
+    }
+
+    .meeting-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.4;
+      margin-bottom: 0.5rem;
+    }
+
+    .meeting-note {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: rgba(0, 0, 0, 0.2);
+      padding: 0.25rem 0.5rem;
+      border-radius: var(--radius-sm);
+    }
+
+    body.light-theme .meeting-note {
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    /* Big Events & Trips */
+    .trip-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .trip-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--accent-gold-gradient);
+    }
+
+    .trip-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+      border-color: var(--accent-gold);
+    }
+
+    .trip-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.78rem;
+      font-weight: 800;
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-full);
+      background: rgba(245, 158, 11, 0.2);
+      color: var(--accent-gold);
+      width: fit-content;
+    }
+
+    .trip-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .trip-details {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .trip-detail-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .trip-detail-item svg {
+      flex-shrink: 0;
+      color: var(--accent-gold);
+      margin-top: 3px;
+    }
+
+    /* Academic Alignment Matrix Table */
+    .academic-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      font-size: 0.92rem;
+      background: var(--bg-card);
+    }
+
+    .academic-table th {
+      background: rgba(15, 23, 42, 0.9);
+      padding: 1rem;
+      text-align: right;
+      color: var(--accent-gold);
+      font-weight: 800;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    body.light-theme .academic-table th {
+      background: #e2e8f0;
+      color: #b45309;
+    }
+
+    .academic-table td {
+      padding: 0.9rem 1rem;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-main);
+    }
+
+    .academic-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .academic-table tr:hover td {
+      background: var(--bg-card-hover);
+    }
+
+    .academic-impact {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-full);
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .impact-light {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+    }
+
+    .impact-alert {
+      background: rgba(244, 63, 94, 0.15);
+      color: #fb7185;
+    }
+
+    .impact-golden {
+      background: rgba(245, 158, 11, 0.18);
+      color: #fbbf24;
+      font-weight: 800;
+    }
+
+    /* Modal / Drawer for Table of Contents & Notes */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      z-index: 2000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-content {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      width: 90%;
+      max-width: 750px;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 2rem;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+    }
+
+    .modal-overlay.open .modal-content {
+      transform: translateY(0);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 1rem;
+    }
+
+    .modal-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .toc-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.9rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: var(--transition);
+      text-align: right;
+    }
+
+    .toc-item:hover, .toc-item.active {
+      border-color: var(--accent-gold);
+      background: var(--bg-card-hover);
+      transform: translateY(-2px);
+    }
+
+    .toc-number {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-full);
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--accent-gold);
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .toc-text {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    /* Presenter Notes Box */
+    .presenter-notes-drawer {
+      position: fixed;
+      bottom: 75px;
+      right: 2rem;
+      width: 380px;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(14px);
+      border: 1px solid var(--accent-gold);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      z-index: 1500;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      display: none;
+      animation: fadeInSlideUp 0.3s ease forwards;
+    }
+
+    body.light-theme .presenter-notes-drawer {
+      background: rgba(255, 255, 255, 0.96);
+    }
+
+    .presenter-notes-drawer.open {
+      display: block;
+    }
+
+    .notes-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.75rem;
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--accent-gold);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 0.4rem;
+    }
+
+    .notes-content {
+      font-size: 0.88rem;
+      color: var(--text-main);
+      line-height: 1.55;
+      max-height: 220px;
+      overflow-y: auto;
+    }
+
+    /* Filter Controls in Dashboard Mode */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      align-items: center;
+      margin-bottom: 2rem;
+      background: var(--bg-card);
+      padding: 1rem 1.5rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+    }
+
+    .filter-btn {
+      padding: 0.45rem 1rem;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-color);
+      background: transparent;
+      color: var(--text-muted);
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--accent-gold-gradient);
+      color: #0f172a;
+      border-color: transparent;
+      font-weight: 800;
+    }
+
+    .search-input {
+      padding: 0.55rem 1.2rem;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-color);
+      background: rgba(0, 0, 0, 0.2);
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 0.88rem;
+      outline: none;
+      width: 250px;
+      transition: var(--transition);
+    }
+
+    body.light-theme .search-input {
+      background: #fff;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
+      width: 280px;
+    }
+
+    /* Keyboard Shortcuts helper pill */
+    .keyboard-hint {
+      position: fixed;
+      bottom: 85px;
+      left: 2rem;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid var(--border-color);
+      padding: 0.35rem 0.85rem;
+      border-radius: var(--radius-full);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      z-index: 900;
+      backdrop-filter: blur(8px);
+    }
+
+    .kbd {
+      background: rgba(255, 255, 255, 0.12);
+      padding: 0.1rem 0.4rem;
+      border-radius: 4px;
+      color: var(--text-main);
+      font-family: monospace;
+      font-size: 0.72rem;
+    }
+
+    /* Animations */
+    @keyframes fadeInSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Print Styling */
+    @media print {
+      body {
+        background: #ffffff !important;
+        color: #000000 !important;
+      }
+      header.top-nav, .bottom-bar, .progress-container, .keyboard-hint, .presenter-notes-drawer {
+        display: none !important;
+      }
+      .presentation-mode {
+        display: none !important;
+      }
+      .dashboard-mode {
+        display: block !important;
+        padding: 0 !important;
+      }
+      .filter-bar {
+        display: none !important;
+      }
+      .trip-card, .committee-card, .meeting-card {
+        border: 1px solid #ccc !important;
+        background: #fff !important;
+        color: #000 !important;
+        box-shadow: none !important;
+        page-break-inside: avoid;
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .hero-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .grid-3 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .slide {
+        padding: 1.5rem 2rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header.top-nav {
+        padding: 0 1rem;
+      }
+      .brand-title {
+        font-size: 0.95rem;
+      }
+      .hero-title {
+        font-size: 2.2rem;
+      }
+      .slide-title {
+        font-size: 1.6rem;
+      }
+      .grid-2, .grid-3, .grid-4 {
+        grid-template-columns: 1fr;
+      }
+      .hero-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .toc-grid {
+        grid-template-columns: 1fr;
+      }
+      .keyboard-hint {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Light Effects -->
+  <div class="ambient-bg"></div>
+
+  <!-- Top Navigation Bar -->
+  <header class="top-nav">
+    <div class="brand-section">
+      <div class="church-logo-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2v20M7 8h10M5 12h14"></path>
+        </svg>
+      </div>
+      <div>
+        <div class="brand-title">اجتماع الشباب — كنيسة السيدة العذراء مريم</div>
+        <div class="brand-subtitle">الخطة السنوية المتكاملة 2026 - 2027</div>
+      </div>
+    </div>
+
+    <div class="header-controls">
+      <!-- Presenter Timer -->
+      <div class="timer-badge" id="timerBadge" title="مؤقت العرض">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        <span id="timerDisplay">00:00</span>
+        <button id="toggleTimerBtn" style="background:none;border:none;color:inherit;cursor:pointer;padding:0 2px;">▶</button>
+      </div>
+
+      <!-- QR Attendance System Link -->
+      <a href="index.html" class="btn btn-gold" title="فتح نظام تسجيل حضور وغياب الشباب بالـ QR" style="font-weight:800;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="7" height="7"></rect>
+          <rect x="14" y="3" width="7" height="7"></rect>
+          <rect x="14" y="14" width="7" height="7"></rect>
+          <rect x="3" y="14" width="7" height="7"></rect>
+        </svg>
+        <span>نظام الحضور بالـ QR</span>
+      </a>
+
+      <!-- Mode Switcher (Slides vs Full Plan) -->
+      <button class="btn" id="modeSwitchBtn" title="التبديل بين وضع الشرائح والتقرير الشامل">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="3" y1="9" x2="21" y2="9"></line>
+          <line x1="9" y1="21" x2="9" y2="9"></line>
+        </svg>
+        <span id="modeBtnText">عرض التقرير الكامل</span>
+      </button>
+
+      <!-- Table of Contents Modal Button -->
+      <button class="btn btn-icon-only" id="openTocBtn" title="فهرس الشرائح السريع (M)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="8" y1="6" x2="21" y2="6"></line>
+          <line x1="8" y1="12" x2="21" y2="12"></line>
+          <line x1="8" y1="18" x2="21" y2="18"></line>
+          <line x1="3" y1="6" x2="3.01" y2="6"></line>
+          <line x1="3" y1="12" x2="3.01" y2="12"></line>
+          <line x1="3" y1="18" x2="3.01" y2="18"></line>
+        </svg>
+      </button>
+
+      <!-- Presenter Notes Toggle -->
+      <button class="btn btn-icon-only" id="toggleNotesBtn" title="ملاحظات المحاضر (N)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
+      </button>
+
+      <!-- Theme Switcher -->
+      <button class="btn btn-icon-only" id="themeToggleBtn" title="تبديل المظهر النهاري/الليلي">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+      </button>
+
+      <!-- Fullscreen Toggle -->
+      <button class="btn btn-icon-only" id="fullscreenBtn" title="ملء الشاشة (F)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+        </svg>
+      </button>
+
+      <!-- Print / Export -->
+      <button class="btn btn-icon-only" id="printBtn" title="طباعة أو تصدير PDF">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="6 9 6 2 18 2 18 9"></polyline>
+          <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+          <rect x="6" y="14" width="12" height="8"></rect>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Progress Bar (Slides Mode) -->
+  <div class="progress-container">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
+  <!-- Main Wrapper -->
+  <main class="main-wrapper">
+
+    <!-- ========================================== -->
+    <!-- SLIDES DECK PRESENTATION MODE             -->
+    <!-- ========================================== -->
+    <div class="presentation-mode" id="presentationContainer">
+      <div class="deck-container">
+
+        <!-- SLIDE 1: COVER / HERO -->
+        <section class="slide active" data-slide="1" data-notes="شريحة الغلاف: التأكيد على رؤية الاجتماع لهذا العام وروح العمل الجماعي بروح الآية 'نحن أعضاء جسمه'. إبراز حجم الخطة من حيث عدد اللقاءات والأسر واللجان.">
+          <div class="hero-container">
+            <div class="hero-content">
+              <div class="hero-badge">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                </svg>
+                خطة الخدمة السنوية الشاملة
+              </div>
+              <h1 class="hero-title">
+                اجتماع الشباب <br>
+                <span class="highlight">2026 — 2027</span>
+              </h1>
+              <div class="hero-verse">
+                «نَحْنُ أَعْضَاءُ جِسْمِهِ، مِنْ لَحْمِهِ وَمِنْ عِظَامِهِ»
+                <div style="font-size:0.85rem;color:var(--accent-gold);margin-top:0.3rem;font-weight:700;">(أفسس 5 : 30)</div>
+              </div>
+              <p class="slide-desc">
+                رؤية رعوية متكاملة تجمع بين العمق الروحي الأرثوذكسي، وبناء الروابط الأخوية، والتأهيل العملي، مع التوافق التام مع التقويم الدراسي والجامعي للشباب.
+              </p>
+
+              <div class="hero-stats">
+                <div class="stat-card">
+                  <div class="stat-number">25</div>
+                  <div class="stat-label">لقاءً معتمداً محدداً</div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-number">9</div>
+                  <div class="stat-label">لجان خدمية متخصصة</div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-number">3</div>
+                  <div class="stat-label">أسر نشطة + مجلس الأمناء</div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-number">4+</div>
+                  <div class="stat-label">رحلات ومؤتمرات كبرى</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="hero-visual">
+              <div class="visual-card">
+                <h3 style="font-size:1.15rem;font-weight:800;color:var(--accent-gold);margin-bottom:0.75rem;display:flex;align-items:center;gap:0.5rem;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polygon points="10 8 16 12 10 16 10 8"></polygon>
+                  </svg>
+                  أبرز محاور الخطة لهذا العام
+                </h3>
+                <ul style="list-style:none;display:flex;flex-direction:column;gap:0.75rem;font-size:0.95rem;color:#cbd5e1;">
+                  <li style="display:flex;align-items:center;gap:0.5rem;">
+                    <span style="color:var(--accent-gold);font-weight:900;">✓</span> 
+                    <strong>نظام المداورة الأسبوعي:</strong> إشراك الأسر (أ، ب، ج) وأمناء الاجتماع في القيادة.
+                  </li>
+                  <li style="display:flex;align-items:center;gap:0.5rem;">
+                    <span style="color:var(--accent-blue);font-weight:900;">✓</span> 
+                    <strong>الرحلة الكبرى للأقصر وأسوان:</strong> استثمار إجازة نصف العام (23 يناير - 4 فبراير 2027).
+                  </li>
+                  <li style="display:flex;align-items:center;gap:0.5rem;">
+                    <span style="color:var(--accent-emerald);font-weight:900;">✓</span> 
+                    <strong>المصفوفة الدراسية:</strong> تخفيف الأنشطة تلقائياً خلال الميدتيرم والامتحانات النهائية.
+                  </li>
+                  <li style="display:flex;align-items:center;gap:0.5rem;">
+                    <span style="color:var(--accent-purple);font-weight:900;">✓</span> 
+                    <strong>تفعيل الطاقات:</strong> تعيين أمين ومساعد وبديل لكل لجنة لضمان استدامة الخدمة.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SLIDE 2: STRATEGIC VISION & GOALS -->
+        <section class="slide" data-slide="2" data-notes="شريحة الأهداف الاستراتيجية: شرح الركائز الأربع الكبرى. توضيح كيف تخدم كل ركيزة احتياجاً واقعياً لدى شباب الجامعة والخريجين الجدد.">
+          <div class="slide-tagline">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+            الرؤية والرسالة
+          </div>
+          <h2 class="slide-title">الأهداف <span class="highlight">الاستراتيجية الكبرى</span> للخدمة</h2>
+          <p class="slide-desc">تسعى خطة 2026 - 2027 إلى بناء شخصية الشاب المسيحي المتكاملة من خلال 4 ركائز متوازنة ومستدامة:</p>
+
+          <div class="grid-4">
+            <div class="stat-card" style="text-align:right;padding:1.5rem;">
+              <div style="width:44px;height:44px;border-radius:var(--radius-sm);background:rgba(245,158,11,0.15);color:var(--accent-gold);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+              </div>
+              <h3 style="font-size:1.15rem;font-weight:800;color:var(--accent-gold);margin-bottom:0.5rem;">1. التأصيل الإيماني والروحي</h3>
+              <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.5;">
+                دراسة الكلمة المقدسة، فهم طقوس وأسرار الكنيسة، وتثبيت الهوية الأرثوذكسية في مواجهة التيارات الفكرية المعاصرة.
+              </p>
+            </div>
+
+            <div class="stat-card" style="text-align:right;padding:1.5rem;">
+              <div style="width:44px;height:44px;border-radius:var(--radius-sm);background:rgba(56,189,248,0.15);color:var(--accent-blue);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+              </div>
+              <h3 style="font-size:1.15rem;font-weight:800;color:var(--accent-blue);margin-bottom:0.5rem;">2. الشركة الأخوية (Koinonia)</h3>
+              <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.5;">
+                كسر العزلة الفردية عبر نظام الأسر المصغرة (أ، ب، ج)، وتوفير بيئة صداقة مقدسة تشجع على النمو الروحي المشترك.
+              </p>
+            </div>
+
+            <div class="stat-card" style="text-align:right;padding:1.5rem;">
+              <div style="width:44px;height:44px;border-radius:var(--radius-sm);background:rgba(16,185,129,0.15);color:var(--accent-emerald);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              </div>
+              <h3 style="font-size:1.15rem;font-weight:800;color:var(--accent-emerald);margin-bottom:0.5rem;">3. تفجير المواهب والقيادة</h3>
+              <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.5;">
+                تحويل الشاب من متلقٍ سلبي إلى خادم فاعل من خلال 9 لجان خدمية تمكنه من القيادة والتعبير عن مواهبه ومهاراته.
+              </p>
+            </div>
+
+            <div class="stat-card" style="text-align:right;padding:1.5rem;">
+              <div style="width:44px;height:44px;border-radius:var(--radius-sm);background:rgba(168,85,247,0.15);color:var(--accent-purple);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+              </div>
+              <h3 style="font-size:1.15rem;font-weight:800;color:var(--accent-purple);margin-bottom:0.5rem;">4. الرعاية والافتقاد الفعال</h3>
+              <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.5;">
+                متابعة دورية لكل مخدوم عبر شبكة افتقاد ذكية، لدعم الشباب في أوقات الضغوط النفسية والدراسية وتحديات الحياة.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- SLIDE 3: COMMITTEES & LEADERSHIP STRUCTURE -->
+        <section class="slide" data-slide="3" data-notes="شريحة الهيكل واللجان: استعراض جميع المقترحات المعتمدة لأمناء اللجان من ملف الإكسل (9 لجان، كل لجنة بأمين ومساعد وبديل). التأكيد على مبدأ القيادة التشاركية والصف الثاني.">
+          <div class="slide-tagline">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="8.5" cy="7" r="4"></circle>
+              <polyline points="17 11 19 13 23 9"></polyline>
+            </svg>
+            الهيكل التنفيذي
+          </div>
+          <h2 class="slide-title">لجان الخدمة <span class="highlight">وأمناء الأسر الفرعية</span></h2>
+          <p class="slide-desc">توزيع متوازن للمسؤوليات يضمن وجود قيادة أساسية ومساعد وبديل لكل لجنة لضمان استمرارية وكفاءة العمل:</p>
+
+          <div class="grid-3" style="max-height: 520px; overflow-y: auto; padding-left: 0.5rem;">
+            <!-- Committee 1 -->
+            <div class="committee-card">
+              <div class="committee-header">
+                <div class="committee-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                </div>
+                <div>
+                  <div class="committee-name">قلب واحد</div>
+                  <div style="font-size:0.75rem;color:var(--text-muted);">دمج الجدد وروح المحبة والترابط</div>
+                </div>
+              </div>
+              <div class="committee-team">
+                <div class="team-row"><span class="team-badge badge-leader">أمين</span><span class="member-name">ريموندا عزمي</span></div>
+                <div class="team-row"><span class="team-badge badge-assistant">مساعد</span><span class="member-name">بولا هشام</span></div>
+                <div class="team-row"><span class="team-badge badge-alt">بديل</span><span class="member-name">ساندي ميلاد</span></div>
+              </div>
+            </div>
+
+            <!-- Committee 2 -->
+            <div class="committee-card">
+              <div class="committee-header">
+                <div class="committee-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                </div>
+                <div>
+                  <div class="committee-name">الافتقاد والرعاية</div>
+                  <div style="font-size:0.75rem;color:var(--text-muted);">المتابعة الفردية والاتصالات والزيارات</div>
+                </div>
+              </div>
+              <div class="committee-team">
+                <div class="team-row"><span class="team-badge badge-leader">أمين</span><span class="member-name">كيرلس بطرس</span></div>
+                <div class="team-row"><span class="team-badge badge-assistant">مساعد</span><span class="member-name">هيلانة اشرف</span></div>
+                <div class="team-row"><span class="team-badge badge-alt">بديل</span><span class="member-name">فيرونيا عزمي</span></div>
+              </div>
+            </div>
+
+            <!-- Committee 3 -->
+            <div class="committee-card">
+              <div class="committee-header">
+                <div class="committee-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="7" y2="7"></line><line x1="2" y1="17" x2="7" y2="17"></line><line x1="17" y1="17" x2="22" y2="17"></line><line x1="17" y1="7" x2="22" y2="7"></line></svg>
+                </div>
+                <div>
+                  <div class="committee-name">الميديا والتغطية</div>
+                  <div style="font-size:0.75rem;color:var(--text-muted);">التصوير والنشر والتصاميم والتواصل</div>
+                </div>
+              </div>
+              <div class="committee-team">
+                <div class="team-row"><span class="team-badge badge-leader">أمين</span><span class="member-name">بافلي داود</span></div>
+                <div class="team-row"><span class="team-badge badge-assistant">مساعد</span><span class="member-name">مينا ايهاب</span></div>
+                <div class="team-row"><span class="team-badge badge-alt">بديل</span><span class="member-name">توني عادل</span></div>
+              </div>
+            </div>
+
+            <!-- Committee 4 -->
+            <div class="committee-card">
+              <div class="committee-header">
+                <div class="committee-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                </div>
+                <div>
+                  <div class="committee-name">Revive (النهضة والتجديد)</div>
+                  <div style="font-size:0.75rem;color:var(--text-muted);">المبادرات الحيوية والتحديات التفاعلية</div>
+                </div>
+              </div>
+              <div class="committee-team">
+                <div class="team-row"><span class="team-badge badge-leader">أمين</span><span class="member-name">بولا ايليا</span></div>
+                <div class="team-row"><span class="team-badge badge-assistant">مساعد</span><span class="member-name">جومانا عاطف</span></div>
+                <div class="team-row"><span class="team-badge badge-alt">بديل</span><span class="member-name">كريم شريف</span></div>
+              </div>
+            </div>
+
+            <!-- Committee 5 -->
+            <div class="committee-card">
+              <div class="committee-header">
+                <div class="committee-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                </div>
+                <div>
+                  <div class="committee-name">محبي الكتاب المقدس</div>
+                  <div style="font-size:0.75rem;color:var(--text-muted);">المسابقات الإنجيلية وورش دراسة الكلمة</div>
+                </div>
+              </div>
+              <div class="committee-team">
+                <div class="team-row"><span class="team-badge badge-leader">أمين</span><span class="member-name">مينا عادل شفيق</span></div>
+                <div class="team-row"><span class="team-badge badge-assistant">مساعد</span><span class="member-name">انجيل هاني</span></div>
+                <div class="team-row"><span class="team-badge badge-alt">بديل</span><span class="member-name">ماريا وحيد</span></div>
+              </div>
+            </div>
+
+            <!-- Committee 6 -->
+            <div class="committee-card">
+              <div class="committee-header">
+                <div class="committee-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+                </div>
+                <div>
+                  <div class="committee-name">محبي التسبيح والكورال</div>
+                  <div style="font-size:0.75rem;color:var(--text-muted);">قيادة الترانيم والألحان والفقرات الموسيقية</div>
+                </div>
+              </div>
+              <div class="committee-team">
+                <div class="team-row"><span class="team-badge badge-leader">أمين</span><span class="member-name">دافيد ايهاب</span></div>
+                <div class="team-row"><span class="team-badge badge-assistant">مساعد</span><span class="member-name">كارين فيكتور</span></div>
+                <div class="team-row"><span class="team-badge badge-alt">بديل</span><span class="member-name">يوستينا جورج</span></div>
+              </div>
+            </div>
+
+            <!-- Committee 7 -->
+            <div class="committee-card">
+              <div class="committee-header">
+                <div class="committee-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
+                </div>
+                <div>
+                  <div class="committee-name">الديكور واللوجستيات</div>
+                  <div style="font-size:0.75rem;color:var(--text-muted);">تهيئة القاعة والديكورات واللمسات الفنية</div>
+                </div>
+              </div>
+              <div class="committee-team">
+                <div class="team-row"><span class="team-badge badge-leader">أمين</span><span class="member-name">ساندي ميلاد</span></div>
+                <div class="team-row"><span class="team-badge badge-assistant">مساعد</span><span class="member-name">ميريام جورج</span></div>
+                <div class="team-row"><span class="team-badge badge-alt">بديل</span><span class="member-name">شيري فادي</span></div>
+              </div>
+            </div>
+
+            <!-- Committee 8 -->
+            <div class="committee-card">
+              <div class="committee-header">
+                <div class="committee-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+                </div>
+                <div>
+                  <div class="committee-name">المطبخ والضيافة والمحبة</div>
+                  <div style="font-size:0.75rem;color:var(--text-muted);">تنظيم البوفيه ومشروبات اللقاءات والمؤتمرات</div>
+                </div>
+              </div>
+              <div class="committee-team">
+                <div class="team-row"><span class="team-badge badge-leader">أمين</span><span class="member-name">مارتينا مدحت</span></div>
+                <div class="team-row"><span class="team-badge badge-assistant">مساعد</span><span class="member-name">مادونا عاطف</span></div>
+                <div class="team-row"><span class="team-badge badge-alt">بديل</span><span class="member-name">مريم سعيد انور</span></div>
+              </div>
+            </div>
+
+            <!-- Committee 9 -->
+            <div class="committee-card">
+              <div class="committee-header">
+                <div class="committee-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                </div>
+                <div>
+                  <div class="committee-name">اجتماع الصلاة المسبق</div>
+                  <div style="font-size:0.75rem;color:var(--text-muted);">قيادة نصف ساعة الصلاة والطلبات والخلوة</div>
+                </div>
+              </div>
+              <div class="committee-team">
+                <div class="team-row"><span class="team-badge badge-leader">أمين</span><span class="member-name">توماس ملاك</span></div>
+                <div class="team-row"><span class="team-badge badge-assistant">مساعد</span><span class="member-name">سارة يحي</span></div>
+                <div class="team-row"><span class="team-badge badge-alt">بديل</span><span class="member-name">ماريا ايليا</span></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SLIDE 4: WEEKLY ROTATION & MEETING ARCHITECTURE -->
+        <section class="slide" data-slide="4" data-notes="شريحة نظام المداورة: شرح كيفية تبادل الأدوار بين الأسر الثلاث ومجلس الأمناء كل 4 أسابيع، والجدول الزمني للفقرات داخل اللقاء الأسبوعي الواحد.">
+          <div class="slide-tagline">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="23 4 23 10 17 10"></polyline>
+              <polyline points="1 20 1 14 7 14"></polyline>
+              <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+            </svg>
+            فلسفة البرنامج الأسبوعي
+          </div>
+          <h2 class="slide-title">نظام المداورة <span class="highlight">وهيكل اللقاء النموذجي</span></h2>
+          <p class="slide-desc">تدوير قيادة الأسابيع بين 4 محاور يمنح كل شاب فرصة حقيقية للتحضير والمشاركة والإبداع:</p>
+
+          <div class="grid-2" style="margin-bottom:1.5rem;">
+            <!-- Rotation Pillars -->
+            <div class="visual-card" style="padding:1.5rem;">
+              <h3 style="font-size:1.15rem;font-weight:800;color:var(--accent-gold);margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                دورة التناوب الرباعية (كل 4 أسابيع)
+              </h3>
+              <div style="display:flex;flex-direction:column;gap:0.8rem;">
+                <div style="display:flex;align-items:center;gap:1rem;background:rgba(255,255,255,0.03);padding:0.75rem;border-radius:var(--radius-sm);border-right:3px solid #fbbf24;">
+                  <span class="family-pill family-a">الأسرة (أ)</span>
+                  <div style="font-size:0.88rem;color:var(--text-main);"><strong>الموضوعات التأسيسية:</strong> الهوية الروحية، التوبة، القرارات، والتأملات العميقة.</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:1rem;background:rgba(255,255,255,0.03);padding:0.75rem;border-radius:var(--radius-sm);border-right:3px solid #38bdf8;">
+                  <span class="family-pill family-b">الأسرة (ب)</span>
+                  <div style="font-size:0.88rem;color:var(--text-main);"><strong>القضايا الحياتية:</strong> الصداقة، العلاقات، مواجهة الضغوط، وأهداف المستقبل.</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:1rem;background:rgba(255,255,255,0.03);padding:0.75rem;border-radius:var(--radius-sm);border-right:3px solid #34d399;">
+                  <span class="family-pill family-c">الأسرة (ج)</span>
+                  <div style="font-size:0.88rem;color:var(--text-main);"><strong>الأنشطة التفاعلية:</strong> التحديات الجماعية، المسابقات، وورش المهارات والمواهب.</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:1rem;background:rgba(255,255,255,0.03);padding:0.75rem;border-radius:var(--radius-sm);border-right:3px solid #c084fc;">
+                  <span class="family-pill family-leaders">أمناء الاجتماع</span>
+                  <div style="font-size:0.88rem;color:var(--text-main);"><strong>المحطات الكبرى:</strong> الأعياد، استعدادات الأصوام، وأيام الصلاة والتسبيح الشاملة.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Typical Meeting Agenda -->
+            <div class="visual-card" style="padding:1.5rem;">
+              <h3 style="font-size:1.15rem;font-weight:800;color:var(--accent-gold);margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                الهيكل الزمني لليوم الأسبوعي
+              </h3>
+              <div style="display:flex;flex-direction:column;gap:0.85rem;">
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:0.6rem 0.8rem;background:rgba(0,0,0,0.2);border-radius:var(--radius-sm);">
+                  <span style="font-weight:700;color:var(--text-main);font-size:0.9rem;">1. نصف ساعة الصلاة والطلبات</span>
+                  <span style="font-size:0.8rem;color:var(--accent-gold);font-weight:800;">30 دقيقة مسبقة</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:0.6rem 0.8rem;background:rgba(0,0,0,0.2);border-radius:var(--radius-sm);">
+                  <span style="font-weight:700;color:var(--text-main);font-size:0.9rem;">2. التسبيح والترانيم والألحان (لجنة التسبيح)</span>
+                  <span style="font-size:0.8rem;color:var(--accent-blue);font-weight:800;">25 دقيقة</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:0.6rem 0.8rem;background:rgba(0,0,0,0.2);border-radius:var(--radius-sm);">
+                  <span style="font-weight:700;color:var(--text-main);font-size:0.9rem;">3. موضوع اليوم / الورشة التفاعلية</span>
+                  <span style="font-size:0.8rem;color:var(--accent-emerald);font-weight:800;">45 دقيقة</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:0.6rem 0.8rem;background:rgba(0,0,0,0.2);border-radius:var(--radius-sm);">
+                  <span style="font-weight:700;color:var(--text-main);font-size:0.9rem;">4. الإعلانات، الافتقاد، والضيافة الأخوية</span>
+                  <span style="font-size:0.8rem;color:var(--accent-purple);font-weight:800;">20 دقيقة</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SLIDE 5: Q1 SCHEDULE (NOV - DEC 2026) -->
+        <section class="slide" data-slide="5" data-notes="الربع الأول: التركيز على الانطلاقة، صوم الميلاد، واللقاءات الروحية. التنويه بأن ميدتيرم الجامعات يكون خلال أول 3 أسابيع من نوفمبر لذلك يتم تخفيف الأنشطة المرهقة.">
+          <div class="slide-tagline">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            الربع الأول (نوفمبر — ديسمبر 2026)
+          </div>
+          <h2 class="slide-title">موسم الانطلاق <span class="highlight">وصوم الميلاد المقدس</span></h2>
+          <p class="slide-desc">9 لقاءات متدرجة تركز على التعارف، التوبة، الصداقة، والتهيئة الروحية للميلاد:</p>
+
+          <div class="meeting-grid">
+            <div class="meeting-card">
+              <div class="meeting-top"><div class="meeting-date">2 مارس 2027</div><span class="family-pill family-c" style="background:rgba(16,185,129,0.2);color:#34d399;">كورس</span></div>
+              <div class="meeting-title">كورس (المحاضرة 2)</div>
+              <div class="meeting-note">المحاضرة الثانية من الكورس</div>
+            </div>
+            <div class="meeting-card">
+              <div class="meeting-top"><div class="meeting-date">9 مارس 2027</div><span class="family-pill family-c" style="background:rgba(16,185,129,0.2);color:#34d399;">كورس</span></div>
+              <div class="meeting-title">كورس (المحاضرة 3)</div>
+              <div class="meeting-note">المحاضرة الثالثة من الكورس</div>
+            </div>
+            <div class="meeting-card">
+              <div class="meeting-top"><div class="meeting-date">16 مارس 2027</div><span class="family-pill family-c" style="background:rgba(16,185,129,0.2);color:#34d399;">كورس</span></div>
+              <div class="meeting-title">كورس (المحاضرة 4)</div>
+              <div class="meeting-note">المحاضرة الرابعة وختام الكورس</div>
+            </div>
+            <div class="meeting-card">
+              <div class="meeting-top"><div class="meeting-date">23 مارس 2027</div><span class="family-pill family-a">أسرة</span></div>
+              <div class="meeting-title">لقاء أسرة</div>
+              <div class="meeting-note">خلال الصوم الكبير</div>
+            </div>
+            <div class="meeting-card">
+              <div class="meeting-top"><div class="meeting-date">30 مارس 2027</div><span class="family-pill family-b">أسرة</span></div>
+              <div class="meeting-title">لقاء أسرة</div>
+              <div class="meeting-note">خلال الصوم الكبير</div>
+            </div>
+            <div class="meeting-card">
+              <div class="meeting-top"><div class="meeting-date">6 أبريل 2027</div><span class="family-pill family-c">أسرة</span></div>
+              <div class="meeting-title">لقاء أسرة</div>
+              <div class="meeting-note">خلال الصوم الكبير وقرب عيد البشارة</div>
+            </div>
+            <div class="meeting-card" style="border-right-color:#a855f7;">
+              <div class="meeting-top"><div class="meeting-date">13 أبريل 2027</div><span class="family-pill family-leaders" style="background:rgba(168,85,247,0.2);color:#c084fc;">بانوراما</span></div>
+              <div class="meeting-title">بانوراما (أسبوع الآلام - 1)</div>
+              <div class="meeting-note">بانوراما أسبوع الآلام الجزء الأول</div>
+            </div>
+            <div class="meeting-card" style="border-right-color:#a855f7;">
+              <div class="meeting-top"><div class="meeting-date">20 أبريل 2027</div><span class="family-pill family-leaders" style="background:rgba(168,85,247,0.2);color:#c084fc;">بانوراما</span></div>
+              <div class="meeting-title">بانوراما (أسبوع الآلام - 2)</div>
+              <div class="meeting-note">بانوراما أسبوع الآلام الجزء الثاني</div>
+            </div>
+          </div>
+          </div>
+        </section>
+
+        <!-- SLIDE 8: MAJOR EVENTS & TRIPS -->
+        <section class="slide" data-slide="8" data-notes="شريحة الرحلات والمؤتمرات الكبرى: تفاصيل رحلة الأقصر وأسوان، المزارات، وأهداف يوم الفيوم الترفيهي، ومؤتمر الشتاء في منتصف يناير.">
+          <div class="slide-tagline">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"></polygon></svg>
+            الأنشطة والرحلات الكبرى
+          </div>
+          <h2 class="slide-title">الرحلات والمؤتمرات <span class="highlight">والأيام الخاصة</span></h2>
+          <p class="slide-desc">أنشطة نوعية خارج جدران الكنيسة لتعميق الروابط وصناعة ذكريات روحية وتاريخية لا تُنسى:</p>
+
+          <div class="grid-3">
+            <!-- Event 1: Luxor & Aswan -->
+            <div class="trip-card">
+              <div class="trip-badge">الرحلة الكبرى الرائدة</div>
+              <div class="trip-title">رحلة الأقصر وأسوان وأديرة الصعيد</div>
+              <div class="trip-details">
+                <div class="trip-detail-item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line></svg>
+                  <span><strong>الموعد:</strong> 3 — 4 أيام في إجازة نصف العام (23 يناير - 4 فبراير 2027)</span>
+                </div>
+                <div class="trip-detail-item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  <span><strong>الأقصر:</strong> معابد الكرنك، الأقصر، وجولة تراثية.</span>
+                </div>
+                <div class="trip-detail-item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  <span><strong>أسوان:</strong> متحف النوبة، معبد فيلة، وجزيرة إلفنتين.</span>
+                </div>
+                <div class="trip-detail-item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M7 8h10M5 12h14"></path></svg>
+                  <span><strong>مزار روحي:</strong> زيارة دير الأنبا سمعان بأسوان وأديرة الصعيد.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Event 2: Winter Conf / Day Trips -->
+            <div class="trip-card">
+              <div class="trip-badge" style="background:rgba(56,189,248,0.2);color:var(--accent-blue);">المؤتمر والخلوة الروحية</div>
+              <div class="trip-title">مؤتمر الشتاء & رحلة الأديرة</div>
+              <div class="trip-details">
+                <div class="trip-detail-item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                  <span><strong>مؤتمر 3 أيام:</strong> مقترح (15 — 16 يناير 2027) بشرط مراجعة امتحانات الشباب والمكان.</span>
+                </div>
+                <div class="trip-detail-item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                  <span><strong>رحلة أديرة اليوم الواحد:</strong> خلال ديسمبر 2026 لتجديد الشحن الروحي وصوم الميلاد.</span>
+                </div>
+                <div class="trip-detail-item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                  <span><strong>الهدف:</strong> توفير مؤتمر خفيف وقريب من الكنيسة دون إرهاق مادي أو دراسي.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Event 3: Fayoum & Sports Day -->
+            <div class="trip-card">
+              <div class="trip-badge" style="background:rgba(16,185,129,0.2);color:var(--accent-emerald);">الترفيه وبناء الفريق</div>
+              <div class="trip-title">يوم الفيوم الترفيهي & اليوم الرياضي</div>
+              <div class="trip-details">
+                <div class="trip-detail-item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                  <span><strong>موعد الفيوم:</strong> فبراير أو أبريل 2027.</span>
+                </div>
+                <div class="trip-detail-item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+                  <span><strong>تحديات الفرق:</strong> تقسيم الشباب إلى مجموعات، وكل فريق مسؤول عن تقرير أو مسابقة ومغامرة.</span>
+                </div>
+                <div class="trip-detail-item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>
+                  <span><strong>اليوم الرياضي والروحي:</strong> دوري كروي ومسابقات حركية + قداس إلهي وخلوة تأمل.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SLIDE 9: ACADEMIC CALENDAR ALIGNMENT MATRIX -->
+        <section class="slide" data-slide="9" data-notes="شريحة التوافق مع التقويم الجامعي: إبراز حكمة التخطيط. كيف تم بناء كل نشاط بالرجوع لتواريخ امتحانات الكليات والميدتيرم، لتشجيع الشباب والاطمئنان على نجاحهم الدراسي.">
+          <div class="slide-tagline">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+            التخطيط الذكي والرعائي
+          </div>
+          <h2 class="slide-title">مصفوفة التوافق مع <span class="highlight">التقويم الجامعي والدراسي</span></h2>
+          <p class="slide-desc">مراعاة كاملة لمواسم الامتحانات والمذاكرة لضمان تفوق الشباب أكاديمياً وروحياً دون تعارض:</p>
+
+          <table class="academic-table">
+            <thead>
+              <tr>
+                <th style="width:22%;">الفترة الزمنية</th>
+                <th style="width:38%;">وضع الطلاب الجامعي والأكاديمي</th>
+                <th style="width:40%;">انعكاسها على برنامج الاجتماع والأنشطة</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>1 — 21 نوفمبر 2026</strong></td>
+                <td>ميدتيرم الفصل الأول خلال أول 3 أسابيع (حسب كل كلية)</td>
+                <td><span class="academic-impact impact-light">تخفيف التحضير والأنشطة الكبيرة في أول الشهر</span></td>
+              </tr>
+              <tr>
+                <td><strong>1 — 31 ديسمبر 2026</strong></td>
+                <td>دراسة مستمرة، ونهاية الترم الأول في 31 ديسمبر</td>
+                <td><span class="academic-impact impact-light">المؤتمر الشتوي يكون خفيفاً وقريباً من الكنيسة</span></td>
+              </tr>
+              <tr>
+                <td><strong>2 — 21 يناير 2027</strong></td>
+                <td>امتحانات الفصل الدراسي الأول (فاينال شتوي)</td>
+                <td><span class="academic-impact impact-alert">تجنب أي رحلة طويلة خلال فترة الامتحانات</span></td>
+              </tr>
+              <tr style="background:rgba(245, 158, 11, 0.08);">
+                <td><strong>23 يناير — 4 فبراير 2027</strong></td>
+                <td>إجازة نصف العام الدراسي للجامعات والمدارس</td>
+                <td><span class="academic-impact impact-golden">النافذة الذهبية المعتمدة لرحلة الأقصر وأسوان</span></td>
+              </tr>
+              <tr>
+                <td><strong>6 فبراير — منتصف مارس 2027</strong></td>
+                <td>انطلاق دراسة الفصل الثاني واستقرار المحاضرات</td>
+                <td><span class="academic-impact impact-light">الاجتماعات المعتادة والأنشطة الأسبوعية بكامل طاقتها</span></td>
+              </tr>
+              <tr>
+                <td><strong>أواخر مارس — أوائل أبريل 2027</strong></td>
+                <td>ميدتيرم الفصل الثاني (حسب كل كلية)</td>
+                <td><span class="academic-impact impact-alert">تخفيف الأنشطة التي تحتاج مذاكرة ومجهود تحضيري</span></td>
+              </tr>
+              <tr>
+                <td><strong>20 مايو 2027 وما بعدها</strong></td>
+                <td>نهاية الدراسة بالترم الثاني وبدء الامتحانات النهائية</td>
+                <td><span class="academic-impact impact-alert">مراعاة المذاكرة والامتحانات النهائية حتى نهاية يونيو</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- SLIDE 10: KPIS, FOLLOW-UP & CLOSING PRAYER -->
+        <section class="slide" data-slide="10" data-notes="شريحة الختام والتقييم: استعراض مؤشرات الأداء المستهدفة، آلية التقييم الشهري، وصلاة الختام وبركة رعاة الكنيسة.">
+          <div class="slide-tagline">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            مؤشرات النجاح والخاتمة
+          </div>
+          <h2 class="slide-title">مؤشرات الأداء <span class="highlight">وبركة ختام الخدمة</span></h2>
+          <p class="slide-desc">مؤشرات كمية ونوعية لقياس الأثر وتطوير الخدمة باستمرار بروح الصلاة والشكر:</p>
+
+          <div class="grid-4" style="margin-bottom:2rem;">
+            <div class="stat-card" style="padding:1.5rem;">
+              <div class="stat-number">85%+</div>
+              <div class="stat-label">نسبة انتظام حضور المخدومين</div>
+            </div>
+            <div class="stat-card" style="padding:1.5rem;">
+              <div class="stat-number">100%</div>
+              <div class="stat-label">تغطية افتقادية شهرية لكل شاب</div>
+            </div>
+            <div class="stat-card" style="padding:1.5rem;">
+              <div class="stat-number">50+</div>
+              <div class="stat-label">شاب وشابة فاعلون في اللجان</div>
+            </div>
+            <div class="stat-card" style="padding:1.5rem;">
+              <div class="stat-number">95%</div>
+              <div class="stat-label">معدل الرضا عن الرحلات والمؤتمرات</div>
+            </div>
+          </div>
+
+          <div class="visual-card" style="text-align:center;padding:2rem;">
+            <div style="font-size:1.3rem;font-weight:800;color:var(--accent-gold);margin-bottom:0.75rem;">
+              «بِرَأْيِكَ تَهْدِينِي، وَبَعْدُ إِلَى مَجْدٍ تَأْخُذُنِي» (مز 73 : 24)
+            </div>
+            <p style="font-size:1.05rem;color:var(--text-main);max-width:850px;margin:0 auto;line-height:1.7;">
+              نضع هذه الخطة المباركة بين يدي الفادي القدوس، طالبين شفاعة أمنا العذراء مريم وصلوات قداسة البابا المعظم الأنبا تواضروس الثاني ونيافة الأسقف الجليل، وبركة آباء الكنيسة الأحباء، لكي تكون هذه السنة سنة خلاص ونمو وثمر مبارك لجميع شبابنا.
+            </p>
+            <div style="margin-top:1.5rem;display:flex;justify-content:center;gap:1rem;">
+              <button class="btn btn-gold" onclick="switchView('dashboard')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                استعراض التقرير الشامل التفاعلي
+              </button>
+              <button class="btn" onclick="goToSlide(1)">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+                بدء العرض من جديد
+              </button>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- Presentation Bottom Bar -->
+      <footer class="bottom-bar">
+        <div class="slide-counter">
+          <span>شريحة</span>
+          <span class="current" id="currentSlideNum">1</span>
+          <span>من</span>
+          <span id="totalSlidesNum">10</span>
+        </div>
+
+        <!-- Slider Quick Jump Pills -->
+        <div style="display:flex;gap:0.4rem;align-items:center;" id="slideDotsContainer"></div>
+
+        <div class="nav-buttons">
+          <button class="btn" id="prevSlideBtn" title="الشريحة السابقة (السهم الأيمن)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+            السابق
+          </button>
+          <button class="btn btn-gold" id="nextSlideBtn" title="الشريحة التالية (السهم الأيسر أو مسافة)">
+            التالي
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+        </div>
+      </footer>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- DASHBOARD / FULL DOCUMENT VIEW MODE        -->
+    <!-- ========================================== -->
+    <div class="dashboard-mode" id="dashboardContainer">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem;flex-wrap:wrap;gap:1rem;">
+        <div>
+          <h1 style="font-size:2.2rem;font-weight:900;color:var(--text-main);">
+            التقرير التنفيذي الشامل <span class="highlight">لخطة السنة 2026 — 2027</span>
+          </h1>
+          <p style="color:var(--text-muted);font-size:1.05rem;">
+            استعراض كامل لكافة الأنشطة الأسبوعية، اللجان، التواريخ، والرحلات مع فلاتر ذكية وإمكانية الطباعة المباشرة.
+          </p>
+        </div>
+        <div style="display:flex;gap:0.75rem;">
+          <button class="btn btn-gold" onclick="switchView('presentation')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            العودة لنمط البرزنتيشن
+          </button>
+          <button class="btn" onclick="window.print()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+            طباعة الخطة
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Stats Cards in Dashboard -->
+      <div class="hero-stats" style="margin-bottom:2.5rem;">
+        <div class="stat-card">
+          <div class="stat-number">26</div>
+          <div class="stat-label">أسبوعاً ولقاءً روحياً</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">9</div>
+          <div class="stat-label">لجان خدمية متكاملة</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">27</div>
+          <div class="stat-label">خادماً وخادمة بأدوار قيادية</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">6</div>
+          <div class="stat-label">شهور من نوفمبر حتى أبريل</div>
+        </div>
+      </div>
+
+      <!-- Section: Sub-committees Directory -->
+      <div style="margin-bottom:3rem;">
+        <h2 style="font-size:1.5rem;font-weight:800;color:var(--accent-gold);margin-bottom:1.2rem;display:flex;align-items:center;gap:0.6rem;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          دليل لجان الخدمة والمسؤولين (الأمين والمساعد والبديل)
+        </h2>
+        <div class="grid-3" id="dashboardCommitteesGrid">
+          <!-- Populated from same data -->
+        </div>
+      </div>
+
+      <!-- Section: Interactive Weekly Schedule with Filters -->
+      <div style="margin-bottom:3rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.2rem;flex-wrap:wrap;gap:1rem;">
+          <h2 style="font-size:1.5rem;font-weight:800;color:var(--accent-gold);display:flex;align-items:center;gap:0.6rem;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            جدول اللقاءات المعتمدة الرسمية (25 لقاء محدد)
+          </h2>
+          <input type="text" id="scheduleSearch" class="search-input" placeholder="🔍 ابحث عن موضوع، أسرة، أو مناسبة...">
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="filter-bar">
+          <span style="font-size:0.85rem;font-weight:800;color:var(--text-muted);margin-left:0.5rem;">تصفية حسب الأسرة:</span>
+          <button class="filter-btn active" data-filter="all">الكل (26)</button>
+          <button class="filter-btn" data-filter="الأسرة أ">الأسرة أ (7)</button>
+          <button class="filter-btn" data-filter="الأسرة ب">الأسرة ب (7)</button>
+          <button class="filter-btn" data-filter="الأسرة ج">الأسرة ج (6)</button>
+          <button class="filter-btn" data-filter="أمناء الاجتماع">أمناء الاجتماع (6)</button>
+
+          <span style="font-size:0.85rem;font-weight:800;color:var(--text-muted);margin-right:1rem;margin-left:0.5rem;">تصفية حسب الشهر:</span>
+          <button class="filter-btn" data-filter-month="نوفمبر">نوفمبر</button>
+          <button class="filter-btn" data-filter-month="ديسمبر">ديسمبر</button>
+          <button class="filter-btn" data-filter-month="يناير">يناير</button>
+          <button class="filter-btn" data-filter-month="فبراير">فبراير</button>
+          <button class="filter-btn" data-filter-month="مارس">مارس</button>
+          <button class="filter-btn" data-filter-month="أبريل">أبريل</button>
+        </div>
+
+        <!-- Dashboard Meeting Grid -->
+        <div class="grid-3" id="dashboardMeetingsGrid">
+          <!-- Dynamically generated with full metadata -->
+        </div>
+      </div>
+
+      <!-- Section: Major Trips & Academic Alignment -->
+      <div style="margin-bottom:3rem;">
+        <h2 style="font-size:1.5rem;font-weight:800;color:var(--accent-gold);margin-bottom:1.2rem;display:flex;align-items:center;gap:0.6rem;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"></polygon></svg>
+          الأنشطة والرحلات ومطابقة مواعيد الامتحانات
+        </h2>
+        <div class="grid-2" style="margin-bottom:2rem;">
+          <div class="trip-card">
+            <div class="trip-badge">رحلة إجازة نصف العام</div>
+            <div class="trip-title">رحلة الأقصر وأسوان الكبرى (3 - 4 أيام)</div>
+            <div class="trip-details">
+              <p><strong>الموعد المقترح:</strong> خلال إجازة نصف العام (23 يناير — 4 فبراير 2027).</p>
+              <p><strong>المعالم السياحية:</strong> معابد الكرنك والأقصر، معبد فيلة، متحف النوبة، جزيرة إلفنتين.</p>
+              <p><strong>الجانب الروحي:</strong> زيارة دير الأنبا سمعان بأسوان وأديرة الصعيد العامرة.</p>
+            </div>
+          </div>
+          <div class="trip-card">
+            <div class="trip-badge" style="background:rgba(56,189,248,0.2);color:var(--accent-blue);">الأنشطة الترفيهية والمؤتمرات</div>
+            <div class="trip-title">يوم الفيوم، المؤتمر الشتوي، واليوم الرياضي</div>
+            <div class="trip-details">
+              <p><strong>يوم الفيوم الترفيهي:</strong> فبراير أو أبريل 2027، تقسيم المخدومين إلى فرق ومسابقات.</p>
+              <p><strong>مؤتمر الشتاء / الأديرة:</strong> رحلة أديرة يوم واحد في ديسمبر 2026 أو مؤتمر خفيف يناير 2027.</p>
+              <p><strong>الأيام المفتوحة:</strong> يوم رياضي، ويوم روحي وتسبيح متكامل.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Table of Contents Modal -->
+  <div class="modal-overlay" id="tocModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+          فهرس شرائح العرض التقديمي
+        </div>
+        <button class="btn btn-icon-only" id="closeTocBtn">✕</button>
+      </div>
+      <div class="toc-grid" id="tocListContainer">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Presenter Notes Drawer -->
+  <div class="presenter-notes-drawer" id="presenterNotesDrawer">
+    <div class="notes-header">
+      <div style="display:flex;align-items:center;gap:0.4rem;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+        ملاحظات المحاضر (شريحة <span id="notesSlideIndex">1</span>)
+      </div>
+      <button style="background:none;border:none;color:inherit;cursor:pointer;" id="closeNotesBtn">✕</button>
+    </div>
+    <div class="notes-content" id="notesContentText">
+      <!-- Injected from active slide notes -->
+    </div>
+  </div>
+
+  <!-- Floating Keyboard Hint -->
+  <div class="keyboard-hint">
+    <span>تنقل:</span>
+    <span class="kbd">←</span>
+    <span class="kbd">→</span>
+    <span>|</span>
+    <span>ملء الشاشة:</span>
+    <span class="kbd">F</span>
+    <span>|</span>
+    <span>الفهرس:</span>
+    <span class="kbd">M</span>
+    <span>|</span>
+    <span>الملاحظات:</span>
+    <span class="kbd">N</span>
+  </div>
+
+  <!-- Sound Audio Synthesizer (Optional Click Feedback) -->
+  <script>
+    // Audio synthesizer for subtle tactile click
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    function playClick() {
+      try {
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(800, audioCtx.currentTime + 0.04);
+        gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.04);
+      } catch (e) {
+        // audio muted or not permitted
+      }
+    }
+
+    // Presentation Logic
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    let currentSlide = 1;
+    let currentView = 'presentation'; // 'presentation' or 'dashboard'
+
+    // Update Display
+    function updateSlideDisplay() {
+      slides.forEach((slide, idx) => {
+        const slideNum = idx + 1;
+        slide.classList.remove('active', 'prev-slide');
+        if (slideNum === currentSlide) {
+          slide.classList.add('active');
+        } else if (slideNum < currentSlide) {
+          slide.classList.add('prev-slide');
+        }
+      });
+
+      // Update counters
+      document.getElementById('currentSlideNum').textContent = currentSlide;
+      document.getElementById('totalSlidesNum').textContent = totalSlides;
+
+      // Update progress bar
+      const progressPercent = (currentSlide / totalSlides) * 100;
+      document.getElementById('progressBar').style.width = `${progressPercent}%`;
+
+      // Update dots
+      document.querySelectorAll('.slide-dot').forEach((dot, idx) => {
+        if (idx + 1 === currentSlide) {
+          dot.style.background = 'var(--accent-gold)';
+          dot.style.transform = 'scale(1.35)';
+        } else {
+          dot.style.background = 'rgba(255,255,255,0.2)';
+          dot.style.transform = 'scale(1)';
+        }
+      });
+
+      // Update Presenter Notes
+      const activeSlideElem = document.querySelector(`.slide[data-slide="${currentSlide}"]`);
+      if (activeSlideElem) {
+        const notes = activeSlideElem.getAttribute('data-notes') || 'لا توجد ملاحظات لهذه الشريحة.';
+        document.getElementById('notesContentText').textContent = notes;
+        document.getElementById('notesSlideIndex').textContent = currentSlide;
+      }
+    }
+
+    function goToSlide(n) {
+      if (n >= 1 && n <= totalSlides) {
+        currentSlide = n;
+        updateSlideDisplay();
+        playClick();
+      }
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides) {
+        goToSlide(currentSlide + 1);
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 1) {
+        goToSlide(currentSlide - 1);
+      }
+    }
+
+    // View Switching
+    function switchView(mode) {
+      currentView = mode;
+      const pres = document.getElementById('presentationContainer');
+      const dash = document.getElementById('dashboardContainer');
+      const modeBtnText = document.getElementById('modeBtnText');
+      const prog = document.querySelector('.progress-container');
+
+      if (mode === 'dashboard') {
+        pres.style.display = 'none';
+        dash.style.display = 'block';
+        prog.style.display = 'none';
+        modeBtnText.textContent = 'عرض البرزنتيشن';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        pres.style.display = 'block';
+        dash.style.display = 'none';
+        prog.style.display = 'block';
+        modeBtnText.textContent = 'عرض التقرير الكامل';
+        updateSlideDisplay();
+      }
+    }
+
+    // Event Listeners
+    document.getElementById('nextSlideBtn').addEventListener('click', nextSlide);
+    document.getElementById('prevSlideBtn').addEventListener('click', prevSlide);
+
+    document.getElementById('modeSwitchBtn').addEventListener('click', () => {
+      switchView(currentView === 'presentation' ? 'dashboard' : 'presentation');
+    });
+
+    // Theme toggle
+    document.getElementById('themeToggleBtn').addEventListener('click', () => {
+      document.body.classList.toggle('light-theme');
+    });
+
+    // Fullscreen toggle
+    document.getElementById('fullscreenBtn').addEventListener('click', () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen().catch(() => {});
+      }
+    });
+
+    // Print button
+    document.getElementById('printBtn').addEventListener('click', () => {
+      if (currentView !== 'dashboard') {
+        switchView('dashboard');
+        setTimeout(() => window.print(), 300);
+      } else {
+        window.print();
+      }
+    });
+
+    // Notes Drawer
+    const notesDrawer = document.getElementById('presenterNotesDrawer');
+    document.getElementById('toggleNotesBtn').addEventListener('click', () => {
+      notesDrawer.classList.toggle('open');
+    });
+    document.getElementById('closeNotesBtn').addEventListener('click', () => {
+      notesDrawer.classList.remove('open');
+    });
+
+    // TOC Modal
+    const tocModal = document.getElementById('tocModal');
+    document.getElementById('openTocBtn').addEventListener('click', () => {
+      tocModal.classList.add('open');
+    });
+    document.getElementById('closeTocBtn').addEventListener('click', () => {
+      tocModal.classList.remove('open');
+    });
+    tocModal.addEventListener('click', (e) => {
+      if (e.target === tocModal) tocModal.classList.remove('open');
+    });
+
+    // Keyboard Shortcuts
+    window.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+      if (currentView === 'presentation') {
+        if (e.key === 'ArrowLeft' || e.key === ' ' || e.key === 'PageDown') {
+          e.preventDefault();
+          nextSlide();
+        } else if (e.key === 'ArrowRight' || e.key === 'Backspace' || e.key === 'PageUp') {
+          e.preventDefault();
+          prevSlide();
+        }
+      }
+
+      if (e.key === 'f' || e.key === 'F') {
+        document.getElementById('fullscreenBtn').click();
+      } else if (e.key === 'm' || e.key === 'M') {
+        tocModal.classList.toggle('open');
+      } else if (e.key === 'n' || e.key === 'N') {
+        notesDrawer.classList.toggle('open');
+      } else if (e.key === 'd' || e.key === 'D') {
+        switchView(currentView === 'presentation' ? 'dashboard' : 'presentation');
+      } else if (e.key === 'Escape') {
+        tocModal.classList.remove('open');
+        notesDrawer.classList.remove('open');
+      }
+    });
+
+    // Presenter Timer
+    let timerSeconds = 0;
+    let timerRunning = false;
+    let timerInterval = null;
+    const timerDisplay = document.getElementById('timerDisplay');
+    const toggleTimerBtn = document.getElementById('toggleTimerBtn');
+
+    toggleTimerBtn.addEventListener('click', () => {
+      if (!timerRunning) {
+        timerRunning = true;
+        toggleTimerBtn.textContent = '⏸';
+        timerInterval = setInterval(() => {
+          timerSeconds++;
+          const mins = Math.floor(timerSeconds / 60).toString().padStart(2, '0');
+          const secs = (timerSeconds % 60).toString().padStart(2, '0');
+          timerDisplay.textContent = `${mins}:${secs}`;
+        }, 1000);
+      } else {
+        timerRunning = false;
+        toggleTimerBtn.textContent = '▶';
+        clearInterval(timerInterval);
+      }
+    });
+
+    timerDisplay.addEventListener('dblclick', () => {
+      timerSeconds = 0;
+      timerDisplay.textContent = '00:00';
+    });
+
+    // Populate Slide Jump Dots
+    const dotsContainer = document.getElementById('slideDotsContainer');
+    for (let i = 1; i <= totalSlides; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'slide-dot';
+      dot.style.cssText = 'width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.2);cursor:pointer;transition:var(--transition);';
+      dot.title = `الشريحة ${i}`;
+      dot.addEventListener('click', () => goToSlide(i));
+      dotsContainer.appendChild(dot);
+    }
+
+    // Slide Titles for Table of Contents
+    const slideTitles = [
+      "غلاف العرض والشعار السنوي",
+      "الرؤية والأهداف الاستراتيجية",
+      "الهيكل التنفيذي وأمناء اللجان",
+      "نظام المداورة وهيكل اللقاء الأسبوعي",
+      "الربع الأول (نوفمبر — ديسمبر 2026)",
+      "الربع الثاني (يناير — فبراير 2027)",
+      "الربع الثالث (مارس — أبريل 2027)",
+      "الأنشطة والرحلات الكبرى (الأقصر وأسوان)",
+      "مصفوفة التوافق مع التقويم الجامعي",
+      "مؤشرات الأداء والخاتمة المباركة"
+    ];
+
+    const tocListContainer = document.getElementById('tocListContainer');
+    slideTitles.forEach((title, idx) => {
+      const slideNum = idx + 1;
+      const item = document.createElement('div');
+      item.className = 'toc-item';
+      item.innerHTML = `
+        <div class="toc-number">${slideNum}</div>
+        <div class="toc-text">${title}</div>
+      `;
+      item.addEventListener('click', () => {
+        goToSlide(slideNum);
+        tocModal.classList.remove('open');
+        if (currentView !== 'presentation') switchView('presentation');
+      });
+      tocListContainer.appendChild(item);
+    });
+
+    // Clone Committee Cards into Dashboard view
+    const sourceCommittees = document.querySelectorAll('.slide[data-slide="3"] .committee-card');
+    const dashboardCommitteesGrid = document.getElementById('dashboardCommitteesGrid');
+    sourceCommittees.forEach(card => {
+      dashboardCommitteesGrid.appendChild(card.cloneNode(true));
+    });
+
+    // All 26 Meetings Dataset for Dashboard & Filtering
+    const allMeetings = [
+  {
+    "date": "3 نوفمبر 2026",
+    "family": "خدام",
+    "title": "خدام (لقاء خدام الاجتماع)",
+    "note": "انطلاق الخطة واجتماع الخدام",
+    "month": "نوفمبر"
+  },
+  {
+    "date": "10 نوفمبر 2026",
+    "family": "أسرة 1",
+    "title": "أسرة 1 (لقاء أسرة 1)",
+    "note": "إدارة أسرة 1",
+    "month": "نوفمبر"
+  },
+  {
+    "date": "17 نوفمبر 2026",
+    "family": "أسرة 2",
+    "title": "أسرة 2 (لقاء أسرة 2)",
+    "note": "إدارة أسرة 2",
+    "month": "نوفمبر"
+  },
+  {
+    "date": "24 نوفمبر 2026",
+    "family": "أسرة 3",
+    "title": "أسرة 3 (رفاع صوم الميلاد)",
+    "note": "إدارة أسرة 3 — رفاع الصوم",
+    "month": "نوفمبر"
+  },
+  {
+    "date": "1 ديسمبر 2026",
+    "family": "أسرة",
+    "title": "لقاء أسرة",
+    "note": "صوم الميلاد المجيد",
+    "month": "ديسمبر"
+  },
+  {
+    "date": "8 ديسمبر 2026",
+    "family": "أسرة",
+    "title": "لقاء أسرة",
+    "note": "صوم الميلاد المجيد",
+    "month": "ديسمبر"
+  },
+  {
+    "date": "15 ديسمبر 2026",
+    "family": "أسرة",
+    "title": "لقاء أسرة",
+    "note": "صوم الميلاد والتسبحة",
+    "month": "ديسمبر"
+  },
+  {
+    "date": "22 ديسمبر 2026",
+    "family": "أمناء الاجتماع",
+    "title": "سهرة لحد 12 (سهرة كيهكية)",
+    "note": "سهرة تسبحة كيهكية حتى منتصف الليل",
+    "month": "ديسمبر"
+  },
+  {
+    "date": "الجمعة 25 ديسمبر 2026",
+    "family": "أمناء الاجتماع",
+    "title": "الجمعة سهرة 25/12 خاصة",
+    "note": "سهرة كيهكية روحية خاصة",
+    "month": "ديسمبر"
+  },
+  {
+    "date": "29 ديسمبر 2026",
+    "family": "أمناء الاجتماع",
+    "title": "حفلة الكريسماس",
+    "note": "احتفال الكريسماس ورأس السنة",
+    "month": "ديسمبر"
+  },
+  {
+    "date": "12 يناير 2027",
+    "family": "خدام",
+    "title": "خدام (لقاء خدام الاجتماع)",
+    "note": "لقاء روحي وإداري للخدام",
+    "month": "يناير"
+  },
+  {
+    "date": "19 يناير 2027",
+    "family": "خدام",
+    "title": "خدام (لقاء خدام الاجتماع)",
+    "note": "تزامن مع عيد الغطاس المجيد",
+    "month": "يناير"
+  },
+  {
+    "date": "26 يناير 2027",
+    "family": "أمناء الاجتماع",
+    "title": "Outing (تنظيم أمناء الاجتماع)",
+    "note": "يوم ترفيهي وأوتينج في إجازة نصف العام",
+    "month": "يناير"
+  },
+  {
+    "date": "2 فبراير 2027",
+    "family": "أسرة",
+    "title": "لقاء أسرة",
+    "note": "ختام إجازة نصف العام",
+    "month": "فبراير"
+  },
+  {
+    "date": "9 فبراير 2027",
+    "family": "أسرة",
+    "title": "لقاء أسرة",
+    "note": "بدء الفصل الدراسي الثاني",
+    "month": "فبراير"
+  },
+  {
+    "date": "16 فبراير 2027",
+    "family": "أسرة",
+    "title": "لقاء أسرة",
+    "note": "لقاء أسري تفاعلي",
+    "month": "فبراير"
+  },
+  {
+    "date": "23 فبراير 2027",
+    "family": "كورس",
+    "title": "كورس (المحاضرة 1)",
+    "note": "بداية الكورس الدراسي المتخصص",
+    "month": "فبراير"
+  },
+  {
+    "date": "2 مارس 2027",
+    "family": "كورس",
+    "title": "كورس (المحاضرة 2)",
+    "note": "المحاضرة الثانية من الكورس",
+    "month": "مارس"
+  },
+  {
+    "date": "9 مارس 2027",
+    "family": "كورس",
+    "title": "كورس (المحاضرة 3)",
+    "note": "المحاضرة الثالثة من الكورس",
+    "month": "مارس"
+  },
+  {
+    "date": "16 مارس 2027",
+    "family": "كورس",
+    "title": "كورس (المحاضرة 4)",
+    "note": "المحاضرة الرابعة وختام الكورس",
+    "month": "مارس"
+  },
+  {
+    "date": "23 مارس 2027",
+    "family": "أسرة",
+    "title": "لقاء أسرة",
+    "note": "خلال الصوم الكبير",
+    "month": "مارس"
+  },
+  {
+    "date": "30 مارس 2027",
+    "family": "أسرة",
+    "title": "لقاء أسرة",
+    "note": "خلال الصوم الكبير",
+    "month": "مارس"
+  },
+  {
+    "date": "6 أبريل 2027",
+    "family": "أسرة",
+    "title": "لقاء أسرة",
+    "note": "خلال الصوم الكبير وقرب عيد البشارة",
+    "month": "أبريل"
+  },
+  {
+    "date": "13 أبريل 2027",
+    "family": "بانوراما",
+    "title": "بانوراما (أسبوع الآلام - 1)",
+    "note": "عرض وتأملات بانوراما أسبوع الآلام",
+    "month": "أبريل"
+  },
+  {
+    "date": "20 أبريل 2027",
+    "family": "بانوراما",
+    "title": "بانوراما (أسبوع الآلام - 2)",
+    "note": "عرض وتأملات بانوراما ختام الصوم والبصخة",
+    "month": "أبريل"
+  }
+];
+
+    function getFamilyClass(family) {
+      if (family.includes('أ')) return 'family-a';
+      if (family.includes('ب')) return 'family-b';
+      if (family.includes('ج')) return 'family-c';
+      return 'family-leaders';
+    }
+
+    function renderDashboardMeetings(list) {
+      const grid = document.getElementById('dashboardMeetingsGrid');
+      grid.innerHTML = '';
+      if (list.length === 0) {
+        grid.innerHTML = '<div style="grid-column: 1/-1;text-align:center;padding:3rem;color:var(--text-muted);">لا توجد لقاءات تطابق معايير البحث والتصفية.</div>';
+        return;
+      }
+      list.forEach(m => {
+        const card = document.createElement('div');
+        card.className = 'meeting-card';
+        card.innerHTML = `
+          <div class="meeting-top">
+            <div class="meeting-date">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle></svg>
+              ${m.date}
+            </div>
+            <span class="family-pill ${getFamilyClass(m.family)}">${m.family}</span>
+          </div>
+          <div class="meeting-title">${m.title}</div>
+          <div class="meeting-note">${m.note}</div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    renderDashboardMeetings(allMeetings);
+
+    // Dashboard Filtering
+    let activeFamilyFilter = 'all';
+    let activeMonthFilter = null;
+    let searchQuery = '';
+
+    function applyFilters() {
+      let filtered = allMeetings.filter(m => {
+        const matchFamily = (activeFamilyFilter === 'all') || (m.family.includes(activeFamilyFilter));
+        const matchMonth = (!activeMonthFilter) || (m.month === activeMonthFilter);
+        const matchSearch = (!searchQuery) || (
+          m.title.toLowerCase().includes(searchQuery) || 
+          m.date.toLowerCase().includes(searchQuery) || 
+          m.note.toLowerCase().includes(searchQuery) ||
+          m.family.toLowerCase().includes(searchQuery)
+        );
+        return matchFamily && matchMonth && matchSearch;
+      });
+      renderDashboardMeetings(filtered);
+    }
+
+    // Filter Buttons Handlers
+    document.querySelectorAll('.filter-bar button[data-filter]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-bar button[data-filter]').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeFamilyFilter = btn.getAttribute('data-filter');
+        applyFilters();
+      });
+    });
+
+    document.querySelectorAll('.filter-bar button[data-filter-month]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (btn.classList.contains('active')) {
+          btn.classList.remove('active');
+          activeMonthFilter = null;
+        } else {
+          document.querySelectorAll('.filter-bar button[data-filter-month]').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          activeMonthFilter = btn.getAttribute('data-filter-month');
+        }
+        applyFilters();
+      });
+    });
+
+    document.getElementById('scheduleSearch').addEventListener('input', (e) => {
+      searchQuery = e.target.value.trim().toLowerCase();
+      applyFilters();
+    });
+
+    // Initialize display on load
+    updateSlideDisplay();
+  </script>
+</body>
+</html>

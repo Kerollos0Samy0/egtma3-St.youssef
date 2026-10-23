@@ -3,7 +3,11 @@
   "rewrites": [
     {
       "source": "/attendance",
-      "destination": "/attendance/index.html"
+      "destination": "/index.html"
+    },
+    {
+      "source": "/plan",
+      "destination": "/presentation.html"
     }
   ]
 }
