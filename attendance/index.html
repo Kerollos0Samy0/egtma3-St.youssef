@@ -1223,18 +1223,6 @@
       </div>
     </div>
 
-    <!-- Active Meeting & Live Attendance (Combined in one clean pill) -->
-    <div class="header-center">
-      <div style="display:flex;align-items:center;gap:0.35rem;">
-        <select id="activeSessionSelect" class="session-select-clean" title="اختر اللقاء"></select>
-        <button class="btn btn-icon-only btn-sm" id="newSessionBtn" title="إضافة لقاء جديد" style="width:28px;height:28px;font-size:1rem;padding:0;border-radius:var(--radius-full);">+</button>
-      </div>
-
-      <div class="attendee-stat-pill" title="حضور لقاء اليوم">
-        <span>الحاضرون: <strong id="sessionAttendeeCount" style="color:var(--accent-gold);font-size:1.05rem;">0</strong> (<span id="sessionAttendanceRate" style="color:var(--accent-emerald);">0%</span>)</span>
-      </div>
-    </div>
-
     <!-- Actions (Role Badge, Admin Settings, Logout, Sync Status, Theme) -->
     <div class="header-actions">
       <!-- Active Role Badge -->
@@ -1296,6 +1284,23 @@
     <!-- TAB 1: SCANNER & QUICK ATTENDANCE             -->
     <!-- ============================================== -->
     <div class="tab-pane active" id="tabScanner">
+      <!-- Active Meeting Selector for Attendance (Specific to Secretariat & Door Check-in) -->
+      <div class="attendance-meeting-bar" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:0.75rem 1.25rem;margin-bottom:1.15rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.85rem;box-shadow:var(--shadow-sm);">
+        <div style="display:flex;align-items:center;gap:0.65rem;flex-wrap:wrap;">
+          <span style="font-weight:800;color:var(--accent-gold);font-size:0.9rem;display:flex;align-items:center;gap:0.35rem;">
+            <span>📅</span> لقاء تسجيل الحضور:
+          </span>
+          <div style="display:flex;align-items:center;gap:0.35rem;">
+            <select id="activeSessionSelect" class="session-select-clean" title="اختر اللقاء لتسجيل الحضور" style="font-size:0.9rem;padding:0.35rem 0.85rem;background:rgba(15,23,42,0.6);border:1px solid var(--border);border-radius:var(--radius-full);color:var(--text-main);font-weight:700;"></select>
+            <button class="btn btn-icon-only btn-sm" id="newSessionBtn" title="إضافة لقاء جديد" style="width:28px;height:28px;font-size:1rem;padding:0;border-radius:var(--radius-full);display:none;">+</button>
+          </div>
+        </div>
+
+        <div class="attendee-stat-pill" title="حضور لقاء اليوم" style="background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.3);padding:0.3rem 0.85rem;border-radius:var(--radius-full);font-size:0.85rem;border-right:none;">
+          <span>الحاضرون: <strong id="sessionAttendeeCount" style="color:var(--accent-gold);font-size:1.05rem;">0</strong> (<span id="sessionAttendanceRate" style="color:var(--accent-emerald);font-weight:800;">0%</span>)</span>
+        </div>
+      </div>
+
       <!-- Quick Search Bar for manual check-in -->
       <div class="quick-search-box">
         <input type="text" id="manualSearchInput" class="search-input" placeholder="🔍 ابحث بالاسم أو رقم التليفون أو الكود لتسجيل الحضور السريع...">
