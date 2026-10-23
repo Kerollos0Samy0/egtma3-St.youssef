@@ -14,6 +14,10 @@
   <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
+  <!-- Firebase Cloud Firestore SDKs (Real-Time Cloud Synchronization) -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
   <style>
     :root {
       --bg-primary: #0a0f1d;
@@ -4802,6 +4806,152 @@
       } catch (e) {}
     }
 
+    // ==============================================
+    // FIREBASE FIRESTORE REAL-TIME CLOUD DATABASE
+    // ==============================================
+    const firebaseConfig = {
+      apiKey: "AIzaSyCNAQmm5DBroA5rLMda-E85UFo3-7srg8s",
+      authDomain: "st-youssef.firebaseapp.com",
+      projectId: "st-youssef",
+      storageBucket: "st-youssef.firebasestorage.app",
+      messagingSenderId: "229943481848",
+      appId: "1:229943481848:web:d2f24b1b596481197b720d",
+      measurementId: "G-CN8E6CZM2E"
+    };
+
+    let db = null;
+    let isFirebaseReady = false;
+
+    function updateSyncStatusBadge(online, text) {
+      const badge = document.getElementById('syncStatusBadge');
+      if (!badge) return;
+      if (online) {
+        badge.textContent = text || '● متصل سحابياً مع Firebase (لحظي ⚡)';
+        badge.style.background = 'rgba(16, 185, 129, 0.2)';
+        badge.style.color = '#10b981';
+        badge.style.borderColor = 'rgba(16, 185, 129, 0.4)';
+      } else {
+        badge.textContent = text || '● يعمل محلياً (Offline Ready)';
+        badge.style.background = 'rgba(245, 158, 11, 0.2)';
+        badge.style.color = '#f59e0b';
+        badge.style.borderColor = 'rgba(245, 158, 11, 0.4)';
+      }
+    }
+
+    async function initFirebase() {
+      try {
+        if (typeof firebase !== 'undefined' && firebase.apps.length === 0) {
+          firebase.initializeApp(firebaseConfig);
+          db = firebase.firestore();
+
+          // Multi-tab offline persistence
+          try {
+            await db.enablePersistence({ synchronizeTabs: true });
+          } catch (persErr) {
+            console.warn("Firestore persistence notice:", persErr.code);
+          }
+
+          isFirebaseReady = true;
+          console.log("Firebase initialized successfully for st-youssef");
+          await setupFirebaseSync();
+        }
+      } catch (err) {
+        console.error("Firebase init failed:", err);
+        updateSyncStatusBadge(false, '● يعمل محلياً (Offline Ready)');
+      }
+    }
+
+    async function setupFirebaseSync() {
+      if (!isFirebaseReady || !db) return;
+
+      try {
+        const sessionsCol = db.collection('sessions');
+        
+        // 1. Initial Seeding Check: If cloud is completely empty, seed sessions & members automatically!
+        const snap = await sessionsCol.limit(1).get();
+        if (snap.empty) {
+          console.log("Seeding all 25 sessions and 157 members to Firebase...");
+          updateSyncStatusBadge(true, '● جاري رفع البيانات السحابية لأول مرة...');
+          
+          const batch = db.batch();
+          
+          SEED_DATA.sessions.forEach(sess => {
+            const docRef = sessionsCol.doc(sess.id);
+            batch.set(docRef, {
+              id: sess.id,
+              date: sess.date,
+              title: sess.title,
+              family: sess.family,
+              attendees: sess.attendees || []
+            });
+          });
+
+          const metaRef = db.collection('app_config').doc('members_data');
+          batch.set(metaRef, {
+            members: SEED_DATA.members,
+            total: SEED_DATA.members.length,
+            updatedAt: new Date().toISOString()
+          });
+
+          await batch.commit();
+          console.log("Initial seed successfully written to Firebase Firestore!");
+        }
+
+        // 2. Real-time Listener for Sessions Attendance across ALL devices:
+        sessionsCol.onSnapshot((querySnapshot) => {
+          let hasNewChanges = false;
+          querySnapshot.forEach((doc) => {
+            const remoteSess = doc.data();
+            let localSess = appData.sessions.find(s => s.id === remoteSess.id);
+            if (localSess) {
+              if (JSON.stringify(localSess.attendees) !== JSON.stringify(remoteSess.attendees)) {
+                localSess.attendees = remoteSess.attendees || [];
+                hasNewChanges = true;
+              }
+              if (remoteSess.title && remoteSess.title !== localSess.title) {
+                localSess.title = remoteSess.title;
+                hasNewChanges = true;
+              }
+            } else {
+              appData.sessions.push(remoteSess);
+              hasNewChanges = true;
+            }
+          });
+
+          if (hasNewChanges) {
+            saveLocalData();
+            refreshUI();
+          }
+          updateSyncStatusBadge(true, '● متصل سحابياً مع Firebase (لحظي ⚡)');
+        }, (error) => {
+          console.warn("Firestore snapshot error:", error);
+          updateSyncStatusBadge(false, '● متصل محلياً (Offline Ready)');
+        });
+
+        // 3. Real-time Listener for Members List
+        db.collection('app_config').doc('members_data').onSnapshot((docSnap) => {
+          if (docSnap.exists) {
+            const data = docSnap.data();
+            if (data.members && data.members.length > 0) {
+              if (data.members.length !== appData.members.length) {
+                appData.members = data.members;
+                saveLocalData();
+                refreshUI();
+                renderBadges();
+                renderMembersTable();
+              }
+            }
+          }
+        }, (err) => {
+          console.warn("Members config listener error:", err);
+        });
+
+      } catch (e) {
+        console.error("Firebase sync error:", e);
+        updateSyncStatusBadge(false, '● متصل محلياً (Offline Ready)');
+      }
+    }
+
     // Attempt to sync with Node.js Server if running
     async function syncWithServer() {
       try {
@@ -4811,13 +4961,16 @@
           if (serverData.members && serverData.members.length > 0) {
             appData = serverData;
             saveLocalData();
-            document.getElementById('syncStatusBadge').textContent = '● متزامن مع السيرفر المحلي';
-            document.getElementById('syncStatusBadge').style.color = '#34d399';
+            if (!isFirebaseReady) {
+              updateSyncStatusBadge(true, '● متزامن مع السيرفر المحلي');
+            }
           }
         }
       } catch (e) {
         // Standalone offline mode
-        document.getElementById('syncStatusBadge').textContent = '● يعمل محلياً (Offline Ready)';
+        if (!isFirebaseReady) {
+          updateSyncStatusBadge(false, '● يعمل محلياً (Offline Ready)');
+        }
       }
     }
 
@@ -4940,13 +5093,14 @@
         msgEl.innerHTML = `<span style="color:var(--accent-gold);">تم تسجيل حضور ${member.name} بالفعل في وقت سابق اليوم!</span>`;
       } else {
         playBeepSuccess();
-        session.attendees.push({
+        const newAttendee = {
           memberId: member.id,
           name: member.name,
           family: member.family,
           time: currentTime,
           date: new Date().toISOString().split('T')[0]
-        });
+        };
+        session.attendees.push(newAttendee);
 
         saveLocalData();
 
@@ -4957,6 +5111,22 @@
         nameEl.textContent = member.name;
         timeEl.textContent = `تم تسجيل الحضور الآن: ${currentTime}`;
         msgEl.innerHTML = `<span style="color:var(--accent-emerald);">أهلاً بك يا ${member.name}! نورت اجتماع الشباب اليوم ❤️</span>`;
+
+        // Sync with Firebase Firestore (Real-time Cloud Sync across all servants' devices)
+        if (isFirebaseReady && db) {
+          const sessRef = db.collection('sessions').doc(session.id);
+          sessRef.update({
+            attendees: firebase.firestore.FieldValue.arrayUnion(newAttendee)
+          }).catch(err => {
+            sessRef.set({
+              id: session.id,
+              date: session.date,
+              title: session.title,
+              family: session.family,
+              attendees: session.attendees
+            }, { merge: true }).catch(e => console.error("Firebase push error:", e));
+          });
+        }
 
         // Sync with backend if available
         fetch('/api/scan', {
@@ -5422,6 +5592,13 @@
       appData.members.push(newM);
       saveLocalData();
 
+      // Sync with Firebase
+      if (isFirebaseReady && db) {
+        db.collection('app_config').doc('members_data').update({
+          members: firebase.firestore.FieldValue.arrayUnion(newM)
+        }).catch(err => console.warn("Firebase member push fallback:", err));
+      }
+
       // Post to backend if active
       fetch('/api/members', {
         method: 'POST',
@@ -5455,6 +5632,11 @@
       appData.sessions.push(newS);
       currentSessionId = id;
       saveLocalData();
+
+      // Sync with Firebase
+      if (isFirebaseReady && db) {
+        db.collection('sessions').doc(newS.id).set(newS).catch(err => console.warn("Firebase session push fallback:", err));
+      }
 
       // Post to backend if active
       fetch('/api/sessions', {
@@ -5587,6 +5769,7 @@
 
     // Init App
     loadLocalData();
+    initFirebase();
     syncWithServer();
     initCameras();
     refreshUI();
