@@ -4261,48 +4261,48 @@
       "id": "SES-02",
       "date": "2026-11-10",
       "title": "أسرة 1",
-      "family": "أسرة",
+      "family": "أسرة 1",
       "attendees": []
     },
     {
       "id": "SES-03",
       "date": "2026-11-17",
       "title": "أسرة 2",
-      "family": "أسرة",
+      "family": "أسرة 2",
       "attendees": []
     },
     {
       "id": "SES-04",
       "date": "2026-11-24",
-      "title": "أسرة 3 (رفاع)",
-      "family": "أسرة",
+      "title": "أسرة 3",
+      "family": "أسرة 3",
       "attendees": []
     },
     {
       "id": "SES-05",
       "date": "2026-12-01",
-      "title": "أسرة",
-      "family": "أسرة",
+      "title": "أسرة 1",
+      "family": "أسرة 1",
       "attendees": []
     },
     {
       "id": "SES-06",
       "date": "2026-12-08",
-      "title": "أسرة",
-      "family": "أسرة",
+      "title": "أسرة 2",
+      "family": "أسرة 2",
       "attendees": []
     },
     {
       "id": "SES-07",
       "date": "2026-12-15",
-      "title": "أسرة",
-      "family": "أسرة",
+      "title": "أسرة 3",
+      "family": "أسرة 3",
       "attendees": []
     },
     {
       "id": "SES-08",
       "date": "2026-12-22",
-      "title": "سهرة لحد 12",
+      "title": "سهرة لحد الساعة 12",
       "family": "أمناء",
       "attendees": []
     },
@@ -4344,22 +4344,22 @@
     {
       "id": "SES-14",
       "date": "2027-02-02",
-      "title": "أسرة",
-      "family": "أسرة",
+      "title": "أسرة 1",
+      "family": "أسرة 1",
       "attendees": []
     },
     {
       "id": "SES-15",
       "date": "2027-02-09",
-      "title": "أسرة",
-      "family": "أسرة",
+      "title": "أسرة 2",
+      "family": "أسرة 2",
       "attendees": []
     },
     {
       "id": "SES-16",
       "date": "2027-02-16",
-      "title": "أسرة",
-      "family": "أسرة",
+      "title": "أسرة 3",
+      "family": "أسرة 3",
       "attendees": []
     },
     {
@@ -4393,22 +4393,22 @@
     {
       "id": "SES-21",
       "date": "2027-03-23",
-      "title": "أسرة",
-      "family": "أسرة",
+      "title": "أسرة 1",
+      "family": "أسرة 1",
       "attendees": []
     },
     {
       "id": "SES-22",
       "date": "2027-03-30",
-      "title": "أسرة",
-      "family": "أسرة",
+      "title": "أسرة 2",
+      "family": "أسرة 2",
       "attendees": []
     },
     {
       "id": "SES-23",
       "date": "2027-04-06",
-      "title": "أسرة",
-      "family": "أسرة",
+      "title": "أسرة 3",
+      "family": "أسرة 3",
       "attendees": []
     },
     {
