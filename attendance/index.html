@@ -148,17 +148,7 @@
     }
 
     .session-badge-clean {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      padding: 0.25rem 0.65rem;
-      border-radius: var(--radius-full);
-      background: rgba(16, 185, 129, 0.15);
-      color: var(--accent-emerald);
-      border: 1px solid rgba(16, 185, 129, 0.3);
-      font-size: 0.78rem;
-      font-weight: 700;
-      white-space: nowrap;
+      display: none !important;
     }
 
     .header-actions {
@@ -930,17 +920,7 @@
 
     /* Servant RBAC & Authentication */
     .role-badge-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.25rem 0.65rem;
-      border-radius: var(--radius-full);
-      background: rgba(245, 158, 11, 0.12);
-      color: var(--accent-gold);
-      border: 1px solid rgba(245, 158, 11, 0.35);
-      font-size: 0.78rem;
-      font-weight: 700;
-      white-space: nowrap;
+      display: none !important;
     }
 
     .btn-outline-danger {
@@ -1226,7 +1206,7 @@
     <!-- Actions (Role Badge, Admin Settings, Logout, Sync Status, Theme) -->
     <div class="header-actions">
       <!-- Active Role Badge -->
-      <div id="roleBadgeContainer" class="role-badge-pill" title="الحساب المسجل حالياً">
+      <div id="roleBadgeContainer" class="role-badge-pill" style="display:none !important;" title="الحساب المسجل حالياً">
         <span id="currentRoleIcon">👑</span>
         <span id="currentRoleTitle">أمناء الاجتماع</span>
       </div>
@@ -1242,7 +1222,7 @@
       </button>
 
       <!-- Sync Status Badge -->
-      <span id="syncStatusBadge" class="session-badge-clean" title="حالة الاتصال السحابي">
+      <span id="syncStatusBadge" class="session-badge-clean" style="display:none !important;" title="حالة الاتصال السحابي">
         ● متصل سحابياً
       </span>
 
