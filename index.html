@@ -965,8 +965,8 @@
     .login-overlay-backdrop {
       position: fixed;
       inset: 0;
-      background: radial-gradient(circle at center, rgba(15, 23, 42, 0.94) 0%, rgba(2, 6, 23, 0.98) 100%);
-      backdrop-filter: blur(14px);
+      background: radial-gradient(circle at center, rgba(15, 23, 42, 0.96) 0%, rgba(2, 6, 23, 0.99) 100%);
+      backdrop-filter: blur(16px);
       z-index: 9999;
       display: flex;
       align-items: center;
@@ -979,76 +979,13 @@
     }
     .login-card-container {
       background: var(--bg-card);
-      border: 1px solid rgba(245, 158, 11, 0.25);
+      border: 1px solid rgba(245, 158, 11, 0.3);
       border-radius: var(--radius-lg);
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(16, 185, 129, 0.15);
+      box-shadow: 0 25px 65px rgba(0, 0, 0, 0.75), 0 0 35px rgba(16, 185, 129, 0.15);
       width: 100%;
-      max-width: 490px;
+      max-width: 420px;
       padding: 2.25rem 2rem;
       animation: popIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .role-cards-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 0.65rem;
-      margin-bottom: 1.25rem;
-    }
-    .role-selection-card {
-      display: flex;
-      align-items: center;
-      gap: 0.85rem;
-      padding: 0.75rem 1rem;
-      border-radius: var(--radius-md);
-      border: 1.5px solid rgba(148, 163, 184, 0.15);
-      background: rgba(15, 23, 42, 0.55);
-      cursor: pointer;
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-      text-align: right;
-    }
-    .role-selection-card:hover {
-      background: rgba(255, 255, 255, 0.05);
-      border-color: rgba(245, 158, 11, 0.45);
-      transform: translateY(-2px);
-    }
-    .role-selection-card.selected {
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(245, 158, 11, 0.12) 100%);
-      border-color: var(--accent-gold);
-      box-shadow: 0 4px 16px rgba(245, 158, 11, 0.25);
-    }
-    .role-selection-card .role-icon {
-      font-size: 1.35rem;
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.06);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-    .role-selection-card .role-info {
-      flex: 1;
-    }
-    .role-selection-card .role-name {
-      font-size: 0.95rem;
-      font-weight: 800;
-      color: var(--text-main);
-      margin-bottom: 0.15rem;
-    }
-    .role-selection-card .role-desc {
-      font-size: 0.74rem;
-      color: var(--text-muted);
-      line-height: 1.35;
-    }
-    .role-selection-card .role-check {
-      font-size: 1.1rem;
-      color: var(--accent-emerald);
-      opacity: 0;
-      font-weight: 900;
-      transition: opacity 0.2s ease;
-    }
-    .role-selection-card.selected .role-check {
-      opacity: 1;
     }
 
     .form-group {
@@ -1674,70 +1611,40 @@
     <div class="login-card-container">
       <div style="text-align:center;margin-bottom:1.5rem;">
         <img src="Logo.svg" alt="Egtma3 Youssef ElSedek" style="width:75px;height:75px;border-radius:50%;object-fit:cover;box-shadow:0 0 20px rgba(245,158,11,0.4);margin-bottom:0.75rem;">
-        <h2 style="font-size:1.5rem;font-weight:800;color:var(--text-main);margin-bottom:0.25rem;">اجتماع يوسف الصديق للشباب</h2>
+        <h2 style="font-size:1.45rem;font-weight:800;color:var(--text-main);margin-bottom:0.25rem;">اجتماع يوسف الصديق للشباب</h2>
         <p style="font-size:0.82rem;color:var(--text-muted);">كنيسة السيدة العذراء مريم بالقناطر الخيرية • منظومة الخدمة</p>
       </div>
 
-      <div style="font-size:0.88rem;font-weight:800;color:var(--accent-gold);margin-bottom:0.75rem;text-align:right;">
-        اختر الحساب للمتابعة:
-      </div>
-
-      <!-- 4 Selectable Role Cards -->
-      <div class="role-cards-grid">
-        <div class="role-selection-card selected" data-role="admin">
-          <div class="role-icon">👑</div>
-          <div class="role-info">
-            <div class="role-name">أمناء الاجتماع (الـ 4 الكبار)</div>
-            <div class="role-desc">التحكم الكامل بجميع الأقسام وتعديل الصلاحيات والبيانات</div>
+      <!-- Clean Login Form: Username & Password -->
+      <form id="servantLoginForm" onsubmit="event.preventDefault(); handleLoginAttempt();">
+        <div style="margin-bottom:1.1rem;">
+          <label style="display:block;font-size:0.85rem;font-weight:700;color:var(--text-main);margin-bottom:0.4rem;text-align:right;">
+            👤 اسم المستخدم (Username):
+          </label>
+          <div style="position:relative;">
+            <input type="text" id="loginUsernameInput" class="form-control" placeholder="أدخل اسم المستخدم..." style="font-size:0.95rem;text-align:right;padding-right:2.4rem;" autocomplete="username" required>
+            <span style="position:absolute;right:0.85rem;top:50%;transform:translateY(-50%);font-size:1.05rem;color:var(--text-muted);pointer-events:none;">👤</span>
           </div>
-          <div class="role-check">✓</div>
         </div>
 
-        <div class="role-selection-card" data-role="secretariat">
-          <div class="role-icon">📋</div>
-          <div class="role-info">
-            <div class="role-name">السكرتارية</div>
-            <div class="role-desc">تسجيل حضور وغياب الشباب عند الباب بالـ QR والبحث السريع</div>
+        <div style="margin-bottom:1.25rem;">
+          <label style="display:block;font-size:0.85rem;font-weight:700;color:var(--text-main);margin-bottom:0.4rem;text-align:right;">
+            🔒 كلمة المرور (Password):
+          </label>
+          <div style="position:relative;">
+            <input type="password" id="loginPasswordInput" class="form-control" placeholder="أدخل كلمة المرور..." style="font-size:0.95rem;padding-left:2.5rem;padding-right:2.4rem;letter-spacing:1px;" autocomplete="current-password" required>
+            <span style="position:absolute;right:0.85rem;top:50%;transform:translateY(-50%);font-size:1.05rem;color:var(--text-muted);pointer-events:none;">🔒</span>
+            <button type="button" id="toggleLoginPasswordBtn" style="position:absolute;left:0.75rem;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:1.1rem;padding:0;" title="إظهار/إخفاء كلمة المرور">👁️</button>
           </div>
-          <div class="role-check">✓</div>
-        </div>
-
-        <div class="role-selection-card" data-role="visitation">
-          <div class="role-icon">📞</div>
-          <div class="role-info">
-            <div class="role-name">لجنة الافتقاد</div>
-            <div class="role-desc">داتا الغائبين، الاتصال الهاتفي ورسائل واتساب المباشرة</div>
+          <div id="loginErrorMessage" style="display:none;color:#fb7185;font-size:0.82rem;font-weight:700;margin-top:0.5rem;text-align:right;">
+            ⚠️ اسم المستخدم أو كلمة المرور غير صحيحة، برجاء مراجعة أمناء الاجتماع.
           </div>
-          <div class="role-check">✓</div>
         </div>
 
-        <div class="role-selection-card" data-role="schedule">
-          <div class="role-icon">📅</div>
-          <div class="role-info">
-            <div class="role-name">خدام اللقاءات</div>
-            <div class="role-desc">عرض ومتابعة جدول موضوعات وأسابيع الاجتماع المعتمدة</div>
-          </div>
-          <div class="role-check">✓</div>
-        </div>
-      </div>
-
-      <!-- Password Input Field -->
-      <div style="margin-top:1.15rem;">
-        <label style="display:block;font-size:0.82rem;font-weight:700;color:var(--text-muted);margin-bottom:0.4rem;text-align:right;">
-          كلمة المرور للحساب المختار:
-        </label>
-        <div style="position:relative;">
-          <input type="password" id="loginPasswordInput" class="form-control" placeholder="أدخل كلمة المرور..." style="padding-left:2.5rem;font-size:1rem;letter-spacing:1px;" autocomplete="current-password">
-          <button type="button" id="toggleLoginPasswordBtn" style="position:absolute;left:0.75rem;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:1.1rem;padding:0;" title="إظهار/إخفاء كلمة المرور">👁️</button>
-        </div>
-        <div id="loginErrorMessage" style="display:none;color:#fb7185;font-size:0.82rem;font-weight:700;margin-top:0.5rem;text-align:right;">
-          ⚠️ كلمة المرور غير صحيحة، برجاء مراجعة أمناء الاجتماع.
-        </div>
-      </div>
-
-      <button type="button" id="submitLoginBtn" class="btn btn-gold" style="width:100%;margin-top:1.25rem;padding:0.85rem;font-size:1.05rem;box-shadow:0 6px 20px rgba(245,158,11,0.35);">
-        تسجيل الدخول إلى المنظومة
-      </button>
+        <button type="submit" id="submitLoginBtn" class="btn btn-gold" style="width:100%;padding:0.85rem;font-size:1.05rem;box-shadow:0 6px 20px rgba(245,158,11,0.35);">
+          تسجيل الدخول إلى المنظومة
+        </button>
+      </form>
     </div>
   </div>
 
@@ -1754,39 +1661,79 @@
       </div>
 
       <form id="adminSettingsForm">
-        <!-- Section 1: Role Passwords -->
+        <!-- Section 1: Role Usernames & Passwords -->
         <div style="margin-bottom:1.25rem;">
           <h4 style="font-size:0.92rem;font-weight:800;color:var(--text-main);margin-bottom:0.75rem;">
-            🔑 كلمات مرور حسابات الخدام:
+            🔑 بيانات دخول حسابات الخدام (Username & Password):
           </h4>
           
-          <div style="display:flex;flex-direction:column;gap:0.65rem;">
-            <div>
-              <label style="display:block;font-size:0.78rem;font-weight:700;color:var(--accent-gold);margin-bottom:0.25rem;">
-                👑 كلمة مرور أمناء الاجتماع (الـ 4 الكبار):
-              </label>
-              <input type="text" id="cfgAdminPass" class="form-control" style="font-family:monospace;font-size:0.95rem;" required>
+          <div style="display:flex;flex-direction:column;gap:0.75rem;">
+            <!-- Admin Account -->
+            <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);border-radius:var(--radius-md);padding:0.75rem;">
+              <div style="font-size:0.85rem;font-weight:800;color:var(--accent-gold);margin-bottom:0.4rem;">
+                👑 أمناء الاجتماع (الـ 4 الكبار):
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;">
+                <div>
+                  <label style="font-size:0.72rem;color:var(--text-muted);display:block;margin-bottom:0.2rem;">اسم المستخدم (Username):</label>
+                  <input type="text" id="cfgAdminUser" class="form-control" style="padding:0.45rem 0.65rem;font-size:0.85rem;font-family:monospace;" required>
+                </div>
+                <div>
+                  <label style="font-size:0.72rem;color:var(--text-muted);display:block;margin-bottom:0.2rem;">كلمة المرور (Password):</label>
+                  <input type="text" id="cfgAdminPass" class="form-control" style="padding:0.45rem 0.65rem;font-size:0.85rem;font-family:monospace;" required>
+                </div>
+              </div>
             </div>
 
-            <div>
-              <label style="display:block;font-size:0.78rem;font-weight:700;color:var(--accent-emerald);margin-bottom:0.25rem;">
-                📋 كلمة مرور السكرتارية (تسجيل الحضور فقط):
-              </label>
-              <input type="text" id="cfgSecretariatPass" class="form-control" style="font-family:monospace;font-size:0.95rem;" required>
+            <!-- Secretariat Account -->
+            <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.25);border-radius:var(--radius-md);padding:0.75rem;">
+              <div style="font-size:0.85rem;font-weight:800;color:var(--accent-emerald);margin-bottom:0.4rem;">
+                📋 السكرتارية (تسجيل الحضور فقط):
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;">
+                <div>
+                  <label style="font-size:0.72rem;color:var(--text-muted);display:block;margin-bottom:0.2rem;">اسم المستخدم (Username):</label>
+                  <input type="text" id="cfgSecretariatUser" class="form-control" style="padding:0.45rem 0.65rem;font-size:0.85rem;font-family:monospace;" required>
+                </div>
+                <div>
+                  <label style="font-size:0.72rem;color:var(--text-muted);display:block;margin-bottom:0.2rem;">كلمة المرور (Password):</label>
+                  <input type="text" id="cfgSecretariatPass" class="form-control" style="padding:0.45rem 0.65rem;font-size:0.85rem;font-family:monospace;" required>
+                </div>
+              </div>
             </div>
 
-            <div>
-              <label style="display:block;font-size:0.78rem;font-weight:700;color:#06b6d4;margin-bottom:0.25rem;">
-                📞 كلمة مرور لجنة الافتقاد (متابعة الغياب):
-              </label>
-              <input type="text" id="cfgVisitationPass" class="form-control" style="font-family:monospace;font-size:0.95rem;" required>
+            <!-- Visitation Account -->
+            <div style="background:rgba(6,182,212,0.08);border:1px solid rgba(6,182,212,0.25);border-radius:var(--radius-md);padding:0.75rem;">
+              <div style="font-size:0.85rem;font-weight:800;color:#06b6d4;margin-bottom:0.4rem;">
+                📞 لجنة الافتقاد (متابعة الغياب):
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;">
+                <div>
+                  <label style="font-size:0.72rem;color:var(--text-muted);display:block;margin-bottom:0.2rem;">اسم المستخدم (Username):</label>
+                  <input type="text" id="cfgVisitationUser" class="form-control" style="padding:0.45rem 0.65rem;font-size:0.85rem;font-family:monospace;" required>
+                </div>
+                <div>
+                  <label style="font-size:0.72rem;color:var(--text-muted);display:block;margin-bottom:0.2rem;">كلمة المرور (Password):</label>
+                  <input type="text" id="cfgVisitationPass" class="form-control" style="padding:0.45rem 0.65rem;font-size:0.85rem;font-family:monospace;" required>
+                </div>
+              </div>
             </div>
 
-            <div>
-              <label style="display:block;font-size:0.78rem;font-weight:700;color:#8b5cf6;margin-bottom:0.25rem;">
-                📅 كلمة مرور خدام اللقاءات (عرض الجدول):
-              </label>
-              <input type="text" id="cfgSchedulePass" class="form-control" style="font-family:monospace;font-size:0.95rem;" required>
+            <!-- Schedule Account -->
+            <div style="background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.25);border-radius:var(--radius-md);padding:0.75rem;">
+              <div style="font-size:0.85rem;font-weight:800;color:#a78bfa;margin-bottom:0.4rem;">
+                📅 خدام اللقاءات (عرض الجدول):
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;">
+                <div>
+                  <label style="font-size:0.72rem;color:var(--text-muted);display:block;margin-bottom:0.2rem;">اسم المستخدم (Username):</label>
+                  <input type="text" id="cfgScheduleUser" class="form-control" style="padding:0.45rem 0.65rem;font-size:0.85rem;font-family:monospace;" required>
+                </div>
+                <div>
+                  <label style="font-size:0.72rem;color:var(--text-muted);display:block;margin-bottom:0.2rem;">كلمة المرور (Password):</label>
+                  <input type="text" id="cfgSchedulePass" class="form-control" style="padding:0.45rem 0.65rem;font-size:0.85rem;font-family:monospace;" required>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -1828,11 +1775,27 @@
     // SERVANT ROLES & ACCESS CONTROL CONFIGURATION
     // ==============================================
     const DEFAULT_AUTH_SETTINGS = {
-      passwords: {
-        admin: 'admin2027',
-        secretariat: '1111',
-        visitation: '2222',
-        schedule: '3333'
+      accounts: {
+        admin: {
+          username: 'admin',
+          password: 'admin2027',
+          role: 'admin'
+        },
+        secretariat: {
+          username: 'secretariat',
+          password: '1111',
+          role: 'secretariat'
+        },
+        visitation: {
+          username: 'visitation',
+          password: '2222',
+          role: 'visitation'
+        },
+        schedule: {
+          username: 'schedule',
+          password: '3333',
+          role: 'schedule'
+        }
       },
       scheduleVisibleLimit: 'all'
     };
@@ -1880,9 +1843,8 @@
       }
     };
 
-    let authSettings = Object.assign({}, DEFAULT_AUTH_SETTINGS);
+    let authSettings = JSON.parse(JSON.stringify(DEFAULT_AUTH_SETTINGS));
     let currentServantRole = null;
-    let selectedLoginRole = 'admin';
 
     function getVisibleSessions() {
       if (!appData || !Array.isArray(appData.sessions)) return [];
@@ -6437,19 +6399,27 @@
           updateSyncStatusBadge(false, '● متصل محلياً (Offline Ready)');
         });
 
-        // 3. Real-time Listener for Auth Settings & Passwords
+        // 3. Real-time Listener for Auth Settings (Usernames & Passwords)
         db.collection('app_config').doc('auth_settings').onSnapshot((docSnap) => {
           if (docSnap.exists) {
             const data = docSnap.data();
-            if (data && data.passwords) {
-              authSettings = Object.assign({}, DEFAULT_AUTH_SETTINGS, data);
+            if (data) {
+              if (data.accounts) {
+                authSettings = Object.assign({}, DEFAULT_AUTH_SETTINGS, data);
+              } else if (data.passwords) {
+                authSettings = JSON.parse(JSON.stringify(DEFAULT_AUTH_SETTINGS));
+                if (data.passwords.admin) authSettings.accounts.admin.password = data.passwords.admin;
+                if (data.passwords.secretariat) authSettings.accounts.secretariat.password = data.passwords.secretariat;
+                if (data.passwords.visitation) authSettings.accounts.visitation.password = data.passwords.visitation;
+                if (data.passwords.schedule) authSettings.accounts.schedule.password = data.passwords.schedule;
+                if (data.scheduleVisibleLimit) authSettings.scheduleVisibleLimit = data.scheduleVisibleLimit;
+              }
               try { localStorage.setItem('st_youssef_auth_settings', JSON.stringify(authSettings)); } catch(e){}
               if (currentServantRole) {
                 applyRolePermissions(currentServantRole);
               }
             }
           } else {
-            // Seed default settings to Cloud
             db.collection('app_config').doc('auth_settings').set(DEFAULT_AUTH_SETTINGS).catch(() => {});
           }
         }, (err) => console.warn("Firestore auth_settings error:", err));
@@ -7303,32 +7273,34 @@
       }
     }
 
+    function normalizeLoginStr(str) {
+      if (!str) return '';
+      return str.trim().toLowerCase()
+        .replace(/[أإآ]/g, 'ا')
+        .replace(/ة/g, 'ه')
+        .replace(/ى/g, 'ي');
+    }
+
     function initAuth() {
       // 1. Load auth settings from localStorage if present
       try {
         const savedSettings = localStorage.getItem('st_youssef_auth_settings');
         if (savedSettings) {
-          authSettings = Object.assign({}, DEFAULT_AUTH_SETTINGS, JSON.parse(savedSettings));
+          const parsed = JSON.parse(savedSettings);
+          if (parsed.accounts) {
+            authSettings = Object.assign({}, DEFAULT_AUTH_SETTINGS, parsed);
+          } else if (parsed.passwords) {
+            authSettings = JSON.parse(JSON.stringify(DEFAULT_AUTH_SETTINGS));
+            if (parsed.passwords.admin) authSettings.accounts.admin.password = parsed.passwords.admin;
+            if (parsed.passwords.secretariat) authSettings.accounts.secretariat.password = parsed.passwords.secretariat;
+            if (parsed.passwords.visitation) authSettings.accounts.visitation.password = parsed.passwords.visitation;
+            if (parsed.passwords.schedule) authSettings.accounts.schedule.password = parsed.passwords.schedule;
+            if (parsed.scheduleVisibleLimit) authSettings.scheduleVisibleLimit = parsed.scheduleVisibleLimit;
+          }
         }
       } catch (e) {}
 
-      // 2. Wire role cards selection in login modal
-      document.querySelectorAll('.role-selection-card').forEach(card => {
-        card.addEventListener('click', () => {
-          document.querySelectorAll('.role-selection-card').forEach(c => c.classList.remove('selected'));
-          card.classList.add('selected');
-          selectedLoginRole = card.getAttribute('data-role');
-          const passInput = document.getElementById('loginPasswordInput');
-          if (passInput) {
-            passInput.value = '';
-            passInput.focus();
-          }
-          const errMsg = document.getElementById('loginErrorMessage');
-          if (errMsg) errMsg.style.display = 'none';
-        });
-      });
-
-      // 3. Password visibility toggle
+      // 2. Password visibility toggle
       const toggleBtn = document.getElementById('toggleLoginPasswordBtn');
       const passInput = document.getElementById('loginPasswordInput');
       if (toggleBtn && passInput) {
@@ -7337,18 +7309,7 @@
         });
       }
 
-      // 4. Submit login handler
-      const submitBtn = document.getElementById('submitLoginBtn');
-      if (submitBtn) {
-        submitBtn.addEventListener('click', handleLoginAttempt);
-      }
-      if (passInput) {
-        passInput.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter') handleLoginAttempt();
-        });
-      }
-
-      // 5. Logout button
+      // 3. Logout button
       const logoutBtn = document.getElementById('logoutBtn');
       if (logoutBtn) {
         logoutBtn.addEventListener('click', () => {
@@ -7360,7 +7321,7 @@
         });
       }
 
-      // 6. Admin Settings Modal Handlers
+      // 4. Admin Settings Modal Handlers
       const adminBtn = document.getElementById('adminSettingsBtn');
       const adminModal = document.getElementById('adminSettingsModal');
       const closeAdminBtn = document.getElementById('closeAdminSettingsBtn');
@@ -7369,10 +7330,15 @@
 
       if (adminBtn && adminModal) {
         adminBtn.addEventListener('click', () => {
-          document.getElementById('cfgAdminPass').value = authSettings.passwords.admin || 'admin2027';
-          document.getElementById('cfgSecretariatPass').value = authSettings.passwords.secretariat || '1111';
-          document.getElementById('cfgVisitationPass').value = authSettings.passwords.visitation || '2222';
-          document.getElementById('cfgSchedulePass').value = authSettings.passwords.schedule || '3333';
+          const acc = authSettings.accounts || DEFAULT_AUTH_SETTINGS.accounts;
+          document.getElementById('cfgAdminUser').value = acc.admin.username;
+          document.getElementById('cfgAdminPass').value = acc.admin.password;
+          document.getElementById('cfgSecretariatUser').value = acc.secretariat.username;
+          document.getElementById('cfgSecretariatPass').value = acc.secretariat.password;
+          document.getElementById('cfgVisitationUser').value = acc.visitation.username;
+          document.getElementById('cfgVisitationPass').value = acc.visitation.password;
+          document.getElementById('cfgScheduleUser').value = acc.schedule.username;
+          document.getElementById('cfgSchedulePass').value = acc.schedule.password;
           document.getElementById('cfgScheduleVisibleLimit').value = authSettings.scheduleVisibleLimit || 'all';
           adminModal.classList.add('open');
         });
@@ -7390,7 +7356,7 @@
         });
       }
 
-      // 7. Check saved session role
+      // 5. Check saved session role
       const savedRole = localStorage.getItem('st_youssef_servant_role');
       if (savedRole && ROLES[savedRole]) {
         hideLoginOverlay();
@@ -7401,16 +7367,41 @@
     }
 
     function handleLoginAttempt() {
+      const userInput = document.getElementById('loginUsernameInput');
       const passInput = document.getElementById('loginPasswordInput');
       const errMsg = document.getElementById('loginErrorMessage');
-      const typedPass = (passInput ? passInput.value : '').trim();
-      const expectedPass = (authSettings.passwords && authSettings.passwords[selectedLoginRole]) || DEFAULT_AUTH_SETTINGS.passwords[selectedLoginRole];
 
-      if (typedPass === expectedPass) {
+      const typedUser = normalizeLoginStr(userInput ? userInput.value : '');
+      const typedPass = (passInput ? passInput.value : '').trim();
+
+      let matchedRole = null;
+      const accounts = authSettings.accounts || DEFAULT_AUTH_SETTINGS.accounts;
+
+      for (const roleKey in accounts) {
+        const acc = accounts[roleKey];
+        const configuredUser = normalizeLoginStr(acc.username);
+
+        let isUserMatch = (typedUser === configuredUser);
+        if (!isUserMatch) {
+          if (roleKey === 'admin' && (typedUser === 'admin' || typedUser === 'امناء' || typedUser === 'الامناء')) isUserMatch = true;
+          if (roleKey === 'secretariat' && (typedUser === 'secretariat' || typedUser === 'سكرتاريه' || typedUser === 'السكرتاريه')) isUserMatch = true;
+          if (roleKey === 'visitation' && (typedUser === 'visitation' || typedUser === 'افتقاد' || typedUser === 'الافتقاد')) isUserMatch = true;
+          if (roleKey === 'schedule' && (typedUser === 'schedule' || typedUser === 'لقاءات' || typedUser === 'اللقاءات')) isUserMatch = true;
+        }
+
+        if (isUserMatch) {
+          if (typedPass === acc.password) {
+            matchedRole = roleKey;
+            break;
+          }
+        }
+      }
+
+      if (matchedRole) {
         if (errMsg) errMsg.style.display = 'none';
-        localStorage.setItem('st_youssef_servant_role', selectedLoginRole);
+        localStorage.setItem('st_youssef_servant_role', matchedRole);
         hideLoginOverlay();
-        applyRolePermissions(selectedLoginRole);
+        applyRolePermissions(matchedRole);
         playBeepSuccess();
       } else {
         if (errMsg) errMsg.style.display = 'block';
@@ -7426,11 +7417,13 @@
       const overlay = document.getElementById('loginOverlay');
       if (overlay) {
         overlay.classList.remove('hidden');
+        const userInput = document.getElementById('loginUsernameInput');
         const passInput = document.getElementById('loginPasswordInput');
-        if (passInput) {
-          passInput.value = '';
-          setTimeout(() => passInput.focus(), 100);
+        if (userInput) {
+          userInput.value = '';
+          setTimeout(() => userInput.focus(), 100);
         }
+        if (passInput) passInput.value = '';
         const errMsg = document.getElementById('loginErrorMessage');
         if (errMsg) errMsg.style.display = 'none';
       }
@@ -7442,11 +7435,31 @@
     }
 
     function saveAdminSettings() {
-      authSettings.passwords.admin = document.getElementById('cfgAdminPass').value.trim() || 'admin2027';
-      authSettings.passwords.secretariat = document.getElementById('cfgSecretariatPass').value.trim() || '1111';
-      authSettings.passwords.visitation = document.getElementById('cfgVisitationPass').value.trim() || '2222';
-      authSettings.passwords.schedule = document.getElementById('cfgSchedulePass').value.trim() || '3333';
-      authSettings.scheduleVisibleLimit = document.getElementById('cfgScheduleVisibleLimit').value;
+      authSettings = {
+        accounts: {
+          admin: {
+            username: document.getElementById('cfgAdminUser').value.trim() || 'admin',
+            password: document.getElementById('cfgAdminPass').value.trim() || 'admin2027',
+            role: 'admin'
+          },
+          secretariat: {
+            username: document.getElementById('cfgSecretariatUser').value.trim() || 'secretariat',
+            password: document.getElementById('cfgSecretariatPass').value.trim() || '1111',
+            role: 'secretariat'
+          },
+          visitation: {
+            username: document.getElementById('cfgVisitationUser').value.trim() || 'visitation',
+            password: document.getElementById('cfgVisitationPass').value.trim() || '2222',
+            role: 'visitation'
+          },
+          schedule: {
+            username: document.getElementById('cfgScheduleUser').value.trim() || 'schedule',
+            password: document.getElementById('cfgSchedulePass').value.trim() || '3333',
+            role: 'schedule'
+          }
+        },
+        scheduleVisibleLimit: document.getElementById('cfgScheduleVisibleLimit').value
+      };
 
       localStorage.setItem('st_youssef_auth_settings', JSON.stringify(authSettings));
 
@@ -7460,7 +7473,7 @@
       if (modal) modal.classList.remove('open');
 
       applyRolePermissions(currentServantRole);
-      alert("✅ تم حفظ كلمات المرور وحدود ظهور جدول اللقاءات بنجاح ومزامنتها سحابياً!");
+      alert("✅ تم حفظ أسماء المستخدمين وكلمات المرور وحدود جدول اللقاءات بنجاح ومزامنتها سحابياً!");
     }
 
     // Visitation Filters
