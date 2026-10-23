@@ -1,0 +1,9 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/attendance",
+      "destination": "/attendance/index.html"
+    }
+  ]
+}

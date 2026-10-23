@@ -1,0 +1,5595 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>نظام حضور وغياب اجتماع يوسف الصديق بالـ QR | كنيسة السيدة العذراء مريم بالقناطر الخيرية</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@500;700;800&display=swap" rel="stylesheet">
+  
+  <!-- QR Scanner & Generator Libraries with local fallbacks -->
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <style>
+    :root {
+      --bg-primary: #0a0f1d;
+      --bg-secondary: #0f172a;
+      --bg-card: rgba(30, 41, 59, 0.7);
+      --bg-card-hover: rgba(51, 65, 85, 0.85);
+      --border: rgba(148, 163, 184, 0.15);
+      --border-gold: #f59e0b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent-gold: #f59e0b;
+      --accent-gold-gradient: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      --accent-blue: #38bdf8;
+      --accent-emerald: #10b981;
+      --accent-purple: #a855f7;
+      --accent-rose: #f43f5e;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-full: 9999px;
+      --shadow-lg: 0 10px 25px -3px rgba(0, 0, 0, 0.5);
+      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Light Theme */
+    body.light-theme {
+      --bg-primary: #f8fafc;
+      --bg-secondary: #f1f5f9;
+      --bg-card: rgba(255, 255, 255, 0.9);
+      --bg-card-hover: #ffffff;
+      --border: rgba(148, 163, 184, 0.3);
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --shadow-lg: 0 10px 20px rgba(0,0,0,0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      font-family: 'Cairo', 'Tajawal', system-ui, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      line-height: 1.6;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Top App Header */
+    header.app-header {
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 0.75rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    body.light-theme header.app-header {
+      background: rgba(255, 255, 255, 0.92);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+    }
+
+    .brand-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      background: var(--accent-gold-gradient);
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
+    }
+
+    .brand-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .brand-subtitle {
+      font-size: 0.75rem;
+      color: var(--accent-gold);
+      font-weight: 700;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-md);
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-main);
+      transition: var(--transition);
+      text-decoration: none;
+      outline: none;
+    }
+
+    .btn:hover {
+      background: var(--bg-card-hover);
+      transform: translateY(-2px);
+      border-color: var(--accent-gold);
+    }
+
+    .btn-gold {
+      background: var(--accent-gold-gradient);
+      color: #0f172a;
+      border: none;
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+    }
+
+    .btn-gold:hover {
+      background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+      box-shadow: 0 6px 18px rgba(245, 158, 11, 0.45);
+      color: #000;
+    }
+
+    .btn-success {
+      background: var(--accent-emerald);
+      color: #fff;
+      border: none;
+    }
+
+    .btn-icon-only {
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      border-radius: var(--radius-full);
+    }
+
+    /* Active Session Banner */
+    .session-banner {
+      background: rgba(30, 41, 59, 0.5);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .session-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .session-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.3rem 0.8rem;
+      border-radius: var(--radius-full);
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--accent-gold);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+
+    .session-select {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 0.4rem 0.8rem;
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 0.88rem;
+      outline: none;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* Main Navigation Tabs */
+    .nav-tabs {
+      display: flex;
+      gap: 0.5rem;
+      padding: 0.75rem 2rem 0;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-secondary);
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .tab-btn {
+      padding: 0.75rem 1.25rem;
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      color: var(--text-muted);
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: var(--transition);
+    }
+
+    .tab-btn:hover {
+      color: var(--text-main);
+    }
+
+    .tab-btn.active {
+      color: var(--accent-gold);
+      border-bottom-color: var(--accent-gold);
+      font-weight: 800;
+    }
+
+    .tab-count {
+      font-size: 0.75rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: var(--radius-full);
+      background: rgba(255, 255, 255, 0.1);
+      color: inherit;
+    }
+
+    /* Content Area */
+    main.app-content {
+      flex: 1;
+      padding: 2rem;
+      max-width: 1400px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .tab-pane {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .tab-pane.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Scanner View Layout */
+    .scanner-layout {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .camera-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    #reader {
+      width: 100%;
+      min-height: 320px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: #000;
+      border: 2px dashed rgba(245, 158, 11, 0.4);
+    }
+
+    #reader video {
+      border-radius: var(--radius-md);
+      object-fit: cover;
+    }
+
+    .camera-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    /* Quick Search Check-in Bar */
+    .quick-search-box {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 0.85rem 1.25rem;
+      border-radius: var(--radius-md);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 1rem;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .search-input:focus {
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 15px rgba(245, 158, 11, 0.25);
+    }
+
+    .quick-results {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      margin-top: 0.4rem;
+      max-height: 250px;
+      overflow-y: auto;
+      z-index: 50;
+      box-shadow: var(--shadow-lg);
+      display: none;
+    }
+
+    .quick-result-item {
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .quick-result-item:hover {
+      background: var(--bg-card-hover);
+    }
+
+    /* Welcome Confirmation Toast/Card */
+    .scan-feedback-card {
+      background: var(--bg-card);
+      border: 2px solid var(--accent-gold);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      box-shadow: var(--shadow-lg);
+      display: none;
+      animation: popIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .feedback-success {
+      border-color: var(--accent-emerald);
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(30, 41, 59, 0.8) 100%);
+    }
+
+    .feedback-warning {
+      border-color: var(--accent-gold);
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(30, 41, 59, 0.8) 100%);
+    }
+
+    .feedback-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .feedback-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: var(--radius-full);
+      background: var(--accent-gold-gradient);
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+      font-weight: 800;
+    }
+
+    .feedback-details h3 {
+      font-size: 1.35rem;
+      font-weight: 800;
+    }
+
+    .family-pill {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 0.2rem 0.65rem;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border);
+    }
+
+    .family-a { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border-color: rgba(245, 158, 11, 0.4); }
+    .family-b { background: rgba(56, 189, 248, 0.2); color: #38bdf8; border-color: rgba(56, 189, 248, 0.4); }
+    .family-c { background: rgba(16, 185, 129, 0.2); color: #34d399; border-color: rgba(16, 185, 129, 0.4); }
+    .family-leaders { background: rgba(168, 85, 247, 0.2); color: #c084fc; border-color: rgba(168, 85, 247, 0.4); }
+
+    /* Recent Attendees List */
+    .attendees-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .attendees-list {
+      max-height: 480px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .attendee-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      transition: var(--transition);
+    }
+
+    .attendee-item:hover {
+      background: var(--bg-card-hover);
+      transform: translateX(-4px);
+    }
+
+    /* Member Cards (ID Badges) Grid */
+    /* Hide ugly scrollbar on nav-tabs while preserving scroll */
+    .nav-tabs {
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .nav-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Redesigned Card Layout: Compact, spacious, modern horizontal ID Card */
+    .id-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 1rem;
+    }
+
+    .id-badge {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.15rem;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.75rem;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+      transition: var(--transition);
+      overflow: hidden;
+    }
+
+    .id-badge::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--accent-gold-gradient);
+    }
+
+    .id-badge:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent-gold);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+
+    /* Top Row of Card */
+    .badge-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.5rem;
+      gap: 0.5rem;
+    }
+
+    .badge-church-title {
+      font-size: 0.75rem;
+      color: var(--accent-gold);
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .badge-chips {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      flex-shrink: 0;
+    }
+
+    .badge-id {
+      font-family: monospace;
+      font-size: 0.78rem;
+      color: var(--accent-gold);
+      font-weight: 900;
+      background: rgba(245, 158, 11, 0.12);
+      padding: 0.15rem 0.45rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    /* Main Body of Card (QR on one side, Info on other side) */
+    .badge-main-body {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .badge-qr-side {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      flex-shrink: 0;
+    }
+
+    .badge-qr-box {
+      background: #ffffff;
+      padding: 6px;
+      border-radius: var(--radius-sm);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 95px;
+      height: 95px;
+    }
+
+    .badge-qr-box img, .badge-qr-box canvas {
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    .badge-stage-pill {
+      font-size: 0.68rem;
+      font-weight: 800;
+      color: var(--accent-gold);
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      padding: 0.1rem 0.45rem;
+      border-radius: var(--radius-full);
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    .badge-details-side {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      min-width: 0;
+      text-align: right;
+    }
+
+    .badge-name {
+      font-size: 1.05rem;
+      font-weight: 900;
+      color: var(--text-main);
+      line-height: 1.3;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .badge-meta-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      font-size: 0.78rem;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      line-height: 1.3;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .meta-icon {
+      flex-shrink: 0;
+      font-size: 0.82rem;
+      width: 16px;
+      text-align: center;
+    }
+
+    .meta-txt {
+      color: var(--text-muted);
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .meta-txt strong {
+      color: var(--text-main);
+    }
+
+    /* Actions Row */
+    .badge-actions-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-top: 1px solid var(--border);
+      padding-top: 0.5rem;
+    }
+
+    .btn-card-action {
+      flex: 1;
+      padding: 0.3rem 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 800;
+      border-radius: var(--radius-sm);
+    }
+
+    /* Streamlined Filter Toolbar */
+    .streamlined-toolbar {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 0.85rem 1.15rem;
+      margin-bottom: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .toolbar-top-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .toolbar-search-box {
+      flex: 1;
+      min-width: 260px;
+      position: relative;
+    }
+
+    .toolbar-pills-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--border);
+      padding-top: 0.65rem;
+    }
+
+    .pills-subgroup {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      flex-wrap: wrap;
+    }
+
+    .pills-label {
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--text-muted);
+      margin-left: 0.3rem;
+    }
+
+    /* Tables */
+    .data-table-container {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: right;
+      font-size: 0.92rem;
+    }
+
+    .data-table th {
+      background: var(--bg-secondary);
+      padding: 1rem;
+      font-weight: 800;
+      color: var(--accent-gold);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .data-table td {
+      padding: 0.9rem 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .data-table tr:hover td {
+      background: var(--bg-card-hover);
+    }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-box {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 520px;
+      padding: 2rem;
+      box-shadow: var(--shadow-lg);
+      animation: popIn 0.3s ease;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .form-control {
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-md);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 0.95rem;
+      outline: none;
+    }
+
+    .form-control:focus {
+      border-color: var(--accent-gold);
+    }
+
+    /* Stat Cards */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      text-align: center;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .stat-val {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--accent-gold);
+      line-height: 1.2;
+    }
+
+    .stat-title {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    /* Print Badges Ready */
+    @media print {
+      header.app-header, .session-banner, .nav-tabs, .camera-card, .btn, .quick-search-box, .filter-controls {
+        display: none !important;
+      }
+      body {
+        background: #fff !important;
+        color: #000 !important;
+      }
+      main.app-content {
+        padding: 0 !important;
+        max-width: 100% !important;
+      }
+      .tab-pane {
+        display: none !important;
+      }
+      #tabBadges {
+        display: block !important;
+      }
+      .id-cards-grid {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 15px !important;
+      }
+      .id-badge {
+        border: 2px solid #333 !important;
+        background: #fff !important;
+        color: #000 !important;
+        box-shadow: none !important;
+        page-break-inside: avoid !important;
+      }
+      .badge-name {
+        color: #000 !important;
+      }
+      .id-badge-actions {
+        display: none !important;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .scanner-layout {
+        grid-template-columns: 1fr;
+      }
+      header.app-header {
+        padding: 0.75rem 1rem;
+      }
+      .nav-tabs {
+        padding: 0.5rem 1rem 0;
+      }
+      main.app-content {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- App Header -->
+  <header class="app-header">
+    <div class="brand">
+      <div class="brand-logo">✝</div>
+      <div>
+        <div class="brand-title">اجتماع يوسف الصديق للشباب — كنيسة السيدة العذراء بالقناطر</div>
+        <div class="brand-subtitle">نظام تسجيل الحضور والغياب الذكي بالـ QR Code</div>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <!-- Sync Status -->
+      <span id="syncStatusBadge" class="session-badge" style="background:rgba(16,185,129,0.15);color:var(--accent-emerald);border-color:rgba(16,185,129,0.3);">
+        ● متصل ومحفوظ محلياً
+      </span>
+
+      <!-- Theme Switcher -->
+      <button class="btn btn-icon-only" id="themeToggleBtn" title="تبديل المظهر النهاري/الليلي">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      </button>
+
+      <!-- Back to Presentation -->
+      <a href="../index.html" class="btn" title="العودة لعرض خطة السنة">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+        <span>خطة السنة</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Active Session Selector & Stats Banner -->
+  <div class="session-banner">
+    <div class="session-info">
+      <span style="font-weight:700;color:var(--text-muted);font-size:0.9rem;">لقاء اليوم النشط:</span>
+      <select id="activeSessionSelect" class="session-select"></select>
+      <button class="btn" id="newSessionBtn" style="padding:0.35rem 0.75rem;font-size:0.8rem;">+ لقاء جديد</button>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:1.5rem;">
+      <div style="font-size:0.9rem;font-weight:700;">
+        الحاضرون اليوم: <span id="sessionAttendeeCount" style="color:var(--accent-gold);font-size:1.2rem;font-weight:900;">0</span>
+      </div>
+      <div style="font-size:0.9rem;font-weight:700;">
+        نسبة الحضور: <span id="sessionAttendanceRate" style="color:var(--accent-emerald);font-size:1.2rem;font-weight:900;">0%</span>
+      </div>
+      <button class="btn btn-gold" id="showProjectorQrBtn" style="padding:0.35rem 0.85rem;font-size:0.82rem;">
+        🖥️ كود الشاشة للشباب
+      </button>
+    </div>
+  </div>
+
+  <!-- Navigation Tabs -->
+  <div class="nav-tabs">
+    <button class="tab-btn active" data-tab="tabScanner">
+      📷 تسجيل الحضور بالكاميرا
+    </button>
+    <button class="tab-btn" data-tab="tabBadges">
+      🪪 بطاقات الـ QR والكارنيهات
+      <span class="tab-count" id="badgeCountPill">0</span>
+    </button>
+    <button class="tab-btn" data-tab="tabMembers">
+      👥 دليل الشباب والأسر
+      <span class="tab-count" id="memberCountPill">0</span>
+    </button>
+    <button class="tab-btn" data-tab="tabSessions">
+      📅 سجل اللقاءات والأسابيع
+    </button>
+    <button class="tab-btn" data-tab="tabVisitation">
+      📞 لجنة الافتقاد ومتابعة الغياب
+      <span class="tab-count" id="absentCountPill" style="background:rgba(244,63,94,0.2);color:#fb7185;">0</span>
+    </button>
+    <button class="tab-btn" data-tab="tabAnalytics">
+      📊 الإحصائيات وتصدير إكسل
+    </button>
+  </div>
+
+  <!-- Main Content Areas -->
+  <main class="app-content">
+
+    <!-- ============================================== -->
+    <!-- TAB 1: SCANNER & QUICK ATTENDANCE             -->
+    <!-- ============================================== -->
+    <div class="tab-pane active" id="tabScanner">
+      <!-- Quick Search Bar for manual check-in -->
+      <div class="quick-search-box">
+        <input type="text" id="manualSearchInput" class="search-input" placeholder="🔍 ابحث بالاسم أو رقم التليفون أو الكود لتسجيل الحضور السريع...">
+        <div class="quick-results" id="quickSearchResults"></div>
+      </div>
+
+      <div class="scanner-layout">
+        <!-- Live Camera Scanner Card -->
+        <div class="camera-card">
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <h2 style="font-size:1.15rem;font-weight:800;display:flex;align-items:center;gap:0.5rem;color:var(--accent-gold);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+              ماسح الـ QR المباشر بكاميرا الجهاز
+            </h2>
+            <div id="cameraStatusText" style="font-size:0.8rem;color:var(--text-muted);">جاهز للمسح</div>
+          </div>
+
+          <!-- Video element for HTML5 QR code -->
+          <div id="reader"></div>
+
+          <div class="camera-controls">
+            <div style="display:flex;gap:0.5rem;">
+              <button class="btn btn-gold" id="startScanBtn">▶ تشغيل الكاميرا</button>
+              <button class="btn" id="stopScanBtn" style="display:none;">⏹ إيقاف</button>
+            </div>
+            <div style="display:flex;align-items:center;gap:0.5rem;">
+              <select id="cameraSelect" class="session-select" style="max-width:200px;font-size:0.8rem;"></select>
+            </div>
+          </div>
+
+          <p style="font-size:0.82rem;color:var(--text-muted);margin-top:0.3rem;">
+            💡 <strong>تلميح:</strong> وجه كاميرا الموبايل أو اللابتوب نحو كود الـ QR الخاص بالشاب، وسيتم تسجيل الحضور ونطق اسمه وتأكيده فورياً.
+          </p>
+        </div>
+
+        <!-- Right Column: Welcome Confirmation & Recent Attendees -->
+        <div style="display:flex;flex-direction:column;gap:1.5rem;">
+          
+          <!-- Welcome Confirmation Box (Appears when someone is scanned) -->
+          <div class="scan-feedback-card" id="scanFeedbackCard">
+            <div class="feedback-header">
+              <div class="feedback-avatar" id="feedbackAvatar">👤</div>
+              <div class="feedback-details">
+                <span id="feedbackBadge" class="family-pill">الأسرة</span>
+                <h3 id="feedbackName" style="margin-top:0.2rem;">اسم الشاب</h3>
+                <div id="feedbackTime" style="font-size:0.82rem;color:var(--text-muted);">تم التسجيل: 00:00 م</div>
+              </div>
+            </div>
+            <div id="feedbackMsg" style="font-size:0.95rem;font-weight:700;"></div>
+          </div>
+
+          <!-- Realtime Session Attendees List -->
+          <div class="attendees-card">
+            <div style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);padding-bottom:0.75rem;">
+              <h3 style="font-size:1.1rem;font-weight:800;color:var(--text-main);">
+                سجل الحاضرين في لقاء اليوم (<span id="attendeeCardCount">0</span>)
+              </h3>
+              <button class="btn" id="clearSessionAttendeesBtn" style="padding:0.3rem 0.6rem;font-size:0.75rem;color:var(--accent-rose);">
+                تصفير السجل
+              </button>
+            </div>
+
+            <div class="attendees-list" id="attendeesList">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- TAB 2: QR ID CARDS (PRINTABLE BADGES)         -->
+    <!-- ============================================== -->
+    <div class="tab-pane" id="tabBadges">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:1rem;">
+        <div>
+          <h2 style="font-size:1.35rem;font-weight:800;color:var(--accent-gold);display:flex;align-items:center;gap:0.5rem;">
+            🪪 بطاقات وكارنيهات الهوية بالـ QR (<span id="badgesTotalCount">157</span>)
+          </h2>
+          <p style="font-size:0.85rem;color:var(--text-muted);">
+            تصميم مدمج ومريح يشمل كافة التفاصيل (الاسم، الرقم، العنوان، تاريخ الميلاد، المرحلة الجامعية، اب الاعتراف).
+          </p>
+        </div>
+
+        <div style="display:flex;gap:0.6rem;align-items:center;">
+          <button class="btn btn-gold" onclick="window.print()" style="font-size:0.82rem;padding:0.4rem 0.85rem;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+            طباعة كافة الكروت (A4)
+          </button>
+        </div>
+      </div>
+
+      <!-- Streamlined De-cluttered Filter Toolbar -->
+      <div class="streamlined-toolbar">
+        <div class="toolbar-top-line">
+          <div class="toolbar-search-box">
+            <input type="text" id="badgeSearchInput" class="search-input" style="padding:0.6rem 1rem;font-size:0.9rem;" placeholder="🔍 ابحث بالاسم، الكود، الموبايل، أو العنوان...">
+          </div>
+          <div style="font-size:0.82rem;font-weight:700;color:var(--text-muted);">
+            المعروض: <strong id="displayedBadgesCount" style="color:var(--accent-gold);">157</strong> كارت
+          </div>
+        </div>
+
+        <div class="toolbar-pills-line">
+          <!-- Group Filters -->
+          <div class="pills-subgroup">
+            <span class="pills-label">المجموعة:</span>
+            <button class="btn btn-gold group-filter-btn active" data-grp="all" style="padding:0.25rem 0.6rem;font-size:0.78rem;">الكل (157)</button>
+            <button class="btn group-filter-btn" data-grp="A" style="padding:0.25rem 0.55rem;font-size:0.78rem;">A</button>
+            <button class="btn group-filter-btn" data-grp="B" style="padding:0.25rem 0.55rem;font-size:0.78rem;">B</button>
+            <button class="btn group-filter-btn" data-grp="C" style="padding:0.25rem 0.55rem;font-size:0.78rem;">C</button>
+            <button class="btn group-filter-btn" data-grp="D" style="padding:0.25rem 0.55rem;font-size:0.78rem;">D</button>
+            <button class="btn group-filter-btn" data-grp="E" style="padding:0.25rem 0.55rem;font-size:0.78rem;">E</button>
+            <button class="btn group-filter-btn" data-grp="T" style="padding:0.25rem 0.55rem;font-size:0.78rem;">T (خارج القناطر)</button>
+          </div>
+
+          <!-- Stage Filters -->
+          <div class="pills-subgroup">
+            <span class="pills-label">المرحلة:</span>
+            <button class="btn badge-stage-btn active btn-gold" data-stage="all" style="padding:0.25rem 0.55rem;font-size:0.78rem;">الكل</button>
+            <button class="btn badge-stage-btn" data-stage="أولى كلية" style="padding:0.25rem 0.55rem;font-size:0.78rem;">أولى كلية (33)</button>
+            <button class="btn badge-stage-btn" data-stage="تانية كلية" style="padding:0.25rem 0.55rem;font-size:0.78rem;">تانية كلية (29)</button>
+            <button class="btn badge-stage-btn" data-stage="تالتة كلية" style="padding:0.25rem 0.55rem;font-size:0.78rem;">تالتة كلية (54)</button>
+            <button class="btn badge-stage-btn" data-stage="رابعة كلية" style="padding:0.25rem 0.55rem;font-size:0.78rem;">رابعة كلية (21)</button>
+            <button class="btn badge-stage-btn" data-stage="خريج" style="padding:0.25rem 0.55rem;font-size:0.78rem;">خريج (20)</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="id-cards-grid" id="idCardsGrid"></div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- TAB 3: MEMBERS DIRECTORY                      -->
+    <!-- ============================================== -->
+    <div class="tab-pane" id="tabMembers">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem;">
+        <div>
+          <h2 style="font-size:1.4rem;font-weight:800;color:var(--accent-gold);">
+            دليل شباب وخُدام الاجتماع (<span id="totalMembersHeader">0</span>)
+          </h2>
+          <p style="font-size:0.9rem;color:var(--text-muted);">إدارة قاعدة بيانات المخدومين والخدام وتعديل أرقام الهواتف والأسر.</p>
+        </div>
+
+        <div style="display:flex;gap:0.75rem;">
+          <button class="btn btn-gold" id="openAddMemberModalBtn">+ إضافة عضو جديد</button>
+          <button class="btn" id="exportMembersBtn">تصدير إكسل (CSV)</button>
+        </div>
+      </div>
+
+      
+      <div style="display:flex;flex-wrap:wrap;gap:0.5rem;align-items:center;margin-bottom:1rem;background:var(--bg-card);padding:0.75rem 1rem;border-radius:var(--radius-md);border:1px solid var(--border);">
+        <span style="font-size:0.85rem;font-weight:800;color:var(--text-muted);">تصفية المجموعات:</span>
+        <button class="btn btn-gold group-filter-btn active" data-grp="all" style="padding:0.25rem 0.65rem;font-size:0.8rem;">الكل (157)</button>
+        <button class="btn group-filter-btn" data-grp="A" style="padding:0.25rem 0.65rem;font-size:0.8rem;">مجموعة A</button>
+        <button class="btn group-filter-btn" data-grp="B" style="padding:0.25rem 0.65rem;font-size:0.8rem;">مجموعة B</button>
+        <button class="btn group-filter-btn" data-grp="C" style="padding:0.25rem 0.65rem;font-size:0.8rem;">مجموعة C</button>
+        <button class="btn group-filter-btn" data-grp="D" style="padding:0.25rem 0.65rem;font-size:0.8rem;">مجموعة D</button>
+        <button class="btn group-filter-btn" data-grp="E" style="padding:0.25rem 0.65rem;font-size:0.8rem;">مجموعة E</button>
+        <button class="btn group-filter-btn" data-grp="T" style="padding:0.25rem 0.65rem;font-size:0.8rem;">مجموعة T (خارج القناطر)</button>
+        
+        <span style="font-size:0.85rem;font-weight:800;color:var(--text-muted);margin-right:1rem;">النوع:</span>
+        <button class="btn gender-filter-btn" data-gen="all" style="padding:0.25rem 0.65rem;font-size:0.8rem;">الكل</button>
+        <button class="btn gender-filter-btn" data-gen="شاب" style="padding:0.25rem 0.65rem;font-size:0.8rem;">شباب (87)</button>
+        <button class="btn gender-filter-btn" data-gen="شابة" style="padding:0.25rem 0.65rem;font-size:0.8rem;">شابات (70)</button>
+
+        <span style="font-size:0.85rem;font-weight:800;color:var(--text-muted);margin-right:1rem;">المرحلة الجامعية:</span>
+        <button class="btn stage-filter-btn active btn-gold" data-stage="all" style="padding:0.25rem 0.65rem;font-size:0.8rem;">الكل</button>
+        <button class="btn stage-filter-btn" data-stage="أولى كلية" style="padding:0.25rem 0.65rem;font-size:0.8rem;">أولى كلية (33)</button>
+        <button class="btn stage-filter-btn" data-stage="تانية كلية" style="padding:0.25rem 0.65rem;font-size:0.8rem;">تانية كلية (29)</button>
+        <button class="btn stage-filter-btn" data-stage="تالتة كلية" style="padding:0.25rem 0.65rem;font-size:0.8rem;">تالتة كلية (54)</button>
+        <button class="btn stage-filter-btn" data-stage="رابعة كلية" style="padding:0.25rem 0.65rem;font-size:0.8rem;">رابعة كلية (21)</button>
+        <button class="btn stage-filter-btn" data-stage="خريج" style="padding:0.25rem 0.65rem;font-size:0.8rem;">خريجين (20)</button>
+
+      </div>
+
+      <div class="data-table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>الكود</th>
+              <th>الاسم</th>
+              <th>المجموعة</th>
+              <th>الدفعة</th>
+              <th>النوع</th>
+              <th>اب الاعتراف</th>
+              <th>المنطقة / العنوان</th>
+              <th>الموبايل</th>
+              <th>واتساب</th>
+            </tr>
+          </thead>
+          <tbody id="membersTableBody">
+            <!-- Rendered by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- TAB 4: SESSIONS & CALENDAR                     -->
+    <!-- ============================================== -->
+    <div class="tab-pane" id="tabSessions">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem;">
+        <div>
+          <h2 style="font-size:1.4rem;font-weight:800;color:var(--accent-gold);">
+            سجل اللقاءات والأسابيع السنوية (26 لقاء)
+          </h2>
+          <p style="font-size:0.9rem;color:var(--text-muted);">مربوط بجدول خطة الخدمة السنوية 2026 - 2027 المعتمدة بكنيسة العذراء مريم.</p>
+        </div>
+        <button class="btn btn-gold" id="addNewSessionModalBtn">+ إنشاء لقاء مخصص</button>
+      </div>
+
+      <div class="data-table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>كود اللقاء</th>
+              <th>التاريخ</th>
+              <th>عنوان الموضوع</th>
+              <th>الأسرة المسؤولة</th>
+              <th>عدد الحاضرين</th>
+              <th>نسبة الحضور</th>
+              <th>التحكم</th>
+            </tr>
+          </thead>
+          <tbody id="sessionsTableBody">
+            <!-- Rendered by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- TAB 5: VISITATION & ABSENCE TRACKING          -->
+    <!-- ============================================== -->
+    <div class="tab-pane" id="tabVisitation">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem;">
+        <div>
+          <h2 style="font-size:1.4rem;font-weight:800;color:var(--accent-rose);display:flex;align-items:center;gap:0.5rem;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            لوحة لجنة الافتقاد ومتابعة الغياب
+          </h2>
+          <p style="font-size:0.9rem;color:var(--text-muted);">
+            تحديد من غاب اليوم أو غاب لعدة أسابيع، مع إمكانية إرسال رسالة افتقاد ودية بالواتساب بنقرة واحدة!
+          </p>
+        </div>
+
+        <div style="display:flex;gap:0.5rem;">
+          <button class="btn btn-gold" id="btnFilterAbsentToday">غائب اليوم</button>
+          <button class="btn" id="btnFilterAbsentMultiple">غائب أسبوعين فأكثر ⚠️</button>
+        </div>
+      </div>
+
+      <div class="data-table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>الاسم</th>
+              <th>الأسرة</th>
+              <th>الموبايل</th>
+              <th>حالة الحضور اليوم</th>
+              <th>إرسال افتقاد واتساب</th>
+              <th>ملاحظات الافتقاد</th>
+            </tr>
+          </thead>
+          <tbody id="visitationTableBody">
+            <!-- Rendered by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- TAB 6: ANALYTICS & EXPORT                     -->
+    <!-- ============================================== -->
+    <div class="tab-pane" id="tabAnalytics">
+      <h2 style="font-size:1.4rem;font-weight:800;color:var(--accent-gold);margin-bottom:1.5rem;">
+        لوحة مؤشرات الأداء والتقارير
+      </h2>
+
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-val" id="kpiTotalMembers">26</div>
+          <div class="stat-title">إجمالي المخدومين والخدام</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val" id="kpiAvgAttendance">0%</div>
+          <div class="stat-title">متوسط الحضور الفصلي</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val" id="kpiTotalSessions">26</div>
+          <div class="stat-title">إجمالي أسابيع الخطة السنوية</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val" id="kpiTopFamily">الأسرة أ</div>
+          <div class="stat-title">الأسرة الأكثر نشاطاً</div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;background:var(--bg-card);padding:1.5rem;border-radius:var(--radius-lg);border:1px solid var(--border);">
+        <button class="btn btn-gold" id="exportFullJsonBackupBtn">💾 تحميل نسخة احتياطية كاملة (JSON)</button>
+        <button class="btn" id="restoreJsonBtn" onclick="document.getElementById('restoreFileInput').click()">📥 استعادة نسخة احتياطية</button>
+        <input type="file" id="restoreFileInput" style="display:none;" accept=".json">
+        <button class="btn btn-success" id="exportAttendanceCsvBtn">📊 تصدير كشف الحضور الكامل (Excel/CSV)</button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ============================================== -->
+  <!-- MODAL: ADD / EDIT MEMBER                       -->
+  <!-- ============================================== -->
+  <div class="modal-backdrop" id="memberModal">
+    <div class="modal-box">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;">
+        <h3 style="font-size:1.25rem;font-weight:800;color:var(--accent-gold);">إضافة مخدوم / خادم جديد</h3>
+        <button style="background:none;border:none;color:inherit;cursor:pointer;font-size:1.2rem;" id="closeMemberModalBtn">✕</button>
+      </div>
+      <form id="memberForm">
+        <div class="form-group">
+          <label>الاسم بالكامل:</label>
+          <input type="text" id="mName" class="form-control" required placeholder="مثال: بيشوي عماد فريد">
+        </div>
+        <div class="form-group">
+          <label>الأسرة التابع لها:</label>
+          <select id="mFamily" class="form-control">
+            <option value="الأسرة أ">الأسرة أ</option>
+            <option value="الأسرة ب">الأسرة ب</option>
+            <option value="الأسرة ج">الأسرة ج</option>
+            <option value="أمناء الاجتماع">أمناء الاجتماع</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>رقم الموبايل (واتساب):</label>
+          <input type="tel" id="mPhone" class="form-control" placeholder="012xxxxxxxx">
+        </div>
+        <div class="form-group">
+          <label>الدور أو المسؤولية (اختياري):</label>
+          <input type="text" id="mRole" class="form-control" placeholder="مخدوم / عضو كورال / خادم افتقاد">
+        </div>
+        <div style="display:flex;justify-content:flex-end;gap:0.75rem;margin-top:1.5rem;">
+          <button type="button" class="btn" id="cancelMemberBtn">إلغاء</button>
+          <button type="submit" class="btn btn-gold">حفظ البيانات وتوليد الـ QR</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL: NEW SESSION                             -->
+  <!-- ============================================== -->
+  <div class="modal-backdrop" id="sessionModal">
+    <div class="modal-box">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;">
+        <h3 style="font-size:1.25rem;font-weight:800;color:var(--accent-gold);">إنشاء لقاء أسبوعي جديد</h3>
+        <button style="background:none;border:none;color:inherit;cursor:pointer;font-size:1.2rem;" id="closeSessionModalBtn">✕</button>
+      </div>
+      <form id="sessionForm">
+        <div class="form-group">
+          <label>تاريخ اللقاء:</label>
+          <input type="date" id="sDate" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label>عنوان الموضوع / الفعالية:</label>
+          <input type="text" id="sTitle" class="form-control" required placeholder="مثال: ورشة عمل الصلاة والتسبيح">
+        </div>
+        <div class="form-group">
+          <label>الأسرة المسؤولة عن تحضير اليوم:</label>
+          <select id="sFamily" class="form-control">
+            <option value="الأسرة أ">الأسرة أ</option>
+            <option value="الأسرة ب">الأسرة ب</option>
+            <option value="الأسرة ج">الأسرة ج</option>
+            <option value="أمناء الاجتماع">أمناء الاجتماع</option>
+          </select>
+        </div>
+        <div style="display:flex;justify-content:flex-end;gap:0.75rem;margin-top:1.5rem;">
+          <button type="button" class="btn" id="cancelSessionBtn">إلغاء</button>
+          <button type="submit" class="btn btn-gold">إنشاء وتفعيل اللقاء</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL: PROJECTOR SCREEN QR CODE                -->
+  <!-- ============================================== -->
+  <div class="modal-backdrop" id="projectorModal">
+    <div class="modal-box" style="text-align:center;max-width:440px;">
+      <h3 style="font-size:1.35rem;font-weight:800;color:var(--accent-gold);margin-bottom:0.5rem;" id="projectorSessionTitle">لقاء اليوم</h3>
+      <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:1.25rem;">امسح الكود بكاميرا موبايلك لتسجيل حضورك الذاتي السريع</p>
+      
+      <div style="background:#fff;padding:15px;border-radius:var(--radius-md);display:inline-block;box-shadow:var(--shadow-lg);margin-bottom:1rem;" id="projectorQrContainer"></div>
+      
+      <div style="font-weight:800;color:var(--accent-gold);font-size:1.1rem;margin-bottom:1.5rem;" id="projectorSessionDate"></div>
+      <button class="btn btn-gold" style="width:100%;" id="closeProjectorBtn">إغلاق شاشة العرض</button>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- JAVASCRIPT APPLICATION CORE                    -->
+  <!-- ============================================== -->
+  <script>
+    // Audio Synthesizer for instant feedback sounds (No audio files needed!)
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    
+    function playBeepSuccess() {
+      try {
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(587.33, audioCtx.currentTime); // D5
+        osc.frequency.setValueAtTime(880, audioCtx.currentTime + 0.08); // A5
+        gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.28);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.28);
+      } catch (e) {}
+    }
+
+    function playBeepWarning() {
+      try {
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(329.63, audioCtx.currentTime); // E4
+        osc.frequency.setValueAtTime(261.63, audioCtx.currentTime + 0.12); // C4
+        gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.3);
+      } catch (e) {}
+    }
+
+    // Default Seed Data (Incorporating all 26 servants & leaders from Book1.xlsx)
+    const SEED_DATA = {
+  "meetingName": "اجتماع يوسف الصديق للشباب",
+  "church": "كنيسة السيدة العذراء مريم بالقناطر الخيرية",
+  "year": "2026 - 2027",
+  "stats": {
+    "totalMembers": 157,
+    "males": 87,
+    "females": 70,
+    "outsideQanater": 35
+  },
+  "members": [
+    {
+      "id": "E19",
+      "code": "E19",
+      "num": 1,
+      "name": "ابادير (سمير) ايمن",
+      "gender": "شاب",
+      "batch": "2005",
+      "family": "مجموعة E",
+      "groupCode": "E",
+      "phone": "01288474508",
+      "phone2": "",
+      "father": "ابونا إيساك",
+      "college": "",
+      "area": "ش ام النور",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "YS-002",
+      "code": "",
+      "num": 2,
+      "name": "ابانوب هاني حشمت",
+      "gender": "شاب",
+      "batch": "2005",
+      "family": "غير محدد",
+      "groupCode": "Missing",
+      "phone": "01270262719",
+      "phone2": "",
+      "father": "ابونا إيساك",
+      "college": "",
+      "area": "مش عارف",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "YS-003",
+      "code": "",
+      "num": 3,
+      "name": "ارساني البير",
+      "gender": "شاب",
+      "batch": "2005",
+      "family": "غير محدد",
+      "groupCode": "Missing",
+      "phone": "01229680052",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "ش ام النور",
+      "street": "جمب ابانوب اشرف",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "YS-004",
+      "code": "",
+      "num": 4,
+      "name": "ارساني سمير",
+      "gender": "شاب",
+      "batch": "2008",
+      "family": "مجموعة E",
+      "groupCode": "E",
+      "phone": "01229495458",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "E21",
+      "code": "E21",
+      "num": 5,
+      "name": "اسحق نبيل",
+      "gender": "شاب",
+      "batch": "2006",
+      "family": "مجموعة E",
+      "groupCode": "E",
+      "phone": "01221474285",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "ش ام النور",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "YS-006",
+      "code": "",
+      "num": 6,
+      "name": "امير اشرف",
+      "gender": "شاب",
+      "batch": "2007",
+      "family": "غير محدد",
+      "groupCode": "Missing",
+      "phone": "01060537225",
+      "phone2": "01205732411",
+      "father": "ابونا متياس",
+      "college": "",
+      "area": "مش عارف",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "C17",
+      "code": "C17",
+      "num": 7,
+      "name": "انجيل هاني",
+      "gender": "شابة",
+      "batch": "2006",
+      "family": "مجموعة C",
+      "groupCode": "C",
+      "phone": "01208368919",
+      "phone2": "",
+      "father": "ابونا إيساك",
+      "college": "",
+      "area": "ارض الحريف",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "T01",
+      "code": "T01",
+      "num": 8,
+      "name": "اندرو فهيم",
+      "gender": "شاب",
+      "batch": "2004",
+      "family": "مجموعة T (خارج القناطر)",
+      "groupCode": "T",
+      "phone": "01278430910",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "خارج القناطر",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "YS-009",
+      "code": "",
+      "num": 9,
+      "name": "ايريني ايهاب",
+      "gender": "شابة",
+      "batch": "2008",
+      "family": "مجموعة E",
+      "groupCode": "E",
+      "phone": "01011955007",
+      "phone2": "",
+      "father": "ابونا متياس",
+      "college": "",
+      "area": "العزبة",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "YS-010",
+      "code": "",
+      "num": 10,
+      "name": "ايريني تامر",
+      "gender": "شابة",
+      "batch": "2008",
+      "family": "غير محدد",
+      "groupCode": "Missing",
+      "phone": "01203483478",
+      "phone2": "",
+      "father": "ابونا إيساك",
+      "college": "",
+      "area": "ش14",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "D07",
+      "code": "D07",
+      "num": 11,
+      "name": "ايريني جورج",
+      "gender": "شابة",
+      "batch": "2007",
+      "family": "مجموعة D",
+      "groupCode": "D",
+      "phone": "01271721319",
+      "phone2": "",
+      "father": "ابونا إيساك",
+      "college": "",
+      "area": "التقسييم",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "E07",
+      "code": "E07",
+      "num": 12,
+      "name": "ايمي ايمن",
+      "gender": "شابة",
+      "batch": "2007",
+      "family": "مجموعة E",
+      "groupCode": "E",
+      "phone": "01145473490",
+      "phone2": "",
+      "father": "ابونا متياس",
+      "college": "",
+      "area": "العزبة",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "B17",
+      "code": "B17",
+      "num": 13,
+      "name": "ايهاب ماهر",
+      "gender": "شاب",
+      "batch": "2004",
+      "family": "مجموعة B",
+      "groupCode": "B",
+      "phone": "01273860435",
+      "phone2": "",
+      "father": "ابونا ايساك",
+      "college": "",
+      "area": "",
+      "street": "",
+      "building": "رقم1_الدور3",
+      "addressDesc": "اية علي باب المنزل",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "YS-014",
+      "code": "",
+      "num": 14,
+      "name": "بافلي داود",
+      "gender": "شاب",
+      "batch": "2006",
+      "family": "غير محدد",
+      "groupCode": "Missing",
+      "phone": "01210943516",
+      "phone2": "",
+      "father": "ابونا إيساك",
+      "college": "",
+      "area": "مش عارف",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "YS-015",
+      "code": "",
+      "num": 15,
+      "name": "بتول البير",
+      "gender": "شابة",
+      "batch": "2008",
+      "family": "مجموعة C",
+      "groupCode": "C",
+      "phone": "01153095147",
+      "phone2": "",
+      "father": "ابونا إيساك",
+      "college": "",
+      "area": "ش سوق التلات",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "YS-016",
+      "code": "",
+      "num": 16,
+      "name": "بولا اشرف",
+      "gender": "شاب",
+      "batch": "2008",
+      "family": "غير محدد",
+      "groupCode": "Missing",
+      "phone": "01211340616",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "T02",
+      "code": "T02",
+      "num": 17,
+      "name": "بولا اكرم",
+      "gender": "شاب",
+      "batch": "2004",
+      "family": "مجموعة T (خارج القناطر)",
+      "groupCode": "T",
+      "phone": "01200799193",
+      "phone2": "",
+      "father": "ابونا دافيد",
+      "college": "",
+      "area": "خارج القناطر",
+      "street": "الهرم ش زكريا بن الخطاب",
+      "building": "منزل رقم 16/8",
+      "addressDesc": "فكهاني الباشا",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "D11",
+      "code": "D11",
+      "num": 18,
+      "name": "بولا ايساك",
+      "gender": "شاب",
+      "batch": "2005",
+      "family": "مجموعة D",
+      "groupCode": "D",
+      "phone": "01223757761",
+      "phone2": "",
+      "father": "ابونا إيساك",
+      "college": "",
+      "area": "التقسيم السياحي",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "YS-019",
+      "code": "",
+      "num": 19,
+      "name": "بولا ميشيل",
+      "gender": "شاب",
+      "batch": "2005",
+      "family": "غير محدد",
+      "groupCode": "Missing",
+      "phone": "01204982339",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "مش عارف",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "A25",
+      "code": "A25",
+      "num": 20,
+      "name": "بولا هشام",
+      "gender": "شاب",
+      "batch": "2006",
+      "family": "مجموعة A",
+      "groupCode": "A",
+      "phone": "01207205034",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "ش 14",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "D17",
+      "code": "D17",
+      "num": 21,
+      "name": "بيتر مجدي عزيز",
+      "gender": "شاب",
+      "batch": "2007",
+      "family": "مجموعة D",
+      "groupCode": "D",
+      "phone": "01097894518",
+      "phone2": "",
+      "father": "ابونا إيساك",
+      "college": "",
+      "area": "التقسييم",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "A21",
+      "code": "A21",
+      "num": 22,
+      "name": "بيشوي اشرف مندي",
+      "gender": "شاب",
+      "batch": "2007",
+      "family": "مجموعة A",
+      "groupCode": "A",
+      "phone": "01208751074",
+      "phone2": "",
+      "father": "ابونا متياس",
+      "college": "",
+      "area": "ش 14",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "YS-023",
+      "code": "",
+      "num": 23,
+      "name": "بيشوي ايمن كمال",
+      "gender": "شاب",
+      "batch": "2008",
+      "family": "غير محدد",
+      "groupCode": "Missing",
+      "phone": "01271865533",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "T03",
+      "code": "T03",
+      "num": 24,
+      "name": "بيشوي عاطف",
+      "gender": "شاب",
+      "batch": "2007",
+      "family": "مجموعة T (خارج القناطر)",
+      "groupCode": "T",
+      "phone": "01226077974",
+      "phone2": "",
+      "father": "ابونا متياس",
+      "college": "",
+      "area": "خارج القناطر",
+      "street": "بهادة",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "D05",
+      "code": "D05",
+      "num": 25,
+      "name": "بيشوي عماد سمير",
+      "gender": "شاب",
+      "batch": "2006",
+      "family": "مجموعة D",
+      "groupCode": "D",
+      "phone": "01289088488",
+      "phone2": "",
+      "father": "ابونا متياس",
+      "college": "",
+      "area": "مصنع الورق",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "E09",
+      "code": "E09",
+      "num": 26,
+      "name": "بيشوي ماهر",
+      "gender": "شاب",
+      "batch": "2007",
+      "family": "مجموعة E",
+      "groupCode": "E",
+      "phone": "01204086189",
+      "phone2": "",
+      "father": "ابونا متياس",
+      "college": "",
+      "area": "عزبة احمد فوزي",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "D04",
+      "code": "D04",
+      "num": 27,
+      "name": "بيشوي مرقس إدوارد",
+      "gender": "شاب",
+      "batch": "2005",
+      "family": "مجموعة D",
+      "groupCode": "D",
+      "phone": "01211027467",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "مصنع الورق",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "C20",
+      "code": "C20",
+      "num": 28,
+      "name": "توماس اكرامي سمير",
+      "gender": "شاب",
+      "batch": "2007",
+      "family": "مجموعة C",
+      "groupCode": "C",
+      "phone": "01277847021",
+      "phone2": "",
+      "father": "ابونا إيساك",
+      "college": "",
+      "area": "التأمينات القديمة",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "T04",
+      "code": "T04",
+      "num": 29,
+      "name": "توماس ماركو",
+      "gender": "شاب",
+      "batch": "2006",
+      "family": "مجموعة T (خارج القناطر)",
+      "groupCode": "T",
+      "phone": "01286763406",
+      "phone2": "",
+      "father": "ابونا تادرس",
+      "college": "",
+      "area": "خارج القناطر",
+      "street": "ش شبرا",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "A40",
+      "code": "A40",
+      "num": 30,
+      "name": "توماس ملاك",
+      "gender": "شاب",
+      "batch": "2006",
+      "family": "مجموعة A",
+      "groupCode": "A",
+      "phone": "01287284098",
+      "phone2": "",
+      "father": "ابونا متياس",
+      "college": "",
+      "area": "ش 14",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "B20",
+      "code": "B20",
+      "num": 31,
+      "name": "توني عادل",
+      "gender": "شاب",
+      "batch": "2006",
+      "family": "مجموعة B",
+      "groupCode": "B",
+      "phone": "01203419941",
+      "phone2": "",
+      "father": "ابونا متياس",
+      "college": "",
+      "area": "ص. عزمي",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "C14",
+      "code": "C14",
+      "num": 32,
+      "name": "جني اشرف",
+      "gender": "شابة",
+      "batch": "2004",
+      "family": "مجموعة C",
+      "groupCode": "C",
+      "phone": "01200733842",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "سوق الثلاثاء",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "C18",
+      "code": "C18",
+      "num": 33,
+      "name": "جورج كرم",
+      "gender": "شاب",
+      "batch": "2007",
+      "family": "مجموعة C",
+      "groupCode": "C",
+      "phone": "01270711288",
+      "phone2": "",
+      "father": "ابونا متياس",
+      "college": "",
+      "area": "التأمينات القديمة",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "T05",
+      "code": "T05",
+      "num": 34,
+      "name": "جورج ماجد",
+      "gender": "شاب",
+      "batch": "2004",
+      "family": "مجموعة T (خارج القناطر)",
+      "groupCode": "T",
+      "phone": "01555952693",
+      "phone2": "",
+      "father": "ابونا متياس",
+      "college": "",
+      "area": "خارج القناطر",
+      "street": "خارج القناطر",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "B13",
+      "code": "B13",
+      "num": 35,
+      "name": "جوليا جميل",
+      "gender": "شابة",
+      "batch": "2006",
+      "family": "مجموعة B",
+      "groupCode": "B",
+      "phone": "01228395147",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "ص. عزمي",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "A27",
+      "code": "A27",
+      "num": 36,
+      "name": "جومانا عاطف",
+      "gender": "شابة",
+      "batch": "2007",
+      "family": "مجموعة A",
+      "groupCode": "A",
+      "phone": "01112929912",
+      "phone2": "",
+      "father": "ابونا إيساك",
+      "college": "",
+      "area": "اول 14",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "T06",
+      "code": "T06",
+      "num": 37,
+      "name": "جويس شريف",
+      "gender": "شابة",
+      "batch": "2008",
+      "family": "مجموعة T (خارج القناطر)",
+      "groupCode": "T",
+      "phone": "01206933090",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "خارج القناطر",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "T07",
+      "code": "T07",
+      "num": 38,
+      "name": "جويس ميشيل",
+      "gender": "شابة",
+      "batch": "2006",
+      "family": "مجموعة T (خارج القناطر)",
+      "groupCode": "T",
+      "phone": "01204726009",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "خارج القناطر",
+      "street": "اكتوبر",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "YS-039",
+      "code": "",
+      "num": 39,
+      "name": "جينيفر جوزيف",
+      "gender": "شابة",
+      "batch": "2007",
+      "family": "غير محدد",
+      "groupCode": "Missing",
+      "phone": "01210720096",
+      "phone2": "",
+      "father": "ابونا متياس",
+      "college": "",
+      "area": "مش عارف",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "E06",
+      "code": "E06",
+      "num": 40,
+      "name": "خليل جمال",
+      "gender": "شاب",
+      "batch": "2004",
+      "family": "مجموعة E",
+      "groupCode": "E",
+      "phone": "01202656756",
+      "phone2": "",
+      "father": "ابونا ايساك",
+      "college": "",
+      "area": "عزبة احمد فوزي",
+      "street": "ش المعلم جمال",
+      "building": "الدور الثاني",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "T08",
+      "code": "T08",
+      "num": 41,
+      "name": "خيري نبيل خيري",
+      "gender": "شاب",
+      "batch": "2006",
+      "family": "مجموعة T (خارج القناطر)",
+      "groupCode": "T",
+      "phone": "01288477418",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "خارج القناطر",
+      "street": "دروة",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "D16",
+      "code": "D16",
+      "num": 42,
+      "name": "دافيد ايهاب",
+      "gender": "شاب",
+      "batch": "2006",
+      "family": "مجموعة D",
+      "groupCode": "D",
+      "phone": "01220201642",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "النقسيم السياحي",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "T09",
+      "code": "T09",
+      "num": 43,
+      "name": "دميانة نسيم",
+      "gender": "شابة",
+      "batch": "2006",
+      "family": "مجموعة T (خارج القناطر)",
+      "groupCode": "T",
+      "phone": "01279885494",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "خارج القناطر",
+      "street": "خارج القناطر",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "YS-044",
+      "code": "",
+      "num": 44,
+      "name": "رامز روماني",
+      "gender": "شاب",
+      "batch": "2008",
+      "family": "غير محدد",
+      "groupCode": "Missing",
+      "phone": "01555925994",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "T13",
+      "code": "T13",
+      "num": 45,
+      "name": "روزالين رضا",
+      "gender": "شابة",
+      "batch": "2006",
+      "family": "مجموعة T (خارج القناطر)",
+      "groupCode": "T",
+      "phone": "01557514054",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "خارج القناطر",
+      "street": "ش شبرا",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "T10",
+      "code": "T10",
+      "num": 46,
+      "name": "ريمون هدايه",
+      "gender": "شاب",
+      "batch": "2007",
+      "family": "مجموعة T (خارج القناطر)",
+      "groupCode": "T",
+      "phone": "01277868115",
+      "phone2": "",
+      "father": "ابونا متياس",
+      "college": "",
+      "area": "خارج القناطر",
+      "street": "ارض ابو جمعة",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "C11",
+      "code": "C11",
+      "num": 47,
+      "name": "سارة يحي",
+      "gender": "شابة",
+      "batch": "2005",
+      "family": "مجموعة C",
+      "groupCode": "C",
+      "phone": "01278083378",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "ق.ليالي الحلمية",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "YS-048",
+      "code": "",
+      "num": 48,
+      "name": "سامح مينا",
+      "gender": "شاب",
+      "batch": "2008",
+      "family": "غير محدد",
+      "groupCode": "Missing",
+      "phone": "01208562360",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "YS-049",
+      "code": "",
+      "num": 49,
+      "name": "ساندي باسم",
+      "gender": "شابة",
+      "batch": "2008",
+      "family": "غير محدد",
+      "groupCode": "Missing",
+      "phone": "01277424799",
+      "phone2": "",
+      "father": "ابونا إيساك",
+      "college": "",
+      "area": "بجوار الكنيسة",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "E17",
+      "code": "E17",
+      "num": 50,
+      "name": "شنودة سامي",
+      "gender": "شاب",
+      "batch": "2007",
+      "family": "مجموعة E",
+      "groupCode": "E",
+      "phone": "01271616721",
+      "phone2": "",
+      "father": "ابونا متياس",
+      "college": "",
+      "area": "ش ام النور",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "E28",
+      "code": "E28",
+      "num": 51,
+      "name": "شيري شنودة",
+      "gender": "شابة",
+      "batch": "2004",
+      "family": "مجموعة E",
+      "groupCode": "E",
+      "phone": "01271121731",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "عزبة الناموس",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "B10",
+      "code": "B10",
+      "num": 52,
+      "name": "شيري عماد",
+      "gender": "شابة",
+      "batch": "2005",
+      "family": "مجموعة B",
+      "groupCode": "B",
+      "phone": "01275545315",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "نور السلام",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "C02",
+      "code": "C02",
+      "num": 53,
+      "name": "شيري فادي",
+      "gender": "شابة",
+      "batch": "2007",
+      "family": "مجموعة C",
+      "groupCode": "C",
+      "phone": "01220938936",
+      "phone2": "",
+      "father": "ابونا متياس",
+      "college": "",
+      "area": "ش 14",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "YS-054",
+      "code": "",
+      "num": 54,
+      "name": "فادي سمير",
+      "gender": "شاب",
+      "batch": "2006",
+      "family": "غير محدد",
+      "groupCode": "Missing",
+      "phone": "01228454332",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "مش عارف",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "YS-055",
+      "code": "",
+      "num": 55,
+      "name": "فادي ملاك",
+      "gender": "شاب",
+      "batch": "2006",
+      "family": "غير محدد",
+      "groupCode": "Missing",
+      "phone": "01152677447",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "مش عارف",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "B18",
+      "code": "B18",
+      "num": 56,
+      "name": "فادي ميلاد",
+      "gender": "شاب",
+      "batch": "2005",
+      "family": "مجموعة B",
+      "groupCode": "B",
+      "phone": "01202843016",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "ص. عزمي",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "C03",
+      "code": "C03",
+      "num": 57,
+      "name": "فادي نادر نبيل",
+      "gender": "شاب",
+      "batch": "2007",
+      "family": "مجموعة C",
+      "groupCode": "C",
+      "phone": "01276412023",
+      "phone2": "",
+      "father": "ابونا اسحق",
+      "college": "",
+      "area": "ش 14",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "D06",
+      "code": "D06",
+      "num": 58,
+      "name": "فام القمص اباكير",
+      "gender": "شاب",
+      "batch": "2004",
+      "family": "مجموعة D",
+      "groupCode": "D",
+      "phone": "01554822273",
+      "phone2": "",
+      "father": "ابونا اباكير",
+      "college": "",
+      "area": "التقسيم السياحي",
+      "street": "ش الحرية",
+      "building": "الدور الرابع",
+      "addressDesc": "بجوار كافيه Hello Kitty",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "B07",
+      "code": "B07",
+      "num": 59,
+      "name": "فليمون لبيب",
+      "gender": "شاب",
+      "batch": "2007",
+      "family": "مجموعة B",
+      "groupCode": "B",
+      "phone": "01228552895",
+      "phone2": "",
+      "father": "ابونا كيرلس",
+      "college": "",
+      "area": "حوش النخل",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "C08",
+      "code": "C08",
+      "num": 60,
+      "name": "فيرونيا عزمي",
+      "gender": "شابة",
+      "batch": "2005",
+      "family": "مجموعة C",
+      "groupCode": "C",
+      "phone": "01200856558",
+      "phone2": "",
+      "father": "ابونا دانييل",
+      "college": "",
+      "area": "ق.ليالي الحلمية",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "C22",
+      "code": "C22",
+      "num": 61,
+      "name": "فيلوباتير رأفت",
+      "gender": "شاب",
+      "batch": "2006",
+      "family": "مجموعة C",
+      "groupCode": "C",
+      "phone": "01206164529",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "ش.سوق التلات",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "E30",
+      "code": "E30",
+      "num": 62,
+      "name": "فيلوباتير مدحت",
+      "gender": "شاب",
+      "batch": "2006",
+      "family": "مجموعة E",
+      "groupCode": "E",
+      "phone": "01228754558",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "عزبة احمد فوزي",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "E04",
+      "code": "E04",
+      "num": 63,
+      "name": "فيلوباتير منير",
+      "gender": "شاب",
+      "batch": "2004",
+      "family": "مجموعة E",
+      "groupCode": "E",
+      "phone": "01279428863",
+      "phone2": "",
+      "father": "ابونا متياس",
+      "college": "",
+      "area": "عزبة احمد فوزي",
+      "street": "ش ياسر صلاح",
+      "building": "الدور الاول",
+      "addressDesc": "بجوار مكوجي صلاح بكر",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "YS-064",
+      "code": "",
+      "num": 64,
+      "name": "فيلوباتير وائل",
+      "gender": "شاب",
+      "batch": "2008",
+      "family": "غير محدد",
+      "groupCode": "Missing",
+      "phone": "01278438977",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "E29",
+      "code": "E29",
+      "num": 65,
+      "name": "فيولا شنودة",
+      "gender": "شابة",
+      "batch": "2006",
+      "family": "مجموعة E",
+      "groupCode": "E",
+      "phone": "01274013893",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "عزبة احمد فوزي",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "YS-066",
+      "code": "",
+      "num": 66,
+      "name": "كارين اسامة",
+      "gender": "شابة",
+      "batch": "2008",
+      "family": "غير محدد",
+      "groupCode": "Missing",
+      "phone": "01225327713",
+      "phone2": "",
+      "father": "ابونا اباكير",
+      "college": "",
+      "area": "بجوار الكنيسة",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "C12",
+      "code": "C12",
+      "num": 67,
+      "name": "كارين فيكتور",
+      "gender": "شابة",
+      "batch": "2006",
+      "family": "مجموعة C",
+      "groupCode": "C",
+      "phone": "01221934211",
+      "phone2": "",
+      "father": "ابونا إيساك",
+      "college": "",
+      "area": "ش.سوق التلات",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "T11",
+      "code": "T11",
+      "num": 68,
+      "name": "كرستين جميل",
+      "gender": "شابة",
+      "batch": "2006",
+      "family": "مجموعة T (خارج القناطر)",
+      "groupCode": "T",
+      "phone": "01154399320",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "خارج القناطر",
+      "street": "اجهور",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "D15",
+      "code": "D15",
+      "num": 69,
+      "name": "كريم شريف",
+      "gender": "شاب",
+      "batch": "2006",
+      "family": "مجموعة D",
+      "groupCode": "D",
+      "phone": "01276680787",
+      "phone2": "",
+      "father": "ابونا إيساك",
+      "college": "",
+      "area": "التقسيم السياحي",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "YS-070",
+      "code": "",
+      "num": 70,
+      "name": "كمال اشرف",
+      "gender": "شاب",
+      "batch": "2008",
+      "family": "غير محدد",
+      "groupCode": "Missing",
+      "phone": "01124016454",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "B05",
+      "code": "B05",
+      "num": 71,
+      "name": "كمال اشرف لوندي",
+      "gender": "شاب",
+      "batch": "2005",
+      "family": "مجموعة B",
+      "groupCode": "B",
+      "phone": "01284205756",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "ميدان الازهار",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "A17",
+      "code": "A17",
+      "num": 72,
+      "name": "كيرلس امير إبراهيم",
+      "gender": "شاب",
+      "batch": "2005",
+      "family": "مجموعة A",
+      "groupCode": "A",
+      "phone": "01282076103",
+      "phone2": "",
+      "father": "ابونا إيساك",
+      "college": "",
+      "area": "ش 14",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "YS-073",
+      "code": "",
+      "num": 73,
+      "name": "كيرلس جورج ابراهيم",
+      "gender": "شاب",
+      "batch": "2008",
+      "family": "غير محدد",
+      "groupCode": "Missing",
+      "phone": "01279962619",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "T12",
+      "code": "T12",
+      "num": 74,
+      "name": "كيرلس سامي",
+      "gender": "شاب",
+      "batch": "2004",
+      "family": "مجموعة T (خارج القناطر)",
+      "groupCode": "T",
+      "phone": "01223708282",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "خارج القناطر",
+      "street": "قليوب",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "E26",
+      "code": "E26",
+      "num": 75,
+      "name": "كيرلس عادل عزيز",
+      "gender": "شاب",
+      "batch": "2006",
+      "family": "مجموعة E",
+      "groupCode": "E",
+      "phone": "01277125305",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "عزبة احمد فوزي",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "T13",
+      "code": "T13",
+      "num": 76,
+      "name": "كيرلس عماد",
+      "gender": "شاب",
+      "batch": "2007",
+      "family": "مجموعة T (خارج القناطر)",
+      "groupCode": "T",
+      "phone": "01229351548",
+      "phone2": "",
+      "father": "ابونا إيساك",
+      "college": "",
+      "area": "خارج القناطر",
+      "street": "مدينة نصر",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "B06",
+      "code": "B06",
+      "num": 77,
+      "name": "كيرلس عماد فرج",
+      "gender": "شاب",
+      "batch": "2006",
+      "family": "مجموعة B",
+      "groupCode": "B",
+      "phone": "01207466447",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "حوش النخل",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "B16",
+      "code": "B16",
+      "num": 78,
+      "name": "كيرلس عماد فوزي",
+      "gender": "شاب",
+      "batch": "2004",
+      "family": "مجموعة B",
+      "groupCode": "B",
+      "phone": "01201602431",
+      "phone2": "",
+      "father": "ابونا ايساك",
+      "college": "",
+      "area": "معمل فوزي",
+      "street": "ش فاضل",
+      "building": "منزل رقم 27_الدور 3",
+      "addressDesc": "عيادة دكتور حسن رجب في نفس الشارع",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "T14",
+      "code": "T14",
+      "num": 79,
+      "name": "كيرلس كرم",
+      "gender": "شاب",
+      "batch": "2006",
+      "family": "مجموعة T (خارج القناطر)",
+      "groupCode": "T",
+      "phone": "01202569591",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "خارج القناطر",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "A14",
+      "code": "A14",
+      "num": 80,
+      "name": "كيرلس مجدي ماهر",
+      "gender": "شاب",
+      "batch": "2006",
+      "family": "مجموعة A",
+      "groupCode": "A",
+      "phone": "01278397082",
+      "phone2": "",
+      "father": "ابونا اسحق",
+      "college": "",
+      "area": "ش 14",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "A16",
+      "code": "A16",
+      "num": 81,
+      "name": "كيرلس هاني",
+      "gender": "شاب",
+      "batch": "2006",
+      "family": "مجموعة A",
+      "groupCode": "A",
+      "phone": "01060002268",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "ش 14",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "T15",
+      "code": "T15",
+      "num": 82,
+      "name": "كيرمينا سامح",
+      "gender": "شابة",
+      "batch": "2007",
+      "family": "مجموعة T (خارج القناطر)",
+      "groupCode": "T",
+      "phone": "01201816176",
+      "phone2": "",
+      "father": "ابونا إيساك",
+      "college": "",
+      "area": "خارج القناطر",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "A04",
+      "code": "A04",
+      "num": 83,
+      "name": "كيريا عماد",
+      "gender": "شابة",
+      "batch": "2006",
+      "family": "مجموعة A",
+      "groupCode": "A",
+      "phone": "01552112615",
+      "phone2": "",
+      "father": "ابونا يوساب",
+      "college": "",
+      "area": "ش 14",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "A08",
+      "code": "A08",
+      "num": 84,
+      "name": "ماثيو ادوارد",
+      "gender": "شاب",
+      "batch": "2006",
+      "family": "مجموعة A",
+      "groupCode": "A",
+      "phone": "01222716609",
+      "phone2": "",
+      "father": "ابونا إيساك",
+      "college": "",
+      "area": "ش 14",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "C24",
+      "code": "C24",
+      "num": 85,
+      "name": "مادونا فرج الله",
+      "gender": "شابة",
+      "batch": "2005",
+      "family": "مجموعة C",
+      "groupCode": "C",
+      "phone": "01228688715",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "ش.سوق التلات",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "E31",
+      "code": "E31",
+      "num": 86,
+      "name": "مارتينا مدحت",
+      "gender": "شابة",
+      "batch": "2004",
+      "family": "مجموعة E",
+      "groupCode": "E",
+      "phone": "01277089408",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "عزبة الناموس",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "B14",
+      "code": "B14",
+      "num": 87,
+      "name": "مارسلينو مايكل جمال",
+      "gender": "شاب",
+      "batch": "2007",
+      "family": "مجموعة B",
+      "groupCode": "B",
+      "phone": "01128650766",
+      "phone2": "1286784134",
+      "father": "ابونا كيرلس",
+      "college": "",
+      "area": "ص. عزمي",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "A29",
+      "code": "A29",
+      "num": 88,
+      "name": "مارسلينو مرقس لويس",
+      "gender": "شاب",
+      "batch": "2006",
+      "family": "مجموعة A",
+      "groupCode": "A",
+      "phone": "01277887909",
+      "phone2": "",
+      "father": "ابونا اباكير",
+      "college": "",
+      "area": "ش 14",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "C06",
+      "code": "C06",
+      "num": 89,
+      "name": "مارفن سعد",
+      "gender": "شابة",
+      "batch": "2007",
+      "family": "مجموعة C",
+      "groupCode": "C",
+      "phone": "01275991255",
+      "phone2": "",
+      "father": "ابونا إيساك",
+      "college": "",
+      "area": "العزبة",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "T16",
+      "code": "T16",
+      "num": 90,
+      "name": "مارك ريمون",
+      "gender": "شاب",
+      "batch": "2008",
+      "family": "مجموعة T (خارج القناطر)",
+      "groupCode": "T",
+      "phone": "",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "خارج القناطر",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "T17",
+      "code": "T17",
+      "num": 91,
+      "name": "مارك عاطف",
+      "gender": "شاب",
+      "batch": "2007",
+      "family": "مجموعة T (خارج القناطر)",
+      "groupCode": "T",
+      "phone": "01286956838",
+      "phone2": "",
+      "father": "ابونا متياس",
+      "college": "",
+      "area": "خارج القناطر",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "YS-092",
+      "code": "",
+      "num": 92,
+      "name": "مارلي هاني",
+      "gender": "شابة",
+      "batch": "2008",
+      "family": "غير محدد",
+      "groupCode": "Missing",
+      "phone": "01286725997",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "بجوار الكنيسة",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "D01",
+      "code": "D01",
+      "num": 93,
+      "name": "ماريا ايليا",
+      "gender": "شابة",
+      "batch": "2007",
+      "family": "مجموعة D",
+      "groupCode": "D",
+      "phone": "01226833911",
+      "phone2": "",
+      "father": "ابونا اباكير",
+      "college": "",
+      "area": "سور النادي",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "YS-094",
+      "code": "",
+      "num": 94,
+      "name": "ماريا جان",
+      "gender": "شابة",
+      "batch": "2008",
+      "family": "غير محدد",
+      "groupCode": "Missing",
+      "phone": "01207633807",
+      "phone2": "",
+      "father": "ابونا اباكير",
+      "college": "",
+      "area": "ش14",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "A22",
+      "code": "A22",
+      "num": 95,
+      "name": "ماريا ريمون",
+      "gender": "شابة",
+      "batch": "2006",
+      "family": "مجموعة A",
+      "groupCode": "A",
+      "phone": "01282313266",
+      "phone2": "",
+      "father": "ابونا إيساك",
+      "college": "",
+      "area": "ش 14",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "E23",
+      "code": "E23",
+      "num": 96,
+      "name": "ماريا عادل",
+      "gender": "شابة",
+      "batch": "2006",
+      "family": "مجموعة E",
+      "groupCode": "E",
+      "phone": "01282443239",
+      "phone2": "",
+      "father": "ابونا إيساك",
+      "college": "",
+      "area": "عزبة احمد فوزي",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "A23",
+      "code": "A23",
+      "num": 97,
+      "name": "ماريا وحيد",
+      "gender": "شابة",
+      "batch": "2006",
+      "family": "مجموعة A",
+      "groupCode": "A",
+      "phone": "01211662429",
+      "phone2": "",
+      "father": "ابونا إيساك",
+      "college": "",
+      "area": "ش 14",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "E32",
+      "code": "E32",
+      "num": 98,
+      "name": "ماريان أسامة",
+      "gender": "شابة",
+      "batch": "2005",
+      "family": "مجموعة E",
+      "groupCode": "E",
+      "phone": "01285215611",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "عزبة احمد فوزي",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "T18",
+      "code": "T18",
+      "num": 99,
+      "name": "ماريان اكرم",
+      "gender": "شابة",
+      "batch": "2006",
+      "family": "مجموعة T (خارج القناطر)",
+      "groupCode": "T",
+      "phone": "01066028309",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "خارج القناطر",
+      "street": "الجيزة",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "C05",
+      "code": "C05",
+      "num": 100,
+      "name": "ماريت سعد",
+      "gender": "شابة",
+      "batch": "2006",
+      "family": "مجموعة C",
+      "groupCode": "C",
+      "phone": "01275067097",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "ق.ليالي الحلمية",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "YS-101",
+      "code": "",
+      "num": 101,
+      "name": "ماريز رأفت",
+      "gender": "شابة",
+      "batch": "2008",
+      "family": "مجموعة C",
+      "groupCode": "C",
+      "phone": "01210210719",
+      "phone2": "",
+      "father": "ابونا إيساك",
+      "college": "",
+      "area": "ش سوق التلات",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "YS-102",
+      "code": "",
+      "num": 102,
+      "name": "مارينا عاطف",
+      "gender": "شابة",
+      "batch": "2008",
+      "family": "مجموعة C",
+      "groupCode": "C",
+      "phone": "01551865325",
+      "phone2": "",
+      "father": "ابونا متياس",
+      "college": "",
+      "area": "المطحن",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "A15",
+      "code": "A15",
+      "num": 103,
+      "name": "ماهر مجدي ماهر",
+      "gender": "شاب",
+      "batch": "2006",
+      "family": "مجموعة A",
+      "groupCode": "A",
+      "phone": "01270038496",
+      "phone2": "1277615582",
+      "father": "ابونا اسحق",
+      "college": "",
+      "area": "ش 14",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "YS-104",
+      "code": "",
+      "num": 104,
+      "name": "مايا نادر",
+      "gender": "شابة",
+      "batch": "2008",
+      "family": "غير محدد",
+      "groupCode": "Missing",
+      "phone": "01277497973",
+      "phone2": "",
+      "father": "ابونا إيساك",
+      "college": "",
+      "area": "ش14",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "YS-105",
+      "code": "",
+      "num": 105,
+      "name": "مايكل زكريا",
+      "gender": "شاب",
+      "batch": "2008",
+      "family": "مجموعة E",
+      "groupCode": "E",
+      "phone": "01200969572",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "B09",
+      "code": "B09",
+      "num": 106,
+      "name": "مايكل نبيل ملاك",
+      "gender": "شاب",
+      "batch": "2006",
+      "family": "مجموعة B",
+      "groupCode": "B",
+      "phone": "01279961721",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "نور السلام",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "T19",
+      "code": "T19",
+      "num": 107,
+      "name": "مريم جرجس",
+      "gender": "شابة",
+      "batch": "2005",
+      "family": "مجموعة T (خارج القناطر)",
+      "groupCode": "T",
+      "phone": "01281879028",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "خارج القناطر",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "T20",
+      "code": "T20",
+      "num": 108,
+      "name": "مريم حليم",
+      "gender": "شابة",
+      "batch": "2004",
+      "family": "مجموعة T (خارج القناطر)",
+      "groupCode": "T",
+      "phone": "01270700548",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "خارج القناطر",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "T21",
+      "code": "T21",
+      "num": 109,
+      "name": "مريم رزق",
+      "gender": "شابة",
+      "batch": "2005",
+      "family": "مجموعة T (خارج القناطر)",
+      "groupCode": "T",
+      "phone": "",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "خارج القناطر",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "C25",
+      "code": "C25",
+      "num": 110,
+      "name": "مريم سعيد انور",
+      "gender": "شابة",
+      "batch": "2006",
+      "family": "مجموعة C",
+      "groupCode": "C",
+      "phone": "01204403539",
+      "phone2": "",
+      "father": "ابونا إيساك",
+      "college": "",
+      "area": "ش.سوق التلات",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "D10",
+      "code": "D10",
+      "num": 111,
+      "name": "مريم سعيد رياض",
+      "gender": "شابة",
+      "batch": "2006",
+      "family": "مجموعة D",
+      "groupCode": "D",
+      "phone": "01275486757",
+      "phone2": "",
+      "father": "ابونا إيساك",
+      "college": "",
+      "area": "التقسيم السياحي",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "T22",
+      "code": "T22",
+      "num": 112,
+      "name": "مريم عادل",
+      "gender": "شابة",
+      "batch": "2004",
+      "family": "مجموعة T (خارج القناطر)",
+      "groupCode": "T",
+      "phone": "01226191387",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "عزبة الناموس",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "YS-113",
+      "code": "",
+      "num": 113,
+      "name": "مريم عماد",
+      "gender": "شابة",
+      "batch": "2006",
+      "family": "غير محدد",
+      "groupCode": "Missing",
+      "phone": "01201978361",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "مش عارف",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "T23",
+      "code": "T23",
+      "num": 114,
+      "name": "مريم عماد يسى",
+      "gender": "شابة",
+      "batch": "2004",
+      "family": "مجموعة T (خارج القناطر)",
+      "groupCode": "T",
+      "phone": "01211411708",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "خارج القناطر",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "YS-115",
+      "code": "",
+      "num": 115,
+      "name": "مريم نبيل ملاك",
+      "gender": "شابة",
+      "batch": "2008",
+      "family": "غير محدد",
+      "groupCode": "Missing",
+      "phone": "01202844383",
+      "phone2": "",
+      "father": "ابونا إيساك",
+      "college": "",
+      "area": "ش نور السلام",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "YS-116",
+      "code": "",
+      "num": 116,
+      "name": "ملاك ميخائيل",
+      "gender": "شاب",
+      "batch": "2008",
+      "family": "غير محدد",
+      "groupCode": "Missing",
+      "phone": "01024113812",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "T24",
+      "code": "T24",
+      "num": 117,
+      "name": "ملاك ميخائيل سامي",
+      "gender": "شاب",
+      "batch": "2007",
+      "family": "مجموعة T (خارج القناطر)",
+      "groupCode": "T",
+      "phone": "01272814728",
+      "phone2": "1024113812",
+      "father": "ابونا اباكير",
+      "college": "",
+      "area": "خارج القناطر",
+      "street": "شرارة",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "T25",
+      "code": "T25",
+      "num": 118,
+      "name": "ملك عاطف",
+      "gender": "شابة",
+      "batch": "2005",
+      "family": "مجموعة T (خارج القناطر)",
+      "groupCode": "T",
+      "phone": "01288940060",
+      "phone2": "",
+      "father": "ابونا متياس",
+      "college": "",
+      "area": "خارج القناطر",
+      "street": "ش شبرا",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "E33",
+      "code": "E33",
+      "num": 119,
+      "name": "مهرائيل اسامة",
+      "gender": "شابة",
+      "batch": "2004",
+      "family": "مجموعة E",
+      "groupCode": "E",
+      "phone": "01200279165",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "المساكن",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "T26",
+      "code": "T26",
+      "num": 120,
+      "name": "ميرا الهامي",
+      "gender": "شابة",
+      "batch": "2006",
+      "family": "مجموعة T (خارج القناطر)",
+      "groupCode": "T",
+      "phone": "01206606129",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "خارج القناطر",
+      "street": "التجمع",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "A35",
+      "code": "A35",
+      "num": 121,
+      "name": "ميراي محب",
+      "gender": "شابة",
+      "batch": "2006",
+      "family": "مجموعة A",
+      "groupCode": "A",
+      "phone": "01550793010",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "ش 14",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "T27",
+      "code": "T27",
+      "num": 122,
+      "name": "ميرنا رضا",
+      "gender": "شابة",
+      "batch": "2008",
+      "family": "مجموعة T (خارج القناطر)",
+      "groupCode": "T",
+      "phone": "01270538526",
+      "phone2": "",
+      "father": "ابونا متياس",
+      "college": "",
+      "area": "خارج القناطر",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "A39",
+      "code": "A39",
+      "num": 123,
+      "name": "ميرولا ملاك",
+      "gender": "شابة",
+      "batch": "2004",
+      "family": "مجموعة A",
+      "groupCode": "A",
+      "phone": "01200413453",
+      "phone2": "",
+      "father": "ابونا إيساك",
+      "college": "",
+      "area": "ش14",
+      "street": "عمارة اولاد لحظي",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "D08",
+      "code": "D08",
+      "num": 124,
+      "name": "ميريام جورج",
+      "gender": "شابة",
+      "batch": "2007",
+      "family": "مجموعة D",
+      "groupCode": "D",
+      "phone": "01278166583",
+      "phone2": "",
+      "father": "ابونا إيساك",
+      "college": "",
+      "area": "التقسييم",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "A34",
+      "code": "A34",
+      "num": 125,
+      "name": "ميريام سامي عزيز",
+      "gender": "شابة",
+      "batch": "2005",
+      "family": "مجموعة A",
+      "groupCode": "A",
+      "phone": "01289955837",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "ش 14",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "B11",
+      "code": "B11",
+      "num": 126,
+      "name": "ميشيل عادل ميشيل",
+      "gender": "شاب",
+      "batch": "2005",
+      "family": "مجموعة B",
+      "groupCode": "B",
+      "phone": "01281191367",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "ارض الكامب",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "T28",
+      "code": "T28",
+      "num": 127,
+      "name": "ميشيل مدحت",
+      "gender": "شاب",
+      "batch": "2006",
+      "family": "مجموعة T (خارج القناطر)",
+      "groupCode": "T",
+      "phone": "",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "خارج القناطر",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "T29",
+      "code": "T29",
+      "num": 128,
+      "name": "مينا اكرم",
+      "gender": "شاب",
+      "batch": "2007",
+      "family": "مجموعة T (خارج القناطر)",
+      "groupCode": "T",
+      "phone": "01280556608",
+      "phone2": "",
+      "father": "ابونا ديفيد",
+      "college": "",
+      "area": "خارج القناطر",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "D19",
+      "code": "D19",
+      "num": 129,
+      "name": "مينا ايهاب",
+      "gender": "شاب",
+      "batch": "2006",
+      "family": "مجموعة D",
+      "groupCode": "D",
+      "phone": "01287142498",
+      "phone2": "",
+      "father": "ابونا إيساك",
+      "college": "",
+      "area": "التقسيم السياحي",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "A02",
+      "code": "A02",
+      "num": 130,
+      "name": "مينا عادل شفيق",
+      "gender": "شاب",
+      "batch": "2005",
+      "family": "مجموعة A",
+      "groupCode": "A",
+      "phone": "01278865619",
+      "phone2": "",
+      "father": "ابونا إيساك",
+      "college": "",
+      "area": "خلف الكنيسة",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "YS-131",
+      "code": "",
+      "num": 131,
+      "name": "مينا عماد",
+      "gender": "شاب",
+      "batch": "2008",
+      "family": "غير محدد",
+      "groupCode": "Missing",
+      "phone": "01224409830",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "YS-132",
+      "code": "",
+      "num": 132,
+      "name": "مينا ماجد منصور",
+      "gender": "شاب",
+      "batch": "2008",
+      "family": "غير محدد",
+      "groupCode": "Missing",
+      "phone": "01202297056",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "E01",
+      "code": "E01",
+      "num": 133,
+      "name": "مينا مهاود",
+      "gender": "شاب",
+      "batch": "2006",
+      "family": "مجموعة E",
+      "groupCode": "E",
+      "phone": "01211781132",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "اول العزبة",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "YS-134",
+      "code": "",
+      "num": 134,
+      "name": "مينا نبيل",
+      "gender": "شاب",
+      "batch": "2008",
+      "family": "غير محدد",
+      "groupCode": "Missing",
+      "phone": "01212295618",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "YS-135",
+      "code": "",
+      "num": 135,
+      "name": "ناديين عماد",
+      "gender": "شابة",
+      "batch": "2005",
+      "family": "غير محدد",
+      "groupCode": "Missing",
+      "phone": "01206286595",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "مش عارف",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "B12",
+      "code": "B12",
+      "num": 136,
+      "name": "ناردين عادل",
+      "gender": "شابة",
+      "batch": "2006",
+      "family": "مجموعة B",
+      "groupCode": "B",
+      "phone": "01200733974",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "ارض الكامب",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "A19",
+      "code": "A19",
+      "num": 137,
+      "name": "ناردين محب",
+      "gender": "شابة",
+      "batch": "2004",
+      "family": "مجموعة A",
+      "groupCode": "A",
+      "phone": "01229278330",
+      "phone2": "",
+      "father": "ابونا متياس",
+      "college": "",
+      "area": "ش14",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "YS-138",
+      "code": "",
+      "num": 138,
+      "name": "نيرفانا طارق",
+      "gender": "شابة",
+      "batch": "2008",
+      "family": "مجموعة D",
+      "groupCode": "D",
+      "phone": "01227518767",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "التقسيم",
+      "street": "ايجي فرانس",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "E15",
+      "code": "E15",
+      "num": 139,
+      "name": "هيلانة اشرف",
+      "gender": "شابة",
+      "batch": "2006",
+      "family": "مجموعة E",
+      "groupCode": "E",
+      "phone": "01550920680",
+      "phone2": "",
+      "father": "ابونا متياس",
+      "college": "",
+      "area": "ش ام النور",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "E11",
+      "code": "E11",
+      "num": 140,
+      "name": "هيلانة جميل",
+      "gender": "شابة",
+      "batch": "2006",
+      "family": "مجموعة E",
+      "groupCode": "E",
+      "phone": "01271103673",
+      "phone2": "",
+      "father": "ابونا إيساك",
+      "college": "",
+      "area": "الزراعة",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "YS-141",
+      "code": "",
+      "num": 141,
+      "name": "يؤانا ميلاد",
+      "gender": "شابة",
+      "batch": "2008",
+      "family": "غير محدد",
+      "groupCode": "Missing",
+      "phone": "01273056393",
+      "phone2": "",
+      "father": "ابونا متياس",
+      "college": "",
+      "area": "ش نور السلام",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "C15",
+      "code": "C15",
+      "num": 142,
+      "name": "يوحنا باسم",
+      "gender": "شاب",
+      "batch": "2007",
+      "family": "مجموعة C",
+      "groupCode": "C",
+      "phone": "01226544029",
+      "phone2": "",
+      "father": "ابونا إيساك",
+      "college": "",
+      "area": "ارض الحريف",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "T30",
+      "code": "T30",
+      "num": 143,
+      "name": "يوساب حربي",
+      "gender": "شاب",
+      "batch": "2006",
+      "family": "مجموعة T (خارج القناطر)",
+      "groupCode": "T",
+      "phone": "01503770481",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "خارج القناطر",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "YS-144",
+      "code": "",
+      "num": 144,
+      "name": "يوساب ماركو غالي",
+      "gender": "شاب",
+      "batch": "2008",
+      "family": "غير محدد",
+      "groupCode": "Missing",
+      "phone": "01280522562",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "A01",
+      "code": "A01",
+      "num": 145,
+      "name": "يوستينا جورج",
+      "gender": "شابة",
+      "batch": "2006",
+      "family": "مجموعة A",
+      "groupCode": "A",
+      "phone": "01210555392",
+      "phone2": "",
+      "father": "ابونا متياس",
+      "college": "",
+      "area": "خلف الكنيسة",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "B15",
+      "code": "B15",
+      "num": 146,
+      "name": "يوستينا عماد",
+      "gender": "شابة",
+      "batch": "2007",
+      "family": "مجموعة B",
+      "groupCode": "B",
+      "phone": "01278666753",
+      "phone2": "",
+      "father": "ابونا دانييل",
+      "college": "",
+      "area": "معمل فوزي",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "C01",
+      "code": "C01",
+      "num": 147,
+      "name": "يوستينا فادي",
+      "gender": "شابة",
+      "batch": "2004",
+      "family": "مجموعة C",
+      "groupCode": "C",
+      "phone": "01288808642",
+      "phone2": "",
+      "father": "ابونا متياس",
+      "college": "",
+      "area": "عمارة مكتبة عبقرينو",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "T31",
+      "code": "T31",
+      "num": 148,
+      "name": "يوستينا هاني",
+      "gender": "شابة",
+      "batch": "2006",
+      "family": "مجموعة T (خارج القناطر)",
+      "groupCode": "T",
+      "phone": "01275655126",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "خارج القناطر",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "YS-149",
+      "code": "",
+      "num": 149,
+      "name": "يوستينا هاني",
+      "gender": "شابة",
+      "batch": "2008",
+      "family": "غير محدد",
+      "groupCode": "Missing",
+      "phone": "01273222898",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "ش14",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شابة",
+      "active": true
+    },
+    {
+      "id": "T32",
+      "code": "T32",
+      "num": 150,
+      "name": "يوسف اشرف",
+      "gender": "شاب",
+      "batch": "2006",
+      "family": "مجموعة T (خارج القناطر)",
+      "groupCode": "T",
+      "phone": "01271050361",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "خارج القناطر",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "E27",
+      "code": "E27",
+      "num": 151,
+      "name": "يوسف ايهاب",
+      "gender": "شاب",
+      "batch": "2006",
+      "family": "مجموعة E",
+      "groupCode": "E",
+      "phone": "01203727644",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "عزبة احمد فوزي",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "T33",
+      "code": "T33",
+      "num": 152,
+      "name": "يوسف جرجس عياد",
+      "gender": "شاب",
+      "batch": "2007",
+      "family": "مجموعة T (خارج القناطر)",
+      "groupCode": "T",
+      "phone": "01551769856",
+      "phone2": "",
+      "father": "ابونا متياس",
+      "college": "",
+      "area": "خارج القناطر",
+      "street": "باسوس",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "A31",
+      "code": "A31",
+      "num": 153,
+      "name": "يوسف سمير منصور",
+      "gender": "شاب",
+      "batch": "2006",
+      "family": "مجموعة A",
+      "groupCode": "A",
+      "phone": "01227900407",
+      "phone2": "",
+      "father": "ابونا إيساك",
+      "college": "",
+      "area": "ش 14",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "T34",
+      "code": "T34",
+      "num": 154,
+      "name": "يوسف شريف مكرم",
+      "gender": "شاب",
+      "batch": "2004",
+      "family": "مجموعة T (خارج القناطر)",
+      "groupCode": "T",
+      "phone": "01229303434",
+      "phone2": "",
+      "father": "ابونا اباكير",
+      "college": "",
+      "area": "خارج القناطر",
+      "street": "6اكتوبر_مدينة الفردوس عمارات الجيش",
+      "building": "منزل رقم 625_الدور1",
+      "addressDesc": "سوبر ماركت شريف",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "YS-155",
+      "code": "",
+      "num": 155,
+      "name": "يوسف شوقي",
+      "gender": "شاب",
+      "batch": "2008",
+      "family": "غير محدد",
+      "groupCode": "Missing",
+      "phone": "01553757604",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "D18",
+      "code": "D18",
+      "num": 156,
+      "name": "يوسف مكرم",
+      "gender": "شاب",
+      "batch": "2007",
+      "family": "مجموعة D",
+      "groupCode": "D",
+      "phone": "01279147237",
+      "phone2": "",
+      "father": "ابونا متياس",
+      "college": "",
+      "area": "التقسيم",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    },
+    {
+      "id": "YS-157",
+      "code": "",
+      "num": 157,
+      "name": "يوسف وحيد",
+      "gender": "شاب",
+      "batch": "2008",
+      "family": "غير محدد",
+      "groupCode": "Missing",
+      "phone": "01272834382",
+      "phone2": "",
+      "father": "",
+      "college": "",
+      "area": "",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "role": "شاب",
+      "active": true
+    }
+  ],
+  "sessions": [
+    {
+      "id": "SES-01",
+      "date": "2026-11-03",
+      "title": "افتتاح الجدول والتعارف",
+      "family": "مجموعة A",
+      "attendees": []
+    },
+    {
+      "id": "SES-02",
+      "date": "2026-11-10",
+      "title": "أنا مين؟ هويتي وقيمتي",
+      "family": "مجموعة B",
+      "attendees": []
+    },
+    {
+      "id": "SES-03",
+      "date": "2026-11-17",
+      "title": "لعبة تعارف وتحديات جماعية",
+      "family": "مجموعة C",
+      "attendees": []
+    },
+    {
+      "id": "SES-04",
+      "date": "2026-11-24",
+      "title": "استعداد لصوم الميلاد",
+      "family": "أمناء الاجتماع",
+      "attendees": []
+    },
+    {
+      "id": "SES-05",
+      "date": "2026-12-01",
+      "title": "التوبة: بداية جديدة",
+      "family": "مجموعة A",
+      "attendees": []
+    },
+    {
+      "id": "SES-06",
+      "date": "2026-12-08",
+      "title": "الصداقة وتأثير الصحاب",
+      "family": "مجموعة B",
+      "attendees": []
+    },
+    {
+      "id": "SES-07",
+      "date": "2026-12-15",
+      "title": "مسابقة كتاب مقدس ومواهب",
+      "family": "مجموعة C",
+      "attendees": []
+    },
+    {
+      "id": "SES-08",
+      "date": "2026-12-22",
+      "title": "لقاء الميلاد والتسبيح",
+      "family": "أمناء الاجتماع",
+      "attendees": []
+    },
+    {
+      "id": "SES-09",
+      "date": "2026-12-29",
+      "title": "حصاد السنة: أنا اتغيرت إزاي؟",
+      "family": "مجموعة A",
+      "attendees": []
+    },
+    {
+      "id": "SES-10",
+      "date": "2027-01-05",
+      "title": "أهداف روحية للسنة الجديدة",
+      "family": "مجموعة B",
+      "attendees": []
+    },
+    {
+      "id": "SES-11",
+      "date": "2027-01-12",
+      "title": "ورشة مواهب ومهارات",
+      "family": "مجموعة C",
+      "attendees": []
+    },
+    {
+      "id": "SES-12",
+      "date": "2027-01-19",
+      "title": "عيد الغطاس: هويتي كابن لله",
+      "family": "أمناء الاجتماع",
+      "attendees": []
+    },
+    {
+      "id": "SES-13",
+      "date": "2027-01-26",
+      "title": "إزاي أتعامل مع الضغط والفشل؟",
+      "family": "مجموعة A",
+      "attendees": []
+    },
+    {
+      "id": "SES-14",
+      "date": "2027-02-02",
+      "title": "الصلاة: علاقة مش واجب",
+      "family": "مجموعة B",
+      "attendees": []
+    },
+    {
+      "id": "SES-15",
+      "date": "2027-02-09",
+      "title": "لقاء محبة وتعايش",
+      "family": "مجموعة C",
+      "attendees": []
+    },
+    {
+      "id": "SES-16",
+      "date": "2027-02-16",
+      "title": "يوم صلاة وتسبيح وشهادات",
+      "family": "أمناء الاجتماع",
+      "attendees": []
+    },
+    {
+      "id": "SES-17",
+      "date": "2027-02-23",
+      "title": "صوم يونان: الرجوع لربنا",
+      "family": "مجموعة A",
+      "attendees": []
+    },
+    {
+      "id": "SES-18",
+      "date": "2027-03-02",
+      "title": "إزاي أبدأ الصوم الكبير صح؟",
+      "family": "مجموعة B",
+      "attendees": []
+    },
+    {
+      "id": "SES-19",
+      "date": "2027-03-09",
+      "title": "لقاء شبابي وأنشطة هادفة",
+      "family": "مجموعة C",
+      "attendees": []
+    },
+    {
+      "id": "SES-20",
+      "date": "2027-03-16",
+      "title": "ورشة تطبيقية عن الصلاة والصوم",
+      "family": "أمناء الاجتماع",
+      "attendees": []
+    },
+    {
+      "id": "SES-21",
+      "date": "2027-03-23",
+      "title": "الغفران والمصالحة",
+      "family": "مجموعة A",
+      "attendees": []
+    },
+    {
+      "id": "SES-22",
+      "date": "2027-03-30",
+      "title": "إغراءات الشباب واتخاذ القرار",
+      "family": "مجموعة B",
+      "attendees": []
+    },
+    {
+      "id": "SES-23",
+      "date": "2027-04-06",
+      "title": "الرياضة والانضباط والعمل الجماعي",
+      "family": "مجموعة C",
+      "attendees": []
+    },
+    {
+      "id": "SES-24",
+      "date": "2027-04-13",
+      "title": "لقاء روحي للاستعداد لأسبوع الآلام",
+      "family": "أمناء الاجتماع",
+      "attendees": []
+    },
+    {
+      "id": "SES-25",
+      "date": "2027-04-20",
+      "title": "تأمل في آلام المسيح ومحبته",
+      "family": "مجموعة A",
+      "attendees": []
+    },
+    {
+      "id": "SES-26",
+      "date": "2027-04-27",
+      "title": "ثلاثاء البصخة: تأمل وصلاة",
+      "family": "مجموعة B",
+      "attendees": []
+    }
+  ]
+};
+
+    // State
+    let appData = { ...SEED_DATA };
+    let currentSessionId = "SES-01";
+    let html5QrScanner = null;
+    let isScanning = false;
+
+    // Load from LocalStorage
+    function loadLocalData() {
+      try {
+        const saved = localStorage.getItem('st_mariam_attendance_v1');
+        if (saved) {
+          appData = JSON.parse(saved);
+        } else {
+          saveLocalData();
+        }
+      } catch (e) {
+        console.warn("Using default memory data:", e);
+      }
+    }
+
+    function saveLocalData() {
+      try {
+        localStorage.setItem('st_mariam_attendance_v1', JSON.stringify(appData));
+      } catch (e) {}
+    }
+
+    // Attempt to sync with Node.js Server if running
+    async function syncWithServer() {
+      try {
+        const res = await fetch('/api/data');
+        if (res.ok) {
+          const serverData = await res.json();
+          if (serverData.members && serverData.members.length > 0) {
+            appData = serverData;
+            saveLocalData();
+            document.getElementById('syncStatusBadge').textContent = '● متزامن مع السيرفر المحلي';
+            document.getElementById('syncStatusBadge').style.color = '#34d399';
+          }
+        }
+      } catch (e) {
+        // Standalone offline mode
+        document.getElementById('syncStatusBadge').textContent = '● يعمل محلياً (Offline Ready)';
+      }
+    }
+
+    function getFamilyClass(family) {
+      if (!family) return 'family-leaders';
+      if (family.includes('أ')) return 'family-a';
+      if (family.includes('ب')) return 'family-b';
+      if (family.includes('ج')) return 'family-c';
+      return 'family-leaders';
+    }
+
+    function getCurrentSession() {
+      return appData.sessions.find(s => s.id === currentSessionId) || appData.sessions[0];
+    }
+
+    // Refresh UI
+    function refreshUI() {
+      const session = getCurrentSession();
+      if (!session) return;
+
+      // Update Session Banner
+      const select = document.getElementById('activeSessionSelect');
+      select.innerHTML = '';
+      appData.sessions.forEach(s => {
+        const opt = document.createElement('option');
+        opt.value = s.id;
+        opt.textContent = `${s.date} — ${s.title} (${s.family})`;
+        if (s.id === currentSessionId) opt.selected = true;
+        select.appendChild(opt);
+      });
+
+      const attendees = session.attendees || [];
+      document.getElementById('sessionAttendeeCount').textContent = attendees.length;
+      document.getElementById('attendeeCardCount').textContent = attendees.length;
+      const rate = appData.members.length > 0 ? Math.round((attendees.length / appData.members.length) * 100) : 0;
+      document.getElementById('sessionAttendanceRate').textContent = `${rate}%`;
+
+      // Update Attendees List
+      const listEl = document.getElementById('attendeesList');
+      listEl.innerHTML = '';
+      if (attendees.length === 0) {
+        listEl.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--text-muted);font-size:0.9rem;">لم يتم تسجيل حضور أي عضو حتى الآن اليوم.<br>ابدأ المسح بالكاميرا أو ابحث بالاسم أعلاه.</div>';
+      } else {
+        // Reverse to show latest first
+        [...attendees].reverse().forEach(att => {
+          const item = document.createElement('div');
+          item.className = 'attendee-item';
+          item.innerHTML = `
+            <div style="display:flex;align-items:center;gap:0.75rem;">
+              <div style="width:36px;height:36px;border-radius:50%;background:rgba(245,158,11,0.15);color:var(--accent-gold);display:flex;align-items:center;justify-content:center;font-weight:800;">
+                ✓
+              </div>
+              <div>
+                <div style="font-weight:800;color:var(--text-main);font-size:0.95rem;">${att.name}</div>
+                <div style="font-size:0.75rem;color:var(--text-muted);">${att.family} | ${att.time || ''}</div>
+              </div>
+            </div>
+            <span class="family-pill ${getFamilyClass(att.family)}">حاضر</span>
+          `;
+          listEl.appendChild(item);
+        });
+      }
+
+      // Update Member Table & Badges
+      renderMembersTable();
+      renderBadges();
+      renderSessionsTable();
+      renderVisitationTable();
+      renderKPIs();
+
+      // Counts
+      document.getElementById('badgeCountPill').textContent = appData.members.length;
+      document.getElementById('memberCountPill').textContent = appData.members.length;
+      document.getElementById('totalMembersHeader').textContent = appData.members.length;
+
+      const absentCount = appData.members.filter(m => !attendees.find(a => a.memberId === m.id)).length;
+      document.getElementById('absentCountPill').textContent = absentCount;
+    }
+
+    // Process Scanned Member Code
+    function processAttendance(scannedText) {
+      const clean = scannedText.trim();
+      const member = appData.members.find(m => m.id === clean || m.name === clean || m.phone === clean);
+
+      const feedbackCard = document.getElementById('scanFeedbackCard');
+      const avatar = document.getElementById('feedbackAvatar');
+      const badge = document.getElementById('feedbackBadge');
+      const nameEl = document.getElementById('feedbackName');
+      const timeEl = document.getElementById('feedbackTime');
+      const msgEl = document.getElementById('feedbackMsg');
+
+      feedbackCard.style.display = 'block';
+
+      if (!member) {
+        playBeepWarning();
+        feedbackCard.className = 'scan-feedback-card feedback-warning';
+        avatar.textContent = '⚠️';
+        badge.textContent = 'غير مسجل';
+        badge.className = 'family-pill';
+        nameEl.textContent = 'كود غير معروف';
+        timeEl.textContent = clean;
+        msgEl.innerHTML = `<span style="color:var(--accent-rose);">لم يتم العثور على عضو بهذا الكود (${clean}). يمكنك إضافته من تبويب دليل الشباب.</span>`;
+        return;
+      }
+
+      const session = getCurrentSession();
+      if (!session.attendees) session.attendees = [];
+
+      const already = session.attendees.find(a => a.memberId === member.id);
+      const currentTime = new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' });
+
+      if (already) {
+        playBeepWarning();
+        feedbackCard.className = 'scan-feedback-card feedback-warning';
+        avatar.textContent = 'ℹ️';
+        badge.textContent = member.family;
+        badge.className = `family-pill ${getFamilyClass(member.family)}`;
+        nameEl.textContent = member.name;
+        timeEl.textContent = `تم التسجيل مسبقاً في: ${already.time}`;
+        msgEl.innerHTML = `<span style="color:var(--accent-gold);">تم تسجيل حضور ${member.name} بالفعل في وقت سابق اليوم!</span>`;
+      } else {
+        playBeepSuccess();
+        session.attendees.push({
+          memberId: member.id,
+          name: member.name,
+          family: member.family,
+          time: currentTime,
+          date: new Date().toISOString().split('T')[0]
+        });
+
+        saveLocalData();
+
+        feedbackCard.className = 'scan-feedback-card feedback-success';
+        avatar.textContent = '🎉';
+        badge.textContent = member.family;
+        badge.className = `family-pill ${getFamilyClass(member.family)}`;
+        nameEl.textContent = member.name;
+        timeEl.textContent = `تم تسجيل الحضور الآن: ${currentTime}`;
+        msgEl.innerHTML = `<span style="color:var(--accent-emerald);">أهلاً بك يا ${member.name}! نورت اجتماع الشباب اليوم ❤️</span>`;
+
+        // Sync with backend if available
+        fetch('/api/scan', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ memberId: member.id, sessionId: session.id, timestamp: currentTime })
+        }).catch(() => {});
+      }
+
+      refreshUI();
+    }
+
+    // Render Badges
+    let badgeSearchQuery = '';
+
+    function renderBadges() {
+      const grid = document.getElementById('idCardsGrid');
+      grid.innerHTML = '';
+
+      let list = appData.members.filter(m => {
+        const matchGroup = selectedGroupFilter === 'all' || m.groupCode === selectedGroupFilter;
+        const matchGender = selectedGenderFilter === 'all' || m.gender === selectedGenderFilter;
+        const matchStage = selectedBadgeStageFilter === 'all' || m.collegeStage === selectedBadgeStageFilter;
+        const q = badgeSearchQuery.toLowerCase().trim();
+        const matchSearch = !q || (
+          m.name.toLowerCase().includes(q) ||
+          m.id.toLowerCase().includes(q) ||
+          (m.phone && m.phone.includes(q)) ||
+          (m.fullAddress && m.fullAddress.toLowerCase().includes(q)) ||
+          (m.father && m.father.toLowerCase().includes(q)) ||
+          (m.collegeStage && m.collegeStage.toLowerCase().includes(q))
+        );
+        return matchGroup && matchGender && matchStage && matchSearch;
+      });
+
+      const countEl = document.getElementById('displayedBadgesCount');
+      if (countEl) countEl.textContent = list.length;
+      const totalEl = document.getElementById('badgesTotalCount');
+      if (totalEl) totalEl.textContent = appData.members.length;
+
+      if (list.length === 0) {
+        grid.innerHTML = '<div style="grid-column: 1/-1;text-align:center;padding:3rem;color:var(--text-muted);font-size:1.05rem;">لا توجد كروت مطابقة لمعايير البحث والتصفية.</div>';
+        return;
+      }
+
+      list.forEach(m => {
+        const badge = document.createElement('div');
+        badge.className = 'id-badge';
+        const qrContainerId = `qr-${m.id}`;
+
+        badge.innerHTML = `
+          <!-- Card Top Bar: Title & Code -->
+          <div class="badge-top-row">
+            <div class="badge-church-title">
+              <span>✝</span> كنيسة العذراء بالقناطر — يوسف الصديق
+            </div>
+            <div class="badge-chips">
+              <span class="badge-id">${m.id}</span>
+              <span class="family-pill ${getFamilyClass(m.family)}">${m.family}</span>
+            </div>
+          </div>
+
+          <!-- Card Main Body: Split into QR (Left) and Details (Right) -->
+          <div class="badge-main-body">
+            <!-- QR Side -->
+            <div class="badge-qr-side">
+              <div class="badge-qr-box" id="${qrContainerId}"></div>
+              <div class="badge-stage-pill">${m.collegeStage || 'جامعي'}</div>
+            </div>
+
+            <!-- Details Side (100% of all fields preserved cleanly) -->
+            <div class="badge-details-side">
+              <div class="badge-name" title="${m.name}">${m.name}</div>
+              
+              <div class="badge-meta-grid">
+                <div class="meta-item">
+                  <span class="meta-icon">🎓</span>
+                  <span class="meta-txt"><strong style="color:var(--accent-gold);">${m.universityStage || m.collegeStage || 'جامعي'}</strong></span>
+                </div>
+                <div class="meta-item">
+                  <span class="meta-icon">🎂</span>
+                  <span class="meta-txt">${m.birthDateText || 'غير مسجل'}</span>
+                </div>
+                <div class="meta-item">
+                  <span class="meta-icon">📱</span>
+                  <span class="meta-txt" style="direction:ltr;font-family:monospace;">${m.phone || 'بدون هاتف'}</span>
+                </div>
+                <div class="meta-item" title="${m.fullAddress}">
+                  <span class="meta-icon">📍</span>
+                  <span class="meta-txt">${m.fullAddress || 'القناطر الخيرية'}</span>
+                </div>
+                ${m.father ? `
+                <div class="meta-item">
+                  <span class="meta-icon">✝️</span>
+                  <span class="meta-txt" style="color:var(--accent-blue);">${m.father}</span>
+                </div>` : ''}
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Action Buttons -->
+          <div class="badge-actions-row">
+            ${m.phone ? `
+            <button class="btn btn-success btn-card-action" onclick="shareFullBadgeWhatsApp('${m.id}')">
+              📱 إرسال واتساب
+            </button>` : ''}
+            <button class="btn btn-gold btn-card-action" onclick="processAttendance('${m.id}')">
+              تسجيل حضور ✓
+            </button>
+          </div>
+        `;
+        grid.appendChild(badge);
+
+        setTimeout(() => {
+          const container = document.getElementById(qrContainerId);
+          if (container && container.innerHTML === '') {
+            if (typeof QRCode !== 'undefined') {
+              new QRCode(container, {
+                text: m.id,
+                width: 83,
+                height: 83,
+                colorDark: "#0f172a",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.M
+              });
+            } else {
+              container.innerHTML = `<div style="font-size:0.8rem;color:#000;font-weight:900;">${m.id}</div>`;
+            }
+          }
+        }, 30);
+      });
+    }
+
+    function shareFullBadgeWhatsApp(id) {
+      const m = appData.members.find(x => x.id === id);
+      if (!m) return;
+      const text = encodeURIComponent(
+        `✝️ *كارت حضور اجتماع يوسف الصديق للشباب* ✝️\n` +
+        `كنيسة السيدة العذراء مريم بالقناطر الخيرية\n\n` +
+        `👤 *الاسم:* ${m.name}\n` +
+        `🪪 *كود الـ QR الخاص بك:* ${m.id}\n` +
+        `🏷️ *المجموعة:* ${m.family}\n` +
+        `🎓 *المرحلة والسن:* ${m.universityStage}\n` +
+        `🎂 *تاريخ الميلاد:* ${m.birthDateText}\n` +
+        `📱 *الموبايل المسجل:* ${m.phone}\n` +
+        `📍 *العنوان:* ${m.fullAddress}\n` +
+        `✝️ *اب الاعتراف:* ${m.father || 'غير مسجل'}\n\n` +
+        `يرجى إبراز هذا الكود عند الدخول لتسجيل حضورك السريع. نورت اجتماعك! ❤️`
+      );
+      window.open(`https://wa.me/2${m.phone}?text=${text}`, '_blank');
+    }
+
+    // Render Members Table
+    let selectedGroupFilter = 'all';
+    let selectedGenderFilter = 'all';
+    let selectedStageFilter = 'all';
+    let selectedBadgeStageFilter = 'all';
+
+    function renderMembersTable() {
+      const tbody = document.getElementById('membersTableBody');
+      tbody.innerHTML = '';
+
+      let list = appData.members.filter(m => {
+        const matchGroup = selectedGroupFilter === 'all' || m.groupCode === selectedGroupFilter;
+        const matchGender = selectedGenderFilter === 'all' || m.gender === selectedGenderFilter;
+        const matchStage = selectedStageFilter === 'all' || m.collegeStage === selectedStageFilter;
+        return matchGroup && matchGender && matchStage;
+      });
+
+      list.forEach((m) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><span class="badge-id">${m.id}</span></td>
+          <td><strong>${m.name}</strong></td>
+          <td><span class="family-pill ${getFamilyClass(m.family)}">${m.family}</span></td>
+          <td><span class="family-pill" style="font-weight:800;color:var(--accent-gold);background:rgba(245,158,11,0.15);">${m.collegeStage || 'جامعي'}</span></td>
+          <td><span class="family-pill" style="font-size:0.75rem;">${m.gender || 'شاب'}</span></td>
+          <td style="color:var(--accent-gold);font-weight:700;font-size:0.85rem;">${m.father || '—'}</td>
+          <td style="color:var(--text-muted);font-size:0.82rem;">${m.area || ''} ${m.street ? '— ' + m.street : ''}</td>
+          <td style="font-family:monospace;font-size:0.85rem;">${m.phone || '—'}</td>
+          <td>
+            ${m.phone ? `<a href="https://wa.me/2${m.phone}" target="_blank" class="btn" style="padding:0.2rem 0.55rem;font-size:0.75rem;color:#25d366;">واتساب</a>` : '—'}
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Render Sessions Table
+    function renderSessionsTable() {
+      const tbody = document.getElementById('sessionsTableBody');
+      tbody.innerHTML = '';
+      appData.sessions.forEach(s => {
+        const count = (s.attendees || []).length;
+        const rate = appData.members.length > 0 ? Math.round((count / appData.members.length) * 100) : 0;
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><span class="badge-id">${s.id}</span></td>
+          <td><strong>${s.date}</strong></td>
+          <td>${s.title}</td>
+          <td><span class="family-pill ${getFamilyClass(s.family)}">${s.family}</span></td>
+          <td><strong style="color:var(--accent-gold);">${count}</strong> حاضر</td>
+          <td><span class="family-pill family-c">${rate}%</span></td>
+          <td>
+            <button class="btn btn-gold" style="padding:0.25rem 0.65rem;font-size:0.75rem;" onclick="setCurrentSession('${s.id}')">
+              ${s.id === currentSessionId ? '● النشط حالياً' : 'تفعيل هذا اللقاء'}
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Render Visitation Table (لجنة الافتقاد)
+    function renderVisitationTable(filter = 'all') {
+      const tbody = document.getElementById('visitationTableBody');
+      tbody.innerHTML = '';
+      const session = getCurrentSession();
+      const attendees = session.attendees || [];
+
+      let list = appData.members.filter(m => {
+        const isAttended = attendees.some(a => a.memberId === m.id);
+        if (filter === 'absent_today') return !isAttended;
+        return true;
+      });
+
+      list.forEach(m => {
+        const isAttended = attendees.some(a => a.memberId === m.id);
+        const tr = document.createElement('tr');
+        const sessionTitle = session.title || 'اجتماع الشباب';
+        const defaultMsg = encodeURIComponent(`سلام يا ${m.name} ❤️ وحشتنا جداً النهاردة في اجتماع الشباب! كنا بنصلي لأجلك وبنتمنى تكون بألف خير، ومستنينك الأسبوع الجاي إن شاء الله في لقاء: ${sessionTitle}`);
+
+        tr.innerHTML = `
+          <td><strong>${m.name}</strong></td>
+          <td><span class="family-pill ${getFamilyClass(m.family)}">${m.family}</span></td>
+          <td>${m.phone || '—'}</td>
+          <td>
+            ${isAttended 
+              ? '<span class="family-pill family-c">✓ حاضر اليوم</span>' 
+              : '<span class="family-pill" style="background:rgba(244,63,94,0.18);color:#fb7185;">✗ غائب اليوم</span>'}
+          </td>
+          <td>
+            <a href="https://wa.me/2${m.phone}?text=${defaultMsg}" target="_blank" class="btn btn-success" style="padding:0.25rem 0.65rem;font-size:0.8rem;">
+              💬 رسالة افتقاد
+            </a>
+          </td>
+          <td>
+            <input type="text" class="form-control" style="padding:0.25rem 0.5rem;font-size:0.8rem;" placeholder="اكتب ملاحظة..." value="${m.visitationNote || ''}" onchange="saveVisitationNote('${m.id}', this.value)">
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function saveVisitationNote(memberId, text) {
+      const m = appData.members.find(x => x.id === memberId);
+      if (m) {
+        m.visitationNote = text;
+        saveLocalData();
+      }
+    }
+
+    function setCurrentSession(id) {
+      currentSessionId = id;
+      refreshUI();
+      // switch to scanner tab
+      document.querySelector('.tab-btn[data-tab="tabScanner"]').click();
+    }
+
+    function deleteMember(id) {
+      if (confirm("هل أنت متأكد من حذف هذا العضو؟")) {
+        appData.members = appData.members.filter(m => m.id !== id);
+        saveLocalData();
+        refreshUI();
+      }
+    }
+
+    function shareBadgeWhatsApp(name, id, phone) {
+      const msg = encodeURIComponent(`سلام يا ${name} ❤️ هذا هو كود الحضور الخاص بك باجتماع شباب كنيسة السيدة العذراء مريم: (${id}). يرجى إبرازه أو حفظه عند الدخول.`);
+      window.open(`https://wa.me/2${phone}?text=${msg}`, '_blank');
+    }
+
+    // Render KPIs in Analytics Tab
+    function renderKPIs() {
+      document.getElementById('kpiTotalMembers').textContent = appData.members.length;
+      document.getElementById('kpiTotalSessions').textContent = appData.sessions.length;
+
+      let totalAttendeesSum = 0;
+      appData.sessions.forEach(s => totalAttendeesSum += (s.attendees || []).length);
+      const totalPossible = (appData.sessions.length * appData.members.length) || 1;
+      const avgRate = Math.round((totalAttendeesSum / totalPossible) * 100);
+      document.getElementById('kpiAvgAttendance').textContent = `${avgRate}%`;
+    }
+
+    // Tab Navigation
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        const target = btn.getAttribute('data-tab');
+        document.getElementById(target).classList.add('active');
+      });
+    });
+
+    // Camera Scanning Logic (html5-qrcode)
+    const startScanBtn = document.getElementById('startScanBtn');
+    const stopScanBtn = document.getElementById('stopScanBtn');
+    const cameraSelect = document.getElementById('cameraSelect');
+    const cameraStatusText = document.getElementById('cameraStatusText');
+
+    async function initCameras() {
+      try {
+        if (typeof Html5Qrcode !== 'undefined') {
+          const devices = await Html5Qrcode.getCameras();
+          cameraSelect.innerHTML = '';
+          if (devices && devices.length) {
+            devices.forEach(d => {
+              const opt = document.createElement('option');
+              opt.value = d.id;
+              opt.textContent = d.label || `كاميرا ${cameraSelect.children.length + 1}`;
+              cameraSelect.appendChild(opt);
+            });
+          }
+        }
+      } catch (e) {
+        console.warn("Could not list cameras:", e);
+      }
+    }
+
+    async function startScanner() {
+      if (typeof Html5Qrcode === 'undefined') {
+        alert("مكتبة الكاميرا قيد التحميل، يرجى المحاولة بعد لحظات أو استخدام البحث السريع.");
+        return;
+      }
+      if (!html5QrScanner) {
+        html5QrScanner = new Html5Qrcode("reader");
+      }
+
+      const cameraId = cameraSelect.value || { facingMode: "environment" };
+      try {
+        cameraStatusText.textContent = "جاري فتح الكاميرا...";
+        await html5QrScanner.start(
+          cameraId,
+          {
+            fps: 15,
+            qrbox: { width: 250, height: 250 }
+          },
+          (decodedText) => {
+            processAttendance(decodedText);
+          },
+          () => {} // scan errors (ignore frequent frame misses)
+        );
+
+        isScanning = true;
+        startScanBtn.style.display = 'none';
+        stopScanBtn.style.display = 'inline-flex';
+        cameraStatusText.textContent = "🟢 الكاميرا تعمل - وجه الـ QR";
+      } catch (err) {
+        console.error("Camera start failed:", err);
+        cameraStatusText.textContent = "تعذر فتح الكاميرا (يرجى التأكد من إعطاء الصلاحية)";
+        alert("تعذر الوصول للكاميرا. تأكد من السماح بالوصول للكاميرا في المتصفح، أو استخدم البحث السريع بالاسم.");
+      }
+    }
+
+    async function stopScanner() {
+      if (html5QrScanner && isScanning) {
+        await html5QrScanner.stop();
+        isScanning = false;
+        startScanBtn.style.display = 'inline-flex';
+        stopScanBtn.style.display = 'none';
+        cameraStatusText.textContent = "الكاميرا متوقفة";
+      }
+    }
+
+    startScanBtn.addEventListener('click', startScanner);
+    stopScanBtn.addEventListener('click', stopScanner);
+
+    // Quick Search Input Check-in
+    const manualSearchInput = document.getElementById('manualSearchInput');
+    const quickResults = document.getElementById('quickSearchResults');
+
+    manualSearchInput.addEventListener('input', (e) => {
+      const q = e.target.value.trim().toLowerCase();
+      if (!q) {
+        quickResults.style.display = 'none';
+        return;
+      }
+
+      const matches = appData.members.filter(m => 
+        m.name.toLowerCase().includes(q) ||
+        (m.phone && m.phone.includes(q)) ||
+        m.id.toLowerCase().includes(q) ||
+        m.family.toLowerCase().includes(q)
+      );
+
+      quickResults.innerHTML = '';
+      if (matches.length === 0) {
+        quickResults.innerHTML = '<div style="padding:0.75rem 1rem;color:var(--text-muted);font-size:0.85rem;">لا توجد نتائج مطابقة</div>';
+      } else {
+        matches.slice(0, 6).forEach(m => {
+          const div = document.createElement('div');
+          div.className = 'quick-result-item';
+          div.innerHTML = `
+            <div>
+              <strong>${m.name}</strong> (${m.family})
+              <div style="font-size:0.75rem;color:var(--text-muted);">${m.id} | ${m.phone || 'بدون هاتف'}</div>
+            </div>
+            <button class="btn btn-gold" style="padding:0.25rem 0.65rem;font-size:0.78rem;">
+              تسجيل حضور ✓
+            </button>
+          `;
+          div.addEventListener('click', () => {
+            processAttendance(m.id);
+            manualSearchInput.value = '';
+            quickResults.style.display = 'none';
+          });
+          quickResults.appendChild(div);
+        });
+      }
+      quickResults.style.display = 'block';
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!manualSearchInput.contains(e.target) && !quickResults.contains(e.target)) {
+        quickResults.style.display = 'none';
+      }
+    });
+
+    // Session Switcher Handler
+    document.getElementById('activeSessionSelect').addEventListener('change', (e) => {
+      currentSessionId = e.target.value;
+      refreshUI();
+    });
+
+    // Clear Session Attendees
+    document.getElementById('clearSessionAttendeesBtn').addEventListener('click', () => {
+      if (confirm("هل أنت متأكد من تصفير حضور هذا اليوم؟")) {
+        const session = getCurrentSession();
+        session.attendees = [];
+        saveLocalData();
+        refreshUI();
+      }
+    });
+
+    // Add Member Modal Handlers
+    const memberModal = document.getElementById('memberModal');
+    document.getElementById('openAddMemberModalBtn').addEventListener('click', () => memberModal.classList.add('open'));
+    document.getElementById('closeMemberModalBtn').addEventListener('click', () => memberModal.classList.remove('open'));
+    document.getElementById('cancelMemberBtn').addEventListener('click', () => memberModal.classList.remove('open'));
+
+    document.getElementById('memberForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('mName').value.trim();
+      const family = document.getElementById('mFamily').value;
+      const phone = document.getElementById('mPhone').value.trim();
+      const role = document.getElementById('mRole').value.trim();
+
+      const nextNum = appData.members.length + 1;
+      const id = `SM-${String(nextNum).padStart(2, '0')}`;
+
+      const newM = { id, name, family, phone, role, active: true };
+      appData.members.push(newM);
+      saveLocalData();
+
+      // Post to backend if active
+      fetch('/api/members', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newM)
+      }).catch(() => {});
+
+      memberModal.classList.remove('open');
+      document.getElementById('memberForm').reset();
+      refreshUI();
+      alert(`تمت إضافة ${name} وتوليد الكود (${id}) بنجاح!`);
+    });
+
+    // Add Session Modal Handlers
+    const sessionModal = document.getElementById('sessionModal');
+    document.getElementById('newSessionBtn').addEventListener('click', () => sessionModal.classList.add('open'));
+    document.getElementById('addNewSessionModalBtn').addEventListener('click', () => sessionModal.classList.add('open'));
+    document.getElementById('closeSessionModalBtn').addEventListener('click', () => sessionModal.classList.remove('open'));
+    document.getElementById('cancelSessionBtn').addEventListener('click', () => sessionModal.classList.remove('open'));
+
+    document.getElementById('sessionForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const date = document.getElementById('sDate').value;
+      const title = document.getElementById('sTitle').value.trim();
+      const family = document.getElementById('sFamily').value;
+
+      const nextNum = appData.sessions.length + 1;
+      const id = `SES-${String(nextNum).padStart(2, '0')}`;
+
+      const newS = { id, date, title, family, attendees: [] };
+      appData.sessions.push(newS);
+      currentSessionId = id;
+      saveLocalData();
+
+      // Post to backend if active
+      fetch('/api/sessions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newS)
+      }).catch(() => {});
+
+      sessionModal.classList.remove('open');
+      document.getElementById('sessionForm').reset();
+      refreshUI();
+    });
+
+    // Projector Modal
+    const projectorModal = document.getElementById('projectorModal');
+    document.getElementById('showProjectorQrBtn').addEventListener('click', () => {
+      const session = getCurrentSession();
+      document.getElementById('projectorSessionTitle').textContent = session.title;
+      document.getElementById('projectorSessionDate').textContent = `${session.date} | ${session.family}`;
+      
+      const container = document.getElementById('projectorQrContainer');
+      container.innerHTML = '';
+      if (typeof QRCode !== 'undefined') {
+        new QRCode(container, {
+          text: `SESSION:${session.id}:${session.date}`,
+          width: 220,
+          height: 220,
+          colorDark: "#0f172a",
+          colorLight: "#ffffff"
+        });
+      }
+      projectorModal.classList.add('open');
+    });
+
+    document.getElementById('closeProjectorBtn').addEventListener('click', () => projectorModal.classList.remove('open'));
+
+    // Visitation Filters
+    document.getElementById('btnFilterAbsentToday').addEventListener('click', () => renderVisitationTable('absent_today'));
+    document.getElementById('btnFilterAbsentMultiple').addEventListener('click', () => renderVisitationTable('absent_today'));
+
+    // Export & Backup
+    document.getElementById('exportFullJsonBackupBtn').addEventListener('click', () => {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appData, null, 2));
+      const a = document.createElement('a');
+      a.setAttribute("href", dataStr);
+      a.setAttribute("download", `St_Mariam_Attendance_Backup_${new Date().toISOString().split('T')[0]}.json`);
+      a.click();
+    });
+
+    document.getElementById('restoreFileInput').addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          try {
+            const imported = JSON.parse(event.target.result);
+            if (imported.members && imported.sessions) {
+              appData = imported;
+              saveLocalData();
+              refreshUI();
+              alert("تم استعادة قاعدة البيانات بنجاح!");
+            }
+          } catch (err) {
+            alert("الملف غير صالح.");
+          }
+        };
+        reader.readAsText(file);
+      }
+    });
+
+    document.getElementById('exportAttendanceCsvBtn').addEventListener('click', () => {
+      const session = getCurrentSession();
+      let csv = "\uFEFFالكود,الاسم,الأسرة,الموبايل,حالة الحضور,وقت الحضور\n";
+      appData.members.forEach(m => {
+        const att = (session.attendees || []).find(a => a.memberId === m.id);
+        csv += `"${m.id}","${m.name}","${m.family}","${m.phone || ''}","${att ? 'حاضر' : 'غائب'}","${att ? att.time : ''}"\n`;
+      });
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `حضور_اجتماع_الشباب_${session.date}.csv`;
+      a.click();
+    });
+
+    // Theme Toggle
+    document.getElementById('themeToggleBtn').addEventListener('click', () => {
+      document.body.classList.toggle('light-theme');
+    });
+
+    
+    // Group and Gender Filter Event Listeners
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('group-filter-btn')) {
+        document.querySelectorAll('.group-filter-btn').forEach(b => b.classList.remove('btn-gold', 'active'));
+        e.target.classList.add('btn-gold', 'active');
+        selectedGroupFilter = e.target.getAttribute('data-grp');
+        renderMembersTable();
+        renderBadges();
+      }
+      
+      if (e.target.classList.contains('stage-filter-btn')) {
+        document.querySelectorAll('.stage-filter-btn').forEach(b => b.classList.remove('btn-gold', 'active'));
+        e.target.classList.add('btn-gold', 'active');
+        selectedStageFilter = e.target.getAttribute('data-stage');
+        renderMembersTable();
+      }
+      if (e.target.classList.contains('badge-stage-btn')) {
+        document.querySelectorAll('.badge-stage-btn').forEach(b => b.classList.remove('btn-gold', 'active'));
+        e.target.classList.add('btn-gold', 'active');
+        selectedBadgeStageFilter = e.target.getAttribute('data-stage');
+        renderBadges();
+      }
+
+      if (e.target.classList.contains('gender-filter-btn')) {
+        document.querySelectorAll('.gender-filter-btn').forEach(b => b.classList.remove('btn-gold', 'active'));
+        e.target.classList.add('btn-gold', 'active');
+        selectedGenderFilter = e.target.getAttribute('data-gen');
+        renderMembersTable();
+      }
+    });
+
+    
+    document.addEventListener('input', (e) => {
+      if (e.target && e.target.id === 'badgeSearchInput') {
+        badgeSearchQuery = e.target.value;
+        renderBadges();
+      }
+    });
+
+    // Init App
+    loadLocalData();
+    syncWithServer();
+    initCameras();
+    refreshUI();
+  </script>
+</body>
+</html>
