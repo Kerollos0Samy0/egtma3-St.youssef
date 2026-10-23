@@ -5716,50 +5716,80 @@
   "visitationNotes": []
 };
 
-let appData = { ...SEED_DATA };
+    // Dynamic College Stage Resolver
+    function getCollegeStage(m) {
+      if (!m) return 'أولى كلية';
+      if (m.collegeStage && m.collegeStage !== 'جامعي') return m.collegeStage;
+      const b = parseInt(m.batch);
+      if (b === 2008) return 'أولى كلية';
+      if (b === 2007) return 'تانية كلية';
+      if (b === 2006) return 'تالتة كلية';
+      if (b === 2005) return 'رابعة كلية';
+      if (b === 2004) return 'خامسة كلية';
+      if (b < 2004) return 'خريج';
+      return 'أولى كلية';
+    }
+
+    // State
+    let appData = JSON.parse(JSON.stringify(SEED_DATA));
     let currentSessionId = "SES-01";
     let html5QrScanner = null;
     let isScanning = false;
 
-    // Load from LocalStorage (Upgraded to v2 with accurate college stages)
+    // Load from LocalStorage (Upgraded to v4 with foolproof fallbacks)
     function loadLocalData() {
       try {
-        const saved = localStorage.getItem('st_mariam_attendance_v3');
+        const saved = localStorage.getItem('st_mariam_attendance_v4');
         if (saved) {
-          appData = JSON.parse(saved);
+          const parsed = JSON.parse(saved);
+          if (parsed && parsed.members && parsed.members.length > 0) {
+            appData = parsed;
+          } else {
+            appData = JSON.parse(JSON.stringify(SEED_DATA));
+          }
         } else {
           // Initialize fresh from SEED_DATA
           appData = JSON.parse(JSON.stringify(SEED_DATA));
-          // Migrate any attendee scans from previous session
-          const v1 = localStorage.getItem('st_mariam_attendance_v1');
-          if (v1) {
-            try {
-              const old = JSON.parse(v1);
-              if (old.sessions) {
-                old.sessions.forEach(os => {
-                  const ns = appData.sessions.find(s => s.id === os.id);
-                  if (ns && os.attendees && os.attendees.length > 0) ns.attendees = os.attendees;
-                });
-              }
-            } catch(e) {}
-          }
+          // Migrate any attendee scans from previous session versions
+          ['st_mariam_attendance_v3', 'st_mariam_attendance_v2', 'st_mariam_attendance_v1'].forEach(k => {
+            const oldStr = localStorage.getItem(k);
+            if (oldStr) {
+              try {
+                const old = JSON.parse(oldStr);
+                if (old.sessions) {
+                  old.sessions.forEach(os => {
+                    const ns = appData.sessions.find(s => s.id === os.id);
+                    if (ns && os.attendees && os.attendees.length > 0) {
+                      ns.attendees = os.attendees;
+                    }
+                  });
+                }
+              } catch(e) {}
+            }
+          });
           saveLocalData();
         }
-        // Force accurate college stages across all 157 members
-        if (appData.members) {
-          appData.members.forEach(m => {
-            m.collegeStage = getCollegeStage(m);
-            m.universityStage = m.collegeStage + (m.age ? ' (' + m.age + ' سنة)' : '');
-          });
+
+        // Safety fallback: Ensure members array is never empty
+        if (!appData.members || appData.members.length === 0) {
+          appData.members = JSON.parse(JSON.stringify(SEED_DATA.members));
         }
+
+        // Force accurate college stages across all 157 members
+        appData.members.forEach(m => {
+          m.collegeStage = getCollegeStage(m);
+          m.universityStage = m.collegeStage + (m.age ? ' (' + m.age + ' سنة)' : '');
+        });
+        saveLocalData();
       } catch (e) {
         console.warn("Using default memory data:", e);
+        appData = JSON.parse(JSON.stringify(SEED_DATA));
       }
     }
 
     function saveLocalData() {
       try {
-        localStorage.setItem('st_mariam_attendance_v3', JSON.stringify(appData));
+        localStorage.setItem('st_mariam_attendance_v4', JSON.stringify(appData));
       } catch (e) {}
     }
 
@@ -5889,15 +5919,27 @@ let appData = { ...SEED_DATA };
         db.collection('app_config').doc('members_data').onSnapshot((docSnap) => {
           if (docSnap.exists) {
             const data = docSnap.data();
-            if (data.members && data.members.length > 0) {
-              if (data.members.length !== appData.members.length) {
+            if (data && Array.isArray(data.members) && data.members.length > 0) {
+              if (data.members.length !== appData.members.length || !appData.members[0].collegeStage) {
                 appData.members = data.members;
                 saveLocalData();
                 refreshUI();
-                renderBadges();
-                renderMembersTable();
               }
+            } else {
+              // Cloud doc exists but has empty members, populate with SEED_DATA
+              db.collection('app_config').doc('members_data').set({
+                members: SEED_DATA.members,
+                total: SEED_DATA.members.length,
+                updatedAt: new Date().toISOString()
+              }, { merge: true }).catch(err => {});
             }
+          } else {
+            // Cloud doc does not exist, initialize it!
+            db.collection('app_config').doc('members_data').set({
+              members: SEED_DATA.members,
+              total: SEED_DATA.members.length,
+              updatedAt: new Date().toISOString()
+            }, { merge: true }).catch(err => {});
           }
         }, (err) => {
           console.warn("Members config listener error:", err);
@@ -5915,9 +5957,10 @@ let appData = { ...SEED_DATA };
         const res = await fetch('/api/data');
         if (res.ok) {
           const serverData = await res.json();
-          if (serverData.members && serverData.members.length > 0) {
+          if (serverData && serverData.members && serverData.members.length > 0) {
             appData = serverData;
             saveLocalData();
+            refreshUI();
             if (!isFirebaseReady) {
               updateSyncStatusBadge(true, '● متزامن مع السيرفر المحلي');
             }
