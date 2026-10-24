@@ -2593,13 +2593,13 @@
           </p>
 
           <select id="cfgScheduleVisibleLimit" class="form-control" style="font-weight:700;">
-            <option value="all">عرض جدول اللقاءات بالكامل (جميع الـ 25 لقاء)</option>
-            <option value="5">أول 5 لقاءات فقط (حتى 4 ديسمبر 2026)</option>
-            <option value="8">أول 8 لقاءات (حتى 25 ديسمبر 2026)</option>
-            <option value="10">حتى حفلة الكريسماس ورأس السنة (أول 10 لقاءات - 1 يناير 2027)</option>
+            <option value="8" selected>أول 8 لقاءات (حتى سهرة 22 ديسمبر 2026) — المعتمدة حالياً</option>
+            <option value="5">أول 5 لقاءات فقط (حتى 1 ديسمبر 2026)</option>
+            <option value="10">حتى حفلة الكريسماس ورأس السنة (أول 10 لقاءات - 29 ديسمبر 2026)</option>
             <option value="13">حتى نهاية شهر يناير 2027 (أول 13 لقاء)</option>
             <option value="16">حتى صوم يونان (أول 16 لقاء - 26 فبراير 2027)</option>
-            <option value="20">حتى الجمعة العظيمة وعيد القيامة (أول 20 لقاء)</option>
+            <option value="20">حتى أسبوع الآلام وعيد القيامة (أول 20 لقاء)</option>
+            <option value="all">عرض جدول اللقاءات بالكامل (جميع الـ 25 لقاء)</option>
           </select>
         </div>
 
@@ -2642,7 +2642,7 @@
           role: 'schedule'
         }
       },
-      scheduleVisibleLimit: 'all'
+      scheduleVisibleLimit: '8'
     };
 
     const ROLES = {
@@ -2691,13 +2691,17 @@
     let authSettings = JSON.parse(JSON.stringify(DEFAULT_AUTH_SETTINGS));
     let currentServantRole = null;
 
-    function getVisibleSessions() {
+    function getVisibleSessions(allowAllForAdmin = false) {
       if (!appData || !Array.isArray(appData.sessions)) return [];
-      if (currentServantRole !== 'schedule') {
+      
+      // Admin sees all in management table view if requested
+      if (currentServantRole === 'admin' && allowAllForAdmin) {
         return appData.sessions;
       }
-      const limit = authSettings.scheduleVisibleLimit;
-      if (!limit || limit === 'all') {
+
+      // Cutoff limit applies to activeSessionSelect and non-admin servants (defaults to 8 approved sessions)
+      const limit = authSettings.scheduleVisibleLimit || '8';
+      if (limit === 'all') {
         return appData.sessions;
       }
       const n = parseInt(limit, 10);
@@ -7349,7 +7353,16 @@
       // Update Session Banner
       const select = document.getElementById('activeSessionSelect');
       select.innerHTML = '';
-      const visibleSessionsForSelect = getVisibleSessions();
+      const visibleSessionsForSelect = getVisibleSessions(false);
+
+      // Ensure currentSessionId is within approved visible meetings
+      if (visibleSessionsForSelect.length > 0) {
+        const isCurrentVisible = visibleSessionsForSelect.some(s => s.id === currentSessionId);
+        if (!isCurrentVisible) {
+          currentSessionId = visibleSessionsForSelect[0].id;
+        }
+      }
+
       visibleSessionsForSelect.forEach(s => {
         const opt = document.createElement('option');
         opt.value = s.id;
@@ -7778,7 +7791,7 @@
       if (!tbody) return;
       tbody.innerHTML = '';
       
-      const visibleList = getVisibleSessions();
+      const visibleList = getVisibleSessions(currentServantRole === 'admin');
 
       // Update count header in tabSessions
       const countHeader = document.getElementById('sessionsCountHeader');
@@ -8284,7 +8297,7 @@
           document.getElementById('cfgVisitationPass').value = acc.visitation.password;
           document.getElementById('cfgScheduleUser').value = acc.schedule.username;
           document.getElementById('cfgSchedulePass').value = acc.schedule.password;
-          document.getElementById('cfgScheduleVisibleLimit').value = authSettings.scheduleVisibleLimit || 'all';
+          document.getElementById('cfgScheduleVisibleLimit').value = authSettings.scheduleVisibleLimit || '8';
           
           // Reset dropdown to admin and show only admin card
           if (roleSelect) {
