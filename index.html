@@ -47,7 +47,7 @@
       --radius-full: 9999px;
       --shadow-lg: 0 10px 25px -3px rgba(0, 0, 0, 0.5);
       --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
-      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
 
     /* Light Theme (Day Mode) - High Contrast & Calibrated Professional Typography */
@@ -87,7 +87,6 @@
       flex-direction: column;
       overflow-x: hidden;
       line-height: 1.6;
-      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     /* ======================================================== */
@@ -8160,7 +8159,7 @@
       a.click();
     });
 
-    // Theme Toggle with LocalStorage Persistence & Dynamic SVG Icon
+    // Instantaneous Theme Switcher (Zero Lag / 0ms Switch Time)
     function updateThemeToggleIcon(isLight) {
       const btn = document.getElementById('themeToggleBtn');
       if (!btn) return;
@@ -8171,6 +8170,31 @@
         btn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`;
         btn.setAttribute('title', 'تفعيل المظهر النهاري (Light Mode)');
       }
+    }
+
+    function toggleThemeInstant() {
+      // Disable all CSS transitions temporarily to prevent lag across 150+ cards
+      const disableTransitionsStyle = document.createElement('style');
+      disableTransitionsStyle.setAttribute('id', 'disable-transitions-instant');
+      disableTransitionsStyle.textContent = '* { -webkit-transition: none !important; -moz-transition: none !important; -o-transition: none !important; -ms-transition: none !important; transition: none !important; }';
+      document.head.appendChild(disableTransitionsStyle);
+
+      const isLight = document.body.classList.toggle('light-theme');
+      localStorage.setItem('theme_preference', isLight ? 'light' : 'dark');
+      updateThemeToggleIcon(isLight);
+
+      // Force synchronous reflow so color updates apply instantaneously in 0ms
+      void document.body.offsetHeight;
+
+      // Cleanly re-enable transitions for hover effects after layout paint
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          const el = document.getElementById('disable-transitions-instant');
+          if (el && el.parentNode) {
+            el.parentNode.removeChild(el);
+          }
+        });
+      });
     }
 
     function initTheme() {
@@ -8184,11 +8208,7 @@
       updateThemeToggleIcon(isLight);
     }
 
-    document.getElementById('themeToggleBtn').addEventListener('click', () => {
-      const isLight = document.body.classList.toggle('light-theme');
-      localStorage.setItem('theme_preference', isLight ? 'light' : 'dark');
-      updateThemeToggleIcon(isLight);
-    });
+    document.getElementById('themeToggleBtn').addEventListener('click', toggleThemeInstant);
 
     initTheme();
 
