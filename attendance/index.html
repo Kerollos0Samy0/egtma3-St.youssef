@@ -2244,77 +2244,97 @@
       </div>
 
       <form id="adminSettingsForm">
-        <!-- Section 1: Role Usernames & Passwords -->
+        <!-- Section 1: Role Usernames & Passwords (Condensed into Dropdown) -->
         <div style="margin-bottom:1.25rem;">
-          <h4 style="font-size:0.92rem;font-weight:800;color:var(--text-main);margin-bottom:0.75rem;">
-            🔑 بيانات دخول حسابات الخدام (Username & Password):
-          </h4>
+          <label for="adminAccountRoleSelect" style="display:block;font-size:0.92rem;font-weight:800;color:var(--text-main);margin-bottom:0.5rem;">
+            🔑 اختر الحساب لتعديل بيانات الدخول (Username & Password):
+          </label>
           
-          <div style="display:flex;flex-direction:column;gap:0.75rem;">
+          <select id="adminAccountRoleSelect" class="form-control" style="font-weight:800;font-size:0.95rem;padding:0.65rem 0.9rem;border-radius:var(--radius-md);margin-bottom:0.85rem;cursor:pointer;">
+            <option value="admin">👑 أمناء الاجتماع (الـ 4 الكبار - الأدمن)</option>
+            <option value="secretariat">📋 السكرتارية (تسجيل الحضور فقط)</option>
+            <option value="visitation">📞 لجنة الافتقاد (متابعة الغياب)</option>
+            <option value="schedule">📅 خدام اللقاءات (عرض الجدول)</option>
+          </select>
+
+          <!-- Dynamic Role Cards: Exactly ONE card visible at a time -->
+          <div id="adminRoleCardsContainer">
             <!-- Admin Account -->
-            <div class="admin-role-card-admin" style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);border-radius:var(--radius-md);padding:0.75rem;">
-              <div style="font-size:0.85rem;font-weight:800;color:var(--accent-gold);margin-bottom:0.4rem;">
-                👑 أمناء الاجتماع (الـ 4 الكبار):
+            <div id="roleCard_admin" class="admin-role-config-card admin-role-card-admin" style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);border-radius:var(--radius-md);padding:0.85rem;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem;">
+                <div style="font-size:0.88rem;font-weight:800;color:var(--accent-gold);">
+                  👑 أمناء الاجتماع (الـ 4 الكبار)
+                </div>
+                <span class="family-pill family-a" style="font-size:0.7rem;font-weight:800;">صلاحيات كاملة للنظام</span>
               </div>
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.65rem;">
                 <div>
-                  <label style="font-size:0.72rem;color:var(--text-muted);display:block;margin-bottom:0.2rem;">اسم المستخدم (Username):</label>
-                  <input type="text" id="cfgAdminUser" class="form-control" style="padding:0.45rem 0.65rem;font-size:0.85rem;font-family:monospace;" required>
+                  <label style="font-size:0.75rem;color:var(--text-muted);display:block;margin-bottom:0.25rem;font-weight:700;">اسم المستخدم (Username):</label>
+                  <input type="text" id="cfgAdminUser" class="form-control" style="padding:0.5rem 0.75rem;font-size:0.88rem;font-family:monospace;" required>
                 </div>
                 <div>
-                  <label style="font-size:0.72rem;color:var(--text-muted);display:block;margin-bottom:0.2rem;">كلمة المرور (Password):</label>
-                  <input type="text" id="cfgAdminPass" class="form-control" style="padding:0.45rem 0.65rem;font-size:0.85rem;font-family:monospace;" required>
+                  <label style="font-size:0.75rem;color:var(--text-muted);display:block;margin-bottom:0.25rem;font-weight:700;">كلمة المرور (Password):</label>
+                  <input type="text" id="cfgAdminPass" class="form-control" style="padding:0.5rem 0.75rem;font-size:0.88rem;font-family:monospace;" required>
                 </div>
               </div>
             </div>
 
             <!-- Secretariat Account -->
-            <div class="admin-role-card-secr" style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.25);border-radius:var(--radius-md);padding:0.75rem;">
-              <div style="font-size:0.85rem;font-weight:800;color:var(--accent-emerald);margin-bottom:0.4rem;">
-                📋 السكرتارية (تسجيل الحضور فقط):
+            <div id="roleCard_secretariat" class="admin-role-config-card admin-role-card-secr" style="display:none;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.25);border-radius:var(--radius-md);padding:0.85rem;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem;">
+                <div style="font-size:0.88rem;font-weight:800;color:var(--accent-emerald);">
+                  📋 السكرتارية (تسجيل الحضور والغياب)
+                </div>
+                <span class="family-pill family-c" style="font-size:0.7rem;font-weight:800;">تسجيل حضور وغياب فقط</span>
               </div>
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.65rem;">
                 <div>
-                  <label style="font-size:0.72rem;color:var(--text-muted);display:block;margin-bottom:0.2rem;">اسم المستخدم (Username):</label>
-                  <input type="text" id="cfgSecretariatUser" class="form-control" style="padding:0.45rem 0.65rem;font-size:0.85rem;font-family:monospace;" required>
+                  <label style="font-size:0.75rem;color:var(--text-muted);display:block;margin-bottom:0.25rem;font-weight:700;">اسم المستخدم (Username):</label>
+                  <input type="text" id="cfgSecretariatUser" class="form-control" style="padding:0.5rem 0.75rem;font-size:0.88rem;font-family:monospace;" required>
                 </div>
                 <div>
-                  <label style="font-size:0.72rem;color:var(--text-muted);display:block;margin-bottom:0.2rem;">كلمة المرور (Password):</label>
-                  <input type="text" id="cfgSecretariatPass" class="form-control" style="padding:0.45rem 0.65rem;font-size:0.85rem;font-family:monospace;" required>
+                  <label style="font-size:0.75rem;color:var(--text-muted);display:block;margin-bottom:0.25rem;font-weight:700;">كلمة المرور (Password):</label>
+                  <input type="text" id="cfgSecretariatPass" class="form-control" style="padding:0.5rem 0.75rem;font-size:0.88rem;font-family:monospace;" required>
                 </div>
               </div>
             </div>
 
             <!-- Visitation Account -->
-            <div class="admin-role-card-visitation" style="background:rgba(6,182,212,0.08);border:1px solid rgba(6,182,212,0.25);border-radius:var(--radius-md);padding:0.75rem;">
-              <div style="font-size:0.85rem;font-weight:800;color:#06b6d4;margin-bottom:0.4rem;">
-                📞 لجنة الافتقاد (متابعة الغياب):
+            <div id="roleCard_visitation" class="admin-role-config-card admin-role-card-visitation" style="display:none;background:rgba(6,182,212,0.08);border:1px solid rgba(6,182,212,0.25);border-radius:var(--radius-md);padding:0.85rem;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem;">
+                <div style="font-size:0.88rem;font-weight:800;color:#06b6d4;">
+                  📞 لجنة الافتقاد ومتابعة الغياب
+                </div>
+                <span class="family-pill family-b" style="font-size:0.7rem;font-weight:800;">متابعة الغياب ورسائل الافتقاد</span>
               </div>
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.65rem;">
                 <div>
-                  <label style="font-size:0.72rem;color:var(--text-muted);display:block;margin-bottom:0.2rem;">اسم المستخدم (Username):</label>
-                  <input type="text" id="cfgVisitationUser" class="form-control" style="padding:0.45rem 0.65rem;font-size:0.85rem;font-family:monospace;" required>
+                  <label style="font-size:0.75rem;color:var(--text-muted);display:block;margin-bottom:0.25rem;font-weight:700;">اسم المستخدم (Username):</label>
+                  <input type="text" id="cfgVisitationUser" class="form-control" style="padding:0.5rem 0.75rem;font-size:0.88rem;font-family:monospace;" required>
                 </div>
                 <div>
-                  <label style="font-size:0.72rem;color:var(--text-muted);display:block;margin-bottom:0.2rem;">كلمة المرور (Password):</label>
-                  <input type="text" id="cfgVisitationPass" class="form-control" style="padding:0.45rem 0.65rem;font-size:0.85rem;font-family:monospace;" required>
+                  <label style="font-size:0.75rem;color:var(--text-muted);display:block;margin-bottom:0.25rem;font-weight:700;">كلمة المرور (Password):</label>
+                  <input type="text" id="cfgVisitationPass" class="form-control" style="padding:0.5rem 0.75rem;font-size:0.88rem;font-family:monospace;" required>
                 </div>
               </div>
             </div>
 
             <!-- Schedule Account -->
-            <div class="admin-role-card-schedule" style="background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.25);border-radius:var(--radius-md);padding:0.75rem;">
-              <div style="font-size:0.85rem;font-weight:800;color:#a78bfa;margin-bottom:0.4rem;">
-                📅 خدام اللقاءات (عرض الجدول):
+            <div id="roleCard_schedule" class="admin-role-config-card admin-role-card-schedule" style="display:none;background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.25);border-radius:var(--radius-md);padding:0.85rem;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem;">
+                <div style="font-size:0.88rem;font-weight:800;color:#a78bfa;">
+                  📅 خدام اللقاءات والأسابيع
+                </div>
+                <span class="family-pill family-d" style="font-size:0.7rem;font-weight:800;">عرض الجدول المعتمد فقط</span>
               </div>
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.65rem;">
                 <div>
-                  <label style="font-size:0.72rem;color:var(--text-muted);display:block;margin-bottom:0.2rem;">اسم المستخدم (Username):</label>
-                  <input type="text" id="cfgScheduleUser" class="form-control" style="padding:0.45rem 0.65rem;font-size:0.85rem;font-family:monospace;" required>
+                  <label style="font-size:0.75rem;color:var(--text-muted);display:block;margin-bottom:0.25rem;font-weight:700;">اسم المستخدم (Username):</label>
+                  <input type="text" id="cfgScheduleUser" class="form-control" style="padding:0.5rem 0.75rem;font-size:0.88rem;font-family:monospace;" required>
                 </div>
                 <div>
-                  <label style="font-size:0.72rem;color:var(--text-muted);display:block;margin-bottom:0.2rem;">كلمة المرور (Password):</label>
-                  <input type="text" id="cfgSchedulePass" class="form-control" style="padding:0.45rem 0.65rem;font-size:0.85rem;font-family:monospace;" required>
+                  <label style="font-size:0.75rem;color:var(--text-muted);display:block;margin-bottom:0.25rem;font-weight:700;">كلمة المرور (Password):</label>
+                  <input type="text" id="cfgSchedulePass" class="form-control" style="padding:0.5rem 0.75rem;font-size:0.88rem;font-family:monospace;" required>
                 </div>
               </div>
             </div>
@@ -7920,6 +7940,18 @@
       const cancelAdminBtn = document.getElementById('cancelAdminSettingsBtn');
       const adminForm = document.getElementById('adminSettingsForm');
 
+      const roleSelect = document.getElementById('adminAccountRoleSelect');
+      if (roleSelect) {
+        roleSelect.addEventListener('change', (e) => {
+          const selectedRole = e.target.value;
+          document.querySelectorAll('.admin-role-config-card').forEach(card => {
+            card.style.display = 'none';
+          });
+          const targetCard = document.getElementById(`roleCard_${selectedRole}`);
+          if (targetCard) targetCard.style.display = 'block';
+        });
+      }
+
       if (adminBtn && adminModal) {
         adminBtn.addEventListener('click', () => {
           const acc = authSettings.accounts || DEFAULT_AUTH_SETTINGS.accounts;
@@ -7932,6 +7964,17 @@
           document.getElementById('cfgScheduleUser').value = acc.schedule.username;
           document.getElementById('cfgSchedulePass').value = acc.schedule.password;
           document.getElementById('cfgScheduleVisibleLimit').value = authSettings.scheduleVisibleLimit || 'all';
+          
+          // Reset dropdown to admin and show only admin card
+          if (roleSelect) {
+            roleSelect.value = 'admin';
+            document.querySelectorAll('.admin-role-config-card').forEach(card => {
+              card.style.display = 'none';
+            });
+            const adminCard = document.getElementById('roleCard_admin');
+            if (adminCard) adminCard.style.display = 'block';
+          }
+
           adminModal.classList.add('open');
         });
       }
