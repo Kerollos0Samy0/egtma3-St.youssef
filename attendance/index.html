@@ -496,21 +496,42 @@
     }
 
     /* Data Tables in Light Theme */
-    body.light-theme .data-table-container {
-      background: #ffffff;
-      border-color: #e2e8f0;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    body.light-theme /* Tables - Spacious, Full-Width & Non-wrapping */
+    .data-table-container {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow-x: auto;
+      box-shadow: var(--shadow-lg);
+      width: 100%;
+      -webkit-overflow-scrolling: touch;
     }
 
-    body.light-theme .data-table th {
-      background: #f8fafc;
-      color: #92400e;
-      border-bottom: 2px solid #e2e8f0;
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: right;
+      font-size: 0.92rem;
+      min-width: 1150px;
     }
 
-    body.light-theme .data-table td {
-      border-bottom: 1px solid #f1f5f9;
-      color: #1e293b;
+    .data-table th {
+      background: var(--bg-secondary);
+      padding: 0.95rem 1rem;
+      font-weight: 800;
+      color: var(--accent-gold);
+      border-bottom: 2px solid var(--border);
+      white-space: nowrap !important;
+      vertical-align: middle;
+      font-size: 0.9rem;
+    }
+
+    .data-table td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap !important;
+      vertical-align: middle;
+      font-size: 0.9rem;
     }
 
     body.light-theme .data-table tr:hover td {
@@ -1058,12 +1079,21 @@
     }
 
     /* Content Area */
+    /* Content Area - Wide Full-Width (Expanded from sides with zero wasted margins) */
     main.app-content {
       flex: 1;
-      padding: 2rem;
-      max-width: 1400px;
+      padding: 1rem 1.5rem;
+      max-width: 98%;
       width: 100%;
       margin: 0 auto;
+      box-sizing: border-box;
+    }
+
+    @media (min-width: 1600px) {
+      main.app-content {
+        max-width: 98%;
+        padding: 1.25rem 2rem;
+      }
     }
 
     .tab-pane {
@@ -2180,19 +2210,21 @@
         </div>
       </div>
 
-      <!-- VIEW 2: Desktop Table View (Spacious & Clean) -->
+      <!-- VIEW 2: Desktop Table View (Wide Full-Width, 10 Clean Columns) -->
       <div class="data-table-container members-table-view" id="membersTableView">
         <table class="data-table">
           <thead>
             <tr>
-              <th style="width:75px;">الكود</th>
+              <th style="width:75px;text-align:center;">الكود</th>
               <th>الاسم</th>
-              <th>المنطقة</th>
-              <th>الدفعة / الكلية</th>
-              <th>النوع</th>
-              <th>أب الاعتراف</th>
+              <th style="text-align:center;">المنطقة</th>
+              <th style="text-align:center;">الأسرة</th>
+              <th style="text-align:center;">الدفعة / الكلية</th>
+              <th style="text-align:center;">النوع</th>
+              <th style="text-align:center;">أب الاعتراف</th>
               <th>العنوان السكني</th>
-              <th style="min-width:180px;">التواصل (اتصال وواتساب)</th>
+              <th style="text-align:center;width:130px;">الموبايل</th>
+              <th style="text-align:center;width:95px;">واتساب</th>
             </tr>
           </thead>
           <tbody id="membersTableBody">
@@ -7676,28 +7708,25 @@
       list.forEach((m) => {
         const areaName = m.areaGroup || (m.groupCode ? ('منطقة ' + m.groupCode) : 'غير محدد');
 
-        // 1. Desktop Table Row
+        // 1. Desktop Table Row (All 10 columns wide & non-wrapping)
         if (tbody) {
           const tr = document.createElement('tr');
+          const familyName = (m.family && m.family !== 'غير محدد' && !m.family.includes('مجموعة') && !m.family.includes('منطقة')) ? m.family : 'لم تحدد بعد';
+
           tr.innerHTML = `
-            <td><span class="badge-id">${m.id}</span></td>
+            <td style="text-align:center;"><span class="badge-id">${m.id}</span></td>
             <td><strong style="color:var(--text-main);font-size:0.95rem;">${m.name}</strong></td>
-            <td><span class="family-pill ${getFamilyClass(areaName)}">${areaName}</span></td>
-            <td><span class="family-pill pill-stage">${getCollegeStage(m)}</span></td>
-            <td><span class="family-pill pill-gender">${m.gender === 'شابة' ? '👧 شابة' : '👦 شاب'}</span></td>
-            <td style="color:var(--accent-gold);font-weight:700;font-size:0.85rem;">${m.father || '—'}</td>
-            <td style="color:var(--text-muted);font-size:0.82rem;">${m.area || ''} ${m.street ? '— ' + m.street : ''}</td>
-            <td>
-              ${m.phone ? `
-                <div style="display:flex;align-items:center;gap:0.4rem;">
-                  <a href="tel:${m.phone}" class="btn btn-call-link" title="اتصال هاتفي">
-                    📞 <span style="direction:ltr;font-family:monospace;font-size:0.82rem;">${m.phone}</span>
-                  </a>
-                  <a href="https://wa.me/2${m.phone}" target="_blank" class="btn btn-whatsapp" title="محادثة واتساب">
-                    واتساب
-                  </a>
-                </div>
-              ` : '<span style="color:var(--text-muted);font-size:0.82rem;">—</span>'}
+            <td style="text-align:center;"><span class="family-pill ${getFamilyClass(areaName)}">${areaName}</span></td>
+            <td style="text-align:center;"><span class="family-pill family-unassigned">${familyName}</span></td>
+            <td style="text-align:center;"><span class="family-pill pill-stage">${getCollegeStage(m)}</span></td>
+            <td style="text-align:center;"><span class="family-pill pill-gender">${m.gender === 'شابة' ? '👧 شابة' : '👦 شاب'}</span></td>
+            <td style="text-align:center;color:var(--accent-gold);font-weight:700;font-size:0.88rem;">${m.father || '—'}</td>
+            <td style="color:var(--text-muted);font-size:0.85rem;">${m.area || ''} ${m.street ? '— ' + m.street : ''}</td>
+            <td style="text-align:center;">
+              ${m.phone ? `<a href="tel:${m.phone}" style="color:var(--accent-blue);font-family:monospace;font-size:0.88rem;text-decoration:none;font-weight:700;direction:ltr;display:inline-block;" title="اتصال هاتفي">${m.phone}</a>` : '<span style="color:var(--text-muted);font-size:0.82rem;">—</span>'}
+            </td>
+            <td style="text-align:center;">
+              ${m.phone ? `<a href="https://wa.me/2${m.phone}" target="_blank" class="btn btn-whatsapp" style="padding:0.25rem 0.65rem;font-size:0.75rem;">واتساب</a>` : '—'}
             </td>
           `;
           tbody.appendChild(tr);
