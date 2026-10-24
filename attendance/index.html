@@ -2092,6 +2092,182 @@
       border-color: #fbcfe8;
     }
 
+  
+    /* ============================================== */
+    /* FAMILY EVALUATION & COMPETITION STYLES         */
+    /* ============================================== */
+    .podium-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.15rem;
+      margin-bottom: 1.5rem;
+      align-items: stretch;
+    }
+    @media (max-width: 850px) {
+      .podium-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .podium-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 1.35rem 1.15rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--shadow-md);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .podium-card:hover {
+      transform: translateY(-3px);
+    }
+    /* 1st Place (Gold / Champion) */
+    .podium-card.rank-1 {
+      border: 2px solid #fbbf24;
+      background: linear-gradient(135deg, rgba(251, 191, 36, 0.15) 0%, rgba(30, 41, 59, 0.95) 100%);
+      box-shadow: 0 0 25px rgba(251, 191, 36, 0.35);
+      order: 2; /* Center in desktop podium if desired */
+    }
+    @media (min-width: 851px) {
+      .podium-grid {
+        align-items: end;
+      }
+      .podium-card.rank-1 {
+        transform: translateY(-8px);
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+      }
+      .podium-card.rank-1:hover {
+        transform: translateY(-12px);
+      }
+    }
+    body.light-theme .podium-card.rank-1 {
+      border-color: #b45309;
+      background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%);
+      box-shadow: 0 4px 20px rgba(180, 83, 9, 0.15);
+    }
+    /* 2nd Place (Silver) */
+    .podium-card.rank-2 {
+      border: 1.5px solid #94a3b8;
+      background: linear-gradient(135deg, rgba(148, 163, 184, 0.12) 0%, rgba(30, 41, 59, 0.9) 100%);
+      order: 1;
+    }
+    body.light-theme .podium-card.rank-2 {
+      border-color: #64748b;
+      background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+    }
+    /* 3rd Place (Bronze) */
+    .podium-card.rank-3 {
+      border: 1.5px solid #f97316;
+      background: linear-gradient(135deg, rgba(249, 115, 22, 0.12) 0%, rgba(30, 41, 59, 0.9) 100%);
+      order: 3;
+    }
+    body.light-theme .podium-card.rank-3 {
+      border-color: #ea580c;
+      background: linear-gradient(135deg, #fff7ed 0%, #ffffff 100%);
+    }
+    .podium-badge-icon {
+      font-size: 2.2rem;
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+    .podium-rank-tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 800;
+      padding: 0.2rem 0.65rem;
+      border-radius: var(--radius-full);
+      margin-bottom: 0.5rem;
+    }
+    .rank-1 .podium-rank-tag { background: #fbbf24; color: #1e293b; }
+    .rank-2 .podium-rank-tag { background: #94a3b8; color: #0f172a; }
+    .rank-3 .podium-rank-tag { background: #f97316; color: #ffffff; }
+
+    .podium-family-name {
+      font-size: 1.35rem;
+      font-weight: 900;
+      color: var(--text-main);
+      margin-bottom: 0.4rem;
+    }
+    .podium-score-total {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--accent-gold);
+      line-height: 1.1;
+    }
+    .podium-score-total small {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+    .podium-score-pct {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--accent-emerald);
+      margin-top: 0.25rem;
+    }
+
+    /* Family Detailed Cards Grid */
+    .family-cards-detail-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.15rem;
+      margin-top: 1rem;
+    }
+    .family-detail-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+    body.light-theme .family-detail-card {
+      background: #ffffff;
+      border-color: #e2e8f0;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+    .criteria-pill-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.45rem;
+      margin-top: 0.85rem;
+    }
+    .criteria-item {
+      background: rgba(15, 23, 42, 0.5);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.4rem 0.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.78rem;
+    }
+    body.light-theme .criteria-item {
+      background: #f8fafc;
+      border-color: #e2e8f0;
+    }
+    .criteria-item-name {
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 110px;
+    }
+    body.light-theme .criteria-item-name {
+      color: #475569;
+    }
+    .criteria-item-score {
+      font-weight: 800;
+      color: var(--accent-gold);
+      font-size: 0.82rem;
+    }
+    body.light-theme .criteria-item-score {
+      color: #b45309;
+    }
+
   </style>
 </head>
 <body>
@@ -2151,6 +2327,10 @@
     <button class="tab-btn" data-tab="tabBirthdays" id="tabBtnBirthdays">
       🎂 أعياد الميلاد
       <span class="tab-count" id="birthdaysTabCountPill" style="background:rgba(236,72,153,0.22);color:#f472b6;font-weight:800;">0</span>
+    </button>
+    <button class="tab-btn" data-tab="tabFamilyScores" id="tabBtnFamilyScores">
+      🏆 تقييم الأسر
+      <span class="tab-count" id="familyScoresTabBadge" style="background:rgba(245,158,11,0.22);color:#fbbf24;font-weight:800;">دورة 1</span>
     </button>
     <button class="tab-btn" data-tab="tabSessions">
       📅 جدول اللقاءات
@@ -2507,6 +2687,71 @@
       <!-- Birthday Cards Grid -->
       <div class="birthday-cards-grid" id="birthdayCardsGrid">
         <!-- Rendered dynamically by JS -->
+      </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- TAB: FAMILY EVALUATIONS & MONTHLY COMPETITION  -->
+    <!-- ============================================== -->
+    <div class="tab-pane" id="tabFamilyScores">
+      <!-- Header -->
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.15rem;flex-wrap:wrap;gap:0.85rem;">
+        <div>
+          <h2 style="font-size:1.35rem;font-weight:800;color:var(--accent-gold);display:flex;align-items:center;gap:0.5rem;margin:0;">
+            <span>🏆</span> مسابقة وتقييمات الأسر الشهرية
+          </h2>
+          <p style="font-size:0.85rem;color:var(--text-muted);margin-top:0.25rem;">
+            نظام المنافسة الروحية والتنظيمية لدورة الـ 4 أسابيع (12 بنداً × 10 درجات = 120 نقطة كاملة).
+          </p>
+        </div>
+
+        <div style="display:flex;gap:0.55rem;align-items:center;flex-wrap:wrap;">
+          <button type="button" class="btn btn-sm btn-gold" id="btnScoreFamilyModal" title="رصد درجات الأسرة في يومها">
+            ✍️ رصد تقييم أسرة
+          </button>
+          <button type="button" class="btn btn-sm" id="btnPreviewFamilyAnnouncement" style="background:rgba(37,211,102,0.15);color:#25d366;border:1px solid rgba(37,211,102,0.3);" title="تجهيز رسالة إعلان النتيجة لجروب الواتساب">
+            📲 إعلان النتيجة بالواتساب
+          </button>
+          <button type="button" class="btn btn-sm" id="btnViewEvaluationRubricModal" style="border:1px solid var(--border);" title="عرض معايير الـ 12 بنداً">
+            📜 ميثاق التقييم
+          </button>
+        </div>
+      </div>
+
+      <!-- Cycle Filter & Info Bar -->
+      <div class="members-filter-card" style="margin-bottom:1.25rem;padding:0.9rem 1.15rem;">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;">
+          <div style="display:flex;align-items:center;gap:0.65rem;flex-wrap:wrap;">
+            <span style="font-size:0.88rem;font-weight:800;color:var(--accent-gold);display:flex;align-items:center;gap:0.35rem;">
+              <span>📅</span> دورة التقييم:
+            </span>
+            <select id="familyCycleSelect" style="padding:0.4rem 0.85rem;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--bg-main);color:var(--text-main);font-size:0.88rem;font-weight:700;">
+              <option value="cycle-1">دورة 1 • الأسابيع (1 إلى 4) | أكتوبر - نوفمبر 2026</option>
+              <option value="cycle-2">دورة 2 • الأسابيع (5 إلى 8) | نوفمبر - ديسمبر 2026</option>
+              <option value="cycle-3">دورة 3 • الأسابيع (9 إلى 12) | ديسمبر - يناير 2027</option>
+            </select>
+          </div>
+
+          <div style="display:flex;gap:0.5rem;align-items:center;font-size:0.82rem;font-weight:700;color:var(--text-muted);">
+            <span>نظام الدورة:</span>
+            <span style="color:var(--accent-rose);">3 أسابيع للأسر</span> + <span style="color:var(--accent-gold);">أسبوع الأمناء</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Podium: Top 3 Families Live Leaderboard -->
+      <div class="podium-grid" id="familyPodiumGrid">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- Detailed Breakdown Cards for the 3 Families -->
+      <div style="margin-top:1.5rem;">
+        <h3 style="font-size:1.1rem;font-weight:800;color:var(--text-main);margin-bottom:0.85rem;display:flex;align-items:center;gap:0.4rem;">
+          <span>📊</span> التفاصيل التفصيلية لدرجات الأسر (12 بنداً لكل أسرة):
+        </h3>
+        <div class="family-cards-detail-grid" id="familyDetailedCardsGrid">
+          <!-- Rendered by JS -->
+        </div>
       </div>
     </div>
 
@@ -2928,7 +3173,7 @@
         badgeName: 'أمناء الاجتماع',
         icon: '👑',
         color: '#f59e0b',
-        allowedTabs: ['tabScanner', 'tabBadges', 'tabMembers', 'tabBirthdays', 'tabSessions', 'tabVisitation', 'tabAnalytics'],
+        allowedTabs: ['tabScanner', 'tabBadges', 'tabMembers', 'tabBirthdays', 'tabFamilyScores', 'tabSessions', 'tabVisitation', 'tabAnalytics'],
         defaultTab: 'tabScanner',
         canManageSettings: true
       },
@@ -7686,6 +7931,7 @@
       renderVisitationTable();
       renderKPIs();
       renderBirthdaysSection();
+      renderFamilyScoresSection();
 
       // Counts
       document.getElementById('badgeCountPill').textContent = appData.members.length;
@@ -9041,6 +9287,418 @@
       }
     });
 
+
+    // ==============================================
+    // FAMILY EVALUATION & COMPETITION JAVASCRIPT CORE
+    // ==============================================
+    const CRITERIA_DEFS = [
+      { key: 'decor', label: '🎨 الديكور', max: 10, default: 8.5 },
+      { key: 'theme', label: '🌟 هوية اليوم', max: 10, default: 8.5 },
+      { key: 'prep', label: '📝 التحضير والاسكريبت', max: 10, default: 8.0 },
+      { key: 'flow', label: '🔄 ترتيب وانسياب الفقرات', max: 10, default: 8.5 },
+      { key: 'youthInvolvement', label: '🎙️ إشراك شباب الأسرة', max: 10, default: 8.0 },
+      { key: 'hostAttendance', label: '👥 حضورهم في يومهم', max: 10, default: 9.0 },
+      { key: 'otherAttendance', label: '🤝 حضورهم باقي الشهر', max: 10, default: 8.5 },
+      { key: 'punctuality', label: '⏰ الالتزام بالمواعيد', max: 10, default: 8.0 },
+      { key: 'visualAid', label: '💡 وسيلة الإيضاح', max: 10, default: 8.5 },
+      { key: 'invitation', label: '💌 الإنفيشن والدعاية', max: 10, default: 8.5 },
+      { key: 'phoneVisitation', label: '📞 افتقاد الموبايل', max: 10, default: 8.0 },
+      { key: 'receptionAndCleaning', label: '🚪🧹 الاستقبال والنظافة', max: 10, default: 9.0 }
+    ];
+
+    const DEFAULT_FAMILY_EVALUATIONS = {
+      'cycle-1': {
+        name: 'دورة 1 (اللقاءات 1 - 4)',
+        scores: {
+          'أسرة 1': {
+            decor: 9.0, theme: 9.0, prep: 8.5, flow: 9.0, youthInvolvement: 8.5,
+            hostAttendance: 9.2, otherAttendance: 8.8, punctuality: 9.0, visualAid: 8.5,
+            invitation: 9.0, phoneVisitation: 8.5, receptionAndCleaning: 9.5,
+            notes: 'تنظيم ممتاز، حضور رائع، وديكور مبهر'
+          },
+          'أسرة 2': {
+            decor: 8.5, theme: 8.5, prep: 8.5, flow: 8.5, youthInvolvement: 9.0,
+            hostAttendance: 8.8, otherAttendance: 8.5, punctuality: 8.5, visualAid: 9.0,
+            invitation: 8.5, phoneVisitation: 8.0, receptionAndCleaning: 9.0,
+            notes: 'تفاعل قوي وإشراك متميز للشباب في التقديم'
+          },
+          'أسرة 3': {
+            decor: 8.5, theme: 8.0, prep: 8.0, flow: 8.0, youthInvolvement: 8.0,
+            hostAttendance: 8.5, otherAttendance: 8.2, punctuality: 8.5, visualAid: 8.0,
+            invitation: 8.5, phoneVisitation: 8.5, receptionAndCleaning: 8.5,
+            notes: 'خدمة مباركة وجهد ملحوظ في الافتقاد'
+          }
+        }
+      }
+    };
+
+    let selectedEvaluationCycle = 'cycle-1';
+
+    function getFamilyTotalScore(scoreObj) {
+      if (!scoreObj) return 0;
+      let sum = 0;
+      CRITERIA_DEFS.forEach(c => {
+        sum += (parseFloat(scoreObj[c.key]) || 0);
+      });
+      return Math.round(sum * 10) / 10;
+    }
+
+    function renderFamilyScoresSection() {
+      if (!appData.familyEvaluations) {
+        appData.familyEvaluations = JSON.parse(JSON.stringify(DEFAULT_FAMILY_EVALUATIONS));
+      }
+
+      const cycleData = appData.familyEvaluations[selectedEvaluationCycle] || { scores: {} };
+      const familyNames = ['أسرة 1', 'أسرة 2', 'أسرة 3'];
+
+      // Build ranking list
+      const rankingList = familyNames.map(fName => {
+        const scores = (cycleData.scores && cycleData.scores[fName]) ? cycleData.scores[fName] : {};
+        const total = getFamilyTotalScore(scores);
+        const pct = Math.round((total / 120) * 1000) / 10;
+        return {
+          name: fName,
+          scores: scores,
+          total: total,
+          pct: pct
+        };
+      });
+
+      // Sort descending by total score
+      rankingList.sort((a, b) => b.total - a.total);
+
+      // Render Podium (Top 3)
+      const podiumGrid = document.getElementById('familyPodiumGrid');
+      if (podiumGrid) {
+        podiumGrid.innerHTML = '';
+        rankingList.forEach((fam, idx) => {
+          const rank = idx + 1;
+          const rankClass = 'rank-' + rank;
+          const medalIcon = rank === 1 ? '🥇' : (rank === 2 ? '🥈' : '🥉');
+          const rankTitle = rank === 1 ? '🏆 بطل الدورة (المركز الأول)' : (rank === 2 ? 'المركز الثاني' : 'المركز الثالث');
+
+          const card = document.createElement('div');
+          card.className = 'podium-card ' + rankClass;
+          card.innerHTML = `
+            <div>
+              <div class="podium-badge-icon">${medalIcon}</div>
+              <span class="podium-rank-tag">${rankTitle}</span>
+              <div class="podium-family-name">${fam.name}</div>
+            </div>
+
+            <div style="margin: 1rem 0;">
+              <div class="podium-score-total">
+                ${fam.total} <small>/ 120</small>
+              </div>
+              <div class="podium-score-pct">${fam.pct}% من الدرجة الكاملة</div>
+            </div>
+
+            <div>
+              <button type="button" class="btn btn-sm btn-edit-family-score" data-family="${fam.name}" style="width:100%;font-size:0.8rem;border:1px solid var(--border);">
+                ✏️ تعديل تقييم ${fam.name}
+              </button>
+            </div>
+          `;
+          podiumGrid.appendChild(card);
+        });
+      }
+
+      // Render Detailed Breakdown Cards
+      const detailGrid = document.getElementById('familyDetailedCardsGrid');
+      if (detailGrid) {
+        detailGrid.innerHTML = '';
+        rankingList.forEach((fam, idx) => {
+          const rank = idx + 1;
+          const card = document.createElement('div');
+          card.className = 'family-detail-card';
+
+          let criteriaHtml = '';
+          CRITERIA_DEFS.forEach(c => {
+            const val = fam.scores[c.key] !== undefined ? fam.scores[c.key] : 0;
+            criteriaHtml += `
+              <div class="criteria-item">
+                <span class="criteria-item-name" title="${c.label}">${c.label}</span>
+                <span class="criteria-item-score">${val} / ${c.max}</span>
+              </div>
+            `;
+          });
+
+          card.innerHTML = `
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.75rem;padding-bottom:0.65rem;border-bottom:1px solid var(--border);">
+              <div style="display:flex;align-items:center;gap:0.5rem;">
+                <span style="font-size:1.3rem;">${rank === 1 ? '🥇' : (rank === 2 ? '🥈' : '🥉')}</span>
+                <div>
+                  <div style="font-size:1.15rem;font-weight:900;color:var(--text-main);">${fam.name}</div>
+                  <div style="font-size:0.75rem;color:var(--text-muted);">الترتيب: المركز ${rank}</div>
+                </div>
+              </div>
+
+              <div style="text-align:left;">
+                <span style="font-size:1.3rem;font-weight:900;color:var(--accent-gold);">${fam.total}</span>
+                <span style="font-size:0.8rem;color:var(--text-muted);"> / 120</span>
+                <div style="font-size:0.78rem;font-weight:800;color:var(--accent-emerald);">${fam.pct}%</div>
+              </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div style="width:100%;height:7px;background:rgba(255,255,255,0.08);border-radius:10px;overflow:hidden;margin-bottom:0.75rem;">
+              <div style="width:${Math.min(fam.pct, 100)}%;height:100%;background:linear-gradient(90deg, #10b981 0%, #fbbf24 100%);"></div>
+            </div>
+
+            <!-- Notes if any -->
+            ${fam.scores.notes ? `
+              <div style="font-size:0.8rem;color:var(--accent-gold);background:rgba(251,191,36,0.08);padding:0.4rem 0.65rem;border-radius:var(--radius-sm);margin-bottom:0.75rem;">
+                💬 "${fam.scores.notes}"
+              </div>
+            ` : ''}
+
+            <!-- 12 Criteria Grid -->
+            <div class="criteria-pill-list">
+              ${criteriaHtml}
+            </div>
+          `;
+          detailGrid.appendChild(card);
+        });
+      }
+    }
+
+    // Modal Live Tally Calculator
+    function updateLiveScoreTally() {
+      let sum = 0;
+      CRITERIA_DEFS.forEach(c => {
+        const input = document.getElementById('input_' + c.key);
+        const valSpan = document.getElementById('scoreVal_' + c.key);
+        if (input) {
+          const val = parseFloat(input.value) || 0;
+          if (valSpan) valSpan.textContent = val;
+          sum += val;
+        }
+      });
+      sum = Math.round(sum * 10) / 10;
+      const pct = Math.round((sum / 120) * 1000) / 10;
+
+      const totalDisplay = document.getElementById('liveTotalScoreDisplay');
+      if (totalDisplay) totalDisplay.textContent = sum;
+
+      const pctDisplay = document.getElementById('livePercentageDisplay');
+      if (pctDisplay) pctDisplay.textContent = '(' + pct + '%)';
+    }
+
+    // Populate modal inputs for chosen family
+    function populateScoreModal(fName, cycleId) {
+      if (!appData.familyEvaluations) {
+        appData.familyEvaluations = JSON.parse(JSON.stringify(DEFAULT_FAMILY_EVALUATIONS));
+      }
+      const cycle = appData.familyEvaluations[cycleId] || { scores: {} };
+      const currentScores = (cycle.scores && cycle.scores[fName]) ? cycle.scores[fName] : {};
+
+      CRITERIA_DEFS.forEach(c => {
+        const input = document.getElementById('input_' + c.key);
+        if (input) {
+          input.value = currentScores[c.key] !== undefined ? currentScores[c.key] : c.default;
+        }
+      });
+
+      const notesInput = document.getElementById('input_scoreNotes');
+      if (notesInput) {
+        notesInput.value = currentScores.notes || '';
+      }
+
+      updateLiveScoreTally();
+    }
+
+    // Generate WhatsApp Announcement Text
+    function generateFamilyAnnouncementText() {
+      if (!appData.familyEvaluations) return '';
+      const cycle = appData.familyEvaluations[selectedEvaluationCycle] || { scores: {} };
+      const familyNames = ['أسرة 1', 'أسرة 2', 'أسرة 3'];
+      const rankingList = familyNames.map(fName => {
+        const scores = (cycle.scores && cycle.scores[fName]) ? cycle.scores[fName] : {};
+        const total = getFamilyTotalScore(scores);
+        const pct = Math.round((total / 120) * 1000) / 10;
+        return { name: fName, total: total, pct: pct, notes: scores.notes || '' };
+      });
+      rankingList.sort((a, b) => b.total - a.total);
+
+      const winner = rankingList[0];
+      const second = rankingList[1];
+      const third = rankingList[2];
+
+      const msg =
+`🎉🏆 *نتيجة مسابقة أسر اجتماع يوسف الصديق للشباب* 🏆🎉
+بكنيسة السيدة العذراء مريم بالقناطر الخيرية ✨
+
+بنعمة ربنا وفرحتنا بكل التعب والمحبة والخدمة الجبارة اللي شفناها من شباب وخدام كل الأسر، بنعلن بكل فخر نتيجة تقييمات الدورة:
+
+🥇 *المركز الأول والأسرة الفائزة بكأس ودرع الشهر:*
+🏆 *${winner.name}* بمجموع *${winner.total} من 120* (بنسبة *${winner.pct}%*) 🎉✨
+${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
+🥈 *المركز الثاني:* ${second.name} بمجموع *${second.total} من 120* (${second.pct}%) 🌟
+🥉 *المركز الثالث:* ${third.name} بمجموع *${third.total} من 120* (${third.pct}%) 👏
+
+بنقول لكل أسرنا وخُدامنا وشبابنا الغاليين:
+📜 *"فَإِذًا يَا إِخْوَتِي الأَحِبَّاءَ، كُونُوا رَاسِخِينَ، غَيْرَ مُتَزَعْزِعِينَ، مُكْثِرِينَ فِي عَمَلِ الرَّبِّ كُلَّ حِينٍ، عَالِمِينَ أَنَّ تَعَبَكُمْ لَيْسَ بَاطِلاً فِي الرَّبِّ"* (1 كو 15: 58) ✝️🤍
+
+عاش يا شباب وبداية دورة جديدة كلها بركة ونشاط ومنافسة حلوة لمجد اسم ربنا! 🕊️🤍`;
+
+      return msg;
+    }
+
+    // Event Listeners for Family Scores
+    document.addEventListener('DOMContentLoaded', () => {
+      // Cycle selector change
+      const cycleSelect = document.getElementById('familyCycleSelect');
+      if (cycleSelect) {
+        cycleSelect.addEventListener('change', (e) => {
+          selectedEvaluationCycle = e.target.value;
+          renderFamilyScoresSection();
+        });
+      }
+
+      // Input changes in Scoring Modal
+      CRITERIA_DEFS.forEach(c => {
+        const input = document.getElementById('input_' + c.key);
+        if (input) {
+          input.addEventListener('input', updateLiveScoreTally);
+        }
+      });
+
+      // Target family/cycle change in Modal
+      const targetFamSelect = document.getElementById('scoreTargetFamily');
+      const targetCycleSelect = document.getElementById('scoreTargetCycle');
+      if (targetFamSelect && targetCycleSelect) {
+        targetFamSelect.addEventListener('change', () => {
+          populateScoreModal(targetFamSelect.value, targetCycleSelect.value);
+        });
+        targetCycleSelect.addEventListener('change', () => {
+          populateScoreModal(targetFamSelect.value, targetCycleSelect.value);
+        });
+      }
+
+      // Open Score Modal button
+      const openScoreBtn = document.getElementById('btnScoreFamilyModal');
+      const scoreModal = document.getElementById('familyScoreModal');
+      if (openScoreBtn && scoreModal) {
+        openScoreBtn.addEventListener('click', () => {
+          const famVal = targetFamSelect ? targetFamSelect.value : 'أسرة 1';
+          const cycleVal = targetCycleSelect ? targetCycleSelect.value : selectedEvaluationCycle;
+          populateScoreModal(famVal, cycleVal);
+          scoreModal.classList.add('open');
+        });
+      }
+
+      // Close Score Modal
+      const closeScoreBtn = document.getElementById('closeFamilyScoreModalBtn');
+      const cancelScoreBtn = document.getElementById('cancelFamilyScoreModalBtn');
+      if (closeScoreBtn && scoreModal) {
+        closeScoreBtn.addEventListener('click', () => scoreModal.classList.remove('open'));
+      }
+      if (cancelScoreBtn && scoreModal) {
+        cancelScoreBtn.addEventListener('click', () => scoreModal.classList.remove('open'));
+      }
+
+      // Save Family Score Form
+      const scoreForm = document.getElementById('familyScoreForm');
+      if (scoreForm && scoreModal) {
+        scoreForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const targetFam = targetFamSelect.value;
+          const targetCycle = targetCycleSelect.value;
+
+          if (!appData.familyEvaluations) appData.familyEvaluations = {};
+          if (!appData.familyEvaluations[targetCycle]) {
+            appData.familyEvaluations[targetCycle] = { name: targetCycle, scores: {} };
+          }
+          if (!appData.familyEvaluations[targetCycle].scores) {
+            appData.familyEvaluations[targetCycle].scores = {};
+          }
+
+          const newScoreObj = {};
+          CRITERIA_DEFS.forEach(c => {
+            const input = document.getElementById('input_' + c.key);
+            newScoreObj[c.key] = input ? (parseFloat(input.value) || 0) : 0;
+          });
+          const notesInput = document.getElementById('input_scoreNotes');
+          newScoreObj.notes = notesInput ? notesInput.value.trim() : '';
+
+          appData.familyEvaluations[targetCycle].scores[targetFam] = newScoreObj;
+          saveLocalData();
+          syncWithServer();
+          renderFamilyScoresSection();
+
+          scoreModal.classList.remove('open');
+          alert('✓ تم حفظ تقييم ' + targetFam + ' بنجاح واحتساب المجموع الجديد!');
+        });
+      }
+
+      // Click "Edit Score" on specific podium/card
+      document.addEventListener('click', (e) => {
+        const editBtn = e.target.closest('.btn-edit-family-score');
+        if (editBtn) {
+          const famName = editBtn.getAttribute('data-family');
+          if (targetFamSelect) targetFamSelect.value = famName;
+          if (targetCycleSelect) targetCycleSelect.value = selectedEvaluationCycle;
+          populateScoreModal(famName, selectedEvaluationCycle);
+          if (scoreModal) scoreModal.classList.add('open');
+        }
+      });
+
+      // Announcement Modal
+      const announcementModal = document.getElementById('familyAnnouncementModal');
+      const previewAnnouncementBtn = document.getElementById('btnPreviewFamilyAnnouncement');
+      const closeAnnouncementBtn = document.getElementById('closeFamilyAnnouncementModalBtn');
+      const doneAnnouncementBtn = document.getElementById('doneFamilyAnnouncementModalBtn');
+      const copyAnnouncementBtn = document.getElementById('copyFamilyAnnouncementBtn');
+      const announcementTextPreview = document.getElementById('familyAnnouncementPreviewText');
+
+      if (previewAnnouncementBtn && announcementModal) {
+        previewAnnouncementBtn.addEventListener('click', () => {
+          if (announcementTextPreview) {
+            announcementTextPreview.textContent = generateFamilyAnnouncementText();
+          }
+          announcementModal.classList.add('open');
+        });
+      }
+      if (closeAnnouncementBtn && announcementModal) {
+        closeAnnouncementBtn.addEventListener('click', () => announcementModal.classList.remove('open'));
+      }
+      if (doneAnnouncementBtn && announcementModal) {
+        doneAnnouncementBtn.addEventListener('click', () => announcementModal.classList.remove('open'));
+      }
+      if (copyAnnouncementBtn && announcementTextPreview) {
+        copyAnnouncementBtn.addEventListener('click', () => {
+          navigator.clipboard.writeText(announcementTextPreview.innerText).then(() => {
+            copyAnnouncementBtn.textContent = '✓ تم النسخ!';
+            setTimeout(() => { copyAnnouncementBtn.textContent = '📋 نسخ رسالة الإعلان'; }, 2000);
+          });
+        });
+      }
+
+      // Rubric Modal
+      const rubricModal = document.getElementById('evaluationRubricModal');
+      const viewRubricBtn = document.getElementById('btnViewEvaluationRubricModal');
+      const closeRubricBtn = document.getElementById('closeRubricModalBtn');
+      const doneRubricBtn = document.getElementById('doneRubricModalBtn');
+
+      if (viewRubricBtn && rubricModal) {
+        viewRubricBtn.addEventListener('click', () => rubricModal.classList.add('open'));
+      }
+      if (closeRubricBtn && rubricModal) {
+        closeRubricBtn.addEventListener('click', () => rubricModal.classList.remove('open'));
+      }
+      if (doneRubricBtn && rubricModal) {
+        doneRubricBtn.addEventListener('click', () => rubricModal.classList.remove('open'));
+      }
+
+      // Tab button click re-renders family scores if selected
+      const tabBtn = document.querySelector('.tab-btn[data-tab="tabFamilyScores"]');
+      if (tabBtn) {
+        tabBtn.addEventListener('click', () => {
+          renderFamilyScoresSection();
+        });
+      }
+    });
+
     // Instantaneous Theme Switcher (Zero Lag / 0ms Switch Time)
     function updateThemeToggleIcon(isLight) {
       const btn = document.getElementById('themeToggleBtn');
@@ -9176,6 +9834,239 @@
       <div style="margin-top:1.25rem;display:flex;gap:0.75rem;justify-content:flex-end;">
         <button type="button" class="btn btn-brand-primary" id="copyGreetingTemplateBtn">📋 نسخ نص التهنئة</button>
         <button type="button" class="btn" id="doneBdayModalBtn">إغلاق</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- MODAL: SCORE A FAMILY (12 CRITERIA) -->
+  <div class="modal-backdrop" id="familyScoreModal">
+    <div class="modal-box" style="max-width:680px;max-height:90vh;overflow-y:auto;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;border-bottom:1px solid var(--border);padding-bottom:0.75rem;">
+        <h3 style="font-size:1.25rem;font-weight:800;color:var(--accent-gold);margin:0;display:flex;align-items:center;gap:0.5rem;">
+          <span>✍️</span> رصد تقييم أسرة في يوم تنظيمها
+        </h3>
+        <button type="button" class="btn btn-icon-only btn-sm" id="closeFamilyScoreModalBtn" style="border:none;background:none;font-size:1.2rem;color:var(--text-muted);cursor:pointer;">✕</button>
+      </div>
+
+      <form id="familyScoreForm">
+        <!-- Select Family and Cycle -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.85rem;margin-bottom:1.15rem;">
+          <div class="form-group" style="margin:0;">
+            <label style="font-size:0.85rem;font-weight:800;color:var(--text-muted);display:block;margin-bottom:0.35rem;">اختر الأسرة المراد تقييمها:</label>
+            <select id="scoreTargetFamily" class="form-control" style="font-weight:800;">
+              <option value="أسرة 1">أسرة 1</option>
+              <option value="أسرة 2">أسرة 2</option>
+              <option value="أسرة 3">أسرة 3</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin:0;">
+            <label style="font-size:0.85rem;font-weight:800;color:var(--text-muted);display:block;margin-bottom:0.35rem;">دورة التقييم:</label>
+            <select id="scoreTargetCycle" class="form-control" style="font-weight:800;">
+              <option value="cycle-1">دورة 1 (اللقاءات 1 - 4)</option>
+              <option value="cycle-2">دورة 2 (اللقاءات 5 - 8)</option>
+              <option value="cycle-3">دورة 3 (اللقاءات 9 - 12)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Real-Time Total Live Pill -->
+        <div style="background:rgba(251,191,36,0.12);border:1px solid rgba(251,191,36,0.3);border-radius:var(--radius-md);padding:0.75rem 1rem;display:flex;align-items:center;justify-content:space-between;margin-bottom:1.15rem;">
+          <span style="font-size:0.9rem;font-weight:800;color:var(--text-main);">
+            📊 إجمالي النقاط الحالي:
+          </span>
+          <div style="display:flex;align-items:baseline;gap:0.5rem;">
+            <span style="font-size:1.4rem;font-weight:900;color:var(--accent-gold);" id="liveTotalScoreDisplay">0</span>
+            <span style="font-size:0.85rem;color:var(--text-muted);font-weight:700;">من 120</span>
+            <span style="font-size:0.92rem;font-weight:800;color:var(--accent-emerald);" id="livePercentageDisplay">(0%)</span>
+          </div>
+        </div>
+
+        <!-- 12 Criteria Inputs Grid -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+          <!-- 1. الديكور -->
+          <div class="form-group" style="margin:0;">
+            <label style="font-size:0.82rem;font-weight:800;display:flex;justify-content:space-between;">
+              <span>1. 🎨 الديكور</span>
+              <span id="scoreVal_decor" style="color:var(--accent-gold);">8</span>
+            </label>
+            <input type="range" min="0" max="10" step="0.5" value="8" id="input_decor" class="form-control" style="padding:0.2rem 0;">
+          </div>
+
+          <!-- 2. هوية اليوم -->
+          <div class="form-group" style="margin:0;">
+            <label style="font-size:0.82rem;font-weight:800;display:flex;justify-content:space-between;">
+              <span>2. 🌟 هوية اليوم (Theme)</span>
+              <span id="scoreVal_theme" style="color:var(--accent-gold);">8</span>
+            </label>
+            <input type="range" min="0" max="10" step="0.5" value="8" id="input_theme" class="form-control" style="padding:0.2rem 0;">
+          </div>
+
+          <!-- 3. التحضير -->
+          <div class="form-group" style="margin:0;">
+            <label style="font-size:0.82rem;font-weight:800;display:flex;justify-content:space-between;">
+              <span>3. 📝 التحضير والاسكريبت</span>
+              <span id="scoreVal_prep" style="color:var(--accent-gold);">8</span>
+            </label>
+            <input type="range" min="0" max="10" step="0.5" value="8" id="input_prep" class="form-control" style="padding:0.2rem 0;">
+          </div>
+
+          <!-- 4. ترتيب الفقرات وانسيابها -->
+          <div class="form-group" style="margin:0;">
+            <label style="font-size:0.82rem;font-weight:800;display:flex;justify-content:space-between;">
+              <span>4. 🔄 ترتيب الفقرات وانسيابها</span>
+              <span id="scoreVal_flow" style="color:var(--accent-gold);">8</span>
+            </label>
+            <input type="range" min="0" max="10" step="0.5" value="8" id="input_flow" class="form-control" style="padding:0.2rem 0;">
+          </div>
+
+          <!-- 5. إشراك شباب الأسرة في الشرح -->
+          <div class="form-group" style="margin:0;">
+            <label style="font-size:0.82rem;font-weight:800;display:flex;justify-content:space-between;">
+              <span>5. 🎙️ إشراك شباب الأسرة في الشرح (%)</span>
+              <span id="scoreVal_youthInvolvement" style="color:var(--accent-gold);">8</span>
+            </label>
+            <input type="range" min="0" max="10" step="0.5" value="8" id="input_youthInvolvement" class="form-control" style="padding:0.2rem 0;">
+          </div>
+
+          <!-- 6. حضور شباب الأسرة في يومهم -->
+          <div class="form-group" style="margin:0;">
+            <label style="font-size:0.82rem;font-weight:800;display:flex;justify-content:space-between;">
+              <span>6. 👥 حضورهم في يومهم (% من الأسرة)</span>
+              <span id="scoreVal_hostAttendance" style="color:var(--accent-gold);">8.5</span>
+            </label>
+            <input type="range" min="0" max="10" step="0.1" value="8.5" id="input_hostAttendance" class="form-control" style="padding:0.2rem 0;">
+          </div>
+
+          <!-- 7. حضور شباب الأسرة في باقي الشهر -->
+          <div class="form-group" style="margin:0;">
+            <label style="font-size:0.82rem;font-weight:800;display:flex;justify-content:space-between;">
+              <span>7. 🤝 حضورهم في باقي الشهر (%)</span>
+              <span id="scoreVal_otherAttendance" style="color:var(--accent-gold);">8</span>
+            </label>
+            <input type="range" min="0" max="10" step="0.1" value="8" id="input_otherAttendance" class="form-control" style="padding:0.2rem 0;">
+          </div>
+
+          <!-- 8. الالتزام بالمواعيد -->
+          <div class="form-group" style="margin:0;">
+            <label style="font-size:0.82rem;font-weight:800;display:flex;justify-content:space-between;">
+              <span>8. ⏰ الالتزام بالمواعيد</span>
+              <span id="scoreVal_punctuality" style="color:var(--accent-gold);">8</span>
+            </label>
+            <input type="range" min="0" max="10" step="0.5" value="8" id="input_punctuality" class="form-control" style="padding:0.2rem 0;">
+          </div>
+
+          <!-- 9. وسيلة الإيضاح والتفاعل -->
+          <div class="form-group" style="margin:0;">
+            <label style="font-size:0.82rem;font-weight:800;display:flex;justify-content:space-between;">
+              <span>9. 💡 وسيلة الإيضاح والتفاعل</span>
+              <span id="scoreVal_visualAid" style="color:var(--accent-gold);">8</span>
+            </label>
+            <input type="range" min="0" max="10" step="0.5" value="8" id="input_visualAid" class="form-control" style="padding:0.2rem 0;">
+          </div>
+
+          <!-- 10. الإنفيشن والدعاية المسبقة -->
+          <div class="form-group" style="margin:0;">
+            <label style="font-size:0.82rem;font-weight:800;display:flex;justify-content:space-between;">
+              <span>10. 💌 الإنفيشن والدعاية المسبقة</span>
+              <span id="scoreVal_invitation" style="color:var(--accent-gold);">8</span>
+            </label>
+            <input type="range" min="0" max="10" step="0.5" value="8" id="input_invitation" class="form-control" style="padding:0.2rem 0;">
+          </div>
+
+          <!-- 11. افتقاد الموبايل -->
+          <div class="form-group" style="margin:0;">
+            <label style="font-size:0.82rem;font-weight:800;display:flex;justify-content:space-between;">
+              <span>11. 📞 افتقاد الموبايل</span>
+              <span id="scoreVal_phoneVisitation" style="color:var(--accent-gold);">8</span>
+            </label>
+            <input type="range" min="0" max="10" step="0.5" value="8" id="input_phoneVisitation" class="form-control" style="padding:0.2rem 0;">
+          </div>
+
+          <!-- 12. الاستقبال وتسليم القاعة نظيفة -->
+          <div class="form-group" style="margin:0;">
+            <label style="font-size:0.82rem;font-weight:800;display:flex;justify-content:space-between;">
+              <span>12. 🚪🧹 الاستقبال وتسليم القاعة نظيفة</span>
+              <span id="scoreVal_receptionAndCleaning" style="color:var(--accent-gold);">8</span>
+            </label>
+            <input type="range" min="0" max="10" step="0.5" value="8" id="input_receptionAndCleaning" class="form-control" style="padding:0.2rem 0;">
+          </div>
+        </div>
+
+        <!-- Notes -->
+        <div class="form-group" style="margin-top:0.85rem;margin-bottom:0;">
+          <label style="font-size:0.82rem;font-weight:800;color:var(--text-muted);display:block;margin-bottom:0.25rem;">ملاحظات وكلمة تشجيعية من الأمناء للأسرة:</label>
+          <input type="text" id="input_scoreNotes" class="form-control" placeholder="مثال: مجهود رائع في الديكور وإشراك وجوه جديدة ومواعيد ممتازة">
+        </div>
+
+        <!-- Buttons -->
+        <div style="margin-top:1.25rem;display:flex;gap:0.75rem;justify-content:flex-end;">
+          <button type="submit" class="btn btn-brand-primary">💾 حفظ التقييم</button>
+          <button type="button" class="btn" id="cancelFamilyScoreModalBtn">إلغاء</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: WHATSAPP ANNOUNCEMENT MESSAGE -->
+  <div class="modal-backdrop" id="familyAnnouncementModal">
+    <div class="modal-box" style="max-width:540px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.15rem;border-bottom:1px solid var(--border);padding-bottom:0.75rem;">
+        <h3 style="font-size:1.25rem;font-weight:800;color:var(--accent-gold);margin:0;display:flex;align-items:center;gap:0.5rem;">
+          <span>🎉</span> برقية إعلان نتيجة الشهر للواتساب
+        </h3>
+        <button type="button" class="btn btn-icon-only btn-sm" id="closeFamilyAnnouncementModalBtn" style="border:none;background:none;font-size:1.2rem;color:var(--text-muted);cursor:pointer;">✕</button>
+      </div>
+
+      <div style="margin-bottom:0.85rem;">
+        <p style="font-size:0.85rem;color:var(--text-muted);line-height:1.5;margin:0;">
+          برقية جاهزة ومصممة بمشاعر التشجيع والآيات لإعلان وتتويج الأسرة الفائزة على جروب الواتساب بنقرة واحدة:
+        </p>
+      </div>
+
+      <div style="background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.3);border-radius:var(--radius-md);padding:1rem;font-size:0.88rem;line-height:1.65;color:var(--text-main);white-space:pre-wrap;direction:rtl;" id="familyAnnouncementPreviewText">
+        <!-- Generated by JS -->
+      </div>
+
+      <div style="margin-top:1.25rem;display:flex;gap:0.75rem;justify-content:flex-end;">
+        <button type="button" class="btn btn-brand-primary" id="copyFamilyAnnouncementBtn">📋 نسخ رسالة الإعلان</button>
+        <button type="button" class="btn" id="doneFamilyAnnouncementModalBtn">إغلاق</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: EVALUATION RUBRIC CRITERIA VIEW -->
+  <div class="modal-backdrop" id="evaluationRubricModal">
+    <div class="modal-box" style="max-width:650px;max-height:85vh;overflow-y:auto;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.15rem;border-bottom:1px solid var(--border);padding-bottom:0.75rem;">
+        <h3 style="font-size:1.25rem;font-weight:800;color:var(--accent-gold);margin:0;display:flex;align-items:center;gap:0.5rem;">
+          <span>📜</span> ميثاق تقييم الأسر المعتمد (120 نقطة)
+        </h3>
+        <button type="button" class="btn btn-icon-only btn-sm" id="closeRubricModalBtn" style="border:none;background:none;font-size:1.2rem;color:var(--text-muted);cursor:pointer;">✕</button>
+      </div>
+
+      <div style="font-size:0.88rem;line-height:1.7;color:var(--text-main);">
+        <p style="color:var(--text-muted);margin-bottom:0.75rem;">
+          يُحتسب التقييم على مدار دورة الـ 4 أسابيع الكاملة (12 بنداً × 10 درجات):
+        </p>
+        <ol style="padding-right:1.2rem;margin-bottom:1rem;">
+          <li><strong>🎨 الديكور (10):</strong> جمال وتميز ديكور المدخل والمسرح واللمسة الفنية.</li>
+          <li><strong>🌟 هوية اليوم (10):</strong> تكامل عناصر اليوم (ترانيم، بوستر، كلمات، ديكور) في فكرة واحدة.</li>
+          <li><strong>📝 التحضير (10):</strong> تسليم الاسكريبت للأمناء مسبقاً، وجاهزية الأدوات وتنسيق الأدوار.</li>
+          <li><strong>🔄 ترتيب الفقرات وانسيابها (10):</strong> تسلسل منطقي وعدم وجود وقت ميت بين الفقرات.</li>
+          <li><strong>🎙️ إشراك شباب الأسرة في الشرح (10):</strong> نسبة مئوية من الفقرات يقدمها الشباب بأنفسهم.</li>
+          <li><strong>👥 حضور شباب الأسرة في يومهم (10):</strong> نسبة حضور شباب الأسرة في يوم تنظيمها بالباركود.</li>
+          <li><strong>🤝 حضور شباب الأسرة في باقي الشهر (10):</strong> متوسط نسبة حضور شباب الأسرة في الـ 3 لقاءات الأخرى.</li>
+          <li><strong>⏰ الالتزام بالمواعيد (10):</strong> البدء في الميعاد بالدقيقة، احترام زمن الفقرات، والإنهاء في الوقت.</li>
+          <li><strong>💡 وسيلة الإيضاح والتفاعل (10):</strong> وسيلة بصرية/عملية وتفاعل جميع الحضور معها.</li>
+          <li><strong>💌 الإنفيشن والدعاية المسبقة (10):</strong> إرسال البوستر قبل 48 ساعة ومراسلة الشباب فردياً.</li>
+          <li><strong>📞 افتقاد الموبايل (10):</strong> مكالمات الافتقاد لكل شباب الأسرة قبل اليوم خاصة المنقطعين.</li>
+          <li><strong>🚪🧹 الاستقبال وتسليم القاعة نظيفة (10):</strong> فريق استقبال بشوش + تسليم القاعة نظيفة ومرتبة.</li>
+        </ol>
+      </div>
+
+      <div style="margin-top:1.25rem;display:flex;justify-content:flex-end;">
+        <button type="button" class="btn" id="doneRubricModalBtn">إغلاق</button>
       </div>
     </div>
   </div>

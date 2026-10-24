@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ميثاق تقييم الأسر - اجتماع يوسف الصديق للشباب</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-page: #0f172a;
+      --bg-card: #1e293b;
+      --bg-header: #022c22;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent-gold: #fbbf24;
+      --accent-emerald: #10b981;
+      --accent-rose: #f43f5e;
+      --border-color: #334155;
+      --badge-manual: rgba(56, 189, 248, 0.15);
+      --badge-manual-text: #38bdf8;
+      --badge-auto: rgba(16, 185, 129, 0.15);
+      --badge-auto-text: #34d399;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Cairo', 'Segoe UI', Tahoma, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      padding: 2rem 1rem;
+      display: flex;
+      justify-content: center;
+      line-height: 1.6;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      overflow: hidden;
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, #022c22 0%, #064e3b 50%, #0f172a 100%);
+      border-bottom: 2px solid var(--accent-gold);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .header-church {
+      color: var(--accent-gold);
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .header-title {
+      font-size: 1.75rem;
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+    }
+
+    .header-subtitle {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* KPI Summary Ribbon */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      padding: 1.25rem 1.5rem;
+      background: rgba(15, 23, 42, 0.6);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .summary-card {
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 0.85rem 1rem;
+      text-align: center;
+    }
+
+    .summary-card-val {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--accent-gold);
+    }
+
+    .summary-card-lbl {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-top: 0.2rem;
+    }
+
+    /* Table */
+    .table-responsive {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 1rem 1.5rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: right;
+      min-width: 750px;
+    }
+
+    thead th {
+      background: #0f172a;
+      color: var(--accent-gold);
+      padding: 1rem 0.85rem;
+      font-size: 0.95rem;
+      font-weight: 800;
+      border-bottom: 2px solid var(--accent-gold);
+      white-space: nowrap;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid var(--border-color);
+      transition: background 0.15s ease;
+    }
+
+    tbody tr:hover {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    tbody tr:last-child {
+      border-bottom: none;
+    }
+
+    tbody td {
+      padding: 1rem 0.85rem;
+      font-size: 0.92rem;
+      vertical-align: middle;
+    }
+
+    .col-num {
+      width: 45px;
+      text-align: center;
+      font-weight: 800;
+      color: var(--text-muted);
+    }
+
+    .col-item {
+      font-weight: 800;
+      color: #ffffff;
+      white-space: nowrap;
+      font-size: 0.98rem;
+    }
+
+    .col-score {
+      width: 85px;
+      text-align: center;
+      font-weight: 900;
+      font-size: 1.1rem;
+      color: var(--accent-gold);
+      white-space: nowrap;
+    }
+
+    .col-type {
+      width: 130px;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .col-desc {
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      line-height: 1.55;
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 9999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .badge-manual {
+      background: var(--badge-manual);
+      color: var(--badge-manual-text);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    .badge-auto {
+      background: var(--badge-auto);
+      color: var(--badge-auto-text);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    /* Footer */
+    .footer {
+      background: #0f172a;
+      border-top: 1px solid var(--border-color);
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .footer-highlight {
+      color: var(--accent-gold);
+      font-weight: 800;
+    }
+
+    /* Print Styles */
+    @media print {
+      body {
+        background: #ffffff;
+        color: #000000;
+        padding: 0;
+      }
+      .container {
+        border: none;
+        box-shadow: none;
+        max-width: 100%;
+      }
+      .header {
+        background: #f1f5f9;
+        color: #000000;
+        border-bottom: 2px solid #000000;
+      }
+      .header-title { color: #000000; }
+      .header-church { color: #334155; }
+      thead th {
+        background: #f8fafc;
+        color: #000000;
+        border-bottom: 2px solid #000000;
+      }
+      tbody td {
+        color: #000000;
+        border-bottom: 1px solid #cbd5e1;
+      }
+      .col-item { color: #000000; }
+      .col-score { color: #000000; }
+      .badge-manual {
+        background: #e0f2fe;
+        color: #0369a1;
+        border-color: #bae6fd;
+      }
+      .badge-auto {
+        background: #d1fae5;
+        color: #065f46;
+        border-color: #a7f3d0;
+      }
+      .summary-grid, .footer {
+        background: #f8fafc;
+        color: #334155;
+      }
+      .summary-card-val { color: #000000; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-church">
+        <span>✝️</span>
+        <span>كنيسة السيدة العذراء مريم بالقناطر الخيرية</span>
+        <span>•</span>
+        <span>اجتماع يوسف الصديق للشباب</span>
+      </div>
+      <h1 class="header-title">🏆 ميثاق ونظام تقييم الأسر الشهري</h1>
+      <p class="header-subtitle">
+        نظام المنافسة الروحية والخدمية بين الأسر الثلاث لدورة الـ 4 أسابيع (12 بنداً × 10 درجات = 120 نقطة)
+      </p>
+    </header>
+
+    <!-- Summary KPI Ribbon -->
+    <div class="summary-grid">
+      <div class="summary-card">
+        <div class="summary-card-val">12</div>
+        <div class="summary-card-lbl">عدد بنود التقييم</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-card-val">10</div>
+        <div class="summary-card-lbl">درجة كل بند</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-card-val">120</div>
+        <div class="summary-card-lbl">إجمالي الدرجات الكاملة</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-card-val">4 أسابيع</div>
+        <div class="summary-card-lbl">دورة الشهر (3 أسر + يوم الأمناء)</div>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th class="col-num">#</th>
+            <th class="col-item">البند</th>
+            <th class="col-score">الدرجة</th>
+            <th class="col-type">نوع الرصد</th>
+            <th class="col-desc">معايير التقييم وطريقة الاحتساب</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="col-num">1</td>
+            <td class="col-item">🎨 الديكور</td>
+            <td class="col-score">10</td>
+            <td class="col-type"><span class="badge badge-manual">✍️ تقييم أمناء</span></td>
+            <td class="col-desc">جمال وتميز ديكور المدخل والمسرح، اللمسة الفنية، واستغلال الخامات البسيطة بذكاء.</td>
+          </tr>
+          <tr>
+            <td class="col-num">2</td>
+            <td class="col-item">🌟 هوية اليوم (Theme)</td>
+            <td class="col-score">10</td>
+            <td class="col-type"><span class="badge badge-manual">✍️ تقييم أمناء</span></td>
+            <td class="col-desc">تكامل كل عناصر اليوم في فكرة ورسالة واحدة موحدة (الترانيم، البوستر، الكلمات، والديكور).</td>
+          </tr>
+          <tr>
+            <td class="col-num">3</td>
+            <td class="col-item">📝 التحضير</td>
+            <td class="col-score">10</td>
+            <td class="col-type"><span class="badge badge-manual">✍️ تقييم أمناء</span></td>
+            <td class="col-desc">تسليم الاسكريبت للأمناء قبل اليوم بـ 24 ساعة، وجاهزية الأدوات وتنسيق الأدوار بين الخدام والشباب.</td>
+          </tr>
+          <tr>
+            <td class="col-num">4</td>
+            <td class="col-item">🔄 ترتيب الفقرات وانسيابها</td>
+            <td class="col-score">10</td>
+            <td class="col-type"><span class="badge badge-manual">✍️ تقييم أمناء</span></td>
+            <td class="col-desc">تسلسل منطقي ومشوق للفقرات وعدم وجود أي وقت ميت (Dead Time) أو ارتباك أثناء الانتقال.</td>
+          </tr>
+          <tr>
+            <td class="col-num">5</td>
+            <td class="col-item">🎙️ إشراك شباب الأسرة في الشرح</td>
+            <td class="col-score">10</td>
+            <td class="col-type"><span class="badge badge-manual">✍️ نسبة مئوية %</span></td>
+            <td class="col-desc">
+              <strong>تحسب كنسبة مئوية (% من الفقرات):</strong><br>
+              100% من الفقرات يقدمها شباب = 10 درجات • 80% = 8 درجات • 50% = 5 درجات.
+            </td>
+          </tr>
+          <tr>
+            <td class="col-num">6</td>
+            <td class="col-item">👥 حضور شباب الأسرة في يومهم</td>
+            <td class="col-score">10</td>
+            <td class="col-type"><span class="badge badge-auto">⚡ تلقائي بالسيستم</span></td>
+            <td class="col-desc">
+              <strong>تحسب أوتوماتيك من باركود الحضور:</strong><br>
+              (نسبة حضور شباب الأسرة في يومها %) × 10.<br>
+              <em>مثال: لو حضر 90% من شباب الأسرة ⬅️ تأخذ الأسرة 9 من 10 فوراً.</em>
+            </td>
+          </tr>
+          <tr>
+            <td class="col-num">7</td>
+            <td class="col-item">🤝 حضور شباب الأسرة في باقي الشهر</td>
+            <td class="col-score">10</td>
+            <td class="col-type"><span class="badge badge-auto">⚡ تلقائي بالسيستم</span></td>
+            <td class="col-desc">
+              <strong>تحسب أوتوماتيك من باركود الحضور:</strong><br>
+              متوسط نسبة حضور شباب الأسرة في الـ 3 لقاءات الأخرى (يومي الأسر التانية + يوم الأمناء) % × 10.<br>
+              <em>مثال: لو متوسط الحضور 85% ⬅️ تأخذ الأسرة 8.5 من 10.</em>
+            </td>
+          </tr>
+          <tr>
+            <td class="col-num">8</td>
+            <td class="col-item">⏰ الالتزام بالمواعيد</td>
+            <td class="col-score">10</td>
+            <td class="col-type"><span class="badge badge-manual">✍️ تقييم أمناء</span></td>
+            <td class="col-desc">بدء الاجتماع في ميعاده بالدقيقة، احترام زمن كل فقرة، وإنهاء الاجتماع في الوقت المحدد.</td>
+          </tr>
+          <tr>
+            <td class="col-num">9</td>
+            <td class="col-item">💡 وسيلة الإيضاح والتفاعل</td>
+            <td class="col-score">10</td>
+            <td class="col-type"><span class="badge badge-manual">✍️ تقييم أمناء</span></td>
+            <td class="col-desc">استخدام وسيلة بصرية/عملية/رقمية مبهرة وتفاعل جميع الحاضرين في القاعة معها لتثبيت الهدف.</td>
+          </tr>
+          <tr>
+            <td class="col-num">10</td>
+            <td class="col-item">💌 الإنفيشن والدعاية المسبقة</td>
+            <td class="col-score">10</td>
+            <td class="col-type"><span class="badge badge-manual">✍️ تقييم أمناء</span></td>
+            <td class="col-desc">نشر البوستر أو الريلز قبل اليوم بـ 48 ساعة، ومراسلة الشباب باسمهم على الواتساب.</td>
+          </tr>
+          <tr>
+            <td class="col-num">11</td>
+            <td class="col-item">📞 افتقاد الموبايل</td>
+            <td class="col-score">10</td>
+            <td class="col-type"><span class="badge badge-manual">✍️ تقييم أمناء</span></td>
+            <td class="col-desc">تسجيل ومتابعة مكالمات الافتقاد لكل شباب الأسرة قبل اليوم وتأكيد نزول الغائبين والمنقطعين.</td>
+          </tr>
+          <tr>
+            <td class="col-num">12</td>
+            <td class="col-item">🚪🧹 الاستقبال وتسليم القاعة نظيفة</td>
+            <td class="col-score">10</td>
+            <td class="col-type"><span class="badge badge-manual">✍️ تقييم أمناء</span></td>
+            <td class="col-desc">فريق استقبال بشوش عند الباب يرحب بالشباب + تسليم القاعة للأمناء نظيفة ومرتبة بالكامل.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div>
+        <span>المجموع الإجمالي: </span>
+        <span class="footer-highlight">120 نقطة</span>
+        <span> (تُحوّل إلى نسبة مئوية: النتيجة ÷ 1.2)</span>
+      </div>
+      <div>
+        <span>الأسرة الفائزة تتوج بكأس ودرع تميز الشهر 🏆</span>
+      </div>
+    </footer>
+  </div>
+
+</body>
+</html>
