@@ -25,6 +25,7 @@
 
   <style>
     :root {
+      /* Dark Theme (Default) - Emerald Green & Warm Gold Brand Identity */
       --bg-primary: #0a0f1d;
       --bg-secondary: #0f172a;
       --bg-card: rgba(30, 41, 59, 0.7);
@@ -34,6 +35,7 @@
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
       --accent-gold: #f59e0b;
+      --brand-gold: #f59e0b;
       --accent-gold-gradient: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
       --accent-blue: #38bdf8;
       --accent-emerald: #10b981;
@@ -44,19 +46,29 @@
       --radius-lg: 20px;
       --radius-full: 9999px;
       --shadow-lg: 0 10px 25px -3px rgba(0, 0, 0, 0.5);
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
       --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* Light Theme */
+    /* Light Theme (Day Mode) - High Contrast & Calibrated Professional Typography */
     body.light-theme {
       --bg-primary: #f8fafc;
-      --bg-secondary: #f1f5f9;
-      --bg-card: rgba(255, 255, 255, 0.9);
-      --bg-card-hover: #ffffff;
-      --border: rgba(148, 163, 184, 0.3);
+      --bg-secondary: #ffffff;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f1f5f9;
+      --border: #e2e8f0;
+      --border-gold: #d97706;
       --text-main: #0f172a;
-      --text-muted: #64748b;
-      --shadow-lg: 0 10px 20px rgba(0,0,0,0.08);
+      --text-muted: #475569;
+      --accent-gold: #b45309;       /* WCAG AA Compliant Antique Amber/Gold on White */
+      --brand-gold: #b45309;
+      --accent-gold-gradient: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+      --accent-blue: #0284c7;        /* Crisp Deep Sapphire */
+      --accent-emerald: #059669;     /* Deep Emerald Green */
+      --accent-purple: #7c3aed;      /* Deep Royal Violet */
+      --accent-rose: #be123c;        /* Deep Ruby Rose */
+      --shadow-lg: 0 10px 25px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+      --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.05);
     }
 
     * {
@@ -76,6 +88,475 @@
       overflow-x: hidden;
       line-height: 1.6;
       transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* ======================================================== */
+    /* DUAL THEME ENHANCEMENTS: DARK & LIGHT MODE CALIBRATION  */
+    /* ======================================================== */
+    body.light-theme header.app-header {
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid #e2e8f0;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+    }
+
+    body.light-theme .nav-tabs {
+      background: #f8fafc;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    body.light-theme .tab-btn {
+      color: #475569;
+    }
+
+    body.light-theme .tab-btn:hover {
+      color: #0f172a;
+    }
+
+    body.light-theme .tab-btn.active {
+      color: #b45309;
+      border-bottom-color: #b45309;
+      font-weight: 800;
+    }
+
+    body.light-theme .tab-count {
+      background: #e2e8f0;
+      color: #1e293b;
+      font-weight: 700;
+    }
+
+    body.light-theme .btn {
+      background: #ffffff;
+      border-color: #cbd5e1;
+      color: #0f172a;
+    }
+
+    body.light-theme .btn:hover {
+      background: #f8fafc;
+      border-color: #b45309;
+    }
+
+    body.light-theme .btn-gold {
+      background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+      color: #ffffff;
+      border: none;
+      box-shadow: 0 4px 12px rgba(180, 83, 9, 0.25);
+    }
+
+    body.light-theme .btn-gold:hover {
+      background: linear-gradient(135deg, #b45309 0%, #92400e 100%);
+      color: #ffffff;
+      box-shadow: 0 6px 18px rgba(180, 83, 9, 0.35);
+    }
+
+    body.light-theme .btn-brand-primary,
+    body.light-theme .btn-success {
+      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(5, 150, 105, 0.25);
+    }
+
+    body.light-theme .btn-outline-danger {
+      border-color: #fca5a5;
+      color: #be123c;
+    }
+
+    body.light-theme .btn-outline-danger:hover {
+      background: #ffe4e6;
+      border-color: #f87171;
+      color: #9f1239;
+    }
+
+    body.light-theme .pill-btn {
+      background: #f1f5f9;
+      color: #475569;
+      border-color: #cbd5e1;
+    }
+
+    body.light-theme .pill-btn:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    body.light-theme .pill-btn.active, 
+    body.light-theme .btn.group-filter-btn.active, 
+    body.light-theme .btn.stage-filter-btn.active, 
+    body.light-theme .btn.badge-stage-btn.active, 
+    body.light-theme .btn.gender-filter-btn.active {
+      background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+      color: #ffffff !important;
+      border-color: #047857 !important;
+      box-shadow: 0 2px 10px rgba(5, 150, 105, 0.35) !important;
+    }
+
+    body.light-theme .member-search-box,
+    body.light-theme .search-input,
+    body.light-theme .form-control {
+      background: #ffffff;
+      border-color: #cbd5e1;
+      color: #0f172a;
+    }
+
+    body.light-theme .member-search-box:focus,
+    body.light-theme .search-input:focus,
+    body.light-theme .form-control:focus {
+      border-color: #059669;
+      box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15);
+    }
+
+    body.light-theme .quick-results {
+      background: #ffffff;
+      border-color: #e2e8f0;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    body.light-theme .quick-result-item {
+      border-bottom-color: #f1f5f9;
+      color: #0f172a;
+    }
+
+    body.light-theme .quick-result-item:hover {
+      background: #f8fafc;
+    }
+
+    body.light-theme .attendance-meeting-bar {
+      background: #ffffff !important;
+      border-color: #e2e8f0 !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+    }
+
+    body.light-theme .session-select-clean {
+      background: #ffffff !important;
+      border-color: #cbd5e1 !important;
+      color: #0f172a !important;
+    }
+
+    body.light-theme .session-select-clean option {
+      background: #ffffff;
+      color: #0f172a;
+    }
+
+    body.light-theme .attendee-stat-pill {
+      background: #ecfdf5 !important;
+      border-color: #a7f3d0 !important;
+      color: #065f46 !important;
+    }
+
+    body.light-theme .attendee-stat-pill strong {
+      color: #047857 !important;
+    }
+
+    /* Cards & Badges in Light Theme */
+    body.light-theme .members-filter-card,
+    body.light-theme .streamlined-toolbar,
+    body.light-theme .camera-card,
+    body.light-theme .attendees-card,
+    body.light-theme .stat-card {
+      background: #ffffff;
+      border-color: #e2e8f0;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+    }
+
+    body.light-theme .attendee-item {
+      background: #f8fafc;
+      border-color: #e2e8f0;
+    }
+
+    body.light-theme .attendee-item:hover {
+      background: #f1f5f9;
+    }
+
+    body.light-theme .id-badge {
+      background: #ffffff;
+      border-color: #e2e8f0;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    body.light-theme .id-badge:hover {
+      border-color: #b45309;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    body.light-theme .badge-church-title {
+      color: #92400e;
+    }
+
+    body.light-theme .badge-id {
+      background: #fef3c7;
+      color: #92400e;
+      border-color: #fcd34d;
+    }
+
+    body.light-theme .badge-stage-pill {
+      background: #fef3c7;
+      color: #92400e;
+      border-color: #fcd34d;
+    }
+
+    body.light-theme .badge-name {
+      color: #0f172a;
+    }
+
+    body.light-theme .meta-txt strong {
+      color: #0f172a;
+    }
+
+    /* Data Tables in Light Theme */
+    body.light-theme .data-table-container {
+      background: #ffffff;
+      border-color: #e2e8f0;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    body.light-theme .data-table th {
+      background: #f8fafc;
+      color: #92400e;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    body.light-theme .data-table td {
+      border-bottom: 1px solid #f1f5f9;
+      color: #1e293b;
+    }
+
+    body.light-theme .data-table tr:hover td {
+      background: #f8fafc;
+    }
+
+    /* Badges / Pills in Light Mode - High Contrast WCAG AA/AAA */
+    body.light-theme .family-a { 
+      background: #fef3c7; 
+      color: #92400e; 
+      border-color: #fde68a; 
+      font-weight: 800; 
+    }
+    body.light-theme .family-b { 
+      background: #e0f2fe; 
+      color: #0369a1; 
+      border-color: #bae6fd; 
+      font-weight: 800; 
+    }
+    body.light-theme .family-c { 
+      background: #d1fae5; 
+      color: #065f46; 
+      border-color: #a7f3d0; 
+      font-weight: 800; 
+    }
+    body.light-theme .family-d { 
+      background: #ede9fe; 
+      color: #5b21b6; 
+      border-color: #ddd6fe; 
+      font-weight: 800; 
+    }
+    body.light-theme .family-e { 
+      background: #fce7f3; 
+      color: #9d174d; 
+      border-color: #fbcfe8; 
+      font-weight: 800; 
+    }
+    body.light-theme .family-t { 
+      background: #ccfbf1; 
+      color: #115e59; 
+      border-color: #99f6e4; 
+      font-weight: 800; 
+    }
+    body.light-theme .family-unassigned { 
+      background: #f1f5f9; 
+      color: #334155; 
+      border-color: #cbd5e1; 
+      font-weight: 700; 
+    }
+    body.light-theme .family-leaders { 
+      background: #ede9fe; 
+      color: #5b21b6; 
+      border-color: #ddd6fe; 
+      font-weight: 800; 
+    }
+
+    /* Semantic Status Pills (Dark & Light Mode) */
+    .pill-stage {
+      font-weight: 800;
+      color: var(--accent-emerald);
+      background: rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+    body.light-theme .pill-stage {
+      background: #d1fae5;
+      color: #065f46;
+      border-color: #a7f3d0;
+      font-weight: 800;
+    }
+
+    .pill-gender {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      background: rgba(148, 163, 184, 0.1);
+      border-color: rgba(148, 163, 184, 0.2);
+    }
+    body.light-theme .pill-gender {
+      background: #f1f5f9;
+      color: #334155;
+      border-color: #cbd5e1;
+    }
+
+    .pill-session-tag {
+      background: rgba(139, 92, 246, 0.15);
+      color: #c4b5fd;
+      border-color: rgba(139, 92, 246, 0.35);
+      font-size: 0.75rem;
+    }
+    body.light-theme .pill-session-tag {
+      background: #ede9fe;
+      color: #5b21b6;
+      border-color: #c4b5fd;
+      font-weight: 800;
+    }
+
+    .pill-rate-tag {
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+      border-color: rgba(16, 185, 129, 0.4);
+      font-weight: 800;
+    }
+    body.light-theme .pill-rate-tag {
+      background: #d1fae5;
+      color: #065f46;
+      border-color: #a7f3d0;
+      font-weight: 800;
+    }
+
+    .pill-present {
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+      border-color: rgba(16, 185, 129, 0.4);
+      font-weight: 800;
+    }
+    body.light-theme .pill-present {
+      background: #d1fae5;
+      color: #065f46;
+      border-color: #a7f3d0;
+      font-weight: 800;
+    }
+
+    .pill-absent {
+      background: rgba(244, 63, 94, 0.18);
+      color: #fb7185;
+      border-color: rgba(244, 63, 94, 0.35);
+      font-weight: 800;
+    }
+    body.light-theme .pill-absent {
+      background: #ffe4e6;
+      color: #9f1239;
+      border-color: #fecdd3;
+      font-weight: 800;
+    }
+
+    .btn-whatsapp {
+      color: #25d366;
+      border-color: rgba(37, 211, 102, 0.4);
+      background: rgba(37, 211, 102, 0.08);
+      font-weight: 700;
+    }
+    .btn-whatsapp:hover {
+      background: rgba(37, 211, 102, 0.18);
+      color: #25d366;
+    }
+    body.light-theme .btn-whatsapp {
+      color: #15803d;
+      border-color: #86efac;
+      background: #f0fdf4;
+      font-weight: 800;
+    }
+    body.light-theme .btn-whatsapp:hover {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    /* Alerts & Modals in Light Theme */
+    .schedule-cutoff-alert {
+      background: rgba(139, 92, 246, 0.12);
+      border: 1px solid rgba(139, 92, 246, 0.35);
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-md);
+      margin-bottom: 1.25rem;
+      font-size: 0.88rem;
+      color: #ddd6fe;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .schedule-cutoff-desc {
+      color: var(--accent-gold);
+      font-weight: 800;
+    }
+    body.light-theme .schedule-cutoff-alert {
+      background: #f5f3ff;
+      border-color: #c4b5fd;
+      color: #4c1d95;
+      font-weight: 600;
+    }
+    body.light-theme .schedule-cutoff-desc {
+      color: #6d28d9;
+      font-weight: 800;
+    }
+
+    body.light-theme .modal-box {
+      background: #ffffff;
+      border-color: #e2e8f0;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.12);
+      color: #0f172a;
+    }
+    body.light-theme .form-group label {
+      color: #334155;
+      font-weight: 700;
+    }
+
+    body.light-theme .admin-role-card-admin { background: #fffbeb !important; border-color: #fde68a !important; }
+    body.light-theme .admin-role-card-secr { background: #ecfdf5 !important; border-color: #a7f3d0 !important; }
+    body.light-theme .admin-role-card-visitation { background: #ecfeff !important; border-color: #a5f3fc !important; }
+    body.light-theme .admin-role-card-schedule { background: #f5f3ff !important; border-color: #ddd6fe !important; }
+    body.light-theme .admin-cutoff-box { background: #f5f3ff !important; border-color: #ddd6fe !important; }
+
+    body.light-theme .login-overlay-backdrop {
+      background: radial-gradient(circle at center, rgba(241, 245, 249, 0.94) 0%, rgba(226, 232, 240, 0.98) 100%);
+    }
+    body.light-theme .login-card-container {
+      background: #ffffff;
+      border-color: #e2e8f0;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.12), 0 0 35px rgba(16, 185, 129, 0.08);
+    }
+    body.light-theme .login-input {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+      color: #0f172a;
+    }
+    body.light-theme .login-input:focus {
+      border-color: #059669;
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15);
+    }
+    body.light-theme .login-field-label {
+      color: #0f172a;
+    }
+    body.light-theme .login-submit-btn {
+      background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+      color: #ffffff;
+    }
+    body.light-theme .login-submit-btn:hover {
+      background: linear-gradient(135deg, #b45309 0%, #92400e 100%);
+    }
+    body.light-theme .scan-feedback-card {
+      background: #ffffff;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+    }
+    body.light-theme .feedback-success {
+      border-color: #059669;
+      background: linear-gradient(135deg, #ecfdf5 0%, #ffffff 100%);
+      color: #065f46;
+    }
+    body.light-theme .feedback-warning {
+      border-color: #d97706;
+      background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%);
+      color: #92400e;
     }
 
     /* Top App Header (Streamlined & Clean - Zero Clutter) */
@@ -1271,7 +1752,7 @@
             <span>📅</span> لقاء تسجيل الحضور:
           </span>
           <div style="display:flex;align-items:center;gap:0.35rem;">
-            <select id="activeSessionSelect" class="session-select-clean" title="اختر اللقاء لتسجيل الحضور" style="font-size:0.9rem;padding:0.35rem 0.85rem;background:rgba(15,23,42,0.6);border:1px solid var(--border);border-radius:var(--radius-full);color:var(--text-main);font-weight:700;"></select>
+            <select id="activeSessionSelect" class="session-select-clean" title="اختر اللقاء لتسجيل الحضور" style="font-size:0.9rem;padding:0.35rem 0.85rem;border:1px solid var(--border);border-radius:var(--radius-full);color:var(--text-main);font-weight:700;"></select>
             <button class="btn btn-icon-only btn-sm" id="newSessionBtn" title="إضافة لقاء جديد" style="width:28px;height:28px;font-size:1rem;padding:0;border-radius:var(--radius-full);display:none;">+</button>
           </div>
         </div>
@@ -1523,9 +2004,9 @@
       </div>
 
       <!-- Schedule Cutoff Alert (Shown dynamically when schedule role is limited) -->
-      <div id="scheduleCutoffAlert" style="display:none;background:rgba(139,92,246,0.12);border:1px solid rgba(139,92,246,0.35);padding:0.75rem 1rem;border-radius:var(--radius-md);margin-bottom:1.25rem;font-size:0.85rem;color:#ddd6fe;align-items:center;gap:0.6rem;">
+      <div id="scheduleCutoffAlert" class="schedule-cutoff-alert" style="display:none;">
         <span style="font-size:1.1rem;">📅</span> 
-        <span>يتم عرض الجدول المعتمد للتحضير حتى: <strong id="scheduleCutoffDesc" style="color:var(--accent-gold);"></strong> (وفقاً لصلاحيات أمناء الاجتماع).</span>
+        <span>يتم عرض الجدول المعتمد للتحضير حتى: <strong id="scheduleCutoffDesc" class="schedule-cutoff-desc"></strong> (وفقاً لصلاحيات أمناء الاجتماع).</span>
       </div>
 
       <div class="data-table-container">
@@ -1771,7 +2252,7 @@
           
           <div style="display:flex;flex-direction:column;gap:0.75rem;">
             <!-- Admin Account -->
-            <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);border-radius:var(--radius-md);padding:0.75rem;">
+            <div class="admin-role-card-admin" style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);border-radius:var(--radius-md);padding:0.75rem;">
               <div style="font-size:0.85rem;font-weight:800;color:var(--accent-gold);margin-bottom:0.4rem;">
                 👑 أمناء الاجتماع (الـ 4 الكبار):
               </div>
@@ -1788,7 +2269,7 @@
             </div>
 
             <!-- Secretariat Account -->
-            <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.25);border-radius:var(--radius-md);padding:0.75rem;">
+            <div class="admin-role-card-secr" style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.25);border-radius:var(--radius-md);padding:0.75rem;">
               <div style="font-size:0.85rem;font-weight:800;color:var(--accent-emerald);margin-bottom:0.4rem;">
                 📋 السكرتارية (تسجيل الحضور فقط):
               </div>
@@ -1805,7 +2286,7 @@
             </div>
 
             <!-- Visitation Account -->
-            <div style="background:rgba(6,182,212,0.08);border:1px solid rgba(6,182,212,0.25);border-radius:var(--radius-md);padding:0.75rem;">
+            <div class="admin-role-card-visitation" style="background:rgba(6,182,212,0.08);border:1px solid rgba(6,182,212,0.25);border-radius:var(--radius-md);padding:0.75rem;">
               <div style="font-size:0.85rem;font-weight:800;color:#06b6d4;margin-bottom:0.4rem;">
                 📞 لجنة الافتقاد (متابعة الغياب):
               </div>
@@ -1822,7 +2303,7 @@
             </div>
 
             <!-- Schedule Account -->
-            <div style="background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.25);border-radius:var(--radius-md);padding:0.75rem;">
+            <div class="admin-role-card-schedule" style="background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.25);border-radius:var(--radius-md);padding:0.75rem;">
               <div style="font-size:0.85rem;font-weight:800;color:#a78bfa;margin-bottom:0.4rem;">
                 📅 خدام اللقاءات (عرض الجدول):
               </div>
@@ -1841,7 +2322,7 @@
         </div>
 
         <!-- Section 2: Schedule Cutoff for Schedule Team -->
-        <div style="margin-bottom:1.5rem;background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.25);border-radius:var(--radius-md);padding:1rem;">
+        <div class="admin-cutoff-box" style="margin-bottom:1.5rem;background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.25);border-radius:var(--radius-md);padding:1rem;">
           <h4 style="font-size:0.92rem;font-weight:800;color:#a78bfa;margin-bottom:0.4rem;display:flex;align-items:center;gap:0.4rem;">
             <span>📅</span> ظهور جدول اللقاءات لحساب خدام اللقاءات:
           </h4>
@@ -6937,13 +7418,13 @@
           <td><strong>${m.name}</strong></td>
           <td><span class="family-pill ${getFamilyClass(areaName)}">${areaName}</span></td>
           <td><span class="family-pill family-unassigned">${familyName}</span></td>
-          <td><span class="family-pill" style="font-weight:800;color:var(--accent-emerald);background:rgba(16,185,129,0.15);border-color:rgba(16,185,129,0.3);">${getCollegeStage(m)}</span></td>
-          <td><span class="family-pill" style="font-size:0.75rem;">${m.gender || 'شاب'}</span></td>
+          <td><span class="family-pill pill-stage">${getCollegeStage(m)}</span></td>
+          <td><span class="family-pill pill-gender">${m.gender || 'شاب'}</span></td>
           <td style="color:var(--accent-gold);font-weight:700;font-size:0.85rem;">${m.father || '—'}</td>
           <td style="color:var(--text-muted);font-size:0.82rem;">${m.area || ''} ${m.street ? '— ' + m.street : ''}</td>
           <td style="font-family:monospace;font-size:0.85rem;">${m.phone || '—'}</td>
           <td>
-            ${m.phone ? `<a href="https://wa.me/2${m.phone}" target="_blank" class="btn" style="padding:0.2rem 0.55rem;font-size:0.75rem;color:#25d366;">واتساب</a>` : '—'}
+            ${m.phone ? `<a href="https://wa.me/2${m.phone}" target="_blank" class="btn btn-whatsapp" style="padding:0.2rem 0.55rem;font-size:0.75rem;">واتساب</a>` : '—'}
           </td>
         `;
         tbody.appendChild(tr);
@@ -6987,7 +7468,7 @@
         let actionColHtml = '';
         if (currentServantRole === 'schedule') {
           actionColHtml = `
-            <span class="family-pill" style="background:rgba(139,92,246,0.15);color:#c4b5fd;font-size:0.75rem;">
+            <span class="family-pill pill-session-tag">
               ${s.id === currentSessionId ? '● لقاء الأسبوع' : 'لقاء معتمد'}
             </span>
           `;
@@ -7005,7 +7486,7 @@
           <td>${s.title}</td>
           <td><span class="family-pill ${getFamilyClass(s.family)}">${s.family}</span></td>
           <td><strong style="color:var(--accent-gold);">${count}</strong> حاضر</td>
-          <td><span class="family-pill family-c">${rate}%</span></td>
+          <td><span class="family-pill pill-rate-tag">${rate}%</span></td>
           <td>${actionColHtml}</td>
         `;
         tbody.appendChild(tr);
@@ -7041,8 +7522,8 @@
           <td>${m.phone || '—'}</td>
           <td>
             ${isAttended 
-              ? '<span class="family-pill family-c">✓ حاضر اليوم</span>' 
-              : '<span class="family-pill" style="background:rgba(244,63,94,0.18);color:#fb7185;">✗ غائب اليوم</span>'}
+              ? '<span class="family-pill pill-present">✓ حاضر اليوم</span>' 
+              : '<span class="family-pill pill-absent">✗ غائب اليوم</span>'}
           </td>
           <td>
             <a href="https://wa.me/2${m.phone}?text=${defaultMsg}" target="_blank" class="btn btn-success" style="padding:0.25rem 0.65rem;font-size:0.8rem;">
@@ -7636,10 +8117,37 @@
       a.click();
     });
 
-    // Theme Toggle
+    // Theme Toggle with LocalStorage Persistence & Dynamic SVG Icon
+    function updateThemeToggleIcon(isLight) {
+      const btn = document.getElementById('themeToggleBtn');
+      if (!btn) return;
+      if (isLight) {
+        btn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
+        btn.setAttribute('title', 'تفعيل المظهر الليلي (Dark Mode)');
+      } else {
+        btn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`;
+        btn.setAttribute('title', 'تفعيل المظهر النهاري (Light Mode)');
+      }
+    }
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme_preference') || 'dark';
+      const isLight = savedTheme === 'light';
+      if (isLight) {
+        document.body.classList.add('light-theme');
+      } else {
+        document.body.classList.remove('light-theme');
+      }
+      updateThemeToggleIcon(isLight);
+    }
+
     document.getElementById('themeToggleBtn').addEventListener('click', () => {
-      document.body.classList.toggle('light-theme');
+      const isLight = document.body.classList.toggle('light-theme');
+      localStorage.setItem('theme_preference', isLight ? 'light' : 'dark');
+      updateThemeToggleIcon(isLight);
     });
+
+    initTheme();
 
     
     // Group and Gender Filter Event Listeners
