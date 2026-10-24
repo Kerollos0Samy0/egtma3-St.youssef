@@ -8,18 +8,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg-page: #0f172a;
-      --bg-card: #1e293b;
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --accent-gold: #fbbf24;
-      --accent-emerald: #10b981;
-      --border-color: #334155;
-    }
-
     * {
-      box-sizing: border-box;
+      box-sizing: border-box !important;
       margin: 0;
       padding: 0;
       font-family: 'Cairo', 'Segoe UI', Tahoma, sans-serif;
@@ -29,59 +19,60 @@
 
     @page {
       size: A4 portrait;
-      margin: 8mm 10mm;
+      margin: 8mm 8mm 8mm 8mm;
     }
 
-    body {
-      background-color: #f8fafc;
+    html, body {
+      width: 100%;
+      height: 100%;
+      background-color: #ffffff;
       color: #0f172a;
-      padding: 0.5rem;
+      line-height: 1.3;
       display: flex;
       justify-content: center;
-      line-height: 1.4;
+      align-items: flex-start;
     }
 
     .doc-container {
-      width: 100%;
-      max-width: 900px;
+      width: 100% !important;
+      max-width: 100% !important;
       background: #ffffff;
-      border: 1.5px solid #cbd5e1;
-      border-radius: 12px;
+      border: 1.5px solid #0f172a;
+      border-radius: 8px;
       overflow: hidden;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     }
 
     /* Header */
     .doc-header {
       background: linear-gradient(135deg, #022c22 0%, #064e3b 60%, #0f172a 100%);
       color: #ffffff;
-      border-bottom: 3px solid #d97706;
-      padding: 1.15rem 1.25rem;
+      border-bottom: 2.5px solid #d97706;
+      padding: 10px 14px;
       text-align: center;
     }
 
     .church-line {
       color: #fbbf24;
-      font-size: 0.88rem;
+      font-size: 0.8rem;
       font-weight: 700;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.45rem;
-      margin-bottom: 0.2rem;
+      gap: 6px;
+      margin-bottom: 2px;
     }
 
     .doc-title {
-      font-size: 1.45rem;
+      font-size: 1.35rem;
       font-weight: 900;
       color: #ffffff;
-      letter-spacing: -0.3px;
+      line-height: 1.2;
     }
 
     .doc-subtitle {
-      color: #cbd5e1;
-      font-size: 0.82rem;
-      margin-top: 0.25rem;
+      color: #e2e8f0;
+      font-size: 0.76rem;
+      margin-top: 2px;
       font-weight: 600;
     }
 
@@ -89,54 +80,62 @@
     .stats-ribbon {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 0.5rem;
-      padding: 0.65rem 1rem;
+      gap: 6px;
+      padding: 6px 10px;
       background: #f1f5f9;
-      border-bottom: 1px solid #e2e8f0;
+      border-bottom: 1.5px solid #cbd5e1;
       text-align: center;
     }
 
     .stat-box {
       background: #ffffff;
       border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      padding: 0.4rem 0.5rem;
+      border-radius: 6px;
+      padding: 3px 4px;
     }
 
     .stat-val {
-      font-size: 1.15rem;
+      font-size: 1.05rem;
       font-weight: 900;
       color: #047857;
       line-height: 1.1;
     }
 
     .stat-lbl {
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       font-weight: 700;
-      color: #475569;
-      margin-top: 0.15rem;
+      color: #334155;
     }
 
     /* Table */
     .table-wrap {
-      padding: 0.65rem 0.85rem;
+      width: 100% !important;
+      padding: 6px 8px;
     }
 
     table {
-      width: 100%;
+      width: 100% !important;
+      table-layout: fixed !important;
       border-collapse: collapse;
       text-align: right;
-      font-size: 0.82rem;
     }
+
+    col.col-num   { width: 5%; }
+    col.col-name  { width: 23%; }
+    col.col-score { width: 9%; }
+    col.col-type  { width: 16%; }
+    col.col-desc  { width: 47%; }
 
     thead th {
       background: #0f172a;
       color: #fbbf24;
-      padding: 0.55rem 0.65rem;
-      font-size: 0.82rem;
-      font-weight: 800;
+      padding: 5px 6px;
+      font-size: 0.78rem;
+      font-weight: 900;
       border-bottom: 2px solid #d97706;
+      border-top: 1px solid #0f172a;
       white-space: nowrap;
+      overflow: hidden;
     }
 
     tbody tr {
@@ -148,83 +147,83 @@
     }
 
     tbody td {
-      padding: 0.48rem 0.65rem;
+      padding: 4px 6px;
       vertical-align: middle;
       color: #1e293b;
+      font-size: 0.74rem;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
 
-    .num-col {
-      width: 30px;
-      text-align: center;
-      font-weight: 800;
-      color: #64748b;
-    }
-
-    .name-col {
-      font-weight: 800;
-      color: #0f172a;
-      white-space: nowrap;
-      font-size: 0.85rem;
-    }
-
-    .score-col {
-      width: 65px;
+    .num-cell {
       text-align: center;
       font-weight: 900;
-      font-size: 0.95rem;
-      color: #b45309;
-      background: rgba(245, 158, 11, 0.08);
-      white-space: nowrap;
+      color: #475569;
     }
 
-    .type-col {
-      width: 105px;
+    .name-cell {
+      font-weight: 800;
+      color: #0f172a;
+      font-size: 0.77rem;
+    }
+
+    .score-cell {
+      text-align: center;
+      font-weight: 900;
+      font-size: 0.88rem;
+      color: #b45309;
+      background: rgba(245, 158, 11, 0.08);
+    }
+
+    .type-cell {
       text-align: center;
       white-space: nowrap;
     }
 
-    .desc-col {
-      color: #334155;
-      font-size: 0.79rem;
-      line-height: 1.35;
+    .desc-cell {
+      color: #1e293b;
+      font-size: 0.71rem;
+      line-height: 1.25;
+      text-align: right;
     }
 
     /* Badges */
     .badge {
       display: inline-block;
-      padding: 0.18rem 0.45rem;
+      padding: 2px 5px;
       border-radius: 9999px;
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       font-weight: 800;
+      white-space: nowrap;
     }
 
     .badge-admin {
       background: #e0f2fe;
       color: #0369a1;
-      border: 1px solid #bae6fd;
+      border: 1px solid #7dd3fc;
     }
 
     .badge-auto {
       background: #d1fae5;
       color: #065f46;
-      border: 1px solid #a7f3d0;
+      border: 1px solid #6ee7b7;
     }
 
     .badge-pct {
       background: #fef3c7;
       color: #92400e;
-      border: 1px solid #fde68a;
+      border: 1px solid #fcd34d;
     }
 
     /* Footer */
     .doc-footer {
       background: #0f172a;
       color: #ffffff;
-      padding: 0.65rem 1rem;
+      padding: 6px 10px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.76rem;
+      font-size: 0.72rem;
       border-top: 2px solid #d97706;
     }
 
@@ -267,106 +266,113 @@
       </div>
       <div class="stat-box">
         <div class="stat-val">4 لقاءات</div>
-        <div class="stat-lbl">مدة دورة التقييم</div>
+        <div class="stat-lbl">دورة الشهر التقييمية</div>
       </div>
     </div>
 
     <!-- Table -->
     <div class="table-wrap">
       <table>
+        <colgroup>
+          <col class="col-num">
+          <col class="col-name">
+          <col class="col-score">
+          <col class="col-type">
+          <col class="col-desc">
+        </colgroup>
         <thead>
           <tr>
-            <th class="num-col">#</th>
-            <th class="name-col">البند التقييمي</th>
-            <th class="score-col">الدرجة</th>
-            <th class="type-col">نوع الرصد</th>
-            <th class="desc-col">معايير التقييم وطريقة الاحتساب المعتمدة</th>
+            <th style="text-align:center;">#</th>
+            <th>البند التقييمي</th>
+            <th style="text-align:center;">الدرجة</th>
+            <th style="text-align:center;">نوع الرصد</th>
+            <th>معايير التقييم وطريقة الاحتساب المعتمدة</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td class="num-col">1</td>
-            <td class="name-col">🎨 الديكور</td>
-            <td class="score-col">10</td>
-            <td class="type-col"><span class="badge badge-admin">✍️ تقييم أمناء</span></td>
-            <td class="desc-col">جمال وتميز ديكور المدخل والمسرح، واللمسة الفنية واستغلال الخامات البسيطة بذكاء.</td>
+            <td class="num-cell">1</td>
+            <td class="name-cell">🎨 الديكور</td>
+            <td class="score-cell">10</td>
+            <td class="type-cell"><span class="badge badge-admin">✍️ تقييم أمناء</span></td>
+            <td class="desc-cell">جمال وتميز ديكور المدخل والمسرح، واللمسة الفنية واستغلال الخامات البسيطة بذكاء.</td>
           </tr>
           <tr>
-            <td class="num-col">2</td>
-            <td class="name-col">🌟 هوية اليوم (Theme)</td>
-            <td class="score-col">10</td>
-            <td class="type-col"><span class="badge badge-admin">✍️ تقييم أمناء</span></td>
-            <td class="desc-col">تكامل عناصر اليوم في فكرة ورسالة موحدة (الترانيم، البوستر، الكلمات، والديكور).</td>
+            <td class="num-cell">2</td>
+            <td class="name-cell">🌟 هوية اليوم (Theme)</td>
+            <td class="score-cell">10</td>
+            <td class="type-cell"><span class="badge badge-admin">✍️ تقييم أمناء</span></td>
+            <td class="desc-cell">تكامل عناصر اليوم في فكرة ورسالة موحدة (الترانيم، البوستر، الكلمات، والديكور).</td>
           </tr>
           <tr>
-            <td class="num-col">3</td>
-            <td class="name-col">📝 التحضير والاسكريبت</td>
-            <td class="score-col">10</td>
-            <td class="type-col"><span class="badge badge-admin">✍️ تقييم أمناء</span></td>
-            <td class="desc-col">تسليم الاسكريبت للأمناء قبل اليوم بـ 24 ساعة، وجاهزية الأدوات وتنسيق الأدوار بين الخدام.</td>
+            <td class="num-cell">3</td>
+            <td class="name-cell">📝 التحضير والاسكريبت</td>
+            <td class="score-cell">10</td>
+            <td class="type-cell"><span class="badge badge-admin">✍️ تقييم أمناء</span></td>
+            <td class="desc-cell">تسليم الاسكريبت للأمناء قبل اليوم بـ 24 ساعة، وجاهزية الأدوات وتنسيق الأدوار بين الخدام.</td>
           </tr>
           <tr>
-            <td class="num-col">4</td>
-            <td class="name-col">🔄 ترتيب وانسياب الفقرات</td>
-            <td class="score-col">10</td>
-            <td class="type-col"><span class="badge badge-admin">✍️ تقييم أمناء</span></td>
-            <td class="desc-col">تسلسل مشوق ومنطقي للفقرات مع عدم وجود أي وقت ميت (Dead Time) بين الفقرات.</td>
+            <td class="num-cell">4</td>
+            <td class="name-cell">🔄 ترتيب وانسياب الفقرات</td>
+            <td class="score-cell">10</td>
+            <td class="type-cell"><span class="badge badge-admin">✍️ تقييم أمناء</span></td>
+            <td class="desc-cell">تسلسل مشوق ومنطقي للفقرات مع عدم وجود أي وقت ميت (Dead Time) بين الفقرات.</td>
           </tr>
           <tr>
-            <td class="num-col">5</td>
-            <td class="name-col">🎙️ إشراك شباب الأسرة في الشرح</td>
-            <td class="score-col">10</td>
-            <td class="type-col"><span class="badge badge-pct">📊 نسبة مئوية %</span></td>
-            <td class="desc-col">نسبة الفقرات التي يقدمها شباب الأسرة بأنفسهم: (100% شباب = 10 • 80% = 8 • 50% = 5).</td>
+            <td class="num-cell">5</td>
+            <td class="name-cell">🎙️ إشراك شباب الأسرة</td>
+            <td class="score-cell">10</td>
+            <td class="type-cell"><span class="badge badge-pct">📊 نسبة مئوية %</span></td>
+            <td class="desc-cell">نسبة الفقرات التي يقدمها شباب الأسرة بأنفسهم: (100% شباب = 10 • 80% = 8 • 50% = 5).</td>
           </tr>
           <tr>
-            <td class="num-col">6</td>
-            <td class="name-col">👥 حضور شباب الأسرة في يومهم</td>
-            <td class="score-col">10</td>
-            <td class="type-col"><span class="badge badge-auto">⚡ تلقائي بالسيستم</span></td>
-            <td class="desc-col"><strong>محسوبة من باركود الحضور:</strong> (نسبة الحضور % × 10) • مثال: حضور 90% = 9 من 10.</td>
+            <td class="num-cell">6</td>
+            <td class="name-cell">👥 حضورهم في يومهم</td>
+            <td class="score-cell">10</td>
+            <td class="type-cell"><span class="badge badge-auto">⚡ تلقائي بالسيستم</span></td>
+            <td class="desc-cell"><strong>محسوبة من باركود الحضور:</strong> (نسبة الحضور % × 10) • مثال: حضور 90% = 9 من 10.</td>
           </tr>
           <tr>
-            <td class="num-col">7</td>
-            <td class="name-col">🤝 حضور شباب الأسرة باقي الشهر</td>
-            <td class="score-col">10</td>
-            <td class="type-col"><span class="badge badge-auto">⚡ تلقائي بالسيستم</span></td>
-            <td class="desc-col"><strong>محسوبة من باركود الحضور:</strong> متوسط نسبة حضورهم في الـ 3 لقاءات الأخرى % × 10.</td>
+            <td class="num-cell">7</td>
+            <td class="name-cell">🤝 حضورهم باقي الشهر</td>
+            <td class="score-cell">10</td>
+            <td class="type-cell"><span class="badge badge-auto">⚡ تلقائي بالسيستم</span></td>
+            <td class="desc-cell"><strong>محسوبة من باركود الحضور:</strong> متوسط نسبة حضورهم في الـ 3 لقاءات الأخرى % × 10.</td>
           </tr>
           <tr>
-            <td class="num-col">8</td>
-            <td class="name-col">⏰ الالتزام بالمواعيد</td>
-            <td class="score-col">10</td>
-            <td class="type-col"><span class="badge badge-admin">✍️ تقييم أمناء</span></td>
-            <td class="desc-col">بدء الاجتماع في ميعاده بالدقيقة، احترام زمن كل فقرة، وإنهاء الاجتماع في الوقت المحدد.</td>
+            <td class="num-cell">8</td>
+            <td class="name-cell">⏰ الالتزام بالمواعيد</td>
+            <td class="score-cell">10</td>
+            <td class="type-cell"><span class="badge badge-admin">✍️ تقييم أمناء</span></td>
+            <td class="desc-cell">بدء الاجتماع في ميعاده بالدقيقة، احترام زمن كل فقرة، وإنهاء الاجتماع في الوقت المحدد.</td>
           </tr>
           <tr>
-            <td class="num-col">9</td>
-            <td class="name-col">💡 وسيلة الإيضاح والتفاعل</td>
-            <td class="score-col">10</td>
-            <td class="type-col"><span class="badge badge-admin">✍️ تقييم أمناء</span></td>
-            <td class="desc-col">وسيلة بصرية/عملية/رقمية تفاعلية تشغل جميع الحاضرين في القاعة لتثبيت الهدف الروحي.</td>
+            <td class="num-cell">9</td>
+            <td class="name-cell">💡 وسيلة الإيضاح والتفاعل</td>
+            <td class="score-cell">10</td>
+            <td class="type-cell"><span class="badge badge-admin">✍️ تقييم أمناء</span></td>
+            <td class="desc-cell">وسيلة بصرية/عملية/رقمية تفاعلية تشغل جميع الحاضرين في القاعة لتثبيت الهدف الروحي.</td>
           </tr>
           <tr>
-            <td class="num-col">10</td>
-            <td class="name-col">💌 الإنفيشن والدعاية المسبقة</td>
-            <td class="score-col">10</td>
-            <td class="type-col"><span class="badge badge-admin">✍️ تقييم أمناء</span></td>
-            <td class="desc-col">نشر البوستر أو الريلز قبل اليوم بـ 48 ساعة، ومراسلة شباب الأسرة بالاسم على الواتساب.</td>
+            <td class="num-cell">10</td>
+            <td class="name-cell">💌 الإنفيشن والدعاية</td>
+            <td class="score-cell">10</td>
+            <td class="type-cell"><span class="badge badge-admin">✍️ تقييم أمناء</span></td>
+            <td class="desc-cell">نشر البوستر أو الريلز قبل اليوم بـ 48 ساعة، ومراسلة شباب الأسرة بالاسم على الواتساب.</td>
           </tr>
           <tr>
-            <td class="num-col">11</td>
-            <td class="name-col">📞 افتقاد الموبايل</td>
-            <td class="score-col">10</td>
-            <td class="type-col"><span class="badge badge-admin">✍️ تقييم أمناء</span></td>
-            <td class="desc-col">إجراء مكالمات الافتقاد المسجلة لشباب الأسرة قبل اليوم خاصة المنقطعين والتركيز على نزولهم.</td>
+            <td class="num-cell">11</td>
+            <td class="name-cell">📞 افتقاد الموبايل</td>
+            <td class="score-cell">10</td>
+            <td class="type-cell"><span class="badge badge-admin">✍️ تقييم أمناء</span></td>
+            <td class="desc-cell">إجراء مكالمات الافتقاد المسجلة لشباب الأسرة قبل اليوم خاصة المنقطعين وتأكيد نزولهم.</td>
           </tr>
           <tr>
-            <td class="num-col">12</td>
-            <td class="name-col">🚪🧹 الاستقبال وتسليم القاعة</td>
-            <td class="score-col">10</td>
-            <td class="type-col"><span class="badge badge-admin">✍️ تقييم أمناء</span></td>
-            <td class="desc-col">فريق استقبال بشوش عند الباب + تسليم القاعة للأمناء نظيفة ومرتبة بالكامل بعد اليوم.</td>
+            <td class="num-cell">12</td>
+            <td class="name-cell">🚪🧹 الاستقبال والنظافة</td>
+            <td class="score-cell">10</td>
+            <td class="type-cell"><span class="badge badge-admin">✍️ تقييم أمناء</span></td>
+            <td class="desc-cell">فريق استقبال بشوش عند الباب + تسليم القاعة للأمناء نظيفة ومرتبة بالكامل بعد اليوم.</td>
           </tr>
         </tbody>
       </table>
