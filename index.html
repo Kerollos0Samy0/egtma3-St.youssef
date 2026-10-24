@@ -2268,6 +2268,93 @@
       color: #b45309;
     }
 
+  
+    /* Evaluation Sessions Selector Styles */
+    .eval-session-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 0.85rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.5rem;
+      transition: all 0.15s ease;
+      position: relative;
+      cursor: pointer;
+    }
+    .eval-session-card:hover {
+      border-color: var(--accent-gold);
+    }
+    .eval-session-card.is-selected {
+      border: 1.5px solid var(--accent-gold) !important;
+      background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(30, 41, 59, 0.95) 100%) !important;
+      box-shadow: 0 0 12px rgba(251, 191, 36, 0.2);
+    }
+    body.light-theme .eval-session-card {
+      background: #ffffff;
+      border-color: #cbd5e1;
+    }
+    body.light-theme .eval-session-card.is-selected {
+      border-color: #b45309 !important;
+      background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%) !important;
+      box-shadow: 0 2px 10px rgba(180, 83, 9, 0.12);
+    }
+    .eval-session-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+    }
+    .eval-session-checkbox {
+      width: 17px;
+      height: 17px;
+      accent-color: var(--accent-gold);
+      cursor: pointer;
+    }
+    .eval-session-date {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+    .eval-session-title {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--accent-gold);
+      margin-top: 0.15rem;
+    }
+    body.light-theme .eval-session-title {
+      color: #b45309;
+    }
+    .eval-role-select {
+      width: 100%;
+      padding: 0.25rem 0.5rem;
+      font-size: 0.76rem;
+      font-weight: 700;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-main);
+      color: var(--text-main);
+      cursor: pointer;
+    }
+    body.light-theme .eval-role-select {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+      color: #0f172a;
+    }
+    .family-att-summary-box {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.55rem 0.75rem;
+      flex: 1;
+      min-width: 220px;
+    }
+    body.light-theme .family-att-summary-box {
+      background: #ffffff;
+      border-color: #e2e8f0;
+    }
+
   </style>
 </head>
 <body>
@@ -2718,24 +2805,46 @@
         </div>
       </div>
 
-      <!-- Cycle Filter & Info Bar -->
-      <div class="members-filter-card" style="margin-bottom:1.25rem;padding:0.9rem 1.15rem;">
-        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;">
-          <div style="display:flex;align-items:center;gap:0.65rem;flex-wrap:wrap;">
-            <span style="font-size:0.88rem;font-weight:800;color:var(--accent-gold);display:flex;align-items:center;gap:0.35rem;">
-              <span>📅</span> دورة التقييم:
-            </span>
-            <select id="familyCycleSelect" style="padding:0.4rem 0.85rem;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--bg-main);color:var(--text-main);font-size:0.88rem;font-weight:700;">
-              <option value="cycle-1">دورة 1 • الأسابيع (1 إلى 4) | أكتوبر - نوفمبر 2026</option>
-              <option value="cycle-2">دورة 2 • الأسابيع (5 إلى 8) | نوفمبر - ديسمبر 2026</option>
-              <option value="cycle-3">دورة 3 • الأسابيع (9 إلى 12) | ديسمبر - يناير 2027</option>
-            </select>
+      <!-- Interactive Sessions & Days Selection Toolbar -->
+      <div class="members-filter-card" style="margin-bottom:1.35rem;padding:1.15rem;">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;margin-bottom:0.85rem;border-bottom:1px solid var(--border);padding-bottom:0.75rem;">
+          <div>
+            <h3 style="font-size:1.1rem;font-weight:900;color:var(--accent-gold);margin:0;display:flex;align-items:center;gap:0.45rem;">
+              <span>📅</span> كل أيام ولقاءات الاجتماع (اختر الأيام المراد تقييمها معاً):
+            </h3>
+            <p style="font-size:0.82rem;color:var(--text-muted);margin-top:0.25rem;">
+              جميع اللقاءات ظاهرة أمامك. حدد بالصح <strong style="color:var(--text-main);">[✓]</strong> الأيام المراد دمجها في هذا التقييم لتُحسب نسب الحضور فيها آلياً:
+            </p>
           </div>
 
-          <div style="display:flex;gap:0.5rem;align-items:center;font-size:0.82rem;font-weight:700;color:var(--text-muted);">
-            <span>نظام الدورة:</span>
-            <span style="color:var(--accent-rose);">3 أسابيع للأسر</span> + <span style="color:var(--accent-gold);">أسبوع الأمناء</span>
+          <div style="display:flex;gap:0.4rem;align-items:center;flex-wrap:wrap;">
+            <span style="font-size:0.8rem;color:var(--text-muted);font-weight:700;">تحديد سريع:</span>
+            <button type="button" class="btn btn-sm btn-eval-preset" data-preset="1-4" style="font-size:0.78rem;padding:0.25rem 0.65rem;">
+              ⚡ الأسابيع (1 - 4)
+            </button>
+            <button type="button" class="btn btn-sm btn-eval-preset" data-preset="5-8" style="font-size:0.78rem;padding:0.25rem 0.65rem;">
+              ⚡ الأسابيع (5 - 8)
+            </button>
+            <button type="button" class="btn btn-sm btn-eval-preset" data-preset="9-12" style="font-size:0.78rem;padding:0.25rem 0.65rem;">
+              ⚡ الأسابيع (9 - 12)
+            </button>
+            <button type="button" class="btn btn-sm" id="btnSelectAllEvalSessions" style="font-size:0.78rem;padding:0.25rem 0.65rem;border:1px solid var(--border);">
+              تحديد الكل
+            </button>
+            <button type="button" class="btn btn-sm" id="btnClearAllEvalSessions" style="font-size:0.78rem;padding:0.25rem 0.65rem;border:1px solid var(--border);color:var(--accent-rose);">
+              إلغاء التحديد
+            </button>
           </div>
+        </div>
+
+        <!-- Grid of All Available Sessions -->
+        <div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(265px, 1fr));gap:0.75rem;max-height:380px;overflow-y:auto;padding:0.25rem 0.15rem;" id="evaluationSessionsListContainer">
+          <!-- Rendered dynamically by JS from appData.sessions -->
+        </div>
+
+        <!-- Live Attendance Calculation Banner for Selected Days -->
+        <div id="evaluationSessionsSummaryBanner" style="margin-top:1rem;background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.3);border-radius:var(--radius-md);padding:0.85rem 1rem;">
+          <!-- Dynamically computed summary by JS -->
         </div>
       </div>
 
@@ -9289,7 +9398,7 @@
 
 
     // ==============================================
-    // FAMILY EVALUATION & COMPETITION JAVASCRIPT CORE
+    // FAMILY EVALUATION & COMPETITION JAVASCRIPT CORE (DYNAMIC SESSIONS SELECTION)
     // ==============================================
     const CRITERIA_DEFS = [
       { key: 'decor', label: '🎨 الديكور', max: 10, default: 8.5 },
@@ -9297,8 +9406,8 @@
       { key: 'prep', label: '📝 التحضير والاسكريبت', max: 10, default: 8.0 },
       { key: 'flow', label: '🔄 ترتيب وانسياب الفقرات', max: 10, default: 8.5 },
       { key: 'youthInvolvement', label: '🎙️ إشراك شباب الأسرة', max: 10, default: 8.0 },
-      { key: 'hostAttendance', label: '👥 حضورهم في يومهم', max: 10, default: 9.0 },
-      { key: 'otherAttendance', label: '🤝 حضورهم باقي الشهر', max: 10, default: 8.5 },
+      { key: 'hostAttendance', label: '👥 حضورهم في يومهم', max: 10, default: 8.5 },
+      { key: 'otherAttendance', label: '🤝 حضورهم باقي الأيام', max: 10, default: 8.0 },
       { key: 'punctuality', label: '⏰ الالتزام بالمواعيد', max: 10, default: 8.0 },
       { key: 'visualAid', label: '💡 وسيلة الإيضاح', max: 10, default: 8.5 },
       { key: 'invitation', label: '💌 الإنفيشن والدعاية', max: 10, default: 8.5 },
@@ -9306,33 +9415,21 @@
       { key: 'receptionAndCleaning', label: '🚪🧹 الاستقبال والنظافة', max: 10, default: 9.0 }
     ];
 
-    const DEFAULT_FAMILY_EVALUATIONS = {
-      'cycle-1': {
-        name: 'دورة 1 (اللقاءات 1 - 4)',
-        scores: {
-          'أسرة 1': {
-            decor: 9.0, theme: 9.0, prep: 8.5, flow: 9.0, youthInvolvement: 8.5,
-            hostAttendance: 9.2, otherAttendance: 8.8, punctuality: 9.0, visualAid: 8.5,
-            invitation: 9.0, phoneVisitation: 8.5, receptionAndCleaning: 9.5,
-            notes: 'تنظيم ممتاز، حضور رائع، وديكور مبهر'
-          },
-          'أسرة 2': {
-            decor: 8.5, theme: 8.5, prep: 8.5, flow: 8.5, youthInvolvement: 9.0,
-            hostAttendance: 8.8, otherAttendance: 8.5, punctuality: 8.5, visualAid: 9.0,
-            invitation: 8.5, phoneVisitation: 8.0, receptionAndCleaning: 9.0,
-            notes: 'تفاعل قوي وإشراك متميز للشباب في التقديم'
-          },
-          'أسرة 3': {
-            decor: 8.5, theme: 8.0, prep: 8.0, flow: 8.0, youthInvolvement: 8.0,
-            hostAttendance: 8.5, otherAttendance: 8.2, punctuality: 8.5, visualAid: 8.0,
-            invitation: 8.5, phoneVisitation: 8.5, receptionAndCleaning: 8.5,
-            notes: 'خدمة مباركة وجهد ملحوظ في الافتقاد'
-          }
-        }
-      }
+    // State for selected sessions and their host roles
+    let selectedEvalSessionIds = ['SES-01', 'SES-02', 'SES-03', 'SES-04'];
+    let evalSessionHostRoles = {
+      'SES-01': 'أمناء',
+      'SES-02': 'أسرة 1',
+      'SES-03': 'أسرة 2',
+      'SES-04': 'أسرة 3'
     };
 
-    let selectedEvaluationCycle = 'cycle-1';
+    // Base family size (estimated youth count per family for attendance % calculation)
+    let familyBaseSizes = {
+      'أسرة 1': 40,
+      'أسرة 2': 40,
+      'أسرة 3': 40
+    };
 
     function getFamilyTotalScore(scoreObj) {
       if (!scoreObj) return 0;
@@ -9343,28 +9440,276 @@
       return Math.round(sum * 10) / 10;
     }
 
-    function renderFamilyScoresSection() {
-      if (!appData.familyEvaluations) {
-        appData.familyEvaluations = JSON.parse(JSON.stringify(DEFAULT_FAMILY_EVALUATIONS));
+    // Helper: count how many attendees in a session belong to a specific family
+    function getSessionFamilyAttendeeCount(session, famName) {
+      if (!session || !session.attendees || !Array.isArray(session.attendees)) return 0;
+      const famCode = famName.replace(/\D/g, ''); // '1', '2', '3'
+      let count = 0;
+      session.attendees.forEach(att => {
+        // 1. Direct match on attendee family
+        if (att.family && att.family.includes(famName)) {
+          count++;
+          return;
+        }
+        // 2. Lookup in appData.members
+        if (appData && Array.isArray(appData.members)) {
+          const m = appData.members.find(mem => mem.id === att.memberId);
+          if (m) {
+            if (m.family && m.family.includes(famName)) { count++; return; }
+            if (m.areaGroup && (m.areaGroup.includes(famName) || (famCode && m.areaGroup.includes(famCode)))) { count++; return; }
+            if (famCode && m.groupCode === famCode) { count++; return; }
+          }
+        }
+      });
+      return count;
+    }
+
+    // Compute live attendance statistics for selected sessions
+    function computeAttendanceStatsForSelectedSessions() {
+      const allSessions = (appData && Array.isArray(appData.sessions)) ? appData.sessions : [];
+      const selectedSessions = allSessions.filter(s => selectedEvalSessionIds.includes(s.id));
+
+      const stats = {
+        'أسرة 1': { hostDay: null, hostCount: 0, hostRate: 0, hostScore: 8.5, otherCounts: [], otherAvgRate: 0, otherScore: 8.0 },
+        'أسرة 2': { hostDay: null, hostCount: 0, hostRate: 0, hostScore: 8.5, otherCounts: [], otherAvgRate: 0, otherScore: 8.0 },
+        'أسرة 3': { hostDay: null, hostCount: 0, hostRate: 0, hostScore: 8.5, otherCounts: [], otherAvgRate: 0, otherScore: 8.0 },
+        totalSelected: selectedSessions.length,
+        totalAttendeesAcrossSelected: 0
+      };
+
+      const famKeys = ['أسرة 1', 'أسرة 2', 'أسرة 3'];
+
+      famKeys.forEach(fName => {
+        const baseSize = familyBaseSizes[fName] || 40;
+
+        // Find the session assigned as this family's host day
+        const hostSess = selectedSessions.find(s => {
+          const assignedRole = evalSessionHostRoles[s.id] || (s.title && s.title.includes(fName) ? fName : '');
+          return assignedRole === fName;
+        });
+
+        if (hostSess) {
+          stats[fName].hostDay = hostSess;
+          const hostAttCount = getSessionFamilyAttendeeCount(hostSess, fName);
+          stats[fName].hostCount = hostAttCount;
+          // If attendees exist in session, calculate percentage, else keep calibrated default
+          if (hostSess.attendees && hostSess.attendees.length > 0) {
+            const rate = Math.min(Math.round((hostAttCount / baseSize) * 100), 100);
+            stats[fName].hostRate = rate;
+            stats[fName].hostScore = Math.round((rate / 10) * 10) / 10;
+          }
+        }
+
+        // Other selected sessions (support days)
+        const otherSessions = selectedSessions.filter(s => s !== hostSess);
+        let otherRatesSum = 0;
+        let otherSessionsWithAttendance = 0;
+
+        otherSessions.forEach(os => {
+          const attCount = getSessionFamilyAttendeeCount(os, fName);
+          stats[fName].otherCounts.push({ session: os, count: attCount });
+          if (os.attendees && os.attendees.length > 0) {
+            const rate = Math.min(Math.round((attCount / baseSize) * 100), 100);
+            otherRatesSum += rate;
+            otherSessionsWithAttendance++;
+          }
+        });
+
+        if (otherSessionsWithAttendance > 0) {
+          const avgRate = Math.round(otherRatesSum / otherSessionsWithAttendance);
+          stats[fName].otherAvgRate = avgRate;
+          stats[fName].otherScore = Math.round((avgRate / 10) * 10) / 10;
+        }
+      });
+
+      return stats;
+    }
+
+    // Render the Sessions List Selector
+    function renderEvaluationSessionsSelector() {
+      const container = document.getElementById('evaluationSessionsListContainer');
+      if (!container || !appData || !Array.isArray(appData.sessions)) return;
+
+      container.innerHTML = '';
+      const visibleSessions = (typeof getVisibleSessions === 'function')
+        ? getVisibleSessions(currentServantRole === 'admin')
+        : appData.sessions;
+
+      visibleSessions.forEach((sess, idx) => {
+        const isSelected = selectedEvalSessionIds.includes(sess.id);
+        const attendeesCount = (sess.attendees && Array.isArray(sess.attendees)) ? sess.attendees.length : 0;
+        const currentRole = evalSessionHostRoles[sess.id] || (sess.title || 'عام');
+
+        const card = document.createElement('div');
+        card.className = `eval-session-card ${isSelected ? 'is-selected' : ''}`;
+        card.setAttribute('data-id', sess.id);
+
+        card.innerHTML = `
+          <div>
+            <div class="eval-session-header">
+              <label style="display:flex;align-items:center;gap:0.45rem;cursor:pointer;margin:0;">
+                <input type="checkbox" class="eval-session-checkbox" data-id="${sess.id}" ${isSelected ? 'checked' : ''}>
+                <span class="eval-session-date">لقاء ${idx + 1} • ${sess.date}</span>
+              </label>
+              <span class="family-pill" style="font-size:0.75rem;padding:0.15rem 0.5rem;background:rgba(255,255,255,0.08);color:var(--text-main);">
+                👥 ${attendeesCount} حاضر
+              </span>
+            </div>
+            <div class="eval-session-title">${sess.title || 'لقاء أسبوعي'}</div>
+          </div>
+
+          <div style="margin-top:0.35rem;border-top:1px dashed var(--border);padding-top:0.35rem;">
+            <label style="font-size:0.72rem;color:var(--text-muted);display:block;margin-bottom:0.2rem;">مسؤولية تنظيم هذا اليوم:</label>
+            <select class="eval-role-select" data-id="${sess.id}">
+              <option value="أسرة 1" ${currentRole === 'أسرة 1' ? 'selected' : ''}>1️⃣ يوم تنظيم أسرة 1</option>
+              <option value="أسرة 2" ${currentRole === 'أسرة 2' ? 'selected' : ''}>2️⃣ يوم تنظيم أسرة 2</option>
+              <option value="أسرة 3" ${currentRole === 'أسرة 3' ? 'selected' : ''}>3️⃣ يوم تنظيم أسرة 3</option>
+              <option value="أمناء" ${currentRole === 'أمناء' || currentRole.includes('خدام') ? 'selected' : ''}>👑 يوم الأمناء (لقاء عام)</option>
+              <option value="عام" ${currentRole === 'عام' ? 'selected' : ''}>🌟 لقاء عام / مناسبة خاصة</option>
+            </select>
+          </div>
+        `;
+
+        // Checkbox click handler
+        const cb = card.querySelector('.eval-session-checkbox');
+        cb.addEventListener('change', (e) => {
+          e.stopPropagation();
+          const sId = cb.getAttribute('data-id');
+          if (cb.checked) {
+            if (!selectedEvalSessionIds.includes(sId)) selectedEvalSessionIds.push(sId);
+          } else {
+            selectedEvalSessionIds = selectedEvalSessionIds.filter(id => id !== sId);
+          }
+          saveEvaluationState();
+          renderFamilyScoresSection();
+        });
+
+        // Role select change handler
+        const roleSel = card.querySelector('.eval-role-select');
+        roleSel.addEventListener('change', (e) => {
+          e.stopPropagation();
+          const sId = roleSel.getAttribute('data-id');
+          evalSessionHostRoles[sId] = roleSel.value;
+          saveEvaluationState();
+          renderFamilyScoresSection();
+        });
+
+        container.appendChild(card);
+      });
+
+      renderEvaluationSummaryBanner();
+    }
+
+    // Render the dynamic attendance summary banner
+    function renderEvaluationSummaryBanner() {
+      const banner = document.getElementById('evaluationSessionsSummaryBanner');
+      if (!banner) return;
+
+      const stats = computeAttendanceStatsForSelectedSessions();
+      const allSessions = (appData && Array.isArray(appData.sessions)) ? appData.sessions : [];
+      const selectedSessions = allSessions.filter(s => selectedEvalSessionIds.includes(s.id));
+
+      if (selectedSessions.length === 0) {
+        banner.innerHTML = `
+          <div style="text-align:center;width:100%;color:var(--accent-rose);font-weight:800;font-size:0.9rem;">
+            ⚠️ لم تقم بتحديد أي أيام بعد! يرجى وضع علامة (✓) على الأيام التي ترغب في تقييمها أعلاه.
+          </div>
+        `;
+        return;
       }
 
-      const cycleData = appData.familyEvaluations[selectedEvaluationCycle] || { scores: {} };
+      let familiesHtml = '';
+      ['أسرة 1', 'أسرة 2', 'أسرة 3'].forEach(fName => {
+        const s = stats[fName];
+        const hostDayTitle = s.hostDay ? (s.hostDay.date + ' • ' + (s.hostDay.title || '')) : 'لم يُحدد بعد';
+
+        familiesHtml += `
+          <div class="family-att-summary-box">
+            <div style="font-weight:900;color:var(--text-main);font-size:0.92rem;margin-bottom:0.25rem;display:flex;justify-content:space-between;">
+              <span>${fName}</span>
+              <span style="color:var(--accent-gold);font-size:0.8rem;">(أساس: ${familyBaseSizes[fName]} شاب)</span>
+            </div>
+            <div style="font-size:0.78rem;color:var(--text-muted);line-height:1.45;">
+              <div>🎯 <strong>يومها الخاص:</strong> <span style="color:var(--accent-emerald);">${hostDayTitle}</span></div>
+              <div style="margin-top:0.15rem;">
+                📊 <strong>حضور يومها:</strong> <span style="color:var(--accent-gold);font-weight:800;">${s.hostCount} حاضر (${s.hostRate}%)</span> ⬅️ ${s.hostScore} / 10
+              </div>
+              <div style="margin-top:0.15rem;">
+                🤝 <strong>حضور باقي الأيام:</strong> <span style="color:var(--accent-blue);font-weight:800;">(${s.otherAvgRate}%)</span> ⬅️ ${s.otherScore} / 10
+              </div>
+            </div>
+          </div>
+        `;
+      });
+
+      banner.innerHTML = `
+        <div style="width:100%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.65rem;border-bottom:1px solid rgba(251,191,36,0.2);padding-bottom:0.5rem;">
+          <span style="font-size:0.92rem;font-weight:900;color:var(--accent-gold);">
+            ✅ تم تحديد ${selectedSessions.length} أيام للتقييم:
+            <span style="color:var(--text-main);font-size:0.85rem;font-weight:700;">
+              (${selectedSessions.map(s => s.date).join(' • ')})
+            </span>
+          </span>
+          <span style="font-size:0.8rem;color:var(--accent-emerald);font-weight:800;">
+            ⚡ نسب الحضور تُحتسب تلقائياً من واقع الباركود
+          </span>
+        </div>
+
+        <div style="display:flex;gap:0.65rem;flex-wrap:wrap;width:100%;">
+          ${familiesHtml}
+        </div>
+      `;
+    }
+
+    // Save and load state
+    function saveEvaluationState() {
+      if (!appData.familyEvaluations) appData.familyEvaluations = {};
+      appData.familyEvaluations.selectedSessionIds = selectedEvalSessionIds;
+      appData.familyEvaluations.evalSessionHostRoles = evalSessionHostRoles;
+      appData.familyEvaluations.familyBaseSizes = familyBaseSizes;
+      if (typeof saveLocalData === 'function') saveLocalData();
+      if (typeof syncWithServer === 'function') syncWithServer();
+    }
+
+    function loadEvaluationState() {
+      if (appData && appData.familyEvaluations) {
+        if (Array.isArray(appData.familyEvaluations.selectedSessionIds) && appData.familyEvaluations.selectedSessionIds.length > 0) {
+          selectedEvalSessionIds = appData.familyEvaluations.selectedSessionIds;
+        }
+        if (appData.familyEvaluations.evalSessionHostRoles) {
+          evalSessionHostRoles = appData.familyEvaluations.evalSessionHostRoles;
+        }
+        if (appData.familyEvaluations.familyBaseSizes) {
+          familyBaseSizes = appData.familyEvaluations.familyBaseSizes;
+        }
+      }
+    }
+
+    function renderFamilyScoresSection() {
+      loadEvaluationState();
+      renderEvaluationSessionsSelector();
+
+      if (!appData.familyEvaluations) {
+        appData.familyEvaluations = {};
+      }
+      if (!appData.familyEvaluations.scores) {
+        appData.familyEvaluations.scores = {
+          'أسرة 1': { decor: 9.0, theme: 9.0, prep: 8.5, flow: 9.0, youthInvolvement: 8.5, hostAttendance: 9.0, otherAttendance: 8.5, punctuality: 9.0, visualAid: 8.5, invitation: 9.0, phoneVisitation: 8.5, receptionAndCleaning: 9.5, notes: 'تنظيم ممتاز وحضور رائع وديكور مبهر' },
+          'أسرة 2': { decor: 8.5, theme: 8.5, prep: 8.5, flow: 8.5, youthInvolvement: 9.0, hostAttendance: 8.5, otherAttendance: 8.5, punctuality: 8.5, visualAid: 9.0, invitation: 8.5, phoneVisitation: 8.0, receptionAndCleaning: 9.0, notes: 'تفاعل قوي وإشراك متميز للشباب في التقديم' },
+          'أسرة 3': { decor: 8.5, theme: 8.0, prep: 8.0, flow: 8.0, youthInvolvement: 8.0, hostAttendance: 8.5, otherAttendance: 8.0, punctuality: 8.5, visualAid: 8.0, invitation: 8.5, phoneVisitation: 8.5, receptionAndCleaning: 8.5, notes: 'خدمة مباركة وجهد ملحوظ في الافتقاد' }
+        };
+      }
+
       const familyNames = ['أسرة 1', 'أسرة 2', 'أسرة 3'];
 
       // Build ranking list
       const rankingList = familyNames.map(fName => {
-        const scores = (cycleData.scores && cycleData.scores[fName]) ? cycleData.scores[fName] : {};
+        const scores = appData.familyEvaluations.scores[fName] || {};
         const total = getFamilyTotalScore(scores);
         const pct = Math.round((total / 120) * 1000) / 10;
-        return {
-          name: fName,
-          scores: scores,
-          total: total,
-          pct: pct
-        };
+        return { name: fName, scores: scores, total: total, pct: pct };
       });
 
-      // Sort descending by total score
       rankingList.sort((a, b) => b.total - a.total);
 
       // Render Podium (Top 3)
@@ -9440,19 +9785,16 @@
               </div>
             </div>
 
-            <!-- Progress Bar -->
             <div style="width:100%;height:7px;background:rgba(255,255,255,0.08);border-radius:10px;overflow:hidden;margin-bottom:0.75rem;">
               <div style="width:${Math.min(fam.pct, 100)}%;height:100%;background:linear-gradient(90deg, #10b981 0%, #fbbf24 100%);"></div>
             </div>
 
-            <!-- Notes if any -->
             ${fam.scores.notes ? `
               <div style="font-size:0.8rem;color:var(--accent-gold);background:rgba(251,191,36,0.08);padding:0.4rem 0.65rem;border-radius:var(--radius-sm);margin-bottom:0.75rem;">
                 💬 "${fam.scores.notes}"
               </div>
             ` : ''}
 
-            <!-- 12 Criteria Grid -->
             <div class="criteria-pill-list">
               ${criteriaHtml}
             </div>
@@ -9485,12 +9827,10 @@
     }
 
     // Populate modal inputs for chosen family
-    function populateScoreModal(fName, cycleId) {
-      if (!appData.familyEvaluations) {
-        appData.familyEvaluations = JSON.parse(JSON.stringify(DEFAULT_FAMILY_EVALUATIONS));
-      }
-      const cycle = appData.familyEvaluations[cycleId] || { scores: {} };
-      const currentScores = (cycle.scores && cycle.scores[fName]) ? cycle.scores[fName] : {};
+    function populateScoreModal(fName) {
+      if (!appData.familyEvaluations) appData.familyEvaluations = {};
+      if (!appData.familyEvaluations.scores) appData.familyEvaluations.scores = {};
+      const currentScores = appData.familyEvaluations.scores[fName] || {};
 
       CRITERIA_DEFS.forEach(c => {
         const input = document.getElementById('input_' + c.key);
@@ -9509,11 +9849,10 @@
 
     // Generate WhatsApp Announcement Text
     function generateFamilyAnnouncementText() {
-      if (!appData.familyEvaluations) return '';
-      const cycle = appData.familyEvaluations[selectedEvaluationCycle] || { scores: {} };
+      if (!appData.familyEvaluations || !appData.familyEvaluations.scores) return '';
       const familyNames = ['أسرة 1', 'أسرة 2', 'أسرة 3'];
       const rankingList = familyNames.map(fName => {
-        const scores = (cycle.scores && cycle.scores[fName]) ? cycle.scores[fName] : {};
+        const scores = appData.familyEvaluations.scores[fName] || {};
         const total = getFamilyTotalScore(scores);
         const pct = Math.round((total / 120) * 1000) / 10;
         return { name: fName, total: total, pct: pct, notes: scores.notes || '' };
@@ -9524,9 +9863,14 @@
       const second = rankingList[1];
       const third = rankingList[2];
 
+      const allSessions = (appData && Array.isArray(appData.sessions)) ? appData.sessions : [];
+      const selectedSessions = allSessions.filter(s => selectedEvalSessionIds.includes(s.id));
+      const datesList = selectedSessions.map(s => s.date).join(' • ');
+
       const msg =
 `🎉🏆 *نتيجة مسابقة أسر اجتماع يوسف الصديق للشباب* 🏆🎉
 بكنيسة السيدة العذراء مريم بالقناطر الخيرية ✨
+📅 الأيام المشمولة في التقييم: (${datesList})
 
 بنعمة ربنا وفرحتنا بكل التعب والمحبة والخدمة الجبارة اللي شفناها من شباب وخدام كل الأسر، بنعلن بكل فخر نتيجة تقييمات الدورة:
 
@@ -9544,16 +9888,55 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
       return msg;
     }
 
-    // Event Listeners for Family Scores
+    // Event Listeners for Family Scores & Days Selection
     document.addEventListener('DOMContentLoaded', () => {
-      // Cycle selector change
-      const cycleSelect = document.getElementById('familyCycleSelect');
-      if (cycleSelect) {
-        cycleSelect.addEventListener('change', (e) => {
-          selectedEvaluationCycle = e.target.value;
+      // Quick preset buttons for sessions
+      document.addEventListener('click', (e) => {
+        const presetBtn = e.target.closest('.btn-eval-preset');
+        if (presetBtn) {
+          const preset = presetBtn.getAttribute('data-preset');
+          const allSessions = (appData && Array.isArray(appData.sessions)) ? appData.sessions : [];
+          if (preset === '1-4') {
+            selectedEvalSessionIds = allSessions.slice(0, 4).map(s => s.id);
+          } else if (preset === '5-8') {
+            selectedEvalSessionIds = allSessions.slice(4, 8).map(s => s.id);
+          } else if (preset === '9-12') {
+            selectedEvalSessionIds = allSessions.slice(8, 12).map(s => s.id);
+          }
+          saveEvaluationState();
           renderFamilyScoresSection();
-        });
-      }
+        }
+
+        if (e.target && e.target.id === 'btnSelectAllEvalSessions') {
+          const allSessions = (appData && Array.isArray(appData.sessions)) ? appData.sessions : [];
+          selectedEvalSessionIds = allSessions.map(s => s.id);
+          saveEvaluationState();
+          renderFamilyScoresSection();
+        }
+
+        if (e.target && e.target.id === 'btnClearAllEvalSessions') {
+          selectedEvalSessionIds = [];
+          saveEvaluationState();
+          renderFamilyScoresSection();
+        }
+
+        // Apply calculated attendance to Modal inputs
+        if (e.target && e.target.id === 'btnApplyCalculatedAttendanceToModal') {
+          const targetFamSelect = document.getElementById('scoreTargetFamily');
+          const targetFam = targetFamSelect ? targetFamSelect.value : 'أسرة 1';
+          const stats = computeAttendanceStatsForSelectedSessions();
+          const famStats = stats[targetFam];
+
+          if (famStats) {
+            const hostInput = document.getElementById('input_hostAttendance');
+            const otherInput = document.getElementById('input_otherAttendance');
+            if (hostInput) hostInput.value = famStats.hostScore;
+            if (otherInput) otherInput.value = famStats.otherScore;
+            updateLiveScoreTally();
+            alert(`✓ تم جلب درجات الحضور لـ ${targetFam} بنجاح من الأيام المحددة:\n• حضور يومها: ${famStats.hostScore} من 10 (حضور ${famStats.hostRate}%)\n• حضور باقي الأيام: ${famStats.otherScore} من 10 (متوسط ${famStats.otherAvgRate}%)`);
+          }
+        }
+      });
 
       // Input changes in Scoring Modal
       CRITERIA_DEFS.forEach(c => {
@@ -9563,15 +9946,11 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
         }
       });
 
-      // Target family/cycle change in Modal
+      // Target family change in Modal
       const targetFamSelect = document.getElementById('scoreTargetFamily');
-      const targetCycleSelect = document.getElementById('scoreTargetCycle');
-      if (targetFamSelect && targetCycleSelect) {
+      if (targetFamSelect) {
         targetFamSelect.addEventListener('change', () => {
-          populateScoreModal(targetFamSelect.value, targetCycleSelect.value);
-        });
-        targetCycleSelect.addEventListener('change', () => {
-          populateScoreModal(targetFamSelect.value, targetCycleSelect.value);
+          populateScoreModal(targetFamSelect.value);
         });
       }
 
@@ -9581,8 +9960,7 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
       if (openScoreBtn && scoreModal) {
         openScoreBtn.addEventListener('click', () => {
           const famVal = targetFamSelect ? targetFamSelect.value : 'أسرة 1';
-          const cycleVal = targetCycleSelect ? targetCycleSelect.value : selectedEvaluationCycle;
-          populateScoreModal(famVal, cycleVal);
+          populateScoreModal(famVal);
           scoreModal.classList.add('open');
         });
       }
@@ -9603,15 +9981,9 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
         scoreForm.addEventListener('submit', (e) => {
           e.preventDefault();
           const targetFam = targetFamSelect.value;
-          const targetCycle = targetCycleSelect.value;
 
           if (!appData.familyEvaluations) appData.familyEvaluations = {};
-          if (!appData.familyEvaluations[targetCycle]) {
-            appData.familyEvaluations[targetCycle] = { name: targetCycle, scores: {} };
-          }
-          if (!appData.familyEvaluations[targetCycle].scores) {
-            appData.familyEvaluations[targetCycle].scores = {};
-          }
+          if (!appData.familyEvaluations.scores) appData.familyEvaluations.scores = {};
 
           const newScoreObj = {};
           CRITERIA_DEFS.forEach(c => {
@@ -9621,9 +9993,8 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
           const notesInput = document.getElementById('input_scoreNotes');
           newScoreObj.notes = notesInput ? notesInput.value.trim() : '';
 
-          appData.familyEvaluations[targetCycle].scores[targetFam] = newScoreObj;
-          saveLocalData();
-          syncWithServer();
+          appData.familyEvaluations.scores[targetFam] = newScoreObj;
+          saveEvaluationState();
           renderFamilyScoresSection();
 
           scoreModal.classList.remove('open');
@@ -9637,8 +10008,7 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
         if (editBtn) {
           const famName = editBtn.getAttribute('data-family');
           if (targetFamSelect) targetFamSelect.value = famName;
-          if (targetCycleSelect) targetCycleSelect.value = selectedEvaluationCycle;
-          populateScoreModal(famName, selectedEvaluationCycle);
+          populateScoreModal(famName);
           if (scoreModal) scoreModal.classList.add('open');
         }
       });
@@ -10001,6 +10371,9 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
 
         <!-- Buttons -->
         <div style="margin-top:1.25rem;display:flex;gap:0.75rem;justify-content:flex-end;">
+          <button type="button" class="btn btn-gold" id="btnApplyCalculatedAttendanceToModal" style="margin-left:auto;" title="جلب نسب الحضور المحسوبة من الأيام المحددة وتعبئة البندين 6 و 7 آلياً">
+            ⚡ جلب نسب الحضور من الأيام المحددة
+          </button>
           <button type="submit" class="btn btn-brand-primary">💾 حفظ التقييم</button>
           <button type="button" class="btn" id="cancelFamilyScoreModalBtn">إلغاء</button>
         </div>
