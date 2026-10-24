@@ -91,6 +91,202 @@
 
     /* ======================================================== */
     /* DUAL THEME ENHANCEMENTS: DARK & LIGHT MODE CALIBRATION  */
+
+    /* Sticky Navigation Header (Keeps tabs visible while scrolling) */
+    .nav-tabs {
+      position: sticky;
+      top: 55px;
+      z-index: 95;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    body.light-theme .nav-tabs {
+      background: rgba(248, 250, 252, 0.95);
+    }
+
+    /* Directory View Mode Toggle (Cards vs Table) */
+    .view-mode-toggle {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-full);
+      padding: 3px;
+      gap: 3px;
+    }
+    body.light-theme .view-mode-toggle {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+    }
+    .view-toggle-btn {
+      padding: 0.35rem 0.8rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: all 0.15s ease;
+      font-family: inherit;
+    }
+    .view-toggle-btn:hover {
+      color: var(--text-main);
+    }
+    .view-toggle-btn.active {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+      color: #ffffff !important;
+      font-weight: 800;
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+    }
+
+    /* Mobile Contact Cards Grid (Touch Friendly) */
+    .members-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+      gap: 0.9rem;
+    }
+    .member-mobile-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.15rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+      position: relative;
+    }
+    .member-mobile-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent-gold);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+    }
+    body.light-theme .member-mobile-card {
+      background: #ffffff;
+      border-color: #e2e8f0;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+    body.light-theme .member-mobile-card:hover {
+      border-color: #b45309;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    }
+    .member-card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+    .member-card-title-wrap {
+      flex: 1;
+      min-width: 0;
+    }
+    .member-card-name {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.35;
+      margin-bottom: 0.4rem;
+    }
+    .member-card-chips {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      flex-wrap: wrap;
+    }
+    .member-card-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      padding-top: 0.55rem;
+    }
+    .member-meta-line {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      line-height: 1.4;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .member-card-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-top: 1px solid var(--border);
+      padding-top: 0.65rem;
+    }
+    .btn-call-mobile {
+      flex: 1;
+      padding: 0.5rem 0.65rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      background: rgba(56, 189, 248, 0.12);
+      color: var(--accent-blue);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      direction: ltr;
+      font-family: monospace;
+      min-height: 40px;
+    }
+    body.light-theme .btn-call-mobile {
+      background: #e0f2fe;
+      color: #0369a1;
+      border-color: #bae6fd;
+    }
+    .btn-whatsapp-mobile {
+      flex: 1;
+      padding: 0.5rem 0.65rem;
+      font-size: 0.85rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: #ffffff;
+      border: none;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.25);
+      min-height: 40px;
+    }
+    .btn-whatsapp-mobile:hover {
+      background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+      color: #ffffff;
+    }
+    .btn-call-link {
+      padding: 0.25rem 0.6rem;
+      font-size: 0.78rem;
+      color: var(--accent-blue);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    body.light-theme .btn-call-link {
+      color: #0369a1;
+      background: #f0f9ff;
+      border-color: #bae6fd;
+    }
+
     /* ======================================================== */
     body.light-theme header.app-header {
       background: rgba(255, 255, 255, 0.96);
@@ -1898,17 +2094,28 @@
     <!-- TAB 3: MEMBERS DIRECTORY                      -->
     <!-- ============================================== -->
     <div class="tab-pane" id="tabMembers">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:1rem;">
+      <!-- Directory Top Bar -->
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.15rem;flex-wrap:wrap;gap:0.75rem;">
         <div>
-          <h2 style="font-size:1.35rem;font-weight:800;color:var(--brand-gold);">
-            دليل شباب وخُدام الاجتماع (<span id="totalMembersHeader">157</span>)
+          <h2 style="font-size:1.35rem;font-weight:800;color:var(--brand-gold);display:flex;align-items:center;gap:0.5rem;margin:0;">
+            <span>👥</span> دليل شباب وخُدام الاجتماع (<span id="totalMembersHeader">157</span>)
           </h2>
-          <p style="font-size:0.85rem;color:var(--text-muted);">إدارة قاعدة بيانات المخدومين والخدام والمجموعات السكنية والمراحل الجامعية.</p>
+          <p style="font-size:0.85rem;color:var(--text-muted);margin-top:0.2rem;">إدارة قاعدة بيانات المخدومين والمجموعات السكنية وأرقام التواصل.</p>
         </div>
 
-        <div style="display:flex;gap:0.6rem;align-items:center;">
-          <button class="btn btn-brand-primary" id="openAddMemberModalBtn">+ إضافة مخدوم جديد</button>
-          <button class="btn btn-sm" id="exportMembersBtn">تصدير إكسل (CSV)</button>
+        <div style="display:flex;gap:0.6rem;align-items:center;flex-wrap:wrap;">
+          <!-- View Switcher (Cards / Table) -->
+          <div class="view-mode-toggle" id="membersViewToggle">
+            <button type="button" class="view-toggle-btn" id="btnViewCards" onclick="setMembersView('cards')" title="عرض كروت موبايل سهلة">
+              📱 كروت
+            </button>
+            <button type="button" class="view-toggle-btn active" id="btnViewTable" onclick="setMembersView('table')" title="عرض جدول تفصيلي">
+              📋 جدول
+            </button>
+          </div>
+
+          <button class="btn btn-brand-primary" id="openAddMemberModalBtn">+ إضافة مخدوم</button>
+          <button class="btn btn-sm" id="exportMembersBtn">تصدير إكسل</button>
         </div>
       </div>
 
@@ -1921,12 +2128,13 @@
             <input type="text" id="memberSearchInput" class="member-search-box" placeholder="ابحث بالاسم، الكود، التليفون، المنطقة، أو أب الاعتراف...">
           </div>
           <div class="filter-count-badge">
-            المعروض حالياً: <strong id="displayedMembersCount" style="color:var(--accent-emerald);">157</strong> عضو
+            المعروض: <strong id="displayedMembersCount" style="color:var(--accent-emerald);">157</strong> عضو
           </div>
         </div>
 
         <div class="filter-divider"></div>
 
+        <!-- Filter Strips (Touch-swipeable on mobile) -->
         <!-- Row 1: Area Filter (المناطق السكنية) -->
         <div class="filter-row">
           <span class="filter-row-label">المنطقة:</span>
@@ -1965,20 +2173,26 @@
         </div>
       </div>
 
-      <div class="data-table-container">
+      <!-- VIEW 1: Mobile-Friendly Contact Cards View -->
+      <div class="members-cards-view" id="membersCardsView" style="display:none;">
+        <div class="members-cards-grid" id="membersCardsGrid">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+      <!-- VIEW 2: Desktop Table View (Spacious & Clean) -->
+      <div class="data-table-container members-table-view" id="membersTableView">
         <table class="data-table">
           <thead>
             <tr>
-              <th>الكود</th>
+              <th style="width:75px;">الكود</th>
               <th>الاسم</th>
               <th>المنطقة</th>
-              <th>الأسرة</th>
               <th>الدفعة / الكلية</th>
               <th>النوع</th>
               <th>أب الاعتراف</th>
               <th>العنوان السكني</th>
-              <th>الموبايل</th>
-              <th>واتساب</th>
+              <th style="min-width:180px;">التواصل (اتصال وواتساب)</th>
             </tr>
           </thead>
           <tbody id="membersTableBody">
@@ -1988,9 +2202,6 @@
       </div>
     </div>
 
-    <!-- ============================================== -->
-    <!-- TAB 4: SESSIONS & CALENDAR                     -->
-    <!-- ============================================== -->
     <div class="tab-pane" id="tabSessions">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:1rem;">
         <div>
@@ -6993,7 +7204,8 @@
 
           if (hasNewChanges) {
             saveLocalData();
-            refreshUI();
+            initMembersViewMode();
+    refreshUI();
           }
           updateSyncStatusBadge(true, '● متصل سحابياً');
         }, (error) => {
@@ -7399,9 +7611,42 @@
     let selectedBadgeStageFilter = 'all';
     let memberSearchQuery = '';
 
+    let currentMembersView = 'table';
+
+    function setMembersView(viewMode) {
+      currentMembersView = viewMode;
+      localStorage.setItem('st_youssef_members_view', viewMode);
+
+      const tableView = document.getElementById('membersTableView');
+      const cardsView = document.getElementById('membersCardsView');
+      const btnTable = document.getElementById('btnViewTable');
+      const btnCards = document.getElementById('btnViewCards');
+
+      if (viewMode === 'cards') {
+        if (tableView) tableView.style.display = 'none';
+        if (cardsView) cardsView.style.display = 'block';
+        if (btnTable) btnTable.classList.remove('active');
+        if (btnCards) btnCards.classList.add('active');
+      } else {
+        if (tableView) tableView.style.display = 'block';
+        if (cardsView) cardsView.style.display = 'none';
+        if (btnTable) btnTable.classList.add('active');
+        if (btnCards) btnCards.classList.remove('active');
+      }
+    }
+
+    function initMembersViewMode() {
+      const isMobile = window.innerWidth <= 768;
+      const saved = localStorage.getItem('st_youssef_members_view');
+      const preferred = saved || (isMobile ? 'cards' : 'table');
+      setMembersView(preferred);
+    }
+
     function renderMembersTable() {
       const tbody = document.getElementById('membersTableBody');
-      tbody.innerHTML = '';
+      const cardsGrid = document.getElementById('membersCardsGrid');
+      if (tbody) tbody.innerHTML = '';
+      if (cardsGrid) cardsGrid.innerHTML = '';
 
       let list = appData.members.filter(m => {
         const matchGroup = selectedGroupFilter === 'all' || m.groupCode === selectedGroupFilter;
@@ -7423,34 +7668,82 @@
       if (countEl) countEl.textContent = list.length;
 
       if (list.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;padding:2rem;color:var(--text-muted);">لا توجد نتائج مطابقة للتصفية الحالية.</td></tr>';
+        if (tbody) tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:2.5rem;color:var(--text-muted);font-weight:700;">لا توجد نتائج مطابقة للتصفية الحالية.</td></tr>';
+        if (cardsGrid) cardsGrid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:3rem 1rem;color:var(--text-muted);font-weight:700;font-size:1.05rem;">لا توجد نتائج مطابقة للتصفية الحالية.</div>';
         return;
       }
 
       list.forEach((m) => {
-        const tr = document.createElement('tr');
         const areaName = m.areaGroup || (m.groupCode ? ('منطقة ' + m.groupCode) : 'غير محدد');
-        const familyName = (m.family && m.family !== 'غير محدد' && !m.family.includes('مجموعة') && !m.family.includes('منطقة')) ? m.family : 'لم تحدد بعد';
 
-        tr.innerHTML = `
-          <td><span class="badge-id">${m.id}</span></td>
-          <td><strong>${m.name}</strong></td>
-          <td><span class="family-pill ${getFamilyClass(areaName)}">${areaName}</span></td>
-          <td><span class="family-pill family-unassigned">${familyName}</span></td>
-          <td><span class="family-pill pill-stage">${getCollegeStage(m)}</span></td>
-          <td><span class="family-pill pill-gender">${m.gender || 'شاب'}</span></td>
-          <td style="color:var(--accent-gold);font-weight:700;font-size:0.85rem;">${m.father || '—'}</td>
-          <td style="color:var(--text-muted);font-size:0.82rem;">${m.area || ''} ${m.street ? '— ' + m.street : ''}</td>
-          <td style="font-family:monospace;font-size:0.85rem;">${m.phone || '—'}</td>
-          <td>
-            ${m.phone ? `<a href="https://wa.me/2${m.phone}" target="_blank" class="btn btn-whatsapp" style="padding:0.2rem 0.55rem;font-size:0.75rem;">واتساب</a>` : '—'}
-          </td>
-        `;
-        tbody.appendChild(tr);
+        // 1. Desktop Table Row
+        if (tbody) {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td><span class="badge-id">${m.id}</span></td>
+            <td><strong style="color:var(--text-main);font-size:0.95rem;">${m.name}</strong></td>
+            <td><span class="family-pill ${getFamilyClass(areaName)}">${areaName}</span></td>
+            <td><span class="family-pill pill-stage">${getCollegeStage(m)}</span></td>
+            <td><span class="family-pill pill-gender">${m.gender === 'شابة' ? '👧 شابة' : '👦 شاب'}</span></td>
+            <td style="color:var(--accent-gold);font-weight:700;font-size:0.85rem;">${m.father || '—'}</td>
+            <td style="color:var(--text-muted);font-size:0.82rem;">${m.area || ''} ${m.street ? '— ' + m.street : ''}</td>
+            <td>
+              ${m.phone ? `
+                <div style="display:flex;align-items:center;gap:0.4rem;">
+                  <a href="tel:${m.phone}" class="btn btn-call-link" title="اتصال هاتفي">
+                    📞 <span style="direction:ltr;font-family:monospace;font-size:0.82rem;">${m.phone}</span>
+                  </a>
+                  <a href="https://wa.me/2${m.phone}" target="_blank" class="btn btn-whatsapp" title="محادثة واتساب">
+                    واتساب
+                  </a>
+                </div>
+              ` : '<span style="color:var(--text-muted);font-size:0.82rem;">—</span>'}
+            </td>
+          `;
+          tbody.appendChild(tr);
+        }
+
+        // 2. Mobile Contact Card
+        if (cardsGrid) {
+          const card = document.createElement('div');
+          card.className = 'member-mobile-card';
+          card.innerHTML = `
+            <div class="member-card-top">
+              <div class="member-card-title-wrap">
+                <div class="member-card-name">${m.name}</div>
+                <div class="member-card-chips">
+                  <span class="badge-id">${m.id}</span>
+                  <span class="family-pill ${getFamilyClass(areaName)}">📍 ${areaName}</span>
+                  <span class="family-pill pill-stage">🎓 ${getCollegeStage(m)}</span>
+                  <span class="family-pill pill-gender">${m.gender === 'شابة' ? '👧 شابة' : '👦 شاب'}</span>
+                </div>
+              </div>
+            </div>
+
+            ${(m.father || m.area || m.street) ? `
+            <div class="member-card-meta">
+              ${m.father ? `<div class="member-meta-line"><span class="meta-icon">✝️</span> <strong>أب الاعتراف:</strong> <span style="color:var(--accent-gold);font-weight:700;">${m.father}</span></div>` : ''}
+              ${(m.area || m.street) ? `<div class="member-meta-line"><span class="meta-icon">🏠</span> <span>${m.area || ''} ${m.street ? '— ' + m.street : ''}</span></div>` : ''}
+            </div>` : ''}
+
+            <div class="member-card-actions">
+              ${m.phone ? `
+                <a href="tel:${m.phone}" class="btn btn-call-mobile">
+                  📞 اتصال (${m.phone})
+                </a>
+                <a href="https://wa.me/2${m.phone}" target="_blank" class="btn btn-whatsapp-mobile">
+                  💬 واتساب
+                </a>
+              ` : `
+                <span style="font-size:0.8rem;color:var(--text-muted);text-align:center;width:100%;padding:0.25rem;">بدون رقم هاتف مسجل</span>
+              `}
+            </div>
+          `;
+          cardsGrid.appendChild(card);
+        }
       });
     }
 
-    // Render Sessions Table
     function renderSessionsTable() {
       const tbody = document.getElementById('sessionsTableBody');
       if (!tbody) return;
