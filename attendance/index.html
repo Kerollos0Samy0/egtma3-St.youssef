@@ -2766,7 +2766,7 @@
             <span>🏆</span> مسابقة وتقييمات الأسر الشهرية
           </h2>
           <p style="font-size:0.85rem;color:var(--text-muted);margin-top:0.25rem;">
-            نظام المنافسة الروحية والتنظيمية لدورة الـ 4 أسابيع (12 بنداً × 10 درجات = 120 نقطة كاملة).
+            نظام المنافسة الروحية والتنظيمية لدورة الـ 4 أسابيع (18 بنداً × 10 درجات = 180 نقطة كاملة).
           </p>
         </div>
 
@@ -2835,7 +2835,7 @@
       <!-- Detailed Breakdown Cards for the 3 Families -->
       <div style="margin-top:1.5rem;">
         <h3 style="font-size:1.1rem;font-weight:800;color:var(--text-main);margin-bottom:0.85rem;display:flex;align-items:center;gap:0.4rem;">
-          <span>📊</span> التفاصيل التفصيلية لدرجات الأسر (12 بنداً لكل أسرة):
+          <span>📊</span> التفاصيل التفصيلية لدرجات الأسر (18 بنداً لكل أسرة):
         </h3>
         <div class="family-cards-detail-grid" id="familyDetailedCardsGrid">
           <!-- Rendered by JS -->
@@ -9384,14 +9384,20 @@
       { key: 'theme', label: '🌟 هوية اليوم', max: 10, default: 8.5 },
       { key: 'prep', label: '📝 التحضير والاسكريبت', max: 10, default: 8.0 },
       { key: 'flow', label: '🔄 ترتيب وانسياب الفقرات', max: 10, default: 8.5 },
+      { key: 'linkage', label: '🔗 ربط الفقرات ببعض', max: 10, default: 8.5 },
       { key: 'youthInvolvement', label: '🎙️ إشراك شباب الأسرة', max: 10, default: 8.0 },
-      { key: 'hostAttendance', label: '👥 حضورهم في يومهم', max: 10, default: 8.5 },
-      { key: 'otherAttendance', label: '🤝 حضورهم باقي الأيام', max: 10, default: 8.0 },
-      { key: 'punctuality', label: '⏰ الالتزام بالمواعيد', max: 10, default: 8.0 },
+      { key: 'verseMemorization', label: '📖 آية نحفظها في اليوم', max: 10, default: 8.5 },
+      { key: 'themedGame', label: '🎯 لعبة بهدف مرتبط باليوم', max: 10, default: 8.5 },
       { key: 'visualAid', label: '💡 وسيلة الإيضاح', max: 10, default: 8.5 },
+      { key: 'inboxDistribution', label: '📬 توزيع الإنبوكس', max: 10, default: 8.5 },
+      { key: 'mediaCapture', label: '📸🎥 صور وفيديو لليوم', max: 10, default: 8.5 },
+      { key: 'groupPhoto', label: '👨‍👩‍👧‍👦 صورة جماعية لليوم', max: 10, default: 9.0 },
       { key: 'invitation', label: '💌 الإنفيشن والدعاية', max: 10, default: 8.5 },
       { key: 'phoneVisitation', label: '📞 افتقاد الموبايل', max: 10, default: 8.0 },
-      { key: 'receptionAndCleaning', label: '🚪🧹 الاستقبال والنظافة', max: 10, default: 9.0 }
+      { key: 'punctuality', label: '⏰ الالتزام بالمواعيد', max: 10, default: 8.0 },
+      { key: 'receptionAndCleaning', label: '🚪🧹 الاستقبال والنظافة', max: 10, default: 9.0 },
+      { key: 'hostAttendance', label: '👥 حضورهم في يومهم', max: 10, default: 8.5 },
+      { key: 'otherAttendance', label: '🤝 حضورهم باقي الأيام', max: 10, default: 8.0 }
     ];
 
     // State for selected sessions and their host roles
@@ -9651,7 +9657,7 @@
       const rankingList = familyNames.map(fName => {
         const scores = appData.familyEvaluations.scores[fName] || {};
         const total = getFamilyTotalScore(scores);
-        const pct = Math.round((total / 120) * 1000) / 10;
+        const pct = Math.round((total / 180) * 1000) / 10;
         return { name: fName, scores: scores, total: total, pct: pct };
       });
 
@@ -9678,7 +9684,7 @@
 
             <div style="margin: 1rem 0;">
               <div class="podium-score-total">
-                ${fam.total} <small>/ 120</small>
+                ${fam.total} <small>/ 180</small>
               </div>
               <div class="podium-score-pct">${fam.pct}% من الدرجة الكاملة</div>
             </div>
@@ -9725,7 +9731,7 @@
 
               <div style="text-align:left;">
                 <span style="font-size:1.3rem;font-weight:900;color:var(--accent-gold);">${fam.total}</span>
-                <span style="font-size:0.8rem;color:var(--text-muted);"> / 120</span>
+                <span style="font-size:0.8rem;color:var(--text-muted);"> / 180</span>
                 <div style="font-size:0.78rem;font-weight:800;color:var(--accent-emerald);">${fam.pct}%</div>
               </div>
             </div>
@@ -9762,7 +9768,7 @@
         }
       });
       sum = Math.round(sum * 10) / 10;
-      const pct = Math.round((sum / 120) * 1000) / 10;
+      const pct = Math.round((sum / 180) * 1000) / 10;
 
       const totalDisplay = document.getElementById('liveTotalScoreDisplay');
       if (totalDisplay) totalDisplay.textContent = sum;
@@ -9799,7 +9805,7 @@
       const rankingList = familyNames.map(fName => {
         const scores = appData.familyEvaluations.scores[fName] || {};
         const total = getFamilyTotalScore(scores);
-        const pct = Math.round((total / 120) * 1000) / 10;
+        const pct = Math.round((total / 180) * 1000) / 10;
         return { name: fName, total: total, pct: pct, notes: scores.notes || '' };
       });
       rankingList.sort((a, b) => b.total - a.total);
@@ -9820,10 +9826,10 @@
 بنعمة ربنا وفرحتنا بكل التعب والمحبة والخدمة الجبارة اللي شفناها من شباب وخدام كل الأسر، بنعلن بكل فخر نتيجة تقييمات الدورة:
 
 🥇 *المركز الأول والأسرة الفائزة بكأس ودرع الشهر:*
-🏆 *${winner.name}* بمجموع *${winner.total} من 120* (بنسبة *${winner.pct}%*) 🎉✨
+🏆 *${winner.name}* بمجموع *${winner.total} من 180* (بنسبة *${winner.pct}%*) 🎉✨
 ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
-🥈 *المركز الثاني:* ${second.name} بمجموع *${second.total} من 120* (${second.pct}%) 🌟
-🥉 *المركز الثالث:* ${third.name} بمجموع *${third.total} من 120* (${third.pct}%) 👏
+🥈 *المركز الثاني:* ${second.name} بمجموع *${second.total} من 180* (${second.pct}%) 🌟
+🥉 *المركز الثالث:* ${third.name} بمجموع *${third.total} من 180* (${third.pct}%) 👏
 
 بنقول لكل أسرنا وخُدامنا وشبابنا الغاليين:
 📜 *"فَإِذًا يَا إِخْوَتِي الأَحِبَّاءَ، كُونُوا رَاسِخِينَ، غَيْرَ مُتَزَعْزِعِينَ، مُكْثِرِينَ فِي عَمَلِ الرَّبِّ كُلَّ حِينٍ، عَالِمِينَ أَنَّ تَعَبَكُمْ لَيْسَ بَاطِلاً فِي الرَّبِّ"* (1 كو 15: 58) ✝️🤍
@@ -10192,119 +10198,173 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
           </span>
           <div style="display:flex;align-items:baseline;gap:0.5rem;">
             <span style="font-size:1.4rem;font-weight:900;color:var(--accent-gold);" id="liveTotalScoreDisplay">0</span>
-            <span style="font-size:0.85rem;color:var(--text-muted);font-weight:700;">من 120</span>
+            <span style="font-size:0.85rem;color:var(--text-muted);font-weight:700;">من 180</span>
             <span style="font-size:0.92rem;font-weight:800;color:var(--accent-emerald);" id="livePercentageDisplay">(0%)</span>
           </div>
         </div>
 
-        <!-- 12 Criteria Inputs Grid -->
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+        <!-- 18 Criteria Inputs Grid -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;max-height:55vh;overflow-y:auto;padding-left:4px;">
           <!-- 1. الديكور -->
           <div class="form-group" style="margin:0;">
-            <label style="font-size:0.82rem;font-weight:800;display:flex;justify-content:space-between;">
+            <label style="font-size:0.8rem;font-weight:800;display:flex;justify-content:space-between;">
               <span>1. 🎨 الديكور</span>
-              <span id="scoreVal_decor" style="color:var(--accent-gold);">8</span>
+              <span id="scoreVal_decor" style="color:var(--accent-gold);">8.5</span>
             </label>
-            <input type="range" min="0" max="10" step="0.5" value="8" id="input_decor" class="form-control" style="padding:0.2rem 0;">
+            <input type="range" min="0" max="10" step="0.5" value="8.5" id="input_decor" class="form-control" style="padding:0.15rem 0;">
           </div>
 
           <!-- 2. هوية اليوم -->
           <div class="form-group" style="margin:0;">
-            <label style="font-size:0.82rem;font-weight:800;display:flex;justify-content:space-between;">
+            <label style="font-size:0.8rem;font-weight:800;display:flex;justify-content:space-between;">
               <span>2. 🌟 هوية اليوم (Theme)</span>
-              <span id="scoreVal_theme" style="color:var(--accent-gold);">8</span>
+              <span id="scoreVal_theme" style="color:var(--accent-gold);">8.5</span>
             </label>
-            <input type="range" min="0" max="10" step="0.5" value="8" id="input_theme" class="form-control" style="padding:0.2rem 0;">
+            <input type="range" min="0" max="10" step="0.5" value="8.5" id="input_theme" class="form-control" style="padding:0.15rem 0;">
           </div>
 
-          <!-- 3. التحضير -->
+          <!-- 3. التحضير والاسكريبت -->
           <div class="form-group" style="margin:0;">
-            <label style="font-size:0.82rem;font-weight:800;display:flex;justify-content:space-between;">
+            <label style="font-size:0.8rem;font-weight:800;display:flex;justify-content:space-between;">
               <span>3. 📝 التحضير والاسكريبت</span>
               <span id="scoreVal_prep" style="color:var(--accent-gold);">8</span>
             </label>
-            <input type="range" min="0" max="10" step="0.5" value="8" id="input_prep" class="form-control" style="padding:0.2rem 0;">
+            <input type="range" min="0" max="10" step="0.5" value="8" id="input_prep" class="form-control" style="padding:0.15rem 0;">
           </div>
 
-          <!-- 4. ترتيب الفقرات وانسيابها -->
+          <!-- 4. ترتيب وانسياب الفقرات -->
           <div class="form-group" style="margin:0;">
-            <label style="font-size:0.82rem;font-weight:800;display:flex;justify-content:space-between;">
+            <label style="font-size:0.8rem;font-weight:800;display:flex;justify-content:space-between;">
               <span>4. 🔄 ترتيب الفقرات وانسيابها</span>
-              <span id="scoreVal_flow" style="color:var(--accent-gold);">8</span>
+              <span id="scoreVal_flow" style="color:var(--accent-gold);">8.5</span>
             </label>
-            <input type="range" min="0" max="10" step="0.5" value="8" id="input_flow" class="form-control" style="padding:0.2rem 0;">
+            <input type="range" min="0" max="10" step="0.5" value="8.5" id="input_flow" class="form-control" style="padding:0.15rem 0;">
           </div>
 
-          <!-- 5. إشراك شباب الأسرة في الشرح -->
+          <!-- 5. ربط الفقرات ببعض -->
           <div class="form-group" style="margin:0;">
-            <label style="font-size:0.82rem;font-weight:800;display:flex;justify-content:space-between;">
-              <span>5. 🎙️ إشراك شباب الأسرة في الشرح (%)</span>
+            <label style="font-size:0.8rem;font-weight:800;display:flex;justify-content:space-between;">
+              <span>5. 🔗 ربط الفقرات ببعض</span>
+              <span id="scoreVal_linkage" style="color:var(--accent-gold);">8.5</span>
+            </label>
+            <input type="range" min="0" max="10" step="0.5" value="8.5" id="input_linkage" class="form-control" style="padding:0.15rem 0;">
+          </div>
+
+          <!-- 6. إشراك شباب الأسرة في الشرح -->
+          <div class="form-group" style="margin:0;">
+            <label style="font-size:0.8rem;font-weight:800;display:flex;justify-content:space-between;">
+              <span>6. 🎙️ إشراك شباب الأسرة (%)</span>
               <span id="scoreVal_youthInvolvement" style="color:var(--accent-gold);">8</span>
             </label>
-            <input type="range" min="0" max="10" step="0.5" value="8" id="input_youthInvolvement" class="form-control" style="padding:0.2rem 0;">
+            <input type="range" min="0" max="10" step="0.5" value="8" id="input_youthInvolvement" class="form-control" style="padding:0.15rem 0;">
           </div>
 
-          <!-- 6. حضور شباب الأسرة في يومهم -->
+          <!-- 7. آية نحفظها في اليوم -->
           <div class="form-group" style="margin:0;">
-            <label style="font-size:0.82rem;font-weight:800;display:flex;justify-content:space-between;">
-              <span>6. 👥 حضورهم في يومهم (% من الأسرة)</span>
-              <span id="scoreVal_hostAttendance" style="color:var(--accent-gold);">8.5</span>
+            <label style="font-size:0.8rem;font-weight:800;display:flex;justify-content:space-between;">
+              <span>7. 📖 آية نحفظها في اليوم</span>
+              <span id="scoreVal_verseMemorization" style="color:var(--accent-gold);">8.5</span>
             </label>
-            <input type="range" min="0" max="10" step="0.1" value="8.5" id="input_hostAttendance" class="form-control" style="padding:0.2rem 0;">
+            <input type="range" min="0" max="10" step="0.5" value="8.5" id="input_verseMemorization" class="form-control" style="padding:0.15rem 0;">
           </div>
 
-          <!-- 7. حضور شباب الأسرة في باقي الشهر -->
+          <!-- 8. لعبة بهدف مرتبط باليوم -->
           <div class="form-group" style="margin:0;">
-            <label style="font-size:0.82rem;font-weight:800;display:flex;justify-content:space-between;">
-              <span>7. 🤝 حضورهم في باقي الشهر (%)</span>
-              <span id="scoreVal_otherAttendance" style="color:var(--accent-gold);">8</span>
+            <label style="font-size:0.8rem;font-weight:800;display:flex;justify-content:space-between;">
+              <span>8. 🎯 لعبة بهدف مرتبط باليوم</span>
+              <span id="scoreVal_themedGame" style="color:var(--accent-gold);">8.5</span>
             </label>
-            <input type="range" min="0" max="10" step="0.1" value="8" id="input_otherAttendance" class="form-control" style="padding:0.2rem 0;">
-          </div>
-
-          <!-- 8. الالتزام بالمواعيد -->
-          <div class="form-group" style="margin:0;">
-            <label style="font-size:0.82rem;font-weight:800;display:flex;justify-content:space-between;">
-              <span>8. ⏰ الالتزام بالمواعيد</span>
-              <span id="scoreVal_punctuality" style="color:var(--accent-gold);">8</span>
-            </label>
-            <input type="range" min="0" max="10" step="0.5" value="8" id="input_punctuality" class="form-control" style="padding:0.2rem 0;">
+            <input type="range" min="0" max="10" step="0.5" value="8.5" id="input_themedGame" class="form-control" style="padding:0.15rem 0;">
           </div>
 
           <!-- 9. وسيلة الإيضاح والتفاعل -->
           <div class="form-group" style="margin:0;">
-            <label style="font-size:0.82rem;font-weight:800;display:flex;justify-content:space-between;">
+            <label style="font-size:0.8rem;font-weight:800;display:flex;justify-content:space-between;">
               <span>9. 💡 وسيلة الإيضاح والتفاعل</span>
-              <span id="scoreVal_visualAid" style="color:var(--accent-gold);">8</span>
+              <span id="scoreVal_visualAid" style="color:var(--accent-gold);">8.5</span>
             </label>
-            <input type="range" min="0" max="10" step="0.5" value="8" id="input_visualAid" class="form-control" style="padding:0.2rem 0;">
+            <input type="range" min="0" max="10" step="0.5" value="8.5" id="input_visualAid" class="form-control" style="padding:0.15rem 0;">
           </div>
 
-          <!-- 10. الإنفيشن والدعاية المسبقة -->
+          <!-- 10. توزيع الإنبوكس -->
           <div class="form-group" style="margin:0;">
-            <label style="font-size:0.82rem;font-weight:800;display:flex;justify-content:space-between;">
-              <span>10. 💌 الإنفيشن والدعاية المسبقة</span>
-              <span id="scoreVal_invitation" style="color:var(--accent-gold);">8</span>
+            <label style="font-size:0.8rem;font-weight:800;display:flex;justify-content:space-between;">
+              <span>10. 📬 توزيع الإنبوكس</span>
+              <span id="scoreVal_inboxDistribution" style="color:var(--accent-gold);">8.5</span>
             </label>
-            <input type="range" min="0" max="10" step="0.5" value="8" id="input_invitation" class="form-control" style="padding:0.2rem 0;">
+            <input type="range" min="0" max="10" step="0.5" value="8.5" id="input_inboxDistribution" class="form-control" style="padding:0.15rem 0;">
           </div>
 
-          <!-- 11. افتقاد الموبايل -->
+          <!-- 11. صور وفيديو خلال اليوم -->
           <div class="form-group" style="margin:0;">
-            <label style="font-size:0.82rem;font-weight:800;display:flex;justify-content:space-between;">
-              <span>11. 📞 افتقاد الموبايل</span>
+            <label style="font-size:0.8rem;font-weight:800;display:flex;justify-content:space-between;">
+              <span>11. 📸🎥 صور وفيديو خلال اليوم</span>
+              <span id="scoreVal_mediaCapture" style="color:var(--accent-gold);">8.5</span>
+            </label>
+            <input type="range" min="0" max="10" step="0.5" value="8.5" id="input_mediaCapture" class="form-control" style="padding:0.15rem 0;">
+          </div>
+
+          <!-- 12. صورة جماعية لليوم -->
+          <div class="form-group" style="margin:0;">
+            <label style="font-size:0.8rem;font-weight:800;display:flex;justify-content:space-between;">
+              <span>12. 👨‍👩‍👧‍👦 صورة جماعية لليوم</span>
+              <span id="scoreVal_groupPhoto" style="color:var(--accent-gold);">9</span>
+            </label>
+            <input type="range" min="0" max="10" step="0.5" value="9" id="input_groupPhoto" class="form-control" style="padding:0.15rem 0;">
+          </div>
+
+          <!-- 13. الإنفيشن والدعاية المسبقة -->
+          <div class="form-group" style="margin:0;">
+            <label style="font-size:0.8rem;font-weight:800;display:flex;justify-content:space-between;">
+              <span>13. 💌 الإنفيشن والدعاية</span>
+              <span id="scoreVal_invitation" style="color:var(--accent-gold);">8.5</span>
+            </label>
+            <input type="range" min="0" max="10" step="0.5" value="8.5" id="input_invitation" class="form-control" style="padding:0.15rem 0;">
+          </div>
+
+          <!-- 14. افتقاد الموبايل -->
+          <div class="form-group" style="margin:0;">
+            <label style="font-size:0.8rem;font-weight:800;display:flex;justify-content:space-between;">
+              <span>14. 📞 افتقاد الموبايل</span>
               <span id="scoreVal_phoneVisitation" style="color:var(--accent-gold);">8</span>
             </label>
-            <input type="range" min="0" max="10" step="0.5" value="8" id="input_phoneVisitation" class="form-control" style="padding:0.2rem 0;">
+            <input type="range" min="0" max="10" step="0.5" value="8" id="input_phoneVisitation" class="form-control" style="padding:0.15rem 0;">
           </div>
 
-          <!-- 12. الاستقبال وتسليم القاعة نظيفة -->
+          <!-- 15. الالتزام بالمواعيد -->
           <div class="form-group" style="margin:0;">
-            <label style="font-size:0.82rem;font-weight:800;display:flex;justify-content:space-between;">
-              <span>12. 🚪🧹 الاستقبال وتسليم القاعة نظيفة</span>
-              <span id="scoreVal_receptionAndCleaning" style="color:var(--accent-gold);">8</span>
+            <label style="font-size:0.8rem;font-weight:800;display:flex;justify-content:space-between;">
+              <span>15. ⏰ الالتزام بالمواعيد</span>
+              <span id="scoreVal_punctuality" style="color:var(--accent-gold);">8</span>
             </label>
-            <input type="range" min="0" max="10" step="0.5" value="8" id="input_receptionAndCleaning" class="form-control" style="padding:0.2rem 0;">
+            <input type="range" min="0" max="10" step="0.5" value="8" id="input_punctuality" class="form-control" style="padding:0.15rem 0;">
+          </div>
+
+          <!-- 16. الاستقبال وتسليم القاعة نظيفة -->
+          <div class="form-group" style="margin:0;">
+            <label style="font-size:0.8rem;font-weight:800;display:flex;justify-content:space-between;">
+              <span>16. 🚪🧹 الاستقبال والنظافة</span>
+              <span id="scoreVal_receptionAndCleaning" style="color:var(--accent-gold);">9</span>
+            </label>
+            <input type="range" min="0" max="10" step="0.5" value="9" id="input_receptionAndCleaning" class="form-control" style="padding:0.15rem 0;">
+          </div>
+
+          <!-- 17. حضور شباب الأسرة في يومهم -->
+          <div class="form-group" style="margin:0;">
+            <label style="font-size:0.8rem;font-weight:800;display:flex;justify-content:space-between;">
+              <span>17. 👥 حضورهم في يومهم (%)</span>
+              <span id="scoreVal_hostAttendance" style="color:var(--accent-gold);">8.5</span>
+            </label>
+            <input type="range" min="0" max="10" step="0.1" value="8.5" id="input_hostAttendance" class="form-control" style="padding:0.15rem 0;">
+          </div>
+
+          <!-- 18. حضور شباب الأسرة في باقي الشهر -->
+          <div class="form-group" style="margin:0;">
+            <label style="font-size:0.8rem;font-weight:800;display:flex;justify-content:space-between;">
+              <span>18. 🤝 حضورهم باقي الأيام (%)</span>
+              <span id="scoreVal_otherAttendance" style="color:var(--accent-gold);">8</span>
+            </label>
+            <input type="range" min="0" max="10" step="0.1" value="8" id="input_otherAttendance" class="form-control" style="padding:0.15rem 0;">
           </div>
         </div>
 
@@ -10358,28 +10418,34 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
     <div class="modal-box" style="max-width:650px;max-height:85vh;overflow-y:auto;">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.15rem;border-bottom:1px solid var(--border);padding-bottom:0.75rem;">
         <h3 style="font-size:1.25rem;font-weight:800;color:var(--accent-gold);margin:0;display:flex;align-items:center;gap:0.5rem;">
-          <span>📜</span> ميثاق تقييم الأسر المعتمد (120 نقطة)
+          <span>📜</span> ميثاق تقييم الأسر المعتمد (180 نقطة)
         </h3>
         <button type="button" class="btn btn-icon-only btn-sm" id="closeRubricModalBtn" style="border:none;background:none;font-size:1.2rem;color:var(--text-muted);cursor:pointer;">✕</button>
       </div>
 
       <div style="font-size:0.88rem;line-height:1.7;color:var(--text-main);">
         <p style="color:var(--text-muted);margin-bottom:0.75rem;">
-          يُحتسب التقييم على مدار دورة الـ 4 أسابيع الكاملة (12 بنداً × 10 درجات):
+          يُحتسب التقييم على مدار دورة الـ 4 أسابيع الكاملة (18 بنداً × 10 درجات = 180 نقطة):
         </p>
-        <ol style="padding-right:1.2rem;margin-bottom:1rem;">
-          <li><strong>🎨 الديكور (10):</strong> جمال وتميز ديكور المدخل والمسرح واللمسة الفنية.</li>
-          <li><strong>🌟 هوية اليوم (10):</strong> تكامل عناصر اليوم (ترانيم، بوستر، كلمات، ديكور) في فكرة واحدة.</li>
-          <li><strong>📝 التحضير (10):</strong> تسليم الاسكريبت للأمناء مسبقاً، وجاهزية الأدوات وتنسيق الأدوار.</li>
-          <li><strong>🔄 ترتيب الفقرات وانسيابها (10):</strong> تسلسل منطقي وعدم وجود وقت ميت بين الفقرات.</li>
-          <li><strong>🎙️ إشراك شباب الأسرة في الشرح (10):</strong> نسبة مئوية من الفقرات يقدمها الشباب بأنفسهم.</li>
-          <li><strong>👥 حضور شباب الأسرة في يومهم (10):</strong> نسبة حضور شباب الأسرة في يوم تنظيمها بالباركود.</li>
-          <li><strong>🤝 حضور شباب الأسرة في باقي الشهر (10):</strong> متوسط نسبة حضور شباب الأسرة في الـ 3 لقاءات الأخرى.</li>
-          <li><strong>⏰ الالتزام بالمواعيد (10):</strong> البدء في الميعاد بالدقيقة، احترام زمن الفقرات، والإنهاء في الوقت.</li>
-          <li><strong>💡 وسيلة الإيضاح والتفاعل (10):</strong> وسيلة بصرية/عملية وتفاعل جميع الحضور معها.</li>
-          <li><strong>💌 الإنفيشن والدعاية المسبقة (10):</strong> إرسال البوستر قبل 48 ساعة ومراسلة الشباب فردياً.</li>
-          <li><strong>📞 افتقاد الموبايل (10):</strong> مكالمات الافتقاد لكل شباب الأسرة قبل اليوم خاصة المنقطعين.</li>
-          <li><strong>🚪🧹 الاستقبال وتسليم القاعة نظيفة (10):</strong> فريق استقبال بشوش + تسليم القاعة نظيفة ومرتبة.</li>
+        <ol style="padding-right:1.2rem;margin-bottom:1rem;display:grid;grid-template-columns:1fr 1fr;gap:0.4rem;font-size:0.82rem;">
+          <li><strong>🎨 الديكور (10):</strong> جمال وتميز ديكور المدخل والمسرح.</li>
+          <li><strong>🌟 هوية اليوم (10):</strong> تكامل عناصر اليوم في فكرة ورسالة موحدة.</li>
+          <li><strong>📝 التحضير (10):</strong> تسليم الاسكريبت مسبقاً وجاهزية الأدوار.</li>
+          <li><strong>🔄 ترتيب الفقرات (10):</strong> تسلسل منطقي وعدم وجود وقت ميت.</li>
+          <li><strong>🔗 ربط الفقرات ببعض (10):</strong> انسيابية وربط ذكي وموضوعي بين الفقرات.</li>
+          <li><strong>🎙️ إشراك شباب الأسرة (10):</strong> نسبة تقديم الشباب للفقرات بأنفسهم.</li>
+          <li><strong>📖 آية نحفظها في اليوم (10):</strong> حفظ وترديد آية اليوم وتطبيقها الروحي.</li>
+          <li><strong>🎯 لعبة بهدف مرتبط باليوم (10):</strong> مسابقة أو لعبة تخدم رسالة اليوم.</li>
+          <li><strong>💡 وسيلة الإيضاح (10):</strong> وسيلة بصرية/عملية تفاعلية جذابة.</li>
+          <li><strong>📬 توزيع الإنبوكس (10):</strong> تسليم وتوزيع الإنبوكس ورسائل التشجيع.</li>
+          <li><strong>📸🎥 صور وفيديو خلال اليوم (10):</strong> توثيق الفقرات وتصوير لقطات مميزة.</li>
+          <li><strong>👨‍👩‍👧‍👦 صورة جماعية لليوم (10):</strong> صورة تذكارية تجمع كل الحضور والخدام.</li>
+          <li><strong>💌 الإنفيشن والدعاية (10):</strong> نشر البوستر قبل 48 ساعة ومراسلة الشباب.</li>
+          <li><strong>📞 افتقاد الموبايل (10):</strong> مكالمات الافتقاد المسجلة للغائبين والمنقطعين.</li>
+          <li><strong>⏰ الالتزام بالمواعيد (10):</strong> البدء والانتهاء في الميعاد المحدد بالدقيقة.</li>
+          <li><strong>🚪🧹 الاستقبال والنظافة (10):</strong> استقبال بشوش + تسليم القاعة نظيفة للأمناء.</li>
+          <li><strong>👥 حضورهم في يومهم (10):</strong> نسبة حضور شباب الأسرة في يومها بالباركود.</li>
+          <li><strong>🤝 حضورهم باقي الأيام (10):</strong> متوسط نسبة حضورهم في باقي اللقاءات.</li>
         </ol>
       </div>
 

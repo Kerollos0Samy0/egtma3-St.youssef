@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ميثاق تقييم الأسر - اجتماع يوسف الصديق للشباب</title>
+  <title>ميثاق تقييم الأسر (18 بنداً - 180 نقطة) - اجتماع يوسف الصديق للشباب</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -19,15 +19,14 @@
 
     @page {
       size: A4 portrait;
-      margin: 8mm 8mm 8mm 8mm;
+      margin: 6mm 8mm;
     }
 
     html, body {
       width: 100%;
-      height: 100%;
       background-color: #ffffff;
       color: #0f172a;
-      line-height: 1.3;
+      line-height: 1.25;
       display: flex;
       justify-content: center;
       align-items: flex-start;
@@ -47,23 +46,23 @@
       background: linear-gradient(135deg, #022c22 0%, #064e3b 60%, #0f172a 100%);
       color: #ffffff;
       border-bottom: 2.5px solid #d97706;
-      padding: 10px 14px;
+      padding: 8px 12px;
       text-align: center;
     }
 
     .church-line {
       color: #fbbf24;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 700;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 5px;
       margin-bottom: 2px;
     }
 
     .doc-title {
-      font-size: 1.35rem;
+      font-size: 1.3rem;
       font-weight: 900;
       color: #ffffff;
       line-height: 1.2;
@@ -71,7 +70,7 @@
 
     .doc-subtitle {
       color: #e2e8f0;
-      font-size: 0.76rem;
+      font-size: 0.74rem;
       margin-top: 2px;
       font-weight: 600;
     }
@@ -80,8 +79,8 @@
     .stats-ribbon {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 6px;
-      padding: 6px 10px;
+      gap: 5px;
+      padding: 5px 8px;
       background: #f1f5f9;
       border-bottom: 1.5px solid #cbd5e1;
       text-align: center;
@@ -91,18 +90,18 @@
       background: #ffffff;
       border: 1px solid #cbd5e1;
       border-radius: 6px;
-      padding: 3px 4px;
+      padding: 2px 4px;
     }
 
     .stat-val {
-      font-size: 1.05rem;
+      font-size: 1rem;
       font-weight: 900;
       color: #047857;
       line-height: 1.1;
     }
 
     .stat-lbl {
-      font-size: 0.68rem;
+      font-size: 0.65rem;
       font-weight: 700;
       color: #334155;
     }
@@ -110,7 +109,7 @@
     /* Table */
     .table-wrap {
       width: 100% !important;
-      padding: 6px 8px;
+      padding: 4px 6px;
     }
 
     table {
@@ -120,17 +119,17 @@
       text-align: right;
     }
 
-    col.col-num   { width: 5%; }
-    col.col-name  { width: 23%; }
-    col.col-score { width: 9%; }
+    col.col-num   { width: 4.5%; }
+    col.col-name  { width: 24.5%; }
+    col.col-score { width: 8%; }
     col.col-type  { width: 16%; }
     col.col-desc  { width: 47%; }
 
     thead th {
       background: #0f172a;
       color: #fbbf24;
-      padding: 5px 6px;
-      font-size: 0.78rem;
+      padding: 4px 5px;
+      font-size: 0.75rem;
       font-weight: 900;
       border-bottom: 2px solid #d97706;
       border-top: 1px solid #0f172a;
@@ -147,10 +146,10 @@
     }
 
     tbody td {
-      padding: 4px 6px;
+      padding: 3px 5px;
       vertical-align: middle;
       color: #1e293b;
-      font-size: 0.74rem;
+      font-size: 0.71rem;
       word-wrap: break-word;
       overflow-wrap: break-word;
     }
@@ -164,13 +163,14 @@
     .name-cell {
       font-weight: 800;
       color: #0f172a;
-      font-size: 0.77rem;
+      font-size: 0.73rem;
+      white-space: nowrap;
     }
 
     .score-cell {
       text-align: center;
       font-weight: 900;
-      font-size: 0.88rem;
+      font-size: 0.82rem;
       color: #b45309;
       background: rgba(245, 158, 11, 0.08);
     }
@@ -182,17 +182,17 @@
 
     .desc-cell {
       color: #1e293b;
-      font-size: 0.71rem;
-      line-height: 1.25;
+      font-size: 0.69rem;
+      line-height: 1.2;
       text-align: right;
     }
 
     /* Badges */
     .badge {
       display: inline-block;
-      padding: 2px 5px;
+      padding: 1px 4px;
       border-radius: 9999px;
-      font-size: 0.65rem;
+      font-size: 0.62rem;
       font-weight: 800;
       white-space: nowrap;
     }
@@ -219,11 +219,11 @@
     .doc-footer {
       background: #0f172a;
       color: #ffffff;
-      padding: 6px 10px;
+      padding: 5px 8px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       border-top: 2px solid #d97706;
     }
 
@@ -244,16 +244,16 @@
         <span>•</span>
         <span>اجتماع يوسف الصديق للشباب</span>
       </div>
-      <h1 class="doc-title">🏆 ميثاق ونظام تقييم الأسر الشهري</h1>
+      <h1 class="doc-title">🏆 ميثاق ونظام تقييم الأسر المعتمد</h1>
       <p class="doc-subtitle">
-        نظام المنافسة الروحية والخدمية لدورة الـ 4 أسابيع (3 أسابيع للأسر + أسبوع الأمناء)
+        نظام المنافسة الروحية والتنظيمية لدورة الـ 4 أسابيع (18 بنداً × 10 درجات = 180 درجة كاملة)
       </p>
     </header>
 
     <!-- Stats Ribbon -->
     <div class="stats-ribbon">
       <div class="stat-box">
-        <div class="stat-val">12</div>
+        <div class="stat-val">18</div>
         <div class="stat-lbl">عدد بنود التقييم</div>
       </div>
       <div class="stat-box">
@@ -261,7 +261,7 @@
         <div class="stat-lbl">درجة كل بند</div>
       </div>
       <div class="stat-box">
-        <div class="stat-val">120 درجة</div>
+        <div class="stat-val">180 درجة</div>
         <div class="stat-lbl">إجمالي الدرجة الكاملة</div>
       </div>
       <div class="stat-box">
@@ -270,7 +270,7 @@
       </div>
     </div>
 
-    <!-- Table -->
+    <!-- Table (18 Rows) -->
     <div class="table-wrap">
       <table>
         <colgroup>
@@ -295,7 +295,7 @@
             <td class="name-cell">🎨 الديكور</td>
             <td class="score-cell">10</td>
             <td class="type-cell"><span class="badge badge-admin">✍️ تقييم أمناء</span></td>
-            <td class="desc-cell">جمال وتميز ديكور المدخل والمسرح، واللمسة الفنية واستغلال الخامات البسيطة بذكاء.</td>
+            <td class="desc-cell">جمال وتميز ديكور المدخل والمسرح واللمسة الفنية واستغلال الخامات بذكاء.</td>
           </tr>
           <tr>
             <td class="num-cell">2</td>
@@ -309,70 +309,112 @@
             <td class="name-cell">📝 التحضير والاسكريبت</td>
             <td class="score-cell">10</td>
             <td class="type-cell"><span class="badge badge-admin">✍️ تقييم أمناء</span></td>
-            <td class="desc-cell">تسليم الاسكريبت للأمناء قبل اليوم بـ 24 ساعة، وجاهزية الأدوات وتنسيق الأدوار بين الخدام.</td>
+            <td class="desc-cell">تسليم الاسكريبت للأمناء قبل اليوم بـ 24 ساعة، وجاهزية الأدوات وتنسيق الأدوار.</td>
           </tr>
           <tr>
             <td class="num-cell">4</td>
             <td class="name-cell">🔄 ترتيب وانسياب الفقرات</td>
             <td class="score-cell">10</td>
             <td class="type-cell"><span class="badge badge-admin">✍️ تقييم أمناء</span></td>
-            <td class="desc-cell">تسلسل مشوق ومنطقي للفقرات مع عدم وجود أي وقت ميت (Dead Time) بين الفقرات.</td>
+            <td class="desc-cell">تسلسل مشوق ومنطقي للفقرات مع عدم وجود أي وقت ميت بين الفقرات.</td>
           </tr>
           <tr>
             <td class="num-cell">5</td>
-            <td class="name-cell">🎙️ إشراك شباب الأسرة</td>
+            <td class="name-cell">🔗 ربط الفقرات ببعض</td>
             <td class="score-cell">10</td>
-            <td class="type-cell"><span class="badge badge-pct">📊 نسبة مئوية %</span></td>
-            <td class="desc-cell">نسبة الفقرات التي يقدمها شباب الأسرة بأنفسهم: (100% شباب = 10 • 80% = 8 • 50% = 5).</td>
+            <td class="type-cell"><span class="badge badge-admin">✍️ تقييم أمناء</span></td>
+            <td class="desc-cell">انسيابية وربط ذكي وموضوعي بين الترانيم والكلمة والمسابقة لخدمة الرسالة.</td>
           </tr>
           <tr>
             <td class="num-cell">6</td>
-            <td class="name-cell">👥 حضورهم في يومهم</td>
+            <td class="name-cell">🎙️ إشراك شباب الأسرة</td>
             <td class="score-cell">10</td>
-            <td class="type-cell"><span class="badge badge-auto">⚡ تلقائي بالسيستم</span></td>
-            <td class="desc-cell"><strong>محسوبة من باركود الحضور:</strong> (نسبة الحضور % × 10) • مثال: حضور 90% = 9 من 10.</td>
+            <td class="type-cell"><span class="badge badge-pct">📊 نسبة مئوية %</span></td>
+            <td class="desc-cell">نسبة الفقرات التي يقدمها شباب الأسرة بأنفسهم: (100% شباب = 10 • 80% = 8).</td>
           </tr>
           <tr>
             <td class="num-cell">7</td>
-            <td class="name-cell">🤝 حضورهم باقي الشهر</td>
+            <td class="name-cell">📖 آية نحفظها في اليوم</td>
             <td class="score-cell">10</td>
-            <td class="type-cell"><span class="badge badge-auto">⚡ تلقائي بالسيستم</span></td>
-            <td class="desc-cell"><strong>محسوبة من باركود الحضور:</strong> متوسط نسبة حضورهم في الـ 3 لقاءات الأخرى % × 10.</td>
+            <td class="type-cell"><span class="badge badge-admin">✍️ تقييم أمناء</span></td>
+            <td class="desc-cell">حفظ وترديد آية اليوم وتطبيقها الروحي وخروج جميع الحاضرين بحفظها.</td>
           </tr>
           <tr>
             <td class="num-cell">8</td>
-            <td class="name-cell">⏰ الالتزام بالمواعيد</td>
+            <td class="name-cell">🎯 لعبة بهدف مرتبط باليوم</td>
             <td class="score-cell">10</td>
             <td class="type-cell"><span class="badge badge-admin">✍️ تقييم أمناء</span></td>
-            <td class="desc-cell">بدء الاجتماع في ميعاده بالدقيقة، احترام زمن كل فقرة، وإنهاء الاجتماع في الوقت المحدد.</td>
+            <td class="desc-cell">مسابقة أو لعبة تفاعلية تشغل القاعة وتخدم المعنى الروحي لليوم.</td>
           </tr>
           <tr>
             <td class="num-cell">9</td>
             <td class="name-cell">💡 وسيلة الإيضاح والتفاعل</td>
             <td class="score-cell">10</td>
             <td class="type-cell"><span class="badge badge-admin">✍️ تقييم أمناء</span></td>
-            <td class="desc-cell">وسيلة بصرية/عملية/رقمية تفاعلية تشغل جميع الحاضرين في القاعة لتثبيت الهدف الروحي.</td>
+            <td class="desc-cell">وسيلة بصرية/عملية/رقمية تفاعلية لتثبيت الهدف الروحي في الأذهان.</td>
           </tr>
           <tr>
             <td class="num-cell">10</td>
-            <td class="name-cell">💌 الإنفيشن والدعاية</td>
+            <td class="name-cell">📬 توزيع الإنبوكس</td>
             <td class="score-cell">10</td>
             <td class="type-cell"><span class="badge badge-admin">✍️ تقييم أمناء</span></td>
-            <td class="desc-cell">نشر البوستر أو الريلز قبل اليوم بـ 48 ساعة، ومراسلة شباب الأسرة بالاسم على الواتساب.</td>
+            <td class="desc-cell">تسليم وتوزيع الإنبوكس ورسائل وكلمات التشجيع والافتقاد للشباب.</td>
           </tr>
           <tr>
             <td class="num-cell">11</td>
-            <td class="name-cell">📞 افتقاد الموبايل</td>
+            <td class="name-cell">📸🎥 صور وفيديو لليوم</td>
             <td class="score-cell">10</td>
             <td class="type-cell"><span class="badge badge-admin">✍️ تقييم أمناء</span></td>
-            <td class="desc-cell">إجراء مكالمات الافتقاد المسجلة لشباب الأسرة قبل اليوم خاصة المنقطعين وتأكيد نزولهم.</td>
+            <td class="desc-cell">توثيق فعاليات اليوم وتصوير لقطات وريلز للفقرات والتفاعل لنشرها.</td>
           </tr>
           <tr>
             <td class="num-cell">12</td>
+            <td class="name-cell">👨‍👩‍👧‍👦 صورة جماعية لليوم</td>
+            <td class="score-cell">10</td>
+            <td class="type-cell"><span class="badge badge-admin">✍️ تقييم أمناء</span></td>
+            <td class="desc-cell">التقاط صورة تذكارية مبهجة تجمع كل شباب وخدام اليوم في الختام.</td>
+          </tr>
+          <tr>
+            <td class="num-cell">13</td>
+            <td class="name-cell">💌 الإنفيشن والدعاية</td>
+            <td class="score-cell">10</td>
+            <td class="type-cell"><span class="badge badge-admin">✍️ تقييم أمناء</span></td>
+            <td class="desc-cell">نشر البوستر قبل 48 ساعة ومراسلة شباب الأسرة بالاسم على الواتساب.</td>
+          </tr>
+          <tr>
+            <td class="num-cell">14</td>
+            <td class="name-cell">📞 افتقاد الموبايل</td>
+            <td class="score-cell">10</td>
+            <td class="type-cell"><span class="badge badge-admin">✍️ تقييم أمناء</span></td>
+            <td class="desc-cell">إجراء مكالمات الافتقاد المسجلة لشباب الأسرة قبل اليوم وتأكيد نزولهم.</td>
+          </tr>
+          <tr>
+            <td class="num-cell">15</td>
+            <td class="name-cell">⏰ الالتزام بالمواعيد</td>
+            <td class="score-cell">10</td>
+            <td class="type-cell"><span class="badge badge-admin">✍️ تقييم أمناء</span></td>
+            <td class="desc-cell">بدء الاجتماع في ميعاده، احترام زمن الفقرات، وإنهاء اليوم في الوقت المحدد.</td>
+          </tr>
+          <tr>
+            <td class="num-cell">16</td>
             <td class="name-cell">🚪🧹 الاستقبال والنظافة</td>
             <td class="score-cell">10</td>
             <td class="type-cell"><span class="badge badge-admin">✍️ تقييم أمناء</span></td>
-            <td class="desc-cell">فريق استقبال بشوش عند الباب + تسليم القاعة للأمناء نظيفة ومرتبة بالكامل بعد اليوم.</td>
+            <td class="desc-cell">فريق استقبال بشوش عند الباب + تسليم القاعة للأمناء نظيفة ومرتبة.</td>
+          </tr>
+          <tr>
+            <td class="num-cell">17</td>
+            <td class="name-cell">👥 حضورهم في يومهم</td>
+            <td class="score-cell">10</td>
+            <td class="type-cell"><span class="badge badge-auto">⚡ تلقائي بالسيستم</span></td>
+            <td class="desc-cell"><strong>محسوبة من باركود الحضور:</strong> (نسبة الحضور % × 10) • حضور 90% = 9 من 10.</td>
+          </tr>
+          <tr>
+            <td class="num-cell">18</td>
+            <td class="name-cell">🤝 حضورهم باقي الأيام</td>
+            <td class="score-cell">10</td>
+            <td class="type-cell"><span class="badge badge-auto">⚡ تلقائي بالسيستم</span></td>
+            <td class="desc-cell"><strong>محسوبة من باركود الحضور:</strong> متوسط نسبة حضورهم في باقي اللقاءات % × 10.</td>
           </tr>
         </tbody>
       </table>
@@ -382,8 +424,8 @@
     <footer class="doc-footer">
       <div>
         <span>المجموع الإجمالي: </span>
-        <span class="footer-gold">120 درجة</span>
-        <span> | النسبة المئوية = (المجموع ÷ 120) × 100%</span>
+        <span class="footer-gold">180 درجة</span>
+        <span> | النسبة المئوية = (المجموع ÷ 180) × 100%</span>
       </div>
       <div>
         <span>الأسرة الفائزة تتوج بدرع وكأس التميز للشهر 🏆</span>
