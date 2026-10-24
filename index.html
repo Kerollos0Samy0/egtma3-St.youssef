@@ -8174,7 +8174,10 @@
           <div class="badge-main-body">
             <!-- QR Side -->
             <div class="badge-qr-side">
-              <div class="badge-qr-box" id="${qrContainerId}"></div>
+              <div class="badge-qr-box" id="${qrContainerId}" title="اضغط لتحميل صورة الـ QR كود" onclick="downloadMemberQr('${m.id}', '${m.name}')" style="cursor:pointer;"></div>
+              <button type="button" class="btn btn-sm" onclick="downloadMemberQr('${m.id}', '${m.name}')" style="font-size:0.7rem;padding:0.15rem 0.45rem;margin-top:0.25rem;border:1px solid var(--border);color:var(--text-muted);border-radius:var(--radius-full);" title="تحميل صورة الـ QR على جهازك">
+                📥 حفظ QR
+              </button>
               <div class="badge-stage-pill">${getCollegeStage(m)}</div>
             </div>
 
