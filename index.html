@@ -25,50 +25,52 @@
 
   <style>
     :root {
-      /* Dark Theme (Default) - Emerald Green & Warm Gold Brand Identity */
-      --bg-primary: #0a0f1d;
+      /* Dark Theme (Executive Midnight & Cathedral Warm Brass) */
+      --bg-primary: #0b1120;
       --bg-secondary: #0f172a;
-      --bg-card: rgba(30, 41, 59, 0.7);
-      --bg-card-hover: rgba(51, 65, 85, 0.85);
-      --border: rgba(148, 163, 184, 0.15);
-      --border-gold: #f59e0b;
+      --bg-card: #131d31;
+      --bg-card-hover: #18243c;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-subtle: rgba(255, 255, 255, 0.05);
+      --border-gold: #c59b27;
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
-      --accent-gold: #f59e0b;
-      --brand-gold: #f59e0b;
-      --accent-gold-gradient: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-      --accent-blue: #38bdf8;
+      --accent-gold: #d4af37;
+      --brand-gold: #c59b27;
+      --accent-gold-gradient: linear-gradient(180deg, #d4af37 0%, #b38728 100%);
+      --accent-blue: #3b82f6;
       --accent-emerald: #10b981;
-      --accent-purple: #a855f7;
+      --accent-purple: #8b5cf6;
       --accent-rose: #f43f5e;
-      --radius-sm: 8px;
-      --radius-md: 14px;
-      --radius-lg: 20px;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
       --radius-full: 9999px;
-      --shadow-lg: 0 10px 25px -3px rgba(0, 0, 0, 0.5);
-      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
-      --transition: transform 0.15s ease, box-shadow 0.15s ease;
+      --shadow-lg: 0 4px 20px -2px rgba(0, 0, 0, 0.35), 0 2px 6px -1px rgba(0, 0, 0, 0.2);
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
+      --transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* Light Theme (Day Mode) - High Contrast & Calibrated Professional Typography */
+    /* Light Theme (Day Mode - High Contrast Oxford Slate & Amber) */
     body.light-theme {
       --bg-primary: #f8fafc;
       --bg-secondary: #ffffff;
       --bg-card: #ffffff;
       --bg-card-hover: #f1f5f9;
       --border: #e2e8f0;
-      --border-gold: #d97706;
+      --border-subtle: #edf2f7;
+      --border-gold: #b45309;
       --text-main: #0f172a;
-      --text-muted: #475569;
-      --accent-gold: #b45309;       /* WCAG AA Compliant Antique Amber/Gold on White */
+      --text-muted: #64748b;
+      --accent-gold: #b45309;
       --brand-gold: #b45309;
-      --accent-gold-gradient: linear-gradient(135deg, #d97706 0%, #b45309 100%);
-      --accent-blue: #0284c7;        /* Crisp Deep Sapphire */
-      --accent-emerald: #059669;     /* Deep Emerald Green */
-      --accent-purple: #7c3aed;      /* Deep Royal Violet */
-      --accent-rose: #be123c;        /* Deep Ruby Rose */
-      --shadow-lg: 0 10px 25px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
-      --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.05);
+      --accent-gold-gradient: linear-gradient(180deg, #d97706 0%, #b45309 100%);
+      --accent-blue: #0284c7;
+      --accent-emerald: #059669;
+      --accent-purple: #6d28d9;
+      --accent-rose: #be123c;
+      --shadow-lg: 0 4px 14px -2px rgba(15, 23, 42, 0.06), 0 2px 4px -2px rgba(15, 23, 42, 0.04);
+      --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05);
     }
 
     * {
@@ -331,566 +333,29 @@
     }
 
     body.light-theme .btn-gold {
-      background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
-      color: #ffffff;
-      border: none;
-      box-shadow: 0 4px 12px rgba(180, 83, 9, 0.25);
-    }
-
-    body.light-theme .btn-gold:hover {
-      background: linear-gradient(135deg, #b45309 0%, #92400e 100%);
-      color: #ffffff;
-      box-shadow: 0 6px 18px rgba(180, 83, 9, 0.35);
-    }
-
-    body.light-theme .btn-brand-primary,
-    body.light-theme .btn-success {
-      background: linear-gradient(135deg, #059669 0%, #047857 100%);
-      color: #ffffff;
-      box-shadow: 0 4px 14px rgba(5, 150, 105, 0.25);
-    }
-
-    body.light-theme .btn-outline-danger {
-      border-color: #fca5a5;
-      color: #be123c;
-    }
-
-    body.light-theme .btn-outline-danger:hover {
-      background: #ffe4e6;
-      border-color: #f87171;
-      color: #9f1239;
-    }
-
-    body.light-theme .pill-btn {
-      background: #f1f5f9;
-      color: #475569;
-      border-color: #cbd5e1;
-    }
-
-    body.light-theme .pill-btn:hover {
-      background: #e2e8f0;
-      color: #0f172a;
-    }
-
-    body.light-theme .pill-btn.active, 
-    body.light-theme .btn.group-filter-btn.active, 
-    body.light-theme .btn.stage-filter-btn.active, 
-    body.light-theme .btn.badge-stage-btn.active, 
-    body.light-theme .btn.gender-filter-btn.active {
-      background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
-      color: #ffffff !important;
-      border-color: #047857 !important;
-      box-shadow: 0 2px 10px rgba(5, 150, 105, 0.35) !important;
-    }
-
-    body.light-theme .member-search-box,
-    body.light-theme .search-input,
-    body.light-theme .form-control {
-      background: #ffffff;
-      border-color: #cbd5e1;
-      color: #0f172a;
-    }
-
-    body.light-theme .member-search-box:focus,
-    body.light-theme .search-input:focus,
-    body.light-theme .form-control:focus {
-      border-color: #059669;
-      box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15);
-    }
-
-    body.light-theme .quick-results {
-      background: #ffffff;
-      border-color: #e2e8f0;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
-    }
-
-    body.light-theme .quick-result-item {
-      border-bottom-color: #f1f5f9;
-      color: #0f172a;
-    }
-
-    body.light-theme .quick-result-item:hover {
-      background: #f8fafc;
-    }
-
-    body.light-theme .attendance-meeting-bar {
-      background: #ffffff !important;
-      border-color: #e2e8f0 !important;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
-    }
-
-    body.light-theme .session-select-clean {
-      background: #ffffff !important;
-      border-color: #cbd5e1 !important;
-      color: #0f172a !important;
-    }
-
-    body.light-theme .session-select-clean option {
-      background: #ffffff;
-      color: #0f172a;
-    }
-
-    body.light-theme .attendee-stat-pill {
-      background: #ecfdf5 !important;
-      border-color: #a7f3d0 !important;
-      color: #065f46 !important;
-    }
-
-    body.light-theme .attendee-stat-pill strong {
-      color: #047857 !important;
-    }
-
-    /* Cards & Badges in Light Theme */
-    body.light-theme .members-filter-card,
-    body.light-theme .streamlined-toolbar,
-    body.light-theme .camera-card,
-    body.light-theme .attendees-card,
-    body.light-theme .stat-card {
-      background: #ffffff;
-      border-color: #e2e8f0;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
-    }
-
-    body.light-theme .attendee-item {
-      background: #f8fafc;
-      border-color: #e2e8f0;
-    }
-
-    body.light-theme .attendee-item:hover {
-      background: #f1f5f9;
-    }
-
-    body.light-theme .id-badge {
-      background: #ffffff;
-      border-color: #e2e8f0;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    }
-
-    body.light-theme .id-badge:hover {
-      border-color: #b45309;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    }
-
-    body.light-theme .badge-church-title {
-      color: #92400e;
-    }
-
-    body.light-theme .badge-id {
-      background: #fef3c7;
-      color: #92400e;
-      border-color: #fcd34d;
-    }
-
-    body.light-theme .badge-stage-pill {
-      background: #fef3c7;
-      color: #92400e;
-      border-color: #fcd34d;
-    }
-
-    body.light-theme .badge-name {
-      color: #0f172a;
-    }
-
-    body.light-theme .meta-txt strong {
-      color: #0f172a;
-    }
-
-    /* Data Tables in Light Theme */
-    body.light-theme /* Tables - Spacious, Full-Width & Non-wrapping */
-    .data-table-container {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      overflow-x: auto;
-      box-shadow: var(--shadow-lg);
-      width: 100%;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .data-table {
-      width: 100%;
-      border-collapse: collapse;
-      text-align: right;
-      font-size: 0.92rem;
-      min-width: 1150px;
-    }
-
-    .data-table th {
-      background: var(--bg-secondary);
-      padding: 0.95rem 1rem;
-      font-weight: 800;
-      color: var(--accent-gold);
-      border-bottom: 2px solid var(--border);
-      white-space: nowrap !important;
-      vertical-align: middle;
-      font-size: 0.9rem;
-    }
-
-    .data-table td {
-      padding: 0.85rem 1rem;
-      border-bottom: 1px solid var(--border);
-      white-space: nowrap !important;
-      vertical-align: middle;
-      font-size: 0.9rem;
-    }
-
-    body.light-theme .data-table tr:hover td {
-      background: #f8fafc;
-    }
-
-    /* Badges / Pills in Light Mode - High Contrast WCAG AA/AAA */
-    body.light-theme .family-a { 
-      background: #fef3c7; 
-      color: #92400e; 
-      border-color: #fde68a; 
-      font-weight: 800; 
-    }
-    body.light-theme .family-b { 
-      background: #e0f2fe; 
-      color: #0369a1; 
-      border-color: #bae6fd; 
-      font-weight: 800; 
-    }
-    body.light-theme .family-c { 
-      background: #d1fae5; 
-      color: #065f46; 
-      border-color: #a7f3d0; 
-      font-weight: 800; 
-    }
-    body.light-theme .family-d { 
-      background: #ede9fe; 
-      color: #5b21b6; 
-      border-color: #ddd6fe; 
-      font-weight: 800; 
-    }
-    body.light-theme .family-e { 
-      background: #fce7f3; 
-      color: #9d174d; 
-      border-color: #fbcfe8; 
-      font-weight: 800; 
-    }
-    body.light-theme .family-t { 
-      background: #ccfbf1; 
-      color: #115e59; 
-      border-color: #99f6e4; 
-      font-weight: 800; 
-    }
-    body.light-theme .family-unassigned { 
-      background: #f1f5f9; 
-      color: #334155; 
-      border-color: #cbd5e1; 
-      font-weight: 700; 
-    }
-    body.light-theme .family-leaders { 
-      background: #ede9fe; 
-      color: #5b21b6; 
-      border-color: #ddd6fe; 
-      font-weight: 800; 
-    }
-
-    /* Semantic Status Pills (Dark & Light Mode) */
-    .pill-stage {
-      font-weight: 800;
-      color: var(--accent-emerald);
-      background: rgba(16, 185, 129, 0.15);
-      border-color: rgba(16, 185, 129, 0.3);
-    }
-    body.light-theme .pill-stage {
-      background: #d1fae5;
-      color: #065f46;
-      border-color: #a7f3d0;
-      font-weight: 800;
-    }
-
-    .pill-gender {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      background: rgba(148, 163, 184, 0.1);
-      border-color: rgba(148, 163, 184, 0.2);
-    }
-    body.light-theme .pill-gender {
-      background: #f1f5f9;
-      color: #334155;
-      border-color: #cbd5e1;
-    }
-
-    .pill-session-tag {
-      background: rgba(139, 92, 246, 0.15);
-      color: #c4b5fd;
-      border-color: rgba(139, 92, 246, 0.35);
-      font-size: 0.75rem;
-    }
-    body.light-theme .pill-session-tag {
-      background: #ede9fe;
-      color: #5b21b6;
-      border-color: #c4b5fd;
-      font-weight: 800;
-    }
-
-    .pill-rate-tag {
-      background: rgba(16, 185, 129, 0.2);
-      color: #34d399;
-      border-color: rgba(16, 185, 129, 0.4);
-      font-weight: 800;
-    }
-    body.light-theme .pill-rate-tag {
-      background: #d1fae5;
-      color: #065f46;
-      border-color: #a7f3d0;
-      font-weight: 800;
-    }
-
-    .pill-present {
-      background: rgba(16, 185, 129, 0.2);
-      color: #34d399;
-      border-color: rgba(16, 185, 129, 0.4);
-      font-weight: 800;
-    }
-    body.light-theme .pill-present {
-      background: #d1fae5;
-      color: #065f46;
-      border-color: #a7f3d0;
-      font-weight: 800;
-    }
-
-    .pill-absent {
-      background: rgba(244, 63, 94, 0.18);
-      color: #fb7185;
-      border-color: rgba(244, 63, 94, 0.35);
-      font-weight: 800;
-    }
-    body.light-theme .pill-absent {
-      background: #ffe4e6;
-      color: #9f1239;
-      border-color: #fecdd3;
-      font-weight: 800;
-    }
-
-    .btn-whatsapp {
-      color: #25d366;
-      border-color: rgba(37, 211, 102, 0.4);
-      background: rgba(37, 211, 102, 0.08);
-      font-weight: 700;
-    }
-    .btn-whatsapp:hover {
-      background: rgba(37, 211, 102, 0.18);
-      color: #25d366;
-    }
-    body.light-theme .btn-whatsapp {
-      color: #15803d;
-      border-color: #86efac;
-      background: #f0fdf4;
-      font-weight: 800;
-    }
-    body.light-theme .btn-whatsapp:hover {
-      background: #dcfce7;
-      color: #166534;
-    }
-
-    /* Alerts & Modals in Light Theme */
-    .schedule-cutoff-alert {
-      background: rgba(139, 92, 246, 0.12);
-      border: 1px solid rgba(139, 92, 246, 0.35);
-      padding: 0.75rem 1rem;
-      border-radius: var(--radius-md);
-      margin-bottom: 1.25rem;
-      font-size: 0.88rem;
-      color: #ddd6fe;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-    .schedule-cutoff-desc {
-      color: var(--accent-gold);
-      font-weight: 800;
-    }
-    body.light-theme .schedule-cutoff-alert {
-      background: #f5f3ff;
-      border-color: #c4b5fd;
-      color: #4c1d95;
-      font-weight: 600;
-    }
-    body.light-theme .schedule-cutoff-desc {
-      color: #6d28d9;
-      font-weight: 800;
-    }
-
-    body.light-theme .modal-box {
-      background: #ffffff;
-      border-color: #e2e8f0;
-      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.12);
-      color: #0f172a;
-    }
-    body.light-theme .form-group label {
-      color: #334155;
-      font-weight: 700;
-    }
-
-    body.light-theme .admin-role-card-admin { background: #fffbeb !important; border-color: #fde68a !important; }
-    body.light-theme .admin-role-card-secr { background: #ecfdf5 !important; border-color: #a7f3d0 !important; }
-    body.light-theme .admin-role-card-visitation { background: #ecfeff !important; border-color: #a5f3fc !important; }
-    body.light-theme .admin-role-card-schedule { background: #f5f3ff !important; border-color: #ddd6fe !important; }
-    body.light-theme .admin-cutoff-box { background: #f5f3ff !important; border-color: #ddd6fe !important; }
-
-    body.light-theme .login-overlay-backdrop {
-      background: radial-gradient(circle at center, rgba(241, 245, 249, 0.94) 0%, rgba(226, 232, 240, 0.98) 100%);
-    }
-    body.light-theme .login-card-container {
-      background: #ffffff;
-      border-color: #e2e8f0;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.12), 0 0 35px rgba(16, 185, 129, 0.08);
-    }
-    body.light-theme .login-input {
-      background: #f8fafc;
-      border-color: #cbd5e1;
-      color: #0f172a;
-    }
-    body.light-theme .login-input:focus {
-      border-color: #059669;
-      background: #ffffff;
-      box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15);
-    }
-    body.light-theme .login-field-label {
-      color: #0f172a;
-    }
-    body.light-theme .login-submit-btn {
-      background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
-      color: #ffffff;
-    }
-    body.light-theme .login-submit-btn:hover {
-      background: linear-gradient(135deg, #b45309 0%, #92400e 100%);
-    }
-    body.light-theme .scan-feedback-card {
-      background: #ffffff;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
-    }
-    body.light-theme .feedback-success {
-      border-color: #059669;
-      background: linear-gradient(135deg, #ecfdf5 0%, #ffffff 100%);
-      color: #065f46;
-    }
-    body.light-theme .feedback-warning {
-      border-color: #d97706;
-      background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%);
-      color: #92400e;
-    }
-
-    /* Top App Header (Streamlined & Clean - Zero Clutter) */
-    header.app-header {
-      background: rgba(15, 23, 42, 0.96);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      padding: 0.55rem 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    body.light-theme header.app-header {
-      background: rgba(255, 255, 255, 0.96);
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .brand-title {
-      font-size: 1.05rem;
-      font-weight: 800;
-      line-height: 1.2;
-      color: var(--text-main);
-    }
-
-    .header-center {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      background: rgba(30, 41, 59, 0.6);
-      padding: 0.25rem 0.75rem;
-      border-radius: var(--radius-full);
-      border: 1px solid var(--border);
-    }
-
-    .session-select-clean {
-      background: transparent;
-      border: none;
-      color: var(--text-main);
-      font-family: inherit;
-      font-size: 0.85rem;
-      font-weight: 700;
-      outline: none;
-      cursor: pointer;
-      max-width: 260px;
-    }
-
-    .session-select-clean option {
-      background: #0f172a;
-      color: #fff;
-    }
-
-    .attendee-stat-pill {
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: var(--text-muted);
-      border-right: 1px solid var(--border);
-      padding-right: 0.75rem;
-      white-space: nowrap;
-    }
-
-    .session-badge-clean {
-      display: none !important;
-    }
-
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    /* Buttons */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1rem;
-      border-radius: var(--radius-md);
-      font-family: inherit;
-      font-size: 0.88rem;
-      font-weight: 700;
-      cursor: pointer;
-      border: 1px solid var(--border);
-      background: var(--bg-card);
-      color: var(--text-main);
-      transition: var(--transition);
-      text-decoration: none;
-      outline: none;
-    }
-
-    .btn:hover {
-      background: var(--bg-card-hover);
-      transform: translateY(-2px);
-      border-color: var(--accent-gold);
-    }
-
-    .btn-gold {
       background: var(--accent-gold-gradient);
-      color: #0f172a;
-      border: none;
-      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+      color: #0b1120;
+      font-weight: 800;
+      border: 1px solid rgba(197, 155, 39, 0.5);
+      box-shadow: 0 2px 6px rgba(197, 155, 39, 0.25);
     }
 
     .btn-gold:hover {
-      background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-      box-shadow: 0 6px 18px rgba(245, 158, 11, 0.45);
-      color: #000;
+      background: linear-gradient(180deg, #e5c158 0%, #c59b27 100%);
+      color: #000000;
+      box-shadow: 0 4px 12px rgba(197, 155, 39, 0.35);
+      transform: translateY(-1px);
+    }
+    
+    .btn-secondary {
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #e2e8f0;
+    }
+    .btn-secondary:hover {
+      background: rgba(51, 65, 85, 0.9);
+      color: #ffffff;
+      transform: translateY(-1px);
     }
 
     .btn-sm {
@@ -975,11 +440,23 @@
 
     /* Active Brand State (St. Youssef Emerald Green) */
     .pill-btn.active, .btn.group-filter-btn.active, .btn.stage-filter-btn.active, .btn.badge-stage-btn.active, .btn.gender-filter-btn.active {
-      background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
-      color: #ffffff !important;
-      border-color: #10b981 !important;
+      background: #1e293b !important;
+      color: #f8fafc !important;
+      border-color: var(--accent-gold) !important;
       font-weight: 800 !important;
-      box-shadow: 0 2px 10px rgba(16, 185, 129, 0.35) !important;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25) !important;
+    }
+
+    body.light-theme .pill-btn.active, 
+    body.light-theme .btn.group-filter-btn.active, 
+    body.light-theme .btn.stage-filter-btn.active, 
+    body.light-theme .btn.badge-stage-btn.active, 
+    body.light-theme .btn.gender-filter-btn.active {
+      background: #0f172a !important;
+      color: #ffffff !important;
+      border-color: #0f172a !important;
+      font-weight: 800 !important;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.2) !important;
     }
 
     /* Filter Search Row */
@@ -2370,6 +1847,17 @@
         ● متصل سحابياً
       </span>
 
+      <!-- Backup & Data Safety Button -->
+      <button type="button" class="btn btn-secondary btn-sm" id="backupModalBtn" onclick="openBackupModal()" title="النسخ الاحتياطي وحماية البيانات" style="font-size:0.8rem;padding:0.35rem 0.75rem;display:inline-flex;align-items:center;gap:0.35rem;">
+        <span>💾</span> النسخ الاحتياطي
+      </button>
+
+      <!-- Live Sync & Queue Status Pill -->
+      <div id="liveSyncStatusPill" title="حالة الاتصال ومزامنة الحضور" style="display:inline-flex;align-items:center;gap:0.4rem;font-size:0.75rem;padding:0.25rem 0.65rem;border-radius:var(--radius-full);background:rgba(16,185,129,0.12);color:var(--accent-emerald);border:1px solid rgba(16,185,129,0.25);font-weight:700;">
+        <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:currentColor;"></span>
+        <span id="liveSyncText">متصل بالسيرفر</span>
+      </div>
+
       <button class="btn btn-icon-only btn-sm" id="themeToggleBtn" title="تبديل المظهر">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
       </button>
@@ -2456,6 +1944,13 @@
           <div class="camera-controls">
             <div style="display:flex;gap:0.5rem;">
               <button class="btn btn-gold" id="startScanBtn">▶ تشغيل الكاميرا</button>
+              <button class="btn btn-secondary" id="stopScanBtn" style="display:none;">⏹ إيقاف</button>
+
+              <!-- Native Mobile Camera & Photo Scanner Input (Works 100% on HTTP on all phones) -->
+              <label class="btn btn-secondary" style="font-size:0.85rem;padding:0.45rem 0.85rem;cursor:pointer;display:inline-flex;align-items:center;gap:0.4rem;border:1px solid var(--border);" title="التقط صورة بكاميرا الموبايل العادية أو اختر صورة من المعرض">
+                📷 مسح من صورة / كاميرا الموبايل
+                <input type="file" id="qrPhotoInput" accept="image/*" capture="environment" style="display:none;">
+              </label>
               <button class="btn" id="stopScanBtn" style="display:none;">⏹ إيقاف</button>
             </div>
             <div style="display:flex;align-items:center;gap:0.5rem;">
@@ -3086,6 +2581,67 @@
   <!-- ============================================== -->
   <!-- MODAL: ADMIN SETTINGS & RBAC PERMISSIONS       -->
   <!-- ============================================== -->
+  <!-- Data Safety & Backup Modal -->
+  <div class="modal-backdrop" id="backupModal" style="display:none;">
+    <div class="modal-box" style="max-width:560px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;border-bottom:1px solid var(--border);padding-bottom:0.75rem;">
+        <h3 style="font-size:1.2rem;font-weight:800;color:var(--accent-gold);margin:0;display:flex;align-items:center;gap:0.5rem;">
+          <span>💾</span> النسخ الاحتياطي وحماية البيانات
+        </h3>
+        <button type="button" class="btn btn-icon-only btn-sm" onclick="closeBackupModal()" style="border:none;background:none;font-size:1.2rem;color:var(--text-muted);cursor:pointer;">✕</button>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:1.15rem;">
+        <!-- Option 1: Instant Download -->
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:1rem;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem;">
+            <strong style="font-size:0.95rem;color:var(--text-main);display:flex;align-items:center;gap:0.4rem;">
+              <span>📥</span> تنزيل نسخة احتياطية فورية (JSON)
+            </strong>
+          </div>
+          <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:0.85rem;">
+            يحفظ ملف يحتوي على كافة بيانات الشباب (157)، وسجلات الحضور السابقة، وتقييمات الأسر، والملاحظات.
+          </p>
+          <button type="button" class="btn btn-gold" onclick="downloadDatabaseBackup()" style="width:100%;font-size:0.88rem;">
+            تحميل نسخة كاملة الآن (.JSON)
+          </button>
+        </div>
+
+        <!-- Option 2: Restore from file -->
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:1rem;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem;">
+            <strong style="font-size:0.95rem;color:var(--text-main);display:flex;align-items:center;gap:0.4rem;">
+              <span>📤</span> استعادة البيانات من ملف سابق
+            </strong>
+          </div>
+          <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:0.85rem;">
+            اختر ملف نسخة احتياطية (.json) لاستعادة البيانات. يقوم السيرفر بحفظ لقطة أمان تلقائية قبل أي استبدال.
+          </p>
+          <input type="file" id="restoreFileInput" accept=".json" style="display:none;" onchange="handleRestoreFile(this)">
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('restoreFileInput').click()" style="width:100%;font-size:0.88rem;">
+            اختر ملف النسخة للاستعادة...
+          </button>
+        </div>
+
+        <!-- Option 3: Server Rolling Snapshots -->
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:1rem;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem;">
+            <strong style="font-size:0.92rem;color:var(--text-main);display:flex;align-items:center;gap:0.4rem;">
+              <span>🛡️</span> النسخ التلقائية في السيرفر (Rolling Snapshots)
+            </strong>
+            <button type="button" class="btn btn-sm btn-secondary" onclick="fetchBackupsList()" style="font-size:0.75rem;padding:0.2rem 0.5rem;">تحديث</button>
+          </div>
+          <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:0.6rem;">
+            السيرفر يحفظ تلقائياً لقطة بعد كل تسجيل حضور أو تعديل في <code>attendance/backups/</code> (حتى 30 نسخة).
+          </p>
+          <div id="serverSnapshotsList" style="max-height:120px;overflow-y:auto;font-size:0.8rem;color:var(--text-muted);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.5rem;background:rgba(0,0,0,0.15);">
+            اضغط زر تحديث لعرض أحدث النسخ التلقائية.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="modal-backdrop" id="adminSettingsModal">
     <div class="modal-box" style="max-width:540px;">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;border-bottom:1px solid var(--border);padding-bottom:0.75rem;">
@@ -8114,7 +7670,13 @@
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ memberId: member.id, sessionId: session.id, timestamp: currentTime })
-        }).catch(() => {});
+        }).then(res => {
+          if (!res.ok) throw new Error('Status ' + res.status);
+          updateOfflineQueueUI();
+        }).catch(err => {
+          console.warn('Network offline, queuing scan locally:', err);
+          enqueueOfflineScan(member.id, session.id, currentTime);
+        });
       }
 
       refreshUI();
@@ -10135,6 +9697,220 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
     syncWithServer();
     initCameras();
     initAuth();
+    
+    // ========================================================
+    // BACKUP & RESTORE CLIENT LOGIC
+    // ========================================================
+    function openBackupModal() {
+      const modal = document.getElementById('backupModal');
+      if (modal) {
+        modal.style.display = 'flex';
+        fetchBackupsList();
+      }
+    }
+
+    function closeBackupModal() {
+      const modal = document.getElementById('backupModal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function downloadDatabaseBackup() {
+      // 1. Try server endpoint first
+      fetch('/api/backup')
+        .then(res => {
+          if (res.ok) return res.blob();
+          throw new Error('Server backup not available, using local data');
+        })
+        .then(blob => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `egtma3_db_backup_${new Date().toISOString().split('T')[0]}.json`;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          window.URL.revokeObjectURL(url);
+        })
+        .catch(() => {
+          // Fallback to local storage export
+          const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appData, null, 2));
+          const dlAnchor = document.createElement('a');
+          dlAnchor.setAttribute("href", dataStr);
+          dlAnchor.setAttribute("download", `egtma3_local_backup_${new Date().toISOString().split('T')[0]}.json`);
+          document.body.appendChild(dlAnchor);
+          dlAnchor.click();
+          dlAnchor.remove();
+        });
+    }
+
+    function handleRestoreFile(input) {
+      const file = input.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = async function(e) {
+        try {
+          const parsed = JSON.parse(e.target.result);
+          if (!parsed.members || !Array.isArray(parsed.members)) {
+            alert('الملف المختار غير صالح: لا يحتوي على مصفوفة الأعضاء.');
+            return;
+          }
+
+          if (!confirm(`هل أنت متأكد من استعادة هذه النسخة؟ تحتوي على (${parsed.members.length}) عضواً و (${(parsed.sessions||[]).length}) لقاءً.`)) {
+            return;
+          }
+
+          // Try server restore first
+          let restoredOnServer = false;
+          try {
+            const res = await fetch('/api/restore', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(parsed)
+            });
+            if (res.ok) restoredOnServer = true;
+          } catch (err) {}
+
+          // Always restore local state
+          appData = parsed;
+          saveLocalData();
+          refreshUI();
+
+          alert(restoredOnServer 
+            ? '✅ تم استعادة النسخة الاحتياطية وتحديث السيرفر والمتصفح بنجاح!' 
+            : '✅ تم استعادة النسخة الاحتياطية محلياً بنجاح!');
+          closeBackupModal();
+        } catch (err) {
+          alert('خطأ في قراءة الملف: ' + err.message);
+        } finally {
+          input.value = '';
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    async function fetchBackupsList() {
+      const listEl = document.getElementById('serverSnapshotsList');
+      if (!listEl) return;
+      try {
+        const res = await fetch('/api/backups/list');
+        if (!res.ok) throw new Error('Not available');
+        const data = await res.json();
+        if (data.backups && data.backups.length > 0) {
+          listEl.innerHTML = data.backups.map(b => {
+            const dt = new Date(b.createdAt).toLocaleString('ar-EG');
+            const kb = (b.sizeBytes / 1024).toFixed(1);
+            return `<div style="display:flex;align-items:center;justify-content:space-between;padding:0.35rem 0;border-bottom:1px solid var(--border);">
+              <span>📄 ${dt}</span>
+              <span style="font-family:monospace;font-size:0.75rem;color:var(--text-muted);">${kb} KB</span>
+            </div>`;
+          }).join('');
+        } else {
+          listEl.innerHTML = '<div style="color:var(--text-muted);padding:0.3rem 0;">لا توجد لقطات محفوظة حالياً بعد.</div>';
+        }
+      } catch (e) {
+        listEl.innerHTML = '<div style="color:var(--text-muted);padding:0.3rem 0;">يعمل محلياً (السيرفر غير متصل لعرض لقطات السيرفر).</div>';
+      }
+    }
+
+    // ========================================================
+    // NATIVE CAMERA / PHOTO SCANNER LOGIC
+    // ========================================================
+    const photoInputEl = document.getElementById('qrPhotoInput');
+    if (photoInputEl) {
+      photoInputEl.addEventListener('change', async function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        const statusEl = document.getElementById('cameraStatusText');
+        if (statusEl) statusEl.textContent = 'جاري قراءة الباركود من الصورة...';
+
+        try {
+          if (!html5QrScanner) {
+            html5QrScanner = new Html5Qrcode("reader");
+          }
+          const decodedText = await html5QrScanner.scanFile(file, true);
+          if (statusEl) statusEl.textContent = 'تم التعرف على الكود بنجاح!';
+          processAttendance(decodedText);
+        } catch (err) {
+          if (statusEl) statusEl.textContent = 'تعذر قراءة الـ QR من الصورة.';
+          alert('لم يتم التعرف على باركود QR في هذه الصورة. يرجى التأكد من وضوح الصورة والإضاءة ثم المحاولة مجدداً.');
+        } finally {
+          e.target.value = '';
+        }
+      });
+    }
+
+    // Detect Mobile on HTTP & Show Helpful Helper
+    if (window.location.protocol === 'http:' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+      const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+      if (isMobile) {
+        const tipEl = document.getElementById('mobileScannerTip');
+        if (tipEl) tipEl.style.display = 'block';
+      }
+    }
+
+    // ========================================================
+    // CONCURRENCY & OFFLINE SCAN QUEUE
+    // ========================================================
+    function enqueueOfflineScan(memberId, sessionId, timestamp) {
+      try {
+        const q = JSON.parse(localStorage.getItem('egtma3_offline_queue') || '[]');
+        q.push({ memberId, sessionId, timestamp, queuedAt: Date.now() });
+        localStorage.setItem('egtma3_offline_queue', JSON.stringify(q));
+        updateOfflineQueueUI();
+      } catch (e) {
+        console.error("Error queueing offline scan:", e);
+      }
+    }
+
+    function updateOfflineQueueUI() {
+      const q = JSON.parse(localStorage.getItem('egtma3_offline_queue') || '[]');
+      const pill = document.getElementById('liveSyncStatusPill');
+      const text = document.getElementById('liveSyncText');
+      if (!pill || !text) return;
+      if (q.length > 0) {
+        pill.style.background = 'rgba(245, 158, 11, 0.15)';
+        pill.style.borderColor = 'rgba(245, 158, 11, 0.4)';
+        pill.style.color = 'var(--accent-gold)';
+        text.textContent = `⚠️ ${q.length} تسجيل بالانتظار (أوفلاين)`;
+      } else {
+        pill.style.background = 'rgba(16, 185, 129, 0.12)';
+        pill.style.borderColor = 'rgba(16, 185, 129, 0.25)';
+        pill.style.color = 'var(--accent-emerald)';
+        text.textContent = 'متصل بالسيرفر';
+      }
+    }
+
+    async function flushOfflineQueue() {
+      let q = JSON.parse(localStorage.getItem('egtma3_offline_queue') || '[]');
+      if (q.length === 0) return;
+
+      const remaining = [];
+      for (const item of q) {
+        try {
+          const res = await fetch('/api/scan', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(item)
+          });
+          if (!res.ok) remaining.push(item);
+        } catch (e) {
+          remaining.push(item);
+        }
+      }
+      localStorage.setItem('egtma3_offline_queue', JSON.stringify(remaining));
+      updateOfflineQueueUI();
+      if (remaining.length === 0 && q.length > 0) {
+        const text = document.getElementById('liveSyncText');
+        if (text) text.textContent = '✅ تمت مزامنة كافة التسجيلات';
+        setTimeout(updateOfflineQueueUI, 3000);
+      }
+    }
+
+    setInterval(flushOfflineQueue, 6000);
+    window.addEventListener('online', flushOfflineQueue);
+    setTimeout(updateOfflineQueueUI, 1000);
+
     refreshUI();
   </script>
 

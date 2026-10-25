@@ -5,6 +5,16 @@ const url = require('url');
 
 const PORT = process.env.PORT || 4000;
 const DB_FILE = path.join(__dirname, 'attendance_db.json');
+const BACKUPS_DIR = path.join(__dirname, 'backups');
+
+// Ensure backups directory exists
+if (!fs.existsSync(BACKUPS_DIR)) {
+  try {
+    fs.mkdirSync(BACKUPS_DIR, { recursive: true });
+  } catch (err) {
+    console.error("Could not create backups directory:", err);
+  }
+}
 
 // Initial seed data with servants from Book1.xlsx
 const DEFAULT_DATA = {
@@ -66,7 +76,7 @@ const DEFAULT_DATA = {
   visitationNotes: []
 };
 
-// Load or initialize DB
+// Safe Synchronous DB Reader
 function getDB() {
   try {
     if (fs.existsSync(DB_FILE)) {
@@ -76,19 +86,79 @@ function getDB() {
   } catch (err) {
     console.error("Error reading DB file, reinitializing:", err);
   }
-  saveDB(DEFAULT_DATA);
+  saveDBAtomic(DEFAULT_DATA, false);
   return DEFAULT_DATA;
 }
 
-function saveDB(data) {
+// Atomic File Writer with Rolling Backup
+function saveDBAtomic(data, createBackup = true) {
   try {
-    fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2), 'utf8');
+    const jsonStr = JSON.stringify(data, null, 2);
+    const tempFile = `${DB_FILE}.tmp.${Date.now()}`;
+    
+    // 1. Write to temp file first
+    fs.writeFileSync(tempFile, jsonStr, 'utf8');
+
+    // 2. Atomic rename replaces target safely
+    fs.renameSync(tempFile, DB_FILE);
+
+    // 3. Create rolling snapshot backup if requested
+    if (createBackup) {
+      createRollingSnapshot(jsonStr);
+    }
+    return true;
   } catch (err) {
-    console.error("Error writing DB file:", err);
+    console.error("Critical Error writing DB file atomically:", err);
+    return false;
   }
 }
 
-// Ensure DB exists
+// Rolling snapshot manager (keeps last 30 snapshots)
+function createRollingSnapshot(jsonStr) {
+  try {
+    if (!fs.existsSync(BACKUPS_DIR)) {
+      fs.mkdirSync(BACKUPS_DIR, { recursive: true });
+    }
+    const now = new Date();
+    const timestamp = now.toISOString().replace(/[:.]/g, '-');
+    const backupFile = path.join(BACKUPS_DIR, `snapshot_${timestamp}.json`);
+    fs.writeFileSync(backupFile, jsonStr, 'utf8');
+
+    // Prune older backups if exceeding 30
+    const files = fs.readdirSync(BACKUPS_DIR)
+      .filter(f => f.startsWith('snapshot_') && f.endsWith('.json'))
+      .map(f => ({ name: f, time: fs.statSync(path.join(BACKUPS_DIR, f)).mtimeMs }))
+      .sort((a, b) => b.time - a.time);
+
+    if (files.length > 30) {
+      files.slice(30).forEach(f => {
+        try { fs.unlinkSync(path.join(BACKUPS_DIR, f.name)); } catch (e) {}
+      });
+    }
+  } catch (err) {
+    console.warn("Could not create rolling backup:", err.message);
+  }
+}
+
+// Write Mutex Queue to prevent Race Conditions during concurrent scans
+let writeQueue = Promise.resolve();
+function queueDBWrite(mutatorFn) {
+  return new Promise((resolve, reject) => {
+    writeQueue = writeQueue.then(async () => {
+      try {
+        const db = getDB();
+        const result = await mutatorFn(db);
+        saveDBAtomic(db, true);
+        resolve(result);
+      } catch (err) {
+        console.error("Mutex write error:", err);
+        reject(err);
+      }
+    });
+  });
+}
+
+// Ensure DB exists on start
 getDB();
 
 const MIME_TYPES = {
@@ -98,7 +168,9 @@ const MIME_TYPES = {
   '.json': 'application/json; charset=utf-8',
   '.png': 'image/png',
   '.jpg': 'image/jpeg',
-  '.svg': 'image/svg+xml'
+  '.svg': 'image/svg+xml',
+  '.zip': 'application/zip',
+  '.pdf': 'application/pdf'
 };
 
 const server = http.createServer((req, res) => {
@@ -116,69 +188,150 @@ const server = http.createServer((req, res) => {
   const parsedUrl = url.parse(req.url, true);
   const pathname = decodeURIComponent(parsedUrl.pathname);
 
-  // API Endpoints
+  // ==========================================
+  // API ENDPOINTS
+  // ==========================================
   if (pathname.startsWith('/api/')) {
-    const db = getDB();
-
-    // GET /api/data
+    
+    // GET /api/data - Full database fetch
     if (pathname === '/api/data' && req.method === 'GET') {
+      const db = getDB();
       res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
       res.end(JSON.stringify(db));
       return;
     }
 
-    // POST /api/scan (Register Attendance)
+    // GET /api/backup - Download complete timestamped JSON backup
+    if (pathname === '/api/backup' && req.method === 'GET') {
+      const db = getDB();
+      const dateStr = new Date().toISOString().split('T')[0];
+      res.writeHead(200, {
+        'Content-Type': 'application/json; charset=utf-8',
+        'Content-Disposition': `attachment; filename="egtma3_db_backup_${dateStr}.json"`
+      });
+      res.end(JSON.stringify(db, null, 2));
+      return;
+    }
+
+    // GET /api/backups/list - Get rolling snapshots list
+    if (pathname === '/api/backups/list' && req.method === 'GET') {
+      try {
+        if (!fs.existsSync(BACKUPS_DIR)) fs.mkdirSync(BACKUPS_DIR, { recursive: true });
+        const files = fs.readdirSync(BACKUPS_DIR)
+          .filter(f => f.endsWith('.json'))
+          .map(f => {
+            const stat = fs.statSync(path.join(BACKUPS_DIR, f));
+            return {
+              filename: f,
+              sizeBytes: stat.size,
+              createdAt: stat.mtime
+            };
+          })
+          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+        res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+        res.end(JSON.stringify({ success: true, backups: files }));
+      } catch (err) {
+        res.writeHead(500, { 'Content-Type': 'application/json; charset=utf-8' });
+        res.end(JSON.stringify({ success: false, message: err.message }));
+      }
+      return;
+    }
+
+    // POST /api/restore - Restore DB from uploaded JSON body
+    if (pathname === '/api/restore' && req.method === 'POST') {
+      let body = '';
+      req.on('data', chunk => body += chunk);
+      req.on('end', async () => {
+        try {
+          const uploadedData = JSON.parse(body);
+          if (!uploadedData.members || !Array.isArray(uploadedData.members)) {
+            res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' });
+            res.end(JSON.stringify({ success: false, message: 'صيغة الملف غير صالحة (بيانات الأعضاء مفقودة).' }));
+            return;
+          }
+
+          await queueDBWrite(db => {
+            // Backup current state first
+            createRollingSnapshot(JSON.stringify(db, null, 2));
+            // Overwrite with restored data
+            db.members = uploadedData.members;
+            if (uploadedData.sessions) db.sessions = uploadedData.sessions;
+            if (uploadedData.visitationNotes) db.visitationNotes = uploadedData.visitationNotes;
+            if (uploadedData.evaluationCriteria) db.evaluationCriteria = uploadedData.evaluationCriteria;
+            if (uploadedData.familyEvaluations) db.familyEvaluations = uploadedData.familyEvaluations;
+            return { memberCount: db.members.length, sessionCount: (db.sessions || []).length };
+          });
+
+          res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+          res.end(JSON.stringify({ success: true, message: 'تم استعادة النسخة الاحتياطية بنجاح!' }));
+        } catch (e) {
+          res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' });
+          res.end(JSON.stringify({ success: false, message: 'الملف غير صالح أو تالف: ' + e.message }));
+        }
+      });
+      return;
+    }
+
+    // POST /api/scan (Register Attendance with Concurrency Mutex Queue)
     if (pathname === '/api/scan' && req.method === 'POST') {
       let body = '';
       req.on('data', chunk => body += chunk);
-      req.on('end', () => {
+      req.on('end', async () => {
         try {
           const { memberId, sessionId, timestamp } = JSON.parse(body);
-          const member = db.members.find(m => m.id === memberId || m.name === memberId || m.phone === memberId);
-          if (!member) {
-            res.writeHead(404, { 'Content-Type': 'application/json; charset=utf-8' });
-            res.end(JSON.stringify({ success: false, message: 'عضواً غير موجود بالنظام' }));
-            return;
-          }
+          
+          const result = await queueDBWrite(db => {
+            const member = db.members.find(m => m.id === memberId || m.name === memberId || m.phone === memberId);
+            if (!member) {
+              return { notFound: true, message: 'عضواً غير موجود بالنظام' };
+            }
 
-          let session = db.sessions.find(s => s.id === sessionId);
-          if (!session) {
-            session = db.sessions[db.sessions.length - 1]; // default to latest session
-          }
+            let session = db.sessions.find(s => s.id === sessionId);
+            if (!session) {
+              session = db.sessions[db.sessions.length - 1]; // default to latest session
+            }
 
-          if (!session.attendees) session.attendees = [];
+            if (!session.attendees) session.attendees = [];
 
-          const alreadyAttended = session.attendees.find(a => a.memberId === member.id);
-          if (alreadyAttended) {
-            res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
-            res.end(JSON.stringify({
-              success: false,
-              alreadyRegistered: true,
+            const alreadyAttended = session.attendees.find(a => a.memberId === member.id);
+            if (alreadyAttended) {
+              return {
+                alreadyRegistered: true,
+                member,
+                time: alreadyAttended.time,
+                message: `تم تسجيل حضور ${member.name} مسبقاً في تمام الساعة ${alreadyAttended.time}`
+              };
+            }
+
+            const recordTime = timestamp || new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' });
+            session.attendees.push({
+              memberId: member.id,
+              name: member.name,
+              family: member.family || member.areaGroup || '',
+              time: recordTime,
+              date: new Date().toISOString().split('T')[0]
+            });
+
+            return {
+              success: true,
               member,
-              time: alreadyAttended.time,
-              message: `تم تسجيل حضور ${member.name} مسبقاً في تمام الساعة ${alreadyAttended.time}`
-            }));
-            return;
-          }
-
-          const recordTime = timestamp || new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' });
-          session.attendees.push({
-            memberId: member.id,
-            name: member.name,
-            family: member.family,
-            time: recordTime,
-            date: new Date().toISOString().split('T')[0]
+              time: recordTime,
+              totalSessionAttendees: session.attendees.length,
+              message: `أهلاً بك يا ${member.name}! تم تسجيل الحضور بنجاح.`
+            };
           });
 
-          saveDB(db);
-          res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
-          res.end(JSON.stringify({
-            success: true,
-            member,
-            time: recordTime,
-            totalSessionAttendees: session.attendees.length,
-            message: `أهلاً بك يا ${member.name} (${member.family})! تم تسجيل الحضور بنجاح.`
-          }));
+          if (result.notFound) {
+            res.writeHead(404, { 'Content-Type': 'application/json; charset=utf-8' });
+            res.end(JSON.stringify({ success: false, message: result.message }));
+          } else if (result.alreadyRegistered) {
+            res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+            res.end(JSON.stringify({ success: false, ...result }));
+          } else {
+            res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+            res.end(JSON.stringify({ success: true, ...result }));
+          }
         } catch (e) {
           res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' });
           res.end(JSON.stringify({ success: false, message: 'خطأ في معالجة البيانات' }));
@@ -191,21 +344,24 @@ const server = http.createServer((req, res) => {
     if (pathname === '/api/members' && req.method === 'POST') {
       let body = '';
       req.on('data', chunk => body += chunk);
-      req.on('end', () => {
+      req.on('end', async () => {
         try {
           const newMember = JSON.parse(body);
-          if (!newMember.id) {
-            const maxNum = db.members.reduce((max, m) => {
-              const num = parseInt((m.id || '').replace('SM-', '')) || 0;
-              return num > max ? num : max;
-            }, 0);
-            newMember.id = `SM-${String(maxNum + 1).padStart(2, '0')}`;
-          }
-          newMember.active = true;
-          db.members.push(newMember);
-          saveDB(db);
+          const result = await queueDBWrite(db => {
+            if (!newMember.id) {
+              const maxNum = db.members.reduce((max, m) => {
+                const num = parseInt((m.id || '').replace(/[^0-9]/g, '')) || 0;
+                return num > max ? num : max;
+              }, 0);
+              newMember.id = `SM-${String(maxNum + 1).padStart(2, '0')}`;
+            }
+            newMember.active = true;
+            db.members.push(newMember);
+            return newMember;
+          });
+
           res.writeHead(201, { 'Content-Type': 'application/json; charset=utf-8' });
-          res.end(JSON.stringify({ success: true, member: newMember }));
+          res.end(JSON.stringify({ success: true, member: result }));
         } catch (e) {
           res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' });
           res.end(JSON.stringify({ success: false, message: 'خطأ في إضافة العضو' }));
@@ -218,17 +374,20 @@ const server = http.createServer((req, res) => {
     if (pathname === '/api/sessions' && req.method === 'POST') {
       let body = '';
       req.on('data', chunk => body += chunk);
-      req.on('end', () => {
+      req.on('end', async () => {
         try {
           const newSession = JSON.parse(body);
-          if (!newSession.id) {
-            newSession.id = `SES-${String(db.sessions.length + 1).padStart(2, '0')}`;
-          }
-          if (!newSession.attendees) newSession.attendees = [];
-          db.sessions.push(newSession);
-          saveDB(db);
+          const result = await queueDBWrite(db => {
+            if (!newSession.id) {
+              newSession.id = `SES-${String(db.sessions.length + 1).padStart(2, '0')}`;
+            }
+            if (!newSession.attendees) newSession.attendees = [];
+            db.sessions.push(newSession);
+            return newSession;
+          });
+
           res.writeHead(201, { 'Content-Type': 'application/json; charset=utf-8' });
-          res.end(JSON.stringify({ success: true, session: newSession }));
+          res.end(JSON.stringify({ success: true, session: result }));
         } catch (e) {
           res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' });
           res.end(JSON.stringify({ success: false, message: 'خطأ في إنشاء اللقاء' }));
@@ -243,7 +402,9 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // Static File Serving
+  // ==========================================
+  // STATIC FILE SERVING
+  // ==========================================
   let filePath = path.join(__dirname, pathname === '/' ? 'index.html' : pathname);
   const ext = path.extname(filePath).toLowerCase();
   const contentType = MIME_TYPES[ext] || 'application/octet-stream';
@@ -274,9 +435,10 @@ const server = http.createServer((req, res) => {
 
 server.listen(PORT, '0.0.0.0', () => {
   console.log(`==========================================================`);
-  console.log(` نظام حضور وغياب الشباب بالـ QR Code - كنيسة السيدة العذراء `);
-  console.log(` يعمل بنجاح على المنفذ: http://localhost:${PORT}`);
-  console.log(` للوصول من الموبايل أو أي جهاز على نفس شبكة الواي فاي:`);
-  console.log(` افتح: http://<IP_الكمبيوتر>:${PORT}`);
+  console.log(` ✝ اجتماع يوسف الصديق للشباب - كنيسة السيدة العذراء `);
+  console.log(` السيرفر الاحترافي يعمل بنجاح على المنفذ: http://localhost:${PORT}`);
+  console.log(` للوصول من الموبايل على شبكة الواي فاي: http://<IP_الكمبيوتر>:${PORT}`);
+  console.log(` نظام الحماية: الكتابة الذرية (Atomic Writes) والتسجيل المتزامن مفعل.`);
+  console.log(` نظام النسخ الاحتياطي التلقائي (Rolling Backups) مفعل.`);
   console.log(`==========================================================`);
 });
