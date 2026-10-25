@@ -1810,6 +1810,320 @@
       border-color: #e2e8f0;
     }
 
+  
+    /* ======================================================== */
+    /* GLITCH FIXES & PROFESSIONAL LAYOUT ORGANIZATION          */
+    /* ======================================================== */
+    header.app-header {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      padding: 0.85rem 1.75rem !important;
+      background: rgba(11, 17, 32, 0.95) !important;
+      border-bottom: 1px solid var(--border) !important;
+      backdrop-filter: blur(16px) !important;
+      -webkit-backdrop-filter: blur(16px) !important;
+      position: sticky !important;
+      top: 0 !important;
+      z-index: 100 !important;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3) !important;
+    }
+    body.light-theme header.app-header {
+      background: rgba(255, 255, 255, 0.96) !important;
+      border-bottom: 1px solid #e2e8f0 !important;
+      box-shadow: 0 1px 4px rgba(15, 23, 42, 0.06) !important;
+    }
+
+    .brand {
+      display: flex !important;
+      align-items: center !important;
+      gap: 0.85rem !important;
+    }
+    .brand img {
+      width: 40px !important;
+      height: 40px !important;
+      border-radius: 50% !important;
+      object-fit: cover !important;
+      border: 1px solid rgba(197, 155, 39, 0.4) !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25) !important;
+    }
+    .brand-title {
+      font-size: 1.1rem !important;
+      font-weight: 800 !important;
+      color: var(--text-main) !important;
+      letter-spacing: -0.01em !important;
+      line-height: 1.2 !important;
+    }
+    .brand-sub {
+      font-size: 0.72rem !important;
+      color: var(--text-muted) !important;
+      font-weight: 600 !important;
+    }
+
+    .header-actions {
+      display: flex !important;
+      align-items: center !important;
+      gap: 0.55rem !important;
+      flex-wrap: wrap !important;
+    }
+
+    /* Core Unified Buttons */
+    .btn {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 0.45rem !important;
+      padding: 0.5rem 0.95rem !important;
+      border-radius: var(--radius-md) !important;
+      font-family: inherit !important;
+      font-size: 0.85rem !important;
+      font-weight: 700 !important;
+      cursor: pointer !important;
+      border: 1px solid var(--border) !important;
+      background: var(--bg-card) !important;
+      color: var(--text-main) !important;
+      transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      text-decoration: none !important;
+      outline: none !important;
+      line-height: 1.2 !important;
+      user-select: none !important;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.15) !important;
+    }
+    .btn:hover {
+      background: var(--bg-card-hover) !important;
+      border-color: rgba(255, 255, 255, 0.22) !important;
+      transform: translateY(-1.5px) !important;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25) !important;
+    }
+    .btn:active {
+      transform: translateY(0) scale(0.97) !important;
+    }
+
+    .btn-gold {
+      background: var(--accent-gold-gradient) !important;
+      color: #0b1120 !important;
+      font-weight: 800 !important;
+      border: 1px solid rgba(197, 155, 39, 0.6) !important;
+      box-shadow: 0 2px 8px rgba(197, 155, 39, 0.25) !important;
+    }
+    .btn-gold:hover {
+      background: linear-gradient(180deg, #e5c158 0%, #c59b27 100%) !important;
+      color: #000000 !important;
+      box-shadow: 0 4px 14px rgba(197, 155, 39, 0.4) !important;
+      transform: translateY(-1.5px) !important;
+    }
+
+    .btn-secondary {
+      background: rgba(30, 41, 59, 0.7) !important;
+      border: 1px solid rgba(255, 255, 255, 0.14) !important;
+      color: #e2e8f0 !important;
+    }
+    .btn-secondary:hover {
+      background: rgba(51, 65, 85, 0.9) !important;
+      color: #ffffff !important;
+      border-color: rgba(255, 255, 255, 0.28) !important;
+    }
+
+    .btn-outline-danger {
+      background: rgba(239, 68, 68, 0.08) !important;
+      border: 1px solid rgba(239, 68, 68, 0.3) !important;
+      color: #f87171 !important;
+    }
+    .btn-outline-danger:hover {
+      background: rgba(239, 68, 68, 0.2) !important;
+      border-color: #ef4444 !important;
+      color: #ffffff !important;
+    }
+
+    .btn-sm {
+      padding: 0.38rem 0.75rem !important;
+      font-size: 0.8rem !important;
+      border-radius: var(--radius-sm) !important;
+    }
+
+    .btn-icon-only {
+      width: 36px !important;
+      height: 36px !important;
+      padding: 0 !important;
+      border-radius: var(--radius-md) !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+
+    /* Fixed High-Contrast Select Dropdowns (Fixes white-on-white glitch) */
+    .session-select-clean, .session-select {
+      background: #131d31 !important;
+      color: #f8fafc !important;
+      border: 1px solid var(--border) !important;
+      border-radius: var(--radius-md) !important;
+      padding: 0.45rem 1rem !important;
+      font-family: inherit !important;
+      font-size: 0.88rem !important;
+      font-weight: 700 !important;
+      outline: none !important;
+      cursor: pointer !important;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+      transition: all 0.15s ease !important;
+    }
+    .session-select-clean:focus, .session-select:focus {
+      border-color: var(--accent-gold) !important;
+      box-shadow: 0 0 0 2px rgba(197, 155, 39, 0.25) !important;
+    }
+    .session-select-clean option, .session-select option {
+      background: #0f172a !important;
+      color: #f8fafc !important;
+      padding: 0.5rem !important;
+    }
+    body.light-theme .session-select-clean, body.light-theme .session-select {
+      background: #ffffff !important;
+      color: #0f172a !important;
+      border-color: #cbd5e1 !important;
+    }
+    body.light-theme .session-select-clean option, body.light-theme .session-select option {
+      background: #ffffff !important;
+      color: #0f172a !important;
+    }
+
+    /* Attendance Meeting Bar */
+    .attendance-meeting-bar {
+      background: var(--bg-card) !important;
+      border: 1px solid var(--border) !important;
+      border-radius: var(--radius-lg) !important;
+      padding: 0.85rem 1.4rem !important;
+      margin-bottom: 1.25rem !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      flex-wrap: wrap !important;
+      gap: 1rem !important;
+      box-shadow: var(--shadow-sm) !important;
+    }
+
+    /* Navigation Tabs */
+    .nav-tabs {
+      display: flex !important;
+      align-items: center !important;
+      gap: 0.4rem !important;
+      padding: 0.45rem 1.75rem !important;
+      background: rgba(11, 17, 32, 0.9) !important;
+      border-bottom: 1px solid var(--border) !important;
+      backdrop-filter: blur(16px) !important;
+      -webkit-backdrop-filter: blur(16px) !important;
+      overflow-x: auto !important;
+      scrollbar-width: thin !important;
+      position: sticky !important;
+      top: 59px !important;
+      z-index: 90 !important;
+    }
+    .tab-btn {
+      padding: 0.65rem 1.15rem !important;
+      background: transparent !important;
+      border: 1px solid transparent !important;
+      border-radius: var(--radius-md) !important;
+      color: var(--text-muted) !important;
+      font-family: inherit !important;
+      font-size: 0.88rem !important;
+      font-weight: 700 !important;
+      cursor: pointer !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 0.5rem !important;
+      white-space: nowrap !important;
+      transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
+      user-select: none !important;
+    }
+    .tab-btn:hover {
+      color: var(--text-main) !important;
+      background: rgba(255, 255, 255, 0.05) !important;
+      transform: translateY(-1.5px) !important;
+    }
+    .tab-btn.active {
+      color: #ffffff !important;
+      background: #1e293b !important;
+      border-color: var(--accent-gold) !important;
+      font-weight: 800 !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25) !important;
+    }
+    body.light-theme .tab-btn.active {
+      background: #0f172a !important;
+      color: #ffffff !important;
+      border-color: #0f172a !important;
+    }
+
+    /* Camera Card & Controls Organization */
+    .camera-card {
+      background: var(--bg-card) !important;
+      border: 1px solid var(--border) !important;
+      border-radius: var(--radius-lg) !important;
+      padding: 1.5rem !important;
+      box-shadow: var(--shadow-sm) !important;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 1.15rem !important;
+    }
+    .camera-controls {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      flex-wrap: wrap !important;
+      gap: 0.85rem !important;
+      background: rgba(0, 0, 0, 0.15) !important;
+      padding: 0.75rem 1rem !important;
+      border-radius: var(--radius-md) !important;
+      border: 1px solid var(--border-subtle) !important;
+    }
+    .camera-controls-group {
+      display: flex !important;
+      align-items: center !important;
+      gap: 0.65rem !important;
+      flex-wrap: wrap !important;
+    }
+
+    /* Smooth Motion & Transitions */
+    .tab-pane {
+      display: none;
+    }
+    .tab-pane.active {
+      display: block;
+      animation: tabSlideUp 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes tabSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.99);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    /* Animated Spring Feedback Card on Scan */
+    .scan-feedback-card {
+      animation: feedbackSpring 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+    @keyframes feedbackSpring {
+      0% {
+        opacity: 0;
+        transform: scale(0.9) translateY(-10px);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    /* Interactive Bump on Attendees Counter */
+    .count-bump {
+      animation: countPulse 0.3s ease;
+    }
+    @keyframes countPulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.25); color: #34d399; }
+      100% { transform: scale(1); }
+    }
+  
   </style>
 </head>
 <body>
@@ -1817,14 +2131,14 @@
   <!-- Streamlined App Header (Zero Clutter & No Presentation) -->
   <header class="app-header">
     <div class="brand">
-      <img src="Logo.svg" alt="Egtma3 Youssef ElSedek" style="width:38px;height:38px;border-radius:50%;object-fit:cover;box-shadow:0 0 10px rgba(245,158,11,0.35);">
+      <img src="Logo.svg" alt="Egtma3 Youssef ElSedek">
       <div>
         <div class="brand-title">Egtma3 Youssef ElSedek</div>
-        <div style="font-size:0.7rem;color:var(--text-muted);font-weight:600;">كنيسة العذراء مريم بالقناطر الخيرية</div>
+        <div class="brand-sub">كنيسة السيدة العذراء مريم بالقناطر الخيرية</div>
       </div>
     </div>
 
-    <!-- Actions (Role Badge, Admin Settings, Logout, Sync Status, Theme) -->
+    <!-- Actions Bar -->
     <div class="header-actions">
       <!-- Active Role Badge -->
       <div id="roleBadgeContainer" class="role-badge-pill" style="display:none !important;" title="الحساب المسجل حالياً">
@@ -1832,34 +2146,35 @@
         <span id="currentRoleTitle">أمناء الاجتماع</span>
       </div>
 
-      <!-- Admin Permissions / Settings Button (Admin Only) -->
+      <!-- Admin Settings Button -->
       <button class="btn btn-gold btn-sm" id="adminSettingsBtn" title="إعدادات الحسابات وكلمات المرور" style="display:none;">
         ⚙️ الصلاحيات
+      </button>
+
+      <!-- Backup Button -->
+      <button type="button" class="btn btn-secondary btn-sm" id="backupModalBtn" onclick="openBackupModal()" title="النسخ الاحتياطي وحماية البيانات">
+        <span>💾</span> النسخ الاحتياطي
+      </button>
+
+      <!-- Live Sync Status -->
+      <div id="liveSyncStatusPill" title="حالة الاتصال ومزامنة الحضور" style="display:inline-flex;align-items:center;gap:0.4rem;font-size:0.75rem;padding:0.35rem 0.75rem;border-radius:var(--radius-full);background:rgba(16,185,129,0.12);color:var(--accent-emerald);border:1px solid rgba(16,185,129,0.25);font-weight:700;">
+        <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:currentColor;"></span>
+        <span id="liveSyncText">متصل بالسيرفر</span>
+      </div>
+
+      <!-- Sound FX Toggle Button -->
+      <button type="button" class="btn btn-icon-only btn-sm" id="soundToggleBtn" onclick="SoundFX.toggle()" title="المؤثرات الصوتية">
+        🔊
+      </button>
+
+      <!-- Theme Toggle Button -->
+      <button type="button" class="btn btn-icon-only btn-sm" id="themeToggleBtn" title="تبديل المظهر">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
       </button>
 
       <!-- Logout Button -->
       <button class="btn btn-outline-danger btn-sm" id="logoutBtn" title="تسجيل الخروج والتبديل لحساب آخر">
         🚪 خروج
-      </button>
-
-      <!-- Sync Status Badge -->
-      <span id="syncStatusBadge" class="session-badge-clean" style="display:none !important;" title="حالة الاتصال السحابي">
-        ● متصل سحابياً
-      </span>
-
-      <!-- Backup & Data Safety Button -->
-      <button type="button" class="btn btn-secondary btn-sm" id="backupModalBtn" onclick="openBackupModal()" title="النسخ الاحتياطي وحماية البيانات" style="font-size:0.8rem;padding:0.35rem 0.75rem;display:inline-flex;align-items:center;gap:0.35rem;">
-        <span>💾</span> النسخ الاحتياطي
-      </button>
-
-      <!-- Live Sync & Queue Status Pill -->
-      <div id="liveSyncStatusPill" title="حالة الاتصال ومزامنة الحضور" style="display:inline-flex;align-items:center;gap:0.4rem;font-size:0.75rem;padding:0.25rem 0.65rem;border-radius:var(--radius-full);background:rgba(16,185,129,0.12);color:var(--accent-emerald);border:1px solid rgba(16,185,129,0.25);font-weight:700;">
-        <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:currentColor;"></span>
-        <span id="liveSyncText">متصل بالسيرفر</span>
-      </div>
-
-      <button class="btn btn-icon-only btn-sm" id="themeToggleBtn" title="تبديل المظهر">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
       </button>
     </div>
   </header>
@@ -1911,7 +2226,7 @@
             <span>📅</span> لقاء تسجيل الحضور:
           </span>
           <div style="display:flex;align-items:center;gap:0.35rem;">
-            <select id="activeSessionSelect" class="session-select-clean" title="اختر اللقاء لتسجيل الحضور" style="font-size:0.9rem;padding:0.35rem 0.85rem;border:1px solid var(--border);border-radius:var(--radius-full);color:var(--text-main);font-weight:700;"></select>
+            <select id="activeSessionSelect" class="session-select-clean" title="اختر اللقاء لتسجيل الحضور"></select>
             <button class="btn btn-icon-only btn-sm" id="newSessionBtn" title="إضافة لقاء جديد" style="width:28px;height:28px;font-size:1rem;padding:0;border-radius:var(--radius-full);display:none;">+</button>
           </div>
         </div>
@@ -1942,23 +2257,29 @@
           <div id="reader"></div>
 
           <div class="camera-controls">
-            <div style="display:flex;gap:0.5rem;">
-              <button class="btn btn-gold" id="startScanBtn">▶ تشغيل الكاميرا</button>
-              <button class="btn btn-secondary" id="stopScanBtn" style="display:none;">⏹ إيقاف</button>
+            <div class="camera-controls-group">
+              <button class="btn btn-gold" id="startScanBtn" style="padding:0.55rem 1.25rem;font-size:0.9rem;">
+                ▶ تشغيل الكاميرا
+              </button>
+              <button class="btn btn-secondary" id="stopScanBtn" style="display:none;padding:0.55rem 1.25rem;font-size:0.9rem;">
+                ⏹ إيقاف الكاميرا
+              </button>
 
-              <!-- Native Mobile Camera & Photo Scanner Input (Works 100% on HTTP on all phones) -->
-              <label class="btn btn-secondary" style="font-size:0.85rem;padding:0.45rem 0.85rem;cursor:pointer;display:inline-flex;align-items:center;gap:0.4rem;border:1px solid var(--border);" title="التقط صورة بكاميرا الموبايل العادية أو اختر صورة من المعرض">
+              <!-- Native Mobile Camera & Photo Scanner Input -->
+              <label class="btn btn-secondary" style="font-size:0.85rem;padding:0.52rem 1rem;cursor:pointer;display:inline-flex;align-items:center;gap:0.4rem;" title="التقط صورة بكاميرا الموبايل العادية أو اختر صورة من المعرض">
                 📷 مسح من صورة / كاميرا الموبايل
                 <input type="file" id="qrPhotoInput" accept="image/*" capture="environment" style="display:none;">
               </label>
-              <button class="btn" id="stopScanBtn" style="display:none;">⏹ إيقاف</button>
             </div>
-            <div style="display:flex;align-items:center;gap:0.5rem;">
-              <select id="cameraSelect" class="session-select" style="max-width:200px;font-size:0.8rem;"></select>
+
+            <div class="camera-controls-group">
+              <label for="cameraSelect" style="font-size:0.82rem;color:var(--text-muted);font-weight:700;">الكاميرا:</label>
+              <select id="cameraSelect" class="session-select" style="min-width:180px;font-size:0.82rem;padding:0.4rem 0.75rem;"></select>
             </div>
           </div>
+        </div>
 
-          <p style="font-size:0.82rem;color:var(--text-muted);margin-top:0.3rem;">
+        <p style="font-size:0.82rem;color:var(--text-muted);margin-top:0.3rem;">
             💡 <strong>تلميح:</strong> وجه كاميرا الموبايل أو اللابتوب نحو كود الـ QR الخاص بالشاب، وسيتم تسجيل الحضور ونطق اسمه وتأكيده فورياً.
           </p>
         </div>
@@ -7600,6 +7921,12 @@
       const msgEl = document.getElementById('feedbackMsg');
 
       feedbackCard.style.display = 'block';
+      const countEl = document.getElementById('sessionAttendeeCount');
+      if (countEl) {
+        countEl.classList.remove('count-bump');
+        void countEl.offsetWidth; // trigger reflow
+        countEl.classList.add('count-bump');
+      }
 
       if (!member) {
         playBeepWarning();
@@ -9701,6 +10028,157 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
     // ========================================================
     // BACKUP & RESTORE CLIENT LOGIC
     // ========================================================
+    
+    // ========================================================
+    // RICH WEB AUDIO FX & HAPTIC MOTION ENGINE
+    // ========================================================
+    const SoundFX = {
+      enabled: localStorage.getItem('egtma3_sound_enabled') !== 'false',
+      ctx: null,
+
+      init() {
+        if (!this.ctx && typeof AudioContext !== 'undefined') {
+          this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (this.ctx && this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+      },
+
+      toggle() {
+        this.enabled = !this.enabled;
+        localStorage.setItem('egtma3_sound_enabled', this.enabled ? 'true' : 'false');
+        this.updateToggleUI();
+        if (this.enabled) this.scanSuccess();
+        return this.enabled;
+      },
+
+      updateToggleUI() {
+        const btn = document.getElementById('soundToggleBtn');
+        if (btn) {
+          btn.innerHTML = this.enabled ? '🔊' : '🔇';
+          btn.title = this.enabled ? 'الأصوات مفعلة (اضغط للكتم)' : 'الأصوات مكتومة (اضغط للتفعيل)';
+          btn.style.opacity = this.enabled ? '1' : '0.6';
+        }
+      },
+
+      // 1. Success Chime: Marimba Chord Triad (D5 -> F#5 -> A5)
+      scanSuccess() {
+        if (!this.enabled) return;
+        try {
+          this.init();
+          const now = this.ctx.currentTime;
+          const freqs = [587.33, 739.99, 880];
+          freqs.forEach((freq, idx) => {
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, now + idx * 0.05);
+            gain.gain.setValueAtTime(0.14, now + idx * 0.05);
+            gain.gain.exponentialRampToValueAtTime(0.0001, now + idx * 0.05 + 0.32);
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            osc.start(now + idx * 0.05);
+            osc.stop(now + idx * 0.05 + 0.32);
+          });
+        } catch (e) {}
+      },
+
+      // 2. Warning Tone: Already recorded dual-tone
+      scanWarning() {
+        if (!this.enabled) return;
+        try {
+          this.init();
+          const now = this.ctx.currentTime;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(392.00, now);
+          osc.frequency.setValueAtTime(329.63, now + 0.1);
+          gain.gain.setValueAtTime(0.12, now);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.3);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.3);
+        } catch (e) {}
+      },
+
+      // 3. Error Tone: Unknown QR Code
+      scanError() {
+        if (!this.enabled) return;
+        try {
+          this.init();
+          const now = this.ctx.currentTime;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(220, now);
+          gain.gain.setValueAtTime(0.09, now);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.28);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.28);
+        } catch (e) {}
+      },
+
+      // 4. Subtle Tactile Micro-Click (for tabs & buttons)
+      click() {
+        if (!this.enabled) return;
+        try {
+          this.init();
+          const now = this.ctx.currentTime;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(1400, now);
+          osc.frequency.exponentialRampToValueAtTime(400, now + 0.03);
+          gain.gain.setValueAtTime(0.035, now);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.03);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.03);
+        } catch (e) {}
+      },
+
+      // 5. Celebration Victory Arpeggio (Podium & Birthdays)
+      celebrate() {
+        if (!this.enabled) return;
+        try {
+          this.init();
+          const now = this.ctx.currentTime;
+          const notes = [523.25, 659.25, 783.99, 1046.50];
+          notes.forEach((freq, idx) => {
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(freq, now + idx * 0.07);
+            gain.gain.setValueAtTime(0.18, now + idx * 0.07);
+            gain.gain.exponentialRampToValueAtTime(0.0001, now + idx * 0.07 + 0.4);
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            osc.start(now + idx * 0.07);
+            osc.stop(now + idx * 0.07 + 0.4);
+          });
+        } catch (e) {}
+      }
+    };
+
+    function playBeepSuccess() { SoundFX.scanSuccess(); }
+    function playBeepWarning() { SoundFX.scanWarning(); }
+
+    // Attach click sound to tabs and key buttons
+    document.addEventListener('click', function(e) {
+      if (e.target.closest('.tab-btn') || e.target.closest('.btn') || e.target.closest('.pill-btn')) {
+        SoundFX.click();
+      }
+    });
+
+    SoundFX.updateToggleUI();
+  
+
     function openBackupModal() {
       const modal = document.getElementById('backupModal');
       if (modal) {
