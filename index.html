@@ -1103,6 +1103,23 @@
 
     /* Servant RBAC & Authentication */
     .role-badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: var(--radius-full);
+      background: rgba(245, 158, 11, 0.12);
+      color: var(--accent-gold);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      font-size: 0.82rem;
+      font-weight: 800;
+      white-space: nowrap;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+      transition: all 0.2s ease;
+    }
+
+    .role-restricted,
+    .hidden-by-role {
       display: none !important;
     }
 
@@ -1869,7 +1886,7 @@
 
     /* Core Unified Buttons */
     .btn {
-      display: inline-flex !important;
+      display: inline-flex;
       align-items: center !important;
       justify-content: center !important;
       gap: 0.45rem !important;
@@ -2026,12 +2043,15 @@
       font-size: 0.88rem !important;
       font-weight: 700 !important;
       cursor: pointer !important;
-      display: inline-flex !important;
+      display: inline-flex;
       align-items: center !important;
       gap: 0.5rem !important;
       white-space: nowrap !important;
       transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
       user-select: none !important;
+    }
+    .tab-btn.role-restricted {
+      display: none !important;
     }
     .tab-btn:hover {
       color: var(--text-main) !important;
@@ -2141,7 +2161,7 @@
     <!-- Actions Bar -->
     <div class="header-actions">
       <!-- Active Role Badge -->
-      <div id="roleBadgeContainer" class="role-badge-pill" style="display:none !important;" title="الحساب المسجل حالياً">
+      <div id="roleBadgeContainer" class="role-badge-pill" style="display:none;" title="الحساب المسجل حالياً">
         <span id="currentRoleIcon">👑</span>
         <span id="currentRoleTitle">أمناء الاجتماع</span>
       </div>
@@ -2895,6 +2915,27 @@
         <button type="submit" id="submitLoginBtn" class="login-submit-btn">
           تسجيل الدخول إلى المنظومة
         </button>
+
+        <!-- Quick Role Helper / Credentials Guide -->
+        <div style="margin-top:1.25rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,0.08);text-align:center;">
+          <div style="font-size:0.75rem;color:var(--text-muted);font-weight:700;margin-bottom:0.6rem;">
+            🔑 الدخول السريع بحسابات الخدمة المصرحة (اضغط للتعبئة الفورية):
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.45rem;">
+            <button type="button" class="btn btn-sm btn-secondary" onclick="quickFillLogin('admin')" style="font-size:0.75rem;padding:0.45rem 0.6rem;justify-content:flex-start;width:100%;" title="صلاحيات كاملة لكل تابات المنظومة">
+              👑 أمناء الاجتماع
+            </button>
+            <button type="button" class="btn btn-sm btn-secondary" onclick="quickFillLogin('secretariat')" style="font-size:0.75rem;padding:0.45rem 0.6rem;justify-content:flex-start;width:100%;" title="تسجيل الحضور والغياب فقط">
+              📋 السكرتارية
+            </button>
+            <button type="button" class="btn btn-sm btn-secondary" onclick="quickFillLogin('visitation')" style="font-size:0.75rem;padding:0.45rem 0.6rem;justify-content:flex-start;width:100%;" title="متابعة الغياب وأعياد الميلاد">
+              📞 لجنة الافتقاد
+            </button>
+            <button type="button" class="btn btn-sm btn-secondary" onclick="quickFillLogin('schedule')" style="font-size:0.75rem;padding:0.45rem 0.6rem;justify-content:flex-start;width:100%;" title="عرض جدول اللقاءات المعتمد">
+              📅 خدام اللقاءات
+            </button>
+          </div>
+        </div>
       </form>
     </div>
   </div>
@@ -8437,12 +8478,20 @@
 
     // Tab Navigation
     document.querySelectorAll('.tab-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
+      btn.addEventListener('click', (e) => {
+        const target = btn.getAttribute('data-tab');
+        const role = (currentServantRole && ROLES[currentServantRole]) ? ROLES[currentServantRole] : ROLES.admin;
+        if (!role.allowedTabs.includes(target)) {
+          e.preventDefault();
+          e.stopPropagation();
+          alert(`⛔ عذراً، قسم "${btn.textContent.trim()}" غير متاح لصلاحيات ${role.badgeName}.`);
+          return;
+        }
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
         btn.classList.add('active');
-        const target = btn.getAttribute('data-tab');
-        document.getElementById(target).classList.add('active');
+        const targetPane = document.getElementById(target);
+        if (targetPane) targetPane.classList.add('active');
       });
     });
 
@@ -8588,12 +8637,22 @@
 
     // Add Member Modal Handlers
     const memberModal = document.getElementById('memberModal');
-    document.getElementById('openAddMemberModalBtn').addEventListener('click', () => memberModal.classList.add('open'));
+    document.getElementById('openAddMemberModalBtn').addEventListener('click', () => {
+      if (currentServantRole !== 'admin') {
+        alert("⛔ إضافة الشباب والأعضاء مقتصرة على أمناء الاجتماع.");
+        return;
+      }
+      memberModal.classList.add('open');
+    });
     document.getElementById('closeMemberModalBtn').addEventListener('click', () => memberModal.classList.remove('open'));
     document.getElementById('cancelMemberBtn').addEventListener('click', () => memberModal.classList.remove('open'));
 
     document.getElementById('memberForm').addEventListener('submit', (e) => {
       e.preventDefault();
+      if (currentServantRole !== 'admin') {
+        alert("⛔ إضافة الشباب والأعضاء مقتصرة على أمناء الاجتماع.");
+        return;
+      }
       const name = document.getElementById('mName').value.trim();
       const family = document.getElementById('mFamily').value;
       const phone = document.getElementById('mPhone').value.trim();
@@ -8628,13 +8687,29 @@
 
     // Add Session Modal Handlers
     const sessionModal = document.getElementById('sessionModal');
-    document.getElementById('newSessionBtn').addEventListener('click', () => sessionModal.classList.add('open'));
-    document.getElementById('addNewSessionModalBtn').addEventListener('click', () => sessionModal.classList.add('open'));
+    document.getElementById('newSessionBtn').addEventListener('click', () => {
+      if (currentServantRole !== 'admin') {
+        alert("⛔ إنشاء اللقاءات مقتصر على أمناء الاجتماع.");
+        return;
+      }
+      sessionModal.classList.add('open');
+    });
+    document.getElementById('addNewSessionModalBtn').addEventListener('click', () => {
+      if (currentServantRole !== 'admin') {
+        alert("⛔ إنشاء اللقاءات مقتصر على أمناء الاجتماع.");
+        return;
+      }
+      sessionModal.classList.add('open');
+    });
     document.getElementById('closeSessionModalBtn').addEventListener('click', () => sessionModal.classList.remove('open'));
     document.getElementById('cancelSessionBtn').addEventListener('click', () => sessionModal.classList.remove('open'));
 
     document.getElementById('sessionForm').addEventListener('submit', (e) => {
       e.preventDefault();
+      if (currentServantRole !== 'admin') {
+        alert("⛔ إنشاء اللقاءات مقتصر على أمناء الاجتماع.");
+        return;
+      }
       const date = document.getElementById('sDate').value;
       const title = document.getElementById('sTitle').value.trim();
       const family = document.getElementById('sFamily').value;
@@ -8667,45 +8742,72 @@
     // ==============================================
     // SERVANT RBAC & AUTHENTICATION LOGIC
     // ==============================================
+    function quickFillLogin(roleKey) {
+      const accs = (authSettings && authSettings.accounts) || DEFAULT_AUTH_SETTINGS.accounts;
+      const acc = accs[roleKey];
+      if (!acc) return;
+      const userInput = document.getElementById('loginUsernameInput');
+      const passInput = document.getElementById('loginPasswordInput');
+      if (userInput) userInput.value = acc.username;
+      if (passInput) passInput.value = acc.password;
+      const errMsg = document.getElementById('loginErrorMessage');
+      if (errMsg) errMsg.style.display = 'none';
+      if (passInput) passInput.focus();
+    }
+
     function applyRolePermissions(roleId) {
       const role = ROLES[roleId] || ROLES.admin;
       currentServantRole = role.id;
+      const isAdmin = (role.id === 'admin');
 
-      // Role badge in header
+      // 1. Role Badge in Header
       const badgeContainer = document.getElementById('roleBadgeContainer');
       const roleIcon = document.getElementById('currentRoleIcon');
       const roleTitle = document.getElementById('currentRoleTitle');
-      const adminBtn = document.getElementById('adminSettingsBtn');
-      const newSessBtn = document.getElementById('newSessionBtn');
-      const addSessModalBtn = document.getElementById('addNewSessionModalBtn');
-      const addMemberBtn = document.getElementById('openAddMemberModalBtn');
-
       if (roleIcon) roleIcon.textContent = role.icon;
       if (roleTitle) roleTitle.textContent = role.badgeName;
       if (badgeContainer) {
-        badgeContainer.title = `الحساب الحالي: ${role.name}`;
+        badgeContainer.style.setProperty('display', 'inline-flex', 'important');
+        badgeContainer.title = `الحساب المسجل: ${role.name}`;
         badgeContainer.style.borderColor = role.color;
         badgeContainer.style.color = role.color;
+        badgeContainer.style.backgroundColor = role.color + '22';
       }
 
-      // Admin only controls
-      const isAdmin = (role.id === 'admin');
-      if (adminBtn) adminBtn.style.display = isAdmin ? 'inline-flex' : 'none';
-      if (newSessBtn) newSessBtn.style.display = isAdmin ? 'inline-flex' : 'none';
-      if (addSessModalBtn) addSessModalBtn.style.display = isAdmin ? 'inline-flex' : 'none';
-      if (addMemberBtn) addMemberBtn.style.display = isAdmin ? 'inline-flex' : 'none';
+      // 2. Admin Only Buttons and Controls
+      const adminElements = [
+        document.getElementById('adminSettingsBtn'),
+        document.getElementById('backupModalBtn'),
+        document.getElementById('newSessionBtn'),
+        document.getElementById('addNewSessionModalBtn'),
+        document.getElementById('openAddMemberModalBtn'),
+        document.getElementById('btnScoreFamilyModal')
+      ];
 
-      // Navigation Tabs visibility
-      document.querySelectorAll('.tab-btn').forEach(btn => {
-        const tabName = btn.getAttribute('data-tab');
-        if (role.allowedTabs.includes(tabName)) {
-          btn.style.display = 'inline-flex';
+      adminElements.forEach(el => {
+        if (!el) return;
+        if (isAdmin) {
+          el.classList.remove('role-restricted');
+          el.style.setProperty('display', 'inline-flex', 'important');
         } else {
-          btn.style.display = 'none';
+          el.classList.add('role-restricted');
+          el.style.setProperty('display', 'none', 'important');
         }
       });
 
-      // Switch to default allowed tab if current active tab is not allowed
+      // 3. Navigation Tabs Visibility
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        const tabName = btn.getAttribute('data-tab');
+        if (role.allowedTabs.includes(tabName)) {
+          btn.classList.remove('role-restricted');
+          btn.style.setProperty('display', 'inline-flex', 'important');
+        } else {
+          btn.classList.add('role-restricted');
+          btn.style.setProperty('display', 'none', 'important');
+        }
+      });
+
+      // 4. Switch to default allowed tab if current active tab is not allowed
       const currentActiveBtn = document.querySelector('.tab-btn.active');
       const currentTab = currentActiveBtn ? currentActiveBtn.getAttribute('data-tab') : null;
       if (!currentTab || !role.allowedTabs.includes(currentTab)) {
@@ -8731,9 +8833,23 @@
     }
 
     function initAuth() {
-      // 1. Load auth settings from localStorage if present
+      // 1. Fetch auth settings from local server if active
+      fetch('/api/auth-settings')
+        .then(res => res.json())
+        .then(serverData => {
+          if (serverData && serverData.accounts) {
+            authSettings = Object.assign({}, DEFAULT_AUTH_SETTINGS, serverData);
+            try {
+              localStorage.setItem('st_youssef_auth_settings_v2', JSON.stringify(authSettings));
+              localStorage.setItem('st_youssef_auth_settings', JSON.stringify(authSettings));
+            } catch(e) {}
+            if (currentServantRole) applyRolePermissions(currentServantRole);
+          }
+        }).catch(() => {});
+
+      // 2. Load auth settings from localStorage if present
       try {
-        const savedSettings = localStorage.getItem('st_youssef_auth_settings_v2');
+        const savedSettings = localStorage.getItem('st_youssef_auth_settings_v2') || localStorage.getItem('st_youssef_auth_settings');
         if (savedSettings) {
           const parsed = JSON.parse(savedSettings);
           if (parsed.accounts) {
@@ -8742,7 +8858,7 @@
         }
       } catch (e) {}
 
-      // 2. Password visibility toggle
+      // 3. Password visibility toggle
       const toggleBtn = document.getElementById('toggleLoginPasswordBtn');
       const passInput = document.getElementById('loginPasswordInput');
       const eyeSvg = document.getElementById('eyeIconSvg');
@@ -8933,6 +9049,7 @@
         scheduleVisibleLimit: document.getElementById('cfgScheduleVisibleLimit').value
       };
 
+      localStorage.setItem('st_youssef_auth_settings_v2', JSON.stringify(authSettings));
       localStorage.setItem('st_youssef_auth_settings', JSON.stringify(authSettings));
 
       if (isFirebaseReady && db) {
@@ -8940,6 +9057,13 @@
           console.warn("Firestore auth settings save fallback:", err);
         });
       }
+
+      // Sync with local server
+      fetch('/api/auth-settings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(authSettings)
+      }).catch(() => {});
 
       const modal = document.getElementById('adminSettingsModal');
       if (modal) modal.classList.remove('open');
@@ -9811,6 +9935,10 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
       const scoreModal = document.getElementById('familyScoreModal');
       if (openScoreBtn && scoreModal) {
         openScoreBtn.addEventListener('click', () => {
+          if (currentServantRole !== 'admin') {
+            alert("⛔ رصد تقييم درجات الأسر مقتصر على أمناء الاجتماع.");
+            return;
+          }
           const famVal = targetFamSelect ? targetFamSelect.value : 'أسرة 1';
           populateScoreModal(famVal);
           scoreModal.classList.add('open');
@@ -10180,6 +10308,10 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
   
 
     function openBackupModal() {
+      if (currentServantRole !== 'admin') {
+        alert("⛔ عذراً، إدارة النسخ الاحتياطي متاحة لأمناء الاجتماع (الأدمن) فقط.");
+        return;
+      }
       const modal = document.getElementById('backupModal');
       if (modal) {
         modal.style.display = 'flex';

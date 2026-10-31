@@ -201,6 +201,35 @@ const server = http.createServer((req, res) => {
       return;
     }
 
+    // GET /api/auth-settings - Get synchronized RBAC settings & passwords
+    if (pathname === '/api/auth-settings' && req.method === 'GET') {
+      const db = getDB();
+      res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+      res.end(JSON.stringify(db.authSettings || null));
+      return;
+    }
+
+    // POST /api/auth-settings - Update synchronized RBAC settings & passwords
+    if (pathname === '/api/auth-settings' && req.method === 'POST') {
+      let body = '';
+      req.on('data', chunk => body += chunk);
+      req.on('end', async () => {
+        try {
+          const settings = JSON.parse(body);
+          await queueDBWrite(db => {
+            db.authSettings = settings;
+            return true;
+          });
+          res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+          res.end(JSON.stringify({ success: true }));
+        } catch (e) {
+          res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' });
+          res.end(JSON.stringify({ success: false, message: e.message }));
+        }
+      });
+      return;
+    }
+
     // GET /api/backup - Download complete timestamped JSON backup
     if (pathname === '/api/backup' && req.method === 'GET') {
       const db = getDB();
