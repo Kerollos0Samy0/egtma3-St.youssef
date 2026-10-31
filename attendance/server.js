@@ -459,6 +459,149 @@ const server = http.createServer((req, res) => {
       return;
     }
 
+    // POST /api/points/add (Add or deduct points for a member)
+    if (pathname === '/api/points/add' && req.method === 'POST') {
+      let body = '';
+      req.on('data', chunk => body += chunk);
+      req.on('end', async () => {
+        try {
+          const data = JSON.parse(body);
+          if (!data.memberId || typeof data.points !== 'number') {
+            res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' });
+            res.end(JSON.stringify({ success: false, message: 'بيانات النقاط غير مكتملة' }));
+            return;
+          }
+
+          const result = await queueDBWrite(db => {
+            if (!db.pointsLog) db.pointsLog = [];
+            const member = (db.members || []).find(m => m.id === data.memberId);
+            const memberName = member ? member.name : (data.memberName || 'عضو');
+
+            const transaction = {
+              id: 'PT-' + Date.now() + '-' + Math.floor(Math.random() * 1000),
+              memberId: data.memberId,
+              memberName: memberName,
+              points: data.points,
+              category: data.category || 'custom',
+              reason: data.reason || 'نقاط تشجيعية',
+              servant: data.servant || 'أمناء الاجتماع',
+              date: data.date || new Date().toISOString().split('T')[0],
+              time: data.time || new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' }),
+              timestamp: Date.now()
+            };
+
+            db.pointsLog.unshift(transaction);
+            if (member) {
+              member.points = (Number(member.points) || 0) + data.points;
+            }
+            return { transaction, totalPoints: member ? member.points : 0 };
+          });
+
+          res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+          res.end(JSON.stringify({ success: true, ...result }));
+        } catch (e) {
+          res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' });
+          res.end(JSON.stringify({ success: false, message: 'خطأ في إضافة النقاط: ' + e.message }));
+        }
+      });
+      return;
+    }
+
+    // POST /api/points/batch (Add points to multiple members at once)
+    if (pathname === '/api/points/batch' && req.method === 'POST') {
+      let body = '';
+      req.on('data', chunk => body += chunk);
+      req.on('end', async () => {
+        try {
+          const data = JSON.parse(body);
+          if (!Array.isArray(data.memberIds) || typeof data.points !== 'number') {
+            res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' });
+            res.end(JSON.stringify({ success: false, message: 'بيانات النقاط الجماعية غير مكتملة' }));
+            return;
+          }
+
+          const result = await queueDBWrite(db => {
+            if (!db.pointsLog) db.pointsLog = [];
+            const now = Date.now();
+            const dateStr = data.date || new Date().toISOString().split('T')[0];
+            const timeStr = data.time || new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' });
+            let count = 0;
+
+            data.memberIds.forEach((mId, idx) => {
+              const member = (db.members || []).find(m => m.id === mId);
+              const memberName = member ? member.name : 'عضو';
+              const transaction = {
+                id: `PT-${now}-${idx}-${Math.floor(Math.random() * 1000)}`,
+                memberId: mId,
+                memberName: memberName,
+                points: data.points,
+                category: data.category || 'batch',
+                reason: data.reason || 'نقاط جماعية',
+                servant: data.servant || 'أمناء الاجتماع',
+                date: dateStr,
+                time: timeStr,
+                timestamp: now
+              };
+              db.pointsLog.unshift(transaction);
+              if (member) {
+                member.points = (Number(member.points) || 0) + data.points;
+              }
+              count++;
+            });
+            return { updatedCount: count };
+          });
+
+          res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+          res.end(JSON.stringify({ success: true, ...result }));
+        } catch (e) {
+          res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' });
+          res.end(JSON.stringify({ success: false, message: 'خطأ في إضافة النقاط الجماعية' }));
+        }
+      });
+      return;
+    }
+
+    // POST /api/points/delete (Undo a point transaction)
+    if (pathname === '/api/points/delete' && req.method === 'POST') {
+      let body = '';
+      req.on('data', chunk => body += chunk);
+      req.on('end', async () => {
+        try {
+          const data = JSON.parse(body);
+          if (!data.transactionId) {
+            res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' });
+            res.end(JSON.stringify({ success: false, message: 'معرف العملية مطلوب' }));
+            return;
+          }
+
+          const result = await queueDBWrite(db => {
+            if (!db.pointsLog) db.pointsLog = [];
+            const idx = db.pointsLog.findIndex(p => p.id === data.transactionId);
+            if (idx === -1) return { notFound: true };
+
+            const removed = db.pointsLog.splice(idx, 1)[0];
+            const member = (db.members || []).find(m => m.id === removed.memberId);
+            if (member) {
+              member.points = (Number(member.points) || 0) - removed.points;
+            }
+            return { removed, totalPoints: member ? member.points : 0 };
+          });
+
+          if (result.notFound) {
+            res.writeHead(404, { 'Content-Type': 'application/json; charset=utf-8' });
+            res.end(JSON.stringify({ success: false, message: 'العملية غير موجودة' }));
+          } else {
+            res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+            res.end(JSON.stringify({ success: true, ...result }));
+          }
+        } catch (e) {
+          res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' });
+          res.end(JSON.stringify({ success: false, message: 'خطأ في حذف النقطة' }));
+        }
+      });
+      return;
+    }
+
     // Fallback 404 for unknown api
     res.writeHead(404, { 'Content-Type': 'application/json; charset=utf-8' });
     res.end(JSON.stringify({ error: 'Endpoint not found' }));

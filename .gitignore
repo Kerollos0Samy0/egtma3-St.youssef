@@ -1,5 +1,6 @@
 node_modules/
 attendance/node_modules/
+whatsapp_session/
 *.log
 .DS_Store
 Thumbs.db

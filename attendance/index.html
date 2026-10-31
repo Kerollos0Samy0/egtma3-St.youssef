@@ -2145,6 +2145,112 @@
       100% { transform: scale(1); }
     }
   
+  
+    /* ============================================== */
+    /* POINTS & LEADERBOARD SYSTEM STYLES            */
+    /* ============================================== */
+    .points-podium-container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 1.15rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .podium-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem 1rem;
+      text-align: center;
+      position: relative;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      flex: 1;
+      min-width: 210px;
+      max-width: 280px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .podium-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+    .podium-card.rank-1 {
+      order: 2;
+      border: 2px solid #f59e0b;
+      background: linear-gradient(180deg, rgba(245, 158, 11, 0.14) 0%, var(--bg-card) 65%);
+      box-shadow: 0 0 25px rgba(245, 158, 11, 0.22);
+      padding-top: 1.7rem;
+      padding-bottom: 1.7rem;
+    }
+    .podium-card.rank-2 {
+      order: 1;
+      border: 1px solid #94a3b8;
+      background: linear-gradient(180deg, rgba(148, 163, 184, 0.1) 0%, var(--bg-card) 65%);
+    }
+    .podium-card.rank-3 {
+      order: 3;
+      border: 1px solid #d97706;
+      background: linear-gradient(180deg, rgba(217, 119, 6, 0.1) 0%, var(--bg-card) 65%);
+    }
+    @media (max-width: 768px) {
+      .podium-card.rank-1 { order: 1; }
+      .podium-card.rank-2 { order: 2; }
+      .podium-card.rank-3 { order: 3; }
+    }
+    .podium-medal {
+      font-size: 2.2rem;
+      margin-bottom: 0.35rem;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
+    }
+    .podium-rank-badge {
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 0.2rem 0.65rem;
+      border-radius: var(--radius-full);
+      margin-bottom: 0.45rem;
+    }
+    .podium-name {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 0.2rem;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .podium-points {
+      font-size: 1.55rem;
+      font-weight: 900;
+      color: var(--accent-gold);
+      margin: 0.4rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .rank-tier-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 0.2rem 0.6rem;
+      border-radius: var(--radius-full);
+    }
+    .points-badge-lg {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.95rem;
+      font-weight: 900;
+      color: var(--accent-gold);
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-full);
+    }
   </style>
 </head>
 <body>
@@ -2216,6 +2322,10 @@
     <button class="tab-btn" data-tab="tabBirthdays" id="tabBtnBirthdays">
       🎂 أعياد الميلاد
       <span class="tab-count" id="birthdaysTabCountPill" style="background:rgba(236,72,153,0.22);color:#f472b6;font-weight:800;">0</span>
+    </button>
+        <button class="tab-btn" data-tab="tabPoints" id="tabBtnPoints">
+      ⭐ نقاط الشباب والأوائل
+      <span class="tab-count" id="pointsTabCountPill" style="background:rgba(245,158,11,0.22);color:#fbbf24;font-weight:800;">157</span>
     </button>
     <button class="tab-btn" data-tab="tabFamilyScores" id="tabBtnFamilyScores">
       🏆 تقييم الأسر
@@ -2318,7 +2428,26 @@
                 <div id="feedbackTime" style="font-size:0.82rem;color:var(--text-muted);">تم التسجيل: 00:00 م</div>
               </div>
             </div>
-            <div id="feedbackMsg" style="font-size:0.95rem;font-weight:700;"></div>
+                        <div id="feedbackMsg" style="font-size:0.95rem;font-weight:700;"></div>
+
+            <!-- Points Info & Quick Bonus Pills -->
+            <div id="feedbackPointsRow" style="display:none;margin-top:0.75rem;padding:0.6rem 0.85rem;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);border-radius:var(--radius-md);">
+              <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.4rem;margin-bottom:0.45rem;">
+                <div style="font-size:0.85rem;font-weight:800;color:var(--accent-gold);display:flex;align-items:center;gap:0.35rem;">
+                  <span>⭐</span> نقاط اليوم: <span id="feedbackTodayPts" style="color:#10b981;">+10 نقطة</span>
+                  <span style="color:var(--text-muted);font-weight:400;margin:0 0.25rem;">|</span>
+                  الإجمالي: <span id="feedbackTotalPts" style="color:#fff;font-weight:900;">0</span> نقطة
+                  (<span id="feedbackRankBadge" style="font-weight:800;">🌱 مبتدئ</span>)
+                </div>
+              </div>
+              <div style="display:flex;gap:0.35rem;align-items:center;flex-wrap:wrap;">
+                <span style="font-size:0.75rem;color:var(--text-muted);font-weight:700;">بونص سريع:</span>
+                <button type="button" class="btn btn-xs" id="quickBonusMassBtn" onclick="quickAddBonusFromScanner(10, 'mass', 'حضور القداس الإلهي')" style="background:rgba(56,189,248,0.15);color:#38bdf8;border:1px solid rgba(56,189,248,0.3);font-size:0.75rem;padding:0.2rem 0.5rem;" title="حضور القداس الإلهي">+10 قداس ⛪</button>
+                <button type="button" class="btn btn-xs" id="quickBonusEarlyBtn" onclick="quickAddBonusFromScanner(5, 'early', 'حضور مبكر')" style="background:rgba(16,185,129,0.15);color:#34d399;border:1px solid rgba(16,185,129,0.3);font-size:0.75rem;padding:0.2rem 0.5rem;" title="حضور مبكر قبل الميعاد">+5 مبكر ⏰</button>
+                <button type="button" class="btn btn-xs" id="quickBonusBibleBtn" onclick="quickAddBonusFromScanner(5, 'bible', 'إحضار إنجيل/أجبية')" style="background:rgba(245,158,11,0.15);color:#fbbf24;border:1px solid rgba(245,158,11,0.3);font-size:0.75rem;padding:0.2rem 0.5rem;" title="إحضار الكتاب المقدس / الأجبية">+5 إنجيل 📖</button>
+                <button type="button" class="btn btn-xs" id="quickBonusQuizBtn" onclick="quickAddBonusFromScanner(15, 'quiz', 'مسابقة الاجتماع')" style="background:rgba(236,72,153,0.15);color:#f472b6;border:1px solid rgba(236,72,153,0.3);font-size:0.75rem;padding:0.2rem 0.5rem;" title="إجابة سؤال أو فوز في المسابقة">+15 مسابقة 🎯</button>
+              </div>
+            </div>
           </div>
 
           <!-- Realtime Session Attendees List -->
@@ -2596,6 +2725,184 @@
       <!-- Birthday Cards Grid -->
       <div class="birthday-cards-grid" id="birthdayCardsGrid">
         <!-- Rendered dynamically by JS -->
+      </div>
+    </div>
+
+        <!-- ============================================== -->
+    <!-- TAB: YOUTH POINTS & LEADERBOARD (نظام النقاط) -->
+    <!-- ============================================== -->
+    <div class="tab-pane" id="tabPoints">
+      <!-- Header -->
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.15rem;flex-wrap:wrap;gap:0.85rem;">
+        <div>
+          <h2 style="font-size:1.35rem;font-weight:800;color:var(--accent-gold);display:flex;align-items:center;gap:0.5rem;margin:0;">
+            <span>⭐</span> نظام النقاط ولوحة الأوائل (شباب يوسف الصديق)
+          </h2>
+          <p style="font-size:0.85rem;color:var(--text-muted);margin-top:0.25rem;">
+            متابعة نقاط الحضور والقداسات والمسابقات، تكريم الأوائل، ورصد الألقاب التشجيعية (157 شاب وشابة).
+          </p>
+        </div>
+
+        <div style="display:flex;gap:0.55rem;align-items:center;flex-wrap:wrap;">
+          <button type="button" class="btn btn-sm btn-gold" id="btnOpenAddPointModal" onclick="openSinglePointModal()" title="إضافة أو خصم نقاط لعضو">
+            ➕ رصد نقاط لعضو
+          </button>
+          <button type="button" class="btn btn-sm" id="btnOpenBatchPointModal" onclick="openBatchPointModal()" style="background:rgba(245,158,11,0.15);color:#fbbf24;border:1px solid rgba(245,158,11,0.3);" title="إضافة بونص لجميع الحاضرين في لقاء اليوم">
+            ⚡ بونص جماعي للحاضرين
+          </button>
+          <button type="button" class="btn btn-sm" id="btnOpenGeneralPointsLogModal" onclick="openPointsLogModal()" style="border:1px solid var(--border);" title="عرض سجل كل العمليات">
+            📜 سجل العمليات
+          </button>
+          <button type="button" class="btn btn-sm btn-secondary" onclick="exportPointsLeaderboardToExcel()" title="تحميل شيت إكسيل بترتيب الأوائل">
+            📊 تصدير Excel
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Stats & Podium Section -->
+      <div class="points-podium-container" id="pointsPodiumContainer">
+        <!-- Rendered dynamically: Top 1, Top 2, Top 3 -->
+      </div>
+
+      <!-- Filters & Search Toolbar -->
+      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:0.85rem 1.15rem;margin-bottom:1.15rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.85rem;box-shadow:var(--shadow-sm);">
+        <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;flex:1;min-width:260px;">
+          <input type="text" id="pointsSearchInput" oninput="filterPointsLeaderboard()" class="search-input" style="max-width:280px;padding:0.45rem 0.85rem;font-size:0.85rem;" placeholder="🔍 ابحث بالاسم أو الكود...">
+          <select id="pointsStageFilter" onchange="filterPointsLeaderboard()" class="session-select-clean" style="font-size:0.82rem;padding:0.45rem 0.75rem;">
+            <option value="">جميع المراحل</option>
+            <option value="ثانوي">مرحلة ثانوي</option>
+            <option value="جامعة">مرحلة جامعة</option>
+            <option value="خريجين">مرحلة خريجين</option>
+          </select>
+          <select id="pointsFamilyFilter" onchange="filterPointsLeaderboard()" class="session-select-clean" style="font-size:0.82rem;padding:0.45rem 0.75rem;">
+            <option value="">جميع الأسر</option>
+            <option value="مارمرقس">أسرة مارمرقس</option>
+            <option value="يوسف الصديق">أسرة يوسف الصديق</option>
+            <option value="الأنبا بيشوي">أسرة الأنبا بيشوي</option>
+            <option value="الشهيد إسطفانوس">أسرة الشهيد إسطفانوس</option>
+          </select>
+          <select id="pointsRankFilter" onchange="filterPointsLeaderboard()" class="session-select-clean" style="font-size:0.82rem;padding:0.45rem 0.75rem;">
+            <option value="">جميع الرتب</option>
+            <option value="أسطورة">👑 أسطورة الاجتماع (300+)</option>
+            <option value="متميز">🏆 متميز (150-299)</option>
+            <option value="نشيط">🌟 نشيط (50-149)</option>
+            <option value="مبتدئ">🌱 مبتدئ (0-49)</option>
+          </select>
+        </div>
+
+        <div style="font-size:0.82rem;color:var(--text-muted);font-weight:700;">
+          إجمالي الشباب: <span id="pointsFilteredCount" style="color:var(--accent-gold);font-weight:900;">157</span>
+        </div>
+      </div>
+
+      <!-- Leaderboard Table -->
+      <div class="table-container" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-sm);">
+        <table class="data-table" id="pointsLeaderboardTable">
+          <thead>
+            <tr>
+              <th style="width:60px;text-align:center;">#</th>
+              <th>الشاب / الشابة</th>
+              <th>المرحلة الدراسية</th>
+              <th>الأسرة</th>
+              <th>الرتبة</th>
+              <th style="text-align:center;">مرات الحضور</th>
+              <th style="text-align:center;">إجمالي النقاط</th>
+              <th style="text-align:center;width:170px;">إجراءات</th>
+            </tr>
+          </thead>
+          <tbody id="pointsLeaderboardTbody">
+            <!-- Rendered by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+        <!-- ============================================== -->
+    <!-- TAB: YOUTH POINTS & LEADERBOARD (نظام النقاط) -->
+    <!-- ============================================== -->
+    <div class="tab-pane" id="tabPoints">
+      <!-- Header -->
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.15rem;flex-wrap:wrap;gap:0.85rem;">
+        <div>
+          <h2 style="font-size:1.35rem;font-weight:800;color:var(--accent-gold);display:flex;align-items:center;gap:0.5rem;margin:0;">
+            <span>⭐</span> نظام النقاط ولوحة الأوائل (شباب يوسف الصديق)
+          </h2>
+          <p style="font-size:0.85rem;color:var(--text-muted);margin-top:0.25rem;">
+            متابعة نقاط الحضور والقداسات والمسابقات، تكريم الأوائل، ورصد الألقاب التشجيعية (157 شاب وشابة).
+          </p>
+        </div>
+
+        <div style="display:flex;gap:0.55rem;align-items:center;flex-wrap:wrap;">
+          <button type="button" class="btn btn-sm btn-gold" id="btnOpenAddPointModal" onclick="openSinglePointModal()" title="إضافة أو خصم نقاط لعضو">
+            ➕ رصد نقاط لعضو
+          </button>
+          <button type="button" class="btn btn-sm" id="btnOpenBatchPointModal" onclick="openBatchPointModal()" style="background:rgba(245,158,11,0.15);color:#fbbf24;border:1px solid rgba(245,158,11,0.3);" title="إضافة بونص لجميع الحاضرين في لقاء اليوم">
+            ⚡ بونص جماعي للحاضرين
+          </button>
+          <button type="button" class="btn btn-sm" id="btnOpenGeneralPointsLogModal" onclick="openPointsLogModal()" style="border:1px solid var(--border);" title="عرض سجل كل العمليات">
+            📜 سجل العمليات
+          </button>
+          <button type="button" class="btn btn-sm btn-secondary" onclick="exportPointsLeaderboardToExcel()" title="تحميل شيت إكسيل بترتيب الأوائل">
+            📊 تصدير Excel
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Stats & Podium Section -->
+      <div class="points-podium-container" id="pointsPodiumContainer">
+        <!-- Rendered dynamically: Top 1, Top 2, Top 3 -->
+      </div>
+
+      <!-- Filters & Search Toolbar -->
+      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:0.85rem 1.15rem;margin-bottom:1.15rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.85rem;box-shadow:var(--shadow-sm);">
+        <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;flex:1;min-width:260px;">
+          <input type="text" id="pointsSearchInput" oninput="filterPointsLeaderboard()" class="search-input" style="max-width:280px;padding:0.45rem 0.85rem;font-size:0.85rem;" placeholder="🔍 ابحث بالاسم أو الكود...">
+          <select id="pointsStageFilter" onchange="filterPointsLeaderboard()" class="session-select-clean" style="font-size:0.82rem;padding:0.45rem 0.75rem;">
+            <option value="">جميع المراحل</option>
+            <option value="ثانوي">مرحلة ثانوي</option>
+            <option value="جامعة">مرحلة جامعة</option>
+            <option value="خريجين">مرحلة خريجين</option>
+          </select>
+          <select id="pointsFamilyFilter" onchange="filterPointsLeaderboard()" class="session-select-clean" style="font-size:0.82rem;padding:0.45rem 0.75rem;">
+            <option value="">جميع الأسر</option>
+            <option value="مارمرقس">أسرة مارمرقس</option>
+            <option value="يوسف الصديق">أسرة يوسف الصديق</option>
+            <option value="الأنبا بيشوي">أسرة الأنبا بيشوي</option>
+            <option value="الشهيد إسطفانوس">أسرة الشهيد إسطفانوس</option>
+          </select>
+          <select id="pointsRankFilter" onchange="filterPointsLeaderboard()" class="session-select-clean" style="font-size:0.82rem;padding:0.45rem 0.75rem;">
+            <option value="">جميع الرتب</option>
+            <option value="أسطورة">👑 أسطورة الاجتماع (300+)</option>
+            <option value="متميز">🏆 متميز (150-299)</option>
+            <option value="نشيط">🌟 نشيط (50-149)</option>
+            <option value="مبتدئ">🌱 مبتدئ (0-49)</option>
+          </select>
+        </div>
+
+        <div style="font-size:0.82rem;color:var(--text-muted);font-weight:700;">
+          إجمالي الشباب: <span id="pointsFilteredCount" style="color:var(--accent-gold);font-weight:900;">157</span>
+        </div>
+      </div>
+
+      <!-- Leaderboard Table -->
+      <div class="table-container" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-sm);">
+        <table class="data-table" id="pointsLeaderboardTable">
+          <thead>
+            <tr>
+              <th style="width:60px;text-align:center;">#</th>
+              <th>الشاب / الشابة</th>
+              <th>المرحلة الدراسية</th>
+              <th>الأسرة</th>
+              <th>الرتبة</th>
+              <th style="text-align:center;">مرات الحضور</th>
+              <th style="text-align:center;">إجمالي النقاط</th>
+              <th style="text-align:center;width:170px;">إجراءات</th>
+            </tr>
+          </thead>
+          <tbody id="pointsLeaderboardTbody">
+            <!-- Rendered by JS -->
+          </tbody>
+        </table>
       </div>
     </div>
 
@@ -3300,10 +3607,164 @@
         </button>
       </div>
     </div>
+  </div>  <!-- ============================================== -->
+  <!-- MODAL: ADD / DEDUCT MEMBER POINTS             -->
+  <!-- ============================================== -->
+  <div class="modal-backdrop" id="singlePointModal" style="display:none;">
+    <div class="modal-box" style="max-width:520px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;border-bottom:1px solid var(--border);padding-bottom:0.75rem;">
+        <h3 style="font-size:1.25rem;font-weight:800;color:var(--accent-gold);margin:0;display:flex;align-items:center;gap:0.5rem;">
+          <span>⭐</span> رصد نقاط لشاب / شابة
+        </h3>
+        <button type="button" class="btn btn-icon-only btn-sm" onclick="closeSinglePointModal()" style="border:none;background:none;font-size:1.2rem;color:var(--text-muted);cursor:pointer;">✕</button>
+      </div>
+
+      <form id="singlePointForm" onsubmit="event.preventDefault(); saveSinglePoint();">
+        <div style="margin-bottom:1rem;">
+          <label style="font-size:0.85rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:0.35rem;">اختر العضو:</label>
+          <select id="ptMemberSelect" class="session-select" style="width:100%;font-size:0.9rem;padding:0.55rem 0.85rem;" required onchange="onPtMemberSelectChange()">
+            <!-- Populated dynamically -->
+          </select>
+          <div id="ptMemberCurrentInfo" style="margin-top:0.35rem;font-size:0.8rem;color:var(--accent-gold);font-weight:700;"></div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:1rem;">
+          <div>
+            <label style="font-size:0.85rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:0.35rem;">نوع العملية:</label>
+            <select id="ptOperationType" class="session-select" style="width:100%;font-size:0.9rem;padding:0.55rem 0.85rem;" onchange="onPtCategoryChange()">
+              <option value="add">➕ إضافة نقاط (+)</option>
+              <option value="deduct">➖ خصم نقاط (-)</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size:0.85rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:0.35rem;">البند السريع:</label>
+            <select id="ptCategorySelect" class="session-select" style="width:100%;font-size:0.9rem;padding:0.55rem 0.85rem;" onchange="onPtCategoryChange()">
+              <option value="mass" data-pts="10">حضور القداس (+10)</option>
+              <option value="early" data-pts="5">حضور مبكر (+5)</option>
+              <option value="bible" data-pts="5">إحضار إنجيل/أجبية (+5)</option>
+              <option value="quiz" data-pts="15">مسابقة وتفاعل (+15)</option>
+              <option value="activity" data-pts="10">كورال / نشاط (+10)</option>
+              <option value="service" data-pts="15">خدمة وافتقاد (+15)</option>
+              <option value="custom" data-pts="10">مخصص (إدخال يدوي)</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 2fr;gap:0.75rem;margin-bottom:1rem;">
+          <div>
+            <label style="font-size:0.85rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:0.35rem;">عدد النقاط:</label>
+            <input type="number" id="ptAmountInput" class="search-input" value="10" min="1" max="500" required style="width:100%;font-size:1.1rem;font-weight:900;text-align:center;color:var(--accent-gold);">
+          </div>
+          <div>
+            <label style="font-size:0.85rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:0.35rem;">السبب / المناسبة:</label>
+            <input type="text" id="ptReasonInput" class="search-input" value="حضور القداس الإلهي" required style="width:100%;font-size:0.9rem;">
+          </div>
+        </div>
+
+        <div style="margin-bottom:1.25rem;">
+          <label style="font-size:0.85rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:0.35rem;">ملاحظات إضافية (اختياري):</label>
+          <input type="text" id="ptNotesInput" class="search-input" placeholder="مثال: إجابة متميزة في مسابقة الأصحاح..." style="width:100%;font-size:0.85rem;">
+        </div>
+
+        <div style="display:flex;justify-content:flex-end;gap:0.65rem;border-top:1px solid var(--border);padding-top:1rem;">
+          <button type="button" class="btn btn-secondary" onclick="closeSinglePointModal()">إلغاء</button>
+          <button type="submit" class="btn btn-gold" style="min-width:130px;">⭐ حفظ النقاط</button>
+        </div>
+      </form>
+    </div>
   </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL: BATCH POINTS FOR ATTENDEES             -->
+  <!-- ============================================== -->
+  <div class="modal-backdrop" id="batchPointsModal" style="display:none;">
+    <div class="modal-box" style="max-width:520px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;border-bottom:1px solid var(--border);padding-bottom:0.75rem;">
+        <h3 style="font-size:1.25rem;font-weight:800;color:var(--accent-gold);margin:0;display:flex;align-items:center;gap:0.5rem;">
+          <span>⚡</span> بونص جماعي (للحاضرين أو لأسرة)
+        </h3>
+        <button type="button" class="btn btn-icon-only btn-sm" onclick="closeBatchPointsModal()" style="border:none;background:none;font-size:1.2rem;color:var(--text-muted);cursor:pointer;">✕</button>
+      </div>
+
+      <form id="batchPointsForm" onsubmit="event.preventDefault(); saveBatchPoints();">
+        <div style="margin-bottom:1rem;">
+          <label style="font-size:0.85rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:0.35rem;">المجموعة المستهدفة:</label>
+          <select id="batchTargetSelect" class="session-select" style="width:100%;font-size:0.9rem;padding:0.55rem 0.85rem;">
+            <option value="current_attendees">🎯 جميع الحاضرين في لقاء اليوم المسجلين</option>
+            <option value="family_مارمرقس">أسرة مارمرقس (الجميع)</option>
+            <option value="family_يوسف الصديق">أسرة يوسف الصديق (الجميع)</option>
+            <option value="family_الأنبا بيشوي">أسرة الأنبا بيشوي (الجميع)</option>
+            <option value="family_الشهيد إسطفانوس">أسرة الشهيد إسطفانوس (الجميع)</option>
+            <option value="all_members">جميع الـ 157 عضواً في الاجتماع</option>
+          </select>
+          <div id="batchTargetCountInfo" style="margin-top:0.35rem;font-size:0.8rem;color:var(--accent-emerald);font-weight:700;"></div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 2fr;gap:0.75rem;margin-bottom:1rem;">
+          <div>
+            <label style="font-size:0.85rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:0.35rem;">النقاط لكل فرد:</label>
+            <input type="number" id="batchAmountInput" class="search-input" value="10" min="1" max="100" required style="width:100%;font-size:1.1rem;font-weight:900;text-align:center;color:var(--accent-gold);">
+          </div>
+          <div>
+            <label style="font-size:0.85rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:0.35rem;">سبب البونص الجماعي:</label>
+            <input type="text" id="batchReasonInput" class="search-input" value="مسابقة اللقاء الأسبوعي" required style="width:100%;font-size:0.9rem;">
+          </div>
+        </div>
+
+        <div style="display:flex;justify-content:flex-end;gap:0.65rem;border-top:1px solid var(--border);padding-top:1rem;">
+          <button type="button" class="btn btn-secondary" onclick="closeBatchPointsModal()">إلغاء</button>
+          <button type="submit" class="btn btn-gold" style="min-width:140px;">⚡ تطبيق البونص</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL: POINTS TRANSACTIONS LOG                -->
+  <!-- ============================================== -->
+  <div class="modal-backdrop" id="pointsLogModal" style="display:none;">
+    <div class="modal-box" style="max-width:700px;max-height:85vh;display:flex;flex-direction:column;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;border-bottom:1px solid var(--border);padding-bottom:0.75rem;">
+        <h3 style="font-size:1.25rem;font-weight:800;color:var(--accent-gold);margin:0;display:flex;align-items:center;gap:0.5rem;">
+          <span>📜</span> سجل عمليات النقاط
+        </h3>
+        <button type="button" class="btn btn-icon-only btn-sm" onclick="closePointsLogModal()" style="border:none;background:none;font-size:1.2rem;color:var(--text-muted);cursor:pointer;">✕</button>
+      </div>
+
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.85rem;gap:0.5rem;flex-wrap:wrap;">
+        <input type="text" id="pointsLogSearchInput" oninput="renderPointsLogList()" class="search-input" placeholder="🔍 فلترة باسم الشاب أو السبب..." style="flex:1;min-width:200px;font-size:0.85rem;padding:0.4rem 0.75rem;">
+        <div style="font-size:0.8rem;color:var(--text-muted);">
+          إجمالي العمليات: <strong id="pointsLogTotalCount" style="color:var(--accent-gold);">0</strong>
+        </div>
+      </div>
+
+      <div style="flex:1;overflow-y:auto;border:1px solid var(--border);border-radius:var(--radius-md);background:var(--bg-card);">
+        <table class="data-table" style="font-size:0.85rem;">
+          <thead>
+            <tr>
+              <th>التاريخ والوقت</th>
+              <th>الشاب</th>
+              <th>السبب</th>
+              <th>الخادم</th>
+              <th style="text-align:center;">النقاط</th>
+              <th style="text-align:center;width:60px;">حذف</th>
+            </tr>
+          </thead>
+          <tbody id="pointsLogTbody">
+            <!-- Rendered by JS -->
+          </tbody>
+        </table>
+      </div>
+
+      <div style="display:flex;justify-content:flex-end;margin-top:0.85rem;padding-top:0.5rem;border-top:1px solid var(--border);">
+        <button type="button" class="btn btn-secondary btn-sm" onclick="closePointsLogModal()">إغلاق</button>
+      </div>
+    </div>
+  </div>
+
   <script>
-    // ==============================================
-    // SERVANT ROLES & ACCESS CONTROL CONFIGURATION
+  // ==============================================
+  // SERVANT ROLES & ACCESS CONTROL CONFIGURATION
     // ==============================================
     const DEFAULT_AUTH_SETTINGS = {
       accounts: {
@@ -3338,7 +3799,7 @@
         badgeName: 'أمناء الاجتماع',
         icon: '👑',
         color: '#f59e0b',
-        allowedTabs: ['tabScanner', 'tabMembers', 'tabBirthdays', 'tabFamilyScores', 'tabSessions', 'tabVisitation', 'tabAnalytics'],
+        allowedTabs: ['tabScanner', 'tabMembers', 'tabPoints', 'tabBirthdays', 'tabFamilyScores', 'tabSessions', 'tabVisitation', 'tabAnalytics'],
         defaultTab: 'tabScanner',
         canManageSettings: true
       },
@@ -3348,7 +3809,7 @@
         badgeName: 'السكرتارية',
         icon: '📋',
         color: '#10b981',
-        allowedTabs: ['tabScanner'],
+        allowedTabs: ['tabScanner', 'tabPoints'],
         defaultTab: 'tabScanner',
         canManageSettings: false
       },
@@ -8097,6 +8558,7 @@
       renderKPIs();
       renderBirthdaysSection();
       renderFamilyScoresSection();
+      renderPointsLeaderboard();
 
       // Counts
       document.getElementById('badgeCountPill').textContent = appData.members.length;
@@ -11209,6 +11671,710 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
     setInterval(flushOfflineQueue, 6000);
     window.addEventListener('online', flushOfflineQueue);
     setTimeout(updateOfflineQueueUI, 1000);
+
+    // ==============================================
+    // POINTS & GAMIFICATION SYSTEM (نظام النقاط والأوائل)
+    // ==============================================
+    let currentScannedMemberId = null;
+
+    // Initialize Points Log and Backfill points from past sessions
+    function initPointsSystem() {
+      if (!appData.pointsLog) {
+        appData.pointsLog = [];
+      }
+
+      // If no points are recorded yet, backfill baseline attendance points (+10) from past sessions
+      if (appData.pointsLog.length === 0 && appData.sessions) {
+        let backfilled = 0;
+        appData.sessions.forEach(sess => {
+          if (sess.attendees && Array.isArray(sess.attendees)) {
+            sess.attendees.forEach((att, idx) => {
+              const m = (appData.members || []).find(x => x.id === att.memberId);
+              if (m) {
+                appData.pointsLog.push({
+                  id: `PT-INIT-${sess.id}-${att.memberId}`,
+                  memberId: att.memberId,
+                  memberName: m.name,
+                  points: 10,
+                  category: 'attendance',
+                  reason: `حضور لقاء ${sess.title || sess.id}`,
+                  servant: 'السيستم (تلقائي)',
+                  date: att.date || sess.date || '2026-11-01',
+                  time: att.time || '08:00 م',
+                  timestamp: Date.now() - (idx * 1000)
+                });
+                backfilled++;
+              }
+            });
+          }
+        });
+        if (backfilled > 0) {
+          saveLocalData();
+        }
+      }
+
+      syncAllMemberPoints();
+    }
+
+    function getMemberTotalPoints(memberId) {
+      if (!appData.pointsLog) return 0;
+      return appData.pointsLog
+        .filter(p => p.memberId === memberId)
+        .reduce((sum, p) => sum + (Number(p.points) || 0), 0);
+    }
+
+    function syncAllMemberPoints() {
+      if (!appData.members) return;
+      appData.members.forEach(m => {
+        m.points = getMemberTotalPoints(m.id);
+      });
+    }
+
+    function getMemberRank(pts) {
+      if (pts >= 300) {
+        return { title: 'أسطورة الاجتماع', icon: '👑', color: '#fbbf24', bg: 'rgba(251,191,36,0.18)', border: '#f59e0b' };
+      }
+      if (pts >= 150) {
+        return { title: 'متميز', icon: '🏆', color: '#38bdf8', bg: 'rgba(56,189,248,0.18)', border: '#0284c7' };
+      }
+      if (pts >= 50) {
+        return { title: 'نشيط', icon: '🌟', color: '#34d399', bg: 'rgba(52,211,153,0.18)', border: '#10b981' };
+      }
+      return { title: 'مبتدئ', icon: '🌱', color: '#94a3b8', bg: 'rgba(148,163,184,0.15)', border: '#64748b' };
+    }
+
+    function getMemberAttendanceCount(memberId) {
+      if (!appData.sessions) return 0;
+      let count = 0;
+      appData.sessions.forEach(sess => {
+        if (sess.attendees && sess.attendees.some(a => a.memberId === memberId)) {
+          count++;
+        }
+      });
+      return count;
+    }
+
+    // Award Points on attendance scan
+    function awardAttendancePointsOnScan(member, session) {
+      if (!appData.pointsLog) appData.pointsLog = [];
+      const sessDate = session.date || new Date().toISOString().split('T')[0];
+      const sessId = session.id || 'SES';
+
+      const alreadyAwarded = appData.pointsLog.some(p => 
+        p.memberId === member.id && 
+        p.category === 'attendance' && 
+        (p.reason.includes(sessId) || p.date === sessDate)
+      );
+
+      if (!alreadyAwarded) {
+        const trans = {
+          id: 'PT-' + Date.now() + '-' + Math.floor(Math.random() * 1000),
+          memberId: member.id,
+          memberName: member.name,
+          points: 10,
+          category: 'attendance',
+          reason: `حضور لقاء ${session.title || sessId}`,
+          servant: currentServantRole ? ROLES[currentServantRole]?.badgeName : 'تسجيل الباركود',
+          date: sessDate,
+          time: new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' }),
+          timestamp: Date.now()
+        };
+        appData.pointsLog.unshift(trans);
+        member.points = getMemberTotalPoints(member.id);
+        saveLocalData();
+
+        fetch('/api/points/add', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(trans)
+        }).catch(() => {});
+      }
+    }
+
+    // Update Points UI inside Scanner Feedback Card
+    function updateScanFeedbackPoints(member, isNewScan) {
+      const row = document.getElementById('feedbackPointsRow');
+      if (!row) return;
+
+      const totalPts = getMemberTotalPoints(member.id);
+      const rank = getMemberRank(totalPts);
+
+      const totalPtsEl = document.getElementById('feedbackTotalPts');
+      if (totalPtsEl) totalPtsEl.textContent = totalPts;
+
+      const rankBadge = document.getElementById('feedbackRankBadge');
+      if (rankBadge) {
+        rankBadge.textContent = `${rank.icon} ${rank.title}`;
+        rankBadge.style.color = rank.color;
+      }
+
+      const todayPtsEl = document.getElementById('feedbackTodayPts');
+      if (todayPtsEl) {
+        todayPtsEl.textContent = isNewScan ? '+10 نقطة' : 'تم الرصد مسبقاً';
+      }
+
+      row.style.display = 'block';
+    }
+
+    // Quick Bonus click from scanner feedback card
+    async function quickAddBonusFromScanner(pts, category, reason) {
+      if (!currentScannedMemberId) {
+        alert("يرجى مسح كود عضو أولاً.");
+        return;
+      }
+      const member = (appData.members || []).find(m => m.id === currentScannedMemberId);
+      if (!member) return;
+
+      const servantName = currentServantRole ? ROLES[currentServantRole]?.badgeName : 'تسجيل الباركود';
+      const trans = {
+        id: 'PT-' + Date.now() + '-' + Math.floor(Math.random() * 1000),
+        memberId: member.id,
+        memberName: member.name,
+        points: pts,
+        category: category,
+        reason: reason,
+        servant: servantName,
+        date: new Date().toISOString().split('T')[0],
+        time: new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' }),
+        timestamp: Date.now()
+      };
+
+      if (!appData.pointsLog) appData.pointsLog = [];
+      appData.pointsLog.unshift(trans);
+      member.points = getMemberTotalPoints(member.id);
+      saveLocalData();
+
+      if (typeof playBeepSuccess === 'function') playBeepSuccess();
+      updateScanFeedbackPoints(member, false);
+
+      showPointsToast(`🎉 تم إضافة +${pts} نقطة (${reason}) لـ ${member.name}! إجمالي نقاطه: ${member.points}`);
+
+      fetch('/api/points/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(trans)
+      }).catch(() => {});
+    }
+
+    function showPointsToast(msg) {
+      let toast = document.getElementById('pointsToastEl');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'pointsToastEl';
+        toast.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#0f172a;color:#fbbf24;border:1px solid #f59e0b;padding:0.75rem 1.4rem;border-radius:9999px;font-weight:800;font-size:0.9rem;box-shadow:0 8px 30px rgba(0,0,0,0.5);z-index:999999;transition:all 0.3s ease;pointer-events:none;opacity:0;';
+        document.body.appendChild(toast);
+      }
+      toast.textContent = msg;
+      toast.style.opacity = '1';
+      toast.style.transform = 'translateX(-50%) translateY(0)';
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(-50%) translateY(15px)';
+      }, 3500);
+    }
+
+    // Render Points Leaderboard & Podium
+    function renderPointsLeaderboard() {
+      if (!appData.members) return;
+      initPointsSystem();
+
+      const podiumContainer = document.getElementById('pointsPodiumContainer');
+      const tbody = document.getElementById('pointsLeaderboardTbody');
+      if (!tbody) return;
+
+      const stageVal = document.getElementById('pointsStageFilter')?.value || '';
+      const familyVal = document.getElementById('pointsFamilyFilter')?.value || '';
+      const rankVal = document.getElementById('pointsRankFilter')?.value || '';
+      const searchVal = (document.getElementById('pointsSearchInput')?.value || '').trim().toLowerCase();
+
+      // Build enriched member list
+      let list = appData.members.map(m => {
+        const total = getMemberTotalPoints(m.id);
+        const rank = getMemberRank(total);
+        const attendances = getMemberAttendanceCount(m.id);
+        const stage = m.collegeStage || m.universityStage || 'شباب جامعي';
+        return {
+          ...m,
+          totalPoints: total,
+          rank: rank,
+          attendances: attendances,
+          displayStage: stage
+        };
+      });
+
+      // Sort descending by points (secondary: attendances)
+      list.sort((a, b) => {
+        if (b.totalPoints !== a.totalPoints) return b.totalPoints - a.totalPoints;
+        return b.attendances - a.attendances;
+      });
+
+      // Render Podium (Top 3 of the overall meeting)
+      if (podiumContainer) {
+        const top3 = list.slice(0, 3);
+        const medals = ['🥇 المركز الأول', '🥈 المركز الثاني', '🥉 المركز الثالث'];
+        const medalsEmoji = ['🥇', '🥈', '🥉'];
+
+        if (top3.length >= 3) {
+          podiumContainer.innerHTML = `
+            <!-- Rank 2 (Silver) -->
+            <div class="podium-card rank-2">
+              <div class="podium-medal">${medalsEmoji[1]}</div>
+              <div class="podium-rank-badge" style="background:rgba(148,163,184,0.2);color:#cbd5e1;">${medals[1]}</div>
+              <div class="podium-name" title="${top3[1].name}">${top3[1].name}</div>
+              <div style="font-size:0.75rem;color:var(--text-muted);">${top3[1].displayStage} | ${top3[1].family}</div>
+              <div class="podium-points">${top3[1].totalPoints} <span style="font-size:0.85rem;font-weight:700;">نقطة</span></div>
+              <div class="rank-tier-pill" style="background:${top3[1].rank.bg};color:${top3[1].rank.color};border:1px solid ${top3[1].rank.border};">
+                ${top3[1].rank.icon} ${top3[1].rank.title}
+              </div>
+              <button class="btn btn-xs btn-gold" onclick="openSinglePointModal('${top3[1].id}')" style="margin-top:0.6rem;padding:0.2rem 0.6rem;font-size:0.72rem;">➕ إضافة نقاط</button>
+            </div>
+
+            <!-- Rank 1 (Gold) -->
+            <div class="podium-card rank-1">
+              <div style="font-size:1.8rem;margin-bottom:-0.2rem;">👑</div>
+              <div class="podium-medal">${medalsEmoji[0]}</div>
+              <div class="podium-rank-badge" style="background:rgba(245,158,11,0.25);color:#fbbf24;">${medals[0]}</div>
+              <div class="podium-name" title="${top3[0].name}" style="font-size:1.2rem;color:#fff;">${top3[0].name}</div>
+              <div style="font-size:0.78rem;color:var(--text-muted);">${top3[0].displayStage} | ${top3[0].family}</div>
+              <div class="podium-points" style="font-size:1.9rem;color:#fbbf24;">${top3[0].totalPoints} <span style="font-size:0.95rem;font-weight:700;">نقطة</span></div>
+              <div class="rank-tier-pill" style="background:${top3[0].rank.bg};color:${top3[0].rank.color};border:1px solid ${top3[0].rank.border};">
+                ${top3[0].rank.icon} ${top3[0].rank.title}
+              </div>
+              <button class="btn btn-xs btn-gold" onclick="openSinglePointModal('${top3[0].id}')" style="margin-top:0.6rem;padding:0.25rem 0.75rem;font-size:0.78rem;">➕ إضافة نقاط</button>
+            </div>
+
+            <!-- Rank 3 (Bronze) -->
+            <div class="podium-card rank-3">
+              <div class="podium-medal">${medalsEmoji[2]}</div>
+              <div class="podium-rank-badge" style="background:rgba(217,119,6,0.2);color:#f59e0b;">${medals[2]}</div>
+              <div class="podium-name" title="${top3[2].name}">${top3[2].name}</div>
+              <div style="font-size:0.75rem;color:var(--text-muted);">${top3[2].displayStage} | ${top3[2].family}</div>
+              <div class="podium-points">${top3[2].totalPoints} <span style="font-size:0.85rem;font-weight:700;">نقطة</span></div>
+              <div class="rank-tier-pill" style="background:${top3[2].rank.bg};color:${top3[2].rank.color};border:1px solid ${top3[2].rank.border};">
+                ${top3[2].rank.icon} ${top3[2].rank.title}
+              </div>
+              <button class="btn btn-xs btn-gold" onclick="openSinglePointModal('${top3[2].id}')" style="margin-top:0.6rem;padding:0.2rem 0.6rem;font-size:0.72rem;">➕ إضافة نقاط</button>
+            </div>
+          `;
+        }
+      }
+
+      // Apply Filters
+      let filtered = list.filter(m => {
+        if (stageVal && !m.displayStage.includes(stageVal)) return false;
+        if (familyVal && !m.family.includes(familyVal)) return false;
+        if (rankVal && !m.rank.title.includes(rankVal)) return false;
+        if (searchVal) {
+          const matchName = (m.name || '').toLowerCase().includes(searchVal);
+          const matchId = (m.id || '').toLowerCase().includes(searchVal);
+          const matchPhone = (m.phone || '').includes(searchVal);
+          if (!matchName && !matchId && !matchPhone) return false;
+        }
+        return true;
+      });
+
+      const countEl = document.getElementById('pointsFilteredCount');
+      if (countEl) countEl.textContent = filtered.length;
+
+      const tabCountPill = document.getElementById('pointsTabCountPill');
+      if (tabCountPill) tabCountPill.textContent = list.length;
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--text-muted);">لا توجد نتائج مطابقة لبحثك.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map((m, idx) => {
+        let rankNumHtml = `<span style="font-weight:800;color:var(--text-muted);">${idx + 1}</span>`;
+        if (idx === 0) rankNumHtml = `<span style="font-size:1.25rem;">🥇</span>`;
+        else if (idx === 1) rankNumHtml = `<span style="font-size:1.25rem;">🥈</span>`;
+        else if (idx === 2) rankNumHtml = `<span style="font-size:1.25rem;">🥉</span>`;
+
+        return `
+          <tr style="transition:all 0.15s ease;">
+            <td style="text-align:center;">${rankNumHtml}</td>
+            <td>
+              <div style="font-weight:800;color:var(--text-main);font-size:0.95rem;">${m.name}</div>
+              <div style="font-size:0.75rem;color:var(--text-muted);">${m.id} | ${m.phone || 'بدون هاتف'}</div>
+            </td>
+            <td><span class="family-pill" style="font-size:0.75rem;">${m.displayStage}</span></td>
+            <td><span class="family-pill ${getFamilyClass(m.family)}" style="font-size:0.75rem;">${m.family}</span></td>
+            <td>
+              <span class="rank-tier-pill" style="background:${m.rank.bg};color:${m.rank.color};border:1px solid ${m.rank.border};">
+                ${m.rank.icon} ${m.rank.title}
+              </span>
+            </td>
+            <td style="text-align:center;font-weight:800;color:var(--accent-emerald);">
+              ${m.attendances} <span style="font-size:0.75rem;font-weight:400;color:var(--text-muted);">لقاء</span>
+            </td>
+            <td style="text-align:center;">
+              <span class="points-badge-lg">
+                ⭐ ${m.totalPoints}
+              </span>
+            </td>
+            <td style="text-align:center;">
+              <div style="display:inline-flex;gap:0.35rem;align-items:center;">
+                <button type="button" class="btn btn-sm btn-gold" onclick="openSinglePointModal('${m.id}')" style="padding:0.25rem 0.55rem;font-size:0.75rem;" title="إضافة نقاط">
+                  ➕
+                </button>
+                <button type="button" class="btn btn-sm btn-outline-danger" onclick="openSinglePointModal('${m.id}', 'deduct')" style="padding:0.25rem 0.55rem;font-size:0.75rem;" title="خصم نقاط">
+                  ➖
+                </button>
+                <button type="button" class="btn btn-sm btn-secondary" onclick="openPointsLogModal('${m.id}')" style="padding:0.25rem 0.55rem;font-size:0.75rem;" title="عرض سجل نقاط هذا الشاب">
+                  📜
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function filterPointsLeaderboard() {
+      renderPointsLeaderboard();
+    }
+
+    // Modal: Single Point Award/Deduct
+    function openSinglePointModal(memberId, opType = 'add') {
+      const modal = document.getElementById('singlePointModal');
+      const select = document.getElementById('ptMemberSelect');
+      if (!modal || !select) return;
+
+      select.innerHTML = (appData.members || []).map(m => 
+        `<option value="${m.id}" ${m.id === memberId ? 'selected' : ''}>${m.name} (${m.id}) - ${m.family}</option>`
+      ).join('');
+
+      document.getElementById('ptOperationType').value = opType;
+      document.getElementById('ptCategorySelect').value = 'mass';
+      document.getElementById('ptAmountInput').value = '10';
+      document.getElementById('ptReasonInput').value = 'حضور القداس الإلهي';
+      document.getElementById('ptNotesInput').value = '';
+
+      onPtMemberSelectChange();
+      modal.style.display = 'flex';
+    }
+
+    function closeSinglePointModal() {
+      const modal = document.getElementById('singlePointModal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function onPtMemberSelectChange() {
+      const select = document.getElementById('ptMemberSelect');
+      const infoEl = document.getElementById('ptMemberCurrentInfo');
+      if (!select || !infoEl) return;
+      const mId = select.value;
+      const pts = getMemberTotalPoints(mId);
+      const rank = getMemberRank(pts);
+      infoEl.innerHTML = `النقاط الحالية: <strong>${pts} نقطة</strong> (${rank.icon} ${rank.title})`;
+    }
+
+    function onPtCategoryChange() {
+      const catSelect = document.getElementById('ptCategorySelect');
+      const opt = catSelect.options[catSelect.selectedIndex];
+      const defaultPts = opt.getAttribute('data-pts') || '10';
+      const defaultReason = opt.textContent.split('(')[0].trim();
+
+      document.getElementById('ptAmountInput').value = defaultPts;
+      if (catSelect.value !== 'custom') {
+        document.getElementById('ptReasonInput').value = defaultReason;
+      }
+    }
+
+    async function saveSinglePoint() {
+      const mId = document.getElementById('ptMemberSelect').value;
+      const op = document.getElementById('ptOperationType').value;
+      let amount = parseInt(document.getElementById('ptAmountInput').value, 10) || 0;
+      if (op === 'deduct') amount = -Math.abs(amount);
+
+      const category = document.getElementById('ptCategorySelect').value;
+      const reason = document.getElementById('ptReasonInput').value.trim();
+      const notes = document.getElementById('ptNotesInput').value.trim();
+      const member = (appData.members || []).find(m => m.id === mId);
+      if (!member) return;
+
+      const servantName = currentServantRole ? ROLES[currentServantRole]?.badgeName : 'أمناء الاجتماع';
+      const trans = {
+        id: 'PT-' + Date.now() + '-' + Math.floor(Math.random() * 1000),
+        memberId: member.id,
+        memberName: member.name,
+        points: amount,
+        category: category,
+        reason: reason + (notes ? ` (${notes})` : ''),
+        servant: servantName,
+        date: new Date().toISOString().split('T')[0],
+        time: new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' }),
+        timestamp: Date.now()
+      };
+
+      if (!appData.pointsLog) appData.pointsLog = [];
+      appData.pointsLog.unshift(trans);
+      member.points = getMemberTotalPoints(member.id);
+      saveLocalData();
+
+      closeSinglePointModal();
+      renderPointsLeaderboard();
+      if (typeof playBeepSuccess === 'function') playBeepSuccess();
+      showPointsToast(`✅ تم رصد ${amount > 0 ? '+' : ''}${amount} نقطة لـ ${member.name} بنجاح!`);
+
+      fetch('/api/points/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(trans)
+      }).catch(() => {});
+    }
+
+    // Modal: Batch Points
+    function openBatchPointModal() {
+      const modal = document.getElementById('batchPointsModal');
+      if (!modal) return;
+      updateBatchTargetCount();
+      document.getElementById('batchTargetSelect').onchange = updateBatchTargetCount;
+      modal.style.display = 'flex';
+    }
+
+    function closeBatchPointsModal() {
+      const modal = document.getElementById('batchPointsModal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function updateBatchTargetCount() {
+      const target = document.getElementById('batchTargetSelect').value;
+      const infoEl = document.getElementById('batchTargetCountInfo');
+      if (!infoEl) return;
+
+      if (target === 'current_attendees') {
+        const session = getCurrentSession();
+        const count = (session.attendees || []).length;
+        infoEl.textContent = `سيتم تطبيق النقاط على ${count} شاب وشابة حاضرين اليوم.`;
+      } else if (target.startsWith('family_')) {
+        const fName = target.replace('family_', '');
+        const count = (appData.members || []).filter(m => m.family.includes(fName)).length;
+        infoEl.textContent = `سيتم تطبيق النقاط على جميع شباب أسرة ${fName} (${count} عضو).`;
+      } else {
+        infoEl.textContent = `سيتم تطبيق النقاط على جميع مخدومي الاجتماع (157 عضو).`;
+      }
+    }
+
+    async function saveBatchPoints() {
+      const target = document.getElementById('batchTargetSelect').value;
+      const amount = parseInt(document.getElementById('batchAmountInput').value, 10) || 0;
+      const reason = document.getElementById('batchReasonInput').value.trim();
+
+      let targetMemberIds = [];
+
+      if (target === 'current_attendees') {
+        const session = getCurrentSession();
+        targetMemberIds = (session.attendees || []).map(a => a.memberId);
+      } else if (target.startsWith('family_')) {
+        const fName = target.replace('family_', '');
+        targetMemberIds = (appData.members || []).filter(m => m.family.includes(fName)).map(m => m.id);
+      } else {
+        targetMemberIds = (appData.members || []).map(m => m.id);
+      }
+
+      if (targetMemberIds.length === 0) {
+        alert("لا يوجد أعضاء في المجموعة المحددة.");
+        return;
+      }
+
+      if (!confirm(`هل أنت متأكد من إضافة +${amount} نقطة لـ ${targetMemberIds.length} عضو دفعة واحدة؟`)) {
+        return;
+      }
+
+      const now = Date.now();
+      const dateStr = new Date().toISOString().split('T')[0];
+      const timeStr = new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' });
+      const servantName = currentServantRole ? ROLES[currentServantRole]?.badgeName : 'أمناء الاجتماع';
+
+      if (!appData.pointsLog) appData.pointsLog = [];
+
+      targetMemberIds.forEach((mId, idx) => {
+        const member = (appData.members || []).find(m => m.id === mId);
+        if (member) {
+          const trans = {
+            id: `PT-${now}-${idx}-${Math.floor(Math.random() * 1000)}`,
+            memberId: mId,
+            memberName: member.name,
+            points: amount,
+            category: 'batch',
+            reason: reason,
+            servant: servantName,
+            date: dateStr,
+            time: timeStr,
+            timestamp: now
+          };
+          appData.pointsLog.unshift(trans);
+          member.points = getMemberTotalPoints(member.id);
+        }
+      });
+
+      saveLocalData();
+      closeBatchPointsModal();
+      renderPointsLeaderboard();
+      if (typeof playBeepSuccess === 'function') playBeepSuccess();
+      showPointsToast(`🎉 تم تطبيق +${amount} نقطة جماعية بنجاح على ${targetMemberIds.length} عضو!`);
+
+      fetch('/api/points/batch', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          memberIds: targetMemberIds,
+          points: amount,
+          reason: reason,
+          servant: servantName
+        })
+      }).catch(() => {});
+    }
+
+    // Modal: Points Operations Log
+    let currentLogMemberFilter = null;
+    function openPointsLogModal(memberId = null) {
+      currentLogMemberFilter = memberId;
+      const modal = document.getElementById('pointsLogModal');
+      if (!modal) return;
+      const searchInput = document.getElementById('pointsLogSearchInput');
+      if (searchInput) {
+        if (memberId) {
+          const m = (appData.members || []).find(x => x.id === memberId);
+          searchInput.value = m ? m.name : memberId;
+        } else {
+          searchInput.value = '';
+        }
+      }
+      renderPointsLogList();
+      modal.style.display = 'flex';
+    }
+
+    function closePointsLogModal() {
+      const modal = document.getElementById('pointsLogModal');
+      if (modal) modal.style.display = 'none';
+      currentLogMemberFilter = null;
+    }
+
+    function renderPointsLogList() {
+      const tbody = document.getElementById('pointsLogTbody');
+      const countEl = document.getElementById('pointsLogTotalCount');
+      if (!tbody) return;
+
+      const q = (document.getElementById('pointsLogSearchInput')?.value || '').trim().toLowerCase();
+      let logs = (appData.pointsLog || []);
+
+      if (q) {
+        logs = logs.filter(p => 
+          (p.memberName || '').toLowerCase().includes(q) ||
+          (p.memberId || '').toLowerCase().includes(q) ||
+          (p.reason || '').toLowerCase().includes(q) ||
+          (p.servant || '').toLowerCase().includes(q)
+        );
+      }
+
+      if (countEl) countEl.textContent = logs.length;
+
+      if (logs.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:1.5rem;color:var(--text-muted);">لا توجد عمليات نقاط مسجلة.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = logs.map(p => {
+        const isPos = p.points > 0;
+        const color = isPos ? '#10b981' : '#f43f5e';
+        const sign = isPos ? '+' : '';
+
+        return `
+          <tr>
+            <td>
+              <div style="font-weight:700;">${p.date || ''}</div>
+              <div style="font-size:0.75rem;color:var(--text-muted);">${p.time || ''}</div>
+            </td>
+            <td>
+              <strong style="color:var(--text-main);">${p.memberName || p.memberId}</strong>
+              <div style="font-size:0.75rem;color:var(--text-muted);">${p.memberId}</div>
+            </td>
+            <td>${p.reason || 'بدون سبب'}</td>
+            <td><span class="family-pill" style="font-size:0.75rem;">${p.servant || 'السيستم'}</span></td>
+            <td style="text-align:center;font-weight:900;color:${color};font-size:0.95rem;">
+              ${sign}${p.points}
+            </td>
+            <td style="text-align:center;">
+              <button type="button" class="btn btn-xs btn-outline-danger" onclick="deletePointTransaction('${p.id}')" title="تراجع / حذف">✕</button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    async function deletePointTransaction(transId) {
+      if (!confirm("هل أنت متأكد من حذف هذه العملية والتراجع عن نقاطها؟")) return;
+
+      if (!appData.pointsLog) return;
+      const idx = appData.pointsLog.findIndex(p => p.id === transId);
+      if (idx !== -1) {
+        const removed = appData.pointsLog.splice(idx, 1)[0];
+        const member = (appData.members || []).find(m => m.id === removed.memberId);
+        if (member) {
+          member.points = getMemberTotalPoints(member.id);
+        }
+        saveLocalData();
+        renderPointsLogList();
+        renderPointsLeaderboard();
+        showPointsToast(`تم التراجع عن عملية (${removed.memberName}) بنجاح.`);
+
+        fetch('/api/points/delete', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ transactionId: transId })
+        }).catch(() => {});
+      }
+    }
+
+    // Export Points Leaderboard to Excel
+    function exportPointsLeaderboardToExcel() {
+      if (typeof XLSX === 'undefined') {
+        alert("مكتبة Excel غير محملة، يرجى التأكد من اتصال الإنترنت.");
+        return;
+      }
+      initPointsSystem();
+
+      const sorted = [...(appData.members || [])].map((m, i) => {
+        const pts = getMemberTotalPoints(m.id);
+        const rank = getMemberRank(pts);
+        const att = getMemberAttendanceCount(m.id);
+        return {
+          member: m,
+          pts: pts,
+          rank: rank,
+          att: att
+        };
+      }).sort((a, b) => b.pts - a.pts);
+
+      const rows = sorted.map((item, idx) => ({
+        'الترتيب': idx + 1,
+        'كود الشاب': item.member.id,
+        'الاسم الكامل': item.member.name,
+        'المرحلة': item.member.collegeStage || item.member.universityStage || 'شباب',
+        'الأسرة': item.member.family || '',
+        'رقم التليفون': item.member.phone || '',
+        'إجمالي النقاط ⭐': item.pts,
+        'الرتبة التشجيعية': `${item.rank.icon} ${item.rank.title}`,
+        'عدد مرات الحضور': item.att
+      }));
+
+      const ws = XLSX.utils.json_to_sheet(rows);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "ترتيب أوائل الشباب");
+      XLSX.writeFile(wb, `ترتيب_نقاط_شباب_يوسف_الصديق_${new Date().toISOString().split('T')[0]}.xlsx`);
+    }
+
+    // Hook Tab Button Click
+    document.addEventListener('DOMContentLoaded', () => {
+      const ptTabBtn = document.querySelector('.tab-btn[data-tab="tabPoints"]');
+      if (ptTabBtn) {
+        ptTabBtn.addEventListener('click', () => {
+          renderPointsLeaderboard();
+        });
+      }
+    });
 
     refreshUI();
   </script>
