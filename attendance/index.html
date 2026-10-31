@@ -8878,20 +8878,35 @@
       });
     }
 
+    function getMemberFirstName(fullName) {
+      if (!fullName) return '';
+      const parts = fullName.trim().split(/\s+/);
+      let first = parts[0].replace(/[()[\]{}0-9.,_-]/g, '').trim();
+      if (!first && parts.length > 1) {
+        first = parts[1].replace(/[()[\]{}0-9.,_-]/g, '').trim();
+      }
+      return first || fullName.trim();
+    }
+
+    function buildYouthWelcomeMessage(m) {
+      const firstName = getMemberFirstName(m.name);
+      return `سلام ونعمة يا ${firstName} 🤍✨\n` +
+        `يا رب تكون بأحسن حال ومبسوط دايماً 🙏\n\n` +
+        `حابين نبعتلك كارت الـ QR الجميل بتاعك لاجتماع يوسف الصديق 🪪\n` +
+        `خليه معاك على الموبايل عشان تسجل بيه حضورك وتاخد نقطك في الأنشطة والمسابقات 🎯⭐\n\n` +
+        `ومستنيينك تنورنا وتفرحنا بوجودك في بيتك التاني (كنيسة العذراء مريم بالقناطر) ❤️\n` +
+        `دي مواعيد لمتنا كل أسبوع، متفوتهاش:\n` +
+        `• 👥 *اجتماع الشباب:* الثلاثاء 7:00 م\n` +
+        `• 📖 *كتاب مقدس وتسبحة:* الأربعاء 7:00 م\n` +
+        `• ⛪ *القداس الإلهي:* الخميس 7:00 ص\n` +
+        `• 🕊️ *اجتماع الصلاة:* الجمعة 8:00 م\n\n` +
+        `حضورك ولمتنا سوا بيفرّقوا جداً معانا ومستنيين نشوفك وسطنا دايماً! 🙏🤍`;
+    }
+
     function shareFullBadgeWhatsApp(id) {
       const m = appData.members.find(x => x.id === id);
       if (!m) return;
-      const text = encodeURIComponent(
-        `سلام ونعمة يا ${m.name} 🌸\n` +
-        `اجتماع يوسف الصديق للشباب — كنيسة السيدة العذراء مريم بالقناطر الخيرية.\n\n` +
-        `ده كارت الـ QR الذكي الخاص بيك لحضور الاجتماع والأنشطة 🪪✨\n\n` +
-        `📅 *مواعيد لقاءاتنا الأسبوعية بالكنيسة:*\n` +
-        `• 👥 *اجتماع الشباب:* الثلاثاء 7:00 م\n` +
-        `• 📖 *الكتاب المقدس والتسبحة:* الأربعاء 7:00 م\n` +
-        `• ⛪ *القداس الإلهي:* الخميس 7:00 ص\n` +
-        `• 🕊️ *اجتماع الصلاة:* الجمعة 8:00 م\n\n` +
-        `تم حفظ صورة الكارت على جهازك لإبرازه عند الدخول بالباركود. منتظرينك تنورنا دايماً! 🙏❤️`
-      );
+      const text = encodeURIComponent(buildYouthWelcomeMessage(m));
       window.open(`https://wa.me/2${m.phone}?text=${text}`, '_blank');
     }
 
@@ -9326,22 +9341,10 @@
       if (!currentBrandedCardMemberId) return;
       const m = appData.members.find(x => x.id === currentBrandedCardMemberId);
       if (!m) return;
-      const text = encodeURIComponent(
-        `سلام ونعمة يا ${m.name} 🌸\n` +
-        `اجتماع يوسف الصديق للشباب — كنيسة السيدة العذراء مريم بالقناطر الخيرية.\n\n` +
-        `ده كارت الـ QR الذكي الخاص بيك لحضور الاجتماع والأنشطة 🪪✨\n\n` +
-        `📅 *مواعيد لقاءاتنا الأسبوعية بالكنيسة:*\n` +
-        `• 👥 *اجتماع الشباب:* الثلاثاء 7:00 م\n` +
-        `• 📖 *الكتاب المقدس والتسبحة:* الأربعاء 7:00 م\n` +
-        `• ⛪ *القداس الإلهي:* الخميس 7:00 ص\n` +
-        `• 🕊️ *اجتماع الصلاة:* الجمعة 8:00 م\n\n` +
-        `تم حفظ صورة الكارت على جهازك لإبرازه عند الدخول بالباركود. منتظرينك تنورنا دايماً! 🙏❤️`
-      );
+      const text = encodeURIComponent(buildYouthWelcomeMessage(m));
       window.open(`https://wa.me/2${m.phone}?text=${text}`, '_blank');
     }
 
-    // ==============================================
-    // BATCH ZIP DOWNLOAD (تحميل كل كروت الـ 157 شاب)
     // ==============================================
     async function downloadAllBrandedQrsZip() {
       if (typeof JSZip === 'undefined') {
@@ -9503,17 +9506,7 @@
       saveSentId(m.id);
 
       // 3. Open WhatsApp chat with personalized message
-      const text = encodeURIComponent(
-        `سلام ونعمة يا ${m.name} 🌸\n` +
-        `اجتماع يوسف الصديق للشباب — كنيسة السيدة العذراء مريم بالقناطر الخيرية.\n\n` +
-        `ده كارت الـ QR الذكي الخاص بيك لحضور الاجتماع والأنشطة 🪪✨\n\n` +
-        `📅 *مواعيد لقاءاتنا الأسبوعية بالكنيسة:*\n` +
-        `• 👥 *اجتماع الشباب:* الثلاثاء 7:00 م\n` +
-        `• 📖 *الكتاب المقدس والتسبحة:* الأربعاء 7:00 م\n` +
-        `• ⛪ *القداس الإلهي:* الخميس 7:00 ص\n` +
-        `• 🕊️ *اجتماع الصلاة:* الجمعة 8:00 م\n\n` +
-        `تم حفظ صورة الكارت على جهازك لإبرازه عند الدخول بالباركود. منتظرينك تنورنا دايماً! 🙏❤️`
-      );
+      const text = encodeURIComponent(buildYouthWelcomeMessage(m));
       window.open(`https://wa.me/2${m.phone}?text=${text}`, '_blank');
 
       // 4. Update UI to next recipient

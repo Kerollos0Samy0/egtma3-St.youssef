@@ -53,19 +53,34 @@ function findCardFile(member) {
   return null;
 }
 
-// Generate customized welcome message
-function getWelcomeMessage(member) {
-  return `سلام ونعمة يا ${member.name} 🌸
-اجتماع يوسف الصديق للشباب - كنيسة السيدة العذراء مريم بالقناطر الخيرية
-ده كارت الـ QR الرسمي الخاص بيك لحضور الاجتماع والأنشطة 🪪✨
+// Extract first name only (e.g. "ابانوب هاني" -> "ابانوب")
+function getFirstName(fullName) {
+  if (!fullName) return '';
+  const parts = fullName.trim().split(/\s+/);
+  let first = parts[0].replace(/[()[\]{}0-9.,_-]/g, '').trim();
+  if (!first && parts.length > 1) {
+    first = parts[1].replace(/[()[\]{}0-9.,_-]/g, '').trim();
+  }
+  return first || fullName.trim();
+}
 
-📅 مواعيد لقاءاتنا الأسبوعية في الكنيسة:
+// Generate friendly, warm youth welcome message (first name only)
+function getWelcomeMessage(member) {
+  const firstName = getFirstName(member.name);
+  return `سلام ونعمة يا ${firstName} 🤍✨
+يا رب تكون بأحسن حال ومبسوط دايماً 🙏
+
+حابين نبعتلك كارت الـ QR الجميل بتاعك لاجتماع يوسف الصديق 🪪
+خليه معاك على الموبايل عشان تسجل بيه حضورك وتاخد نقطك في الأنشطة والمسابقات 🎯⭐
+
+ومستنيينك تنورنا وتفرحنا بوجودك في بيتك التاني (كنيسة العذراء مريم بالقناطر) ❤️
+دي مواعيد لمتنا كل أسبوع، متفوتهاش:
 • 👥 اجتماع الشباب: الثلاثاء 7:00 م
-• 📖 الكتاب المقدس والتسبحة: الأربعاء 7:00 م
+• 📖 كتاب مقدس وتسبحة: الأربعاء 7:00 م
 • ⛪ القداس الإلهي: الخميس 7:00 ص
 • 🕊️ اجتماع الصلاة: الجمعة 8:00 م
 
-منتظرينك دايماً تشاركنا وتفرحنا بوجودك! 🙏❤️`;
+حضورك ولمتنا سوا بيفرّقوا جداً معانا ومستنيين نشوفك وسطنا دايماً! 🙏🤍`;
 }
 
 // Sleep helper
