@@ -2306,6 +2306,25 @@
     </div>
   </header>
 
+  <!-- Weekly Church Schedule Bar -->
+  <div class="weekly-schedule-bar" style="background:var(--bg-card);border-bottom:1px solid var(--border);padding:0.6rem 1.25rem;display:flex;align-items:center;justify-content:center;gap:1.25rem;flex-wrap:wrap;font-size:0.84rem;box-shadow:var(--shadow-sm);">
+    <div style="display:flex;align-items:center;gap:0.4rem;color:var(--accent-gold);font-weight:800;">
+      <span>📅</span> مواعيدنا الأسبوعية الثابتة:
+    </div>
+    <div style="display:inline-flex;align-items:center;gap:0.35rem;background:rgba(245,158,11,0.1);padding:0.25rem 0.65rem;border-radius:var(--radius-full);border:1px solid rgba(245,158,11,0.25);">
+      <span>👥</span> <strong>اجتماع الشباب:</strong> الثلاثاء 7:00 م
+    </div>
+    <div style="display:inline-flex;align-items:center;gap:0.35rem;background:rgba(56,189,248,0.1);padding:0.25rem 0.65rem;border-radius:var(--radius-full);border:1px solid rgba(56,189,248,0.25);color:#38bdf8;">
+      <span>📖</span> <strong>الكتاب المقدس والتسبحة:</strong> الأربعاء 7:00 م
+    </div>
+    <div style="display:inline-flex;align-items:center;gap:0.35rem;background:rgba(234,179,8,0.1);padding:0.25rem 0.65rem;border-radius:var(--radius-full);border:1px solid rgba(234,179,8,0.25);color:#eab308;">
+      <span>⛪</span> <strong>القداس الإلهي:</strong> الخميس 7:00 ص
+    </div>
+    <div style="display:inline-flex;align-items:center;gap:0.35rem;background:rgba(16,185,129,0.1);padding:0.25rem 0.65rem;border-radius:var(--radius-full);border:1px solid rgba(16,185,129,0.25);color:#34d399;">
+      <span>🕊️</span> <strong>اجتماع الصلاة:</strong> الجمعة 8:00 م
+    </div>
+  </div>
+
   <!-- Modern Direct Navigation Tabs -->
   <div class="nav-tabs">
     <button class="tab-btn active" data-tab="tabScanner">
@@ -2442,10 +2461,11 @@
               </div>
               <div style="display:flex;gap:0.35rem;align-items:center;flex-wrap:wrap;">
                 <span style="font-size:0.75rem;color:var(--text-muted);font-weight:700;">بونص سريع:</span>
-                <button type="button" class="btn btn-xs" id="quickBonusMassBtn" onclick="quickAddBonusFromScanner(10, 'mass', 'حضور القداس الإلهي')" style="background:rgba(56,189,248,0.15);color:#38bdf8;border:1px solid rgba(56,189,248,0.3);font-size:0.75rem;padding:0.2rem 0.5rem;" title="حضور القداس الإلهي">+10 قداس ⛪</button>
-                <button type="button" class="btn btn-xs" id="quickBonusEarlyBtn" onclick="quickAddBonusFromScanner(5, 'early', 'حضور مبكر')" style="background:rgba(16,185,129,0.15);color:#34d399;border:1px solid rgba(16,185,129,0.3);font-size:0.75rem;padding:0.2rem 0.5rem;" title="حضور مبكر قبل الميعاد">+5 مبكر ⏰</button>
-                <button type="button" class="btn btn-xs" id="quickBonusBibleBtn" onclick="quickAddBonusFromScanner(5, 'bible', 'إحضار إنجيل/أجبية')" style="background:rgba(245,158,11,0.15);color:#fbbf24;border:1px solid rgba(245,158,11,0.3);font-size:0.75rem;padding:0.2rem 0.5rem;" title="إحضار الكتاب المقدس / الأجبية">+5 إنجيل 📖</button>
-                <button type="button" class="btn btn-xs" id="quickBonusQuizBtn" onclick="quickAddBonusFromScanner(15, 'quiz', 'مسابقة الاجتماع')" style="background:rgba(236,72,153,0.15);color:#f472b6;border:1px solid rgba(236,72,153,0.3);font-size:0.75rem;padding:0.2rem 0.5rem;" title="إجابة سؤال أو فوز في المسابقة">+15 مسابقة 🎯</button>
+                <button type="button" class="btn btn-xs" onclick="quickAddBonusFromScanner(10, 'mass', 'حضور قداس الخميس 7 ص')" style="background:rgba(234,179,8,0.15);color:#eab308;border:1px solid rgba(234,179,8,0.3);font-size:0.75rem;padding:0.2rem 0.5rem;" title="حضور قداس الخميس 7:00 ص">+10 قداس الخميس (7 ص) ⛪</button>
+                <button type="button" class="btn btn-xs" onclick="quickAddBonusFromScanner(10, 'bible_study', 'حضور الكتاب والتسبحة الأربعاء 7 م')" style="background:rgba(56,189,248,0.15);color:#38bdf8;border:1px solid rgba(56,189,248,0.3);font-size:0.75rem;padding:0.2rem 0.5rem;" title="حضور اجتماع الكتاب والتسبحة الأربعاء 7:00 م">+10 كتاب وتسبحة (الأربعاء 7 م) 📖</button>
+                <button type="button" class="btn btn-xs" onclick="quickAddBonusFromScanner(10, 'prayer_meeting', 'حضور اجتماع الصلاة الجمعة 8 م')" style="background:rgba(16,185,129,0.15);color:#34d399;border:1px solid rgba(16,185,129,0.3);font-size:0.75rem;padding:0.2rem 0.5rem;" title="حضور اجتماع الصلاة الجمعة 8:00 م">+10 صلاة الجمعة (8 م) 🕊️</button>
+                <button type="button" class="btn btn-xs" onclick="quickAddBonusFromScanner(5, 'early', 'حضور مبكر قبل 7 م')" style="background:rgba(245,158,11,0.15);color:#fbbf24;border:1px solid rgba(245,158,11,0.3);font-size:0.75rem;padding:0.2rem 0.5rem;" title="حضور مبكر قبل 7:00 م">+5 مبكر قبل 7 م ⏰</button>
+                <button type="button" class="btn btn-xs" onclick="quickAddBonusFromScanner(15, 'quiz', 'مسابقة الاجتماع والتفاعل')" style="background:rgba(236,72,153,0.15);color:#f472b6;border:1px solid rgba(236,72,153,0.3);font-size:0.75rem;padding:0.2rem 0.5rem;" title="إجابة سؤال أو فوز في المسابقة">+15 مسابقة 🎯</button>
               </div>
             </div>
           </div>
@@ -2994,7 +3014,68 @@
       </div>
     </div>
 
-    <div class="tab-pane" id="tabSessions">
+        <div class="tab-pane" id="tabSessions">
+      <!-- Official Weekly Recurring Timetable Card -->
+      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.15rem 1.35rem;margin-bottom:1.25rem;box-shadow:var(--shadow-sm);">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;margin-bottom:0.85rem;">
+          <h3 style="font-size:1.1rem;font-weight:800;color:var(--accent-gold);margin:0;display:flex;align-items:center;gap:0.45rem;">
+            <span>⛪</span> مواعيد الاجتماعات والقداسات الأسبوعية الرسمية
+          </h3>
+          <span style="font-size:0.75rem;background:rgba(245,158,11,0.15);color:#fbbf24;padding:0.2rem 0.6rem;border-radius:var(--radius-full);font-weight:700;">
+            كنيسة السيدة العذراء مريم بالقناطر الخيرية
+          </span>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(210px, 1fr));gap:0.85rem;">
+          <!-- 1. اجتماع الشباب -->
+          <div style="background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.25);border-radius:var(--radius-md);padding:0.85rem 1rem;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem;">
+              <span style="font-weight:800;font-size:0.95rem;color:var(--text-main);">👥 اجتماع الشباب</span>
+              <span style="font-size:0.72rem;background:rgba(245,158,11,0.2);color:#fbbf24;padding:0.15rem 0.5rem;border-radius:var(--radius-full);font-weight:800;">أسبوعي</span>
+            </div>
+            <div style="font-size:0.9rem;color:var(--accent-gold);font-weight:800;display:flex;align-items:center;gap:0.35rem;">
+              <span>🗓️ الثلاثاء</span> • <span>⏰ 07:00 م</span>
+            </div>
+            <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.35rem;">اللقاء العام للشباب ودراسات وأنشطة ومسابقات</div>
+          </div>
+
+          <!-- 2. اجتماع الكتاب المقدس والتسبحة -->
+          <div style="background:rgba(56,189,248,0.06);border:1px solid rgba(56,189,248,0.25);border-radius:var(--radius-md);padding:0.85rem 1rem;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem;">
+              <span style="font-weight:800;font-size:0.95rem;color:var(--text-main);">📖 الكتاب المقدس والتسبحة</span>
+              <span style="font-size:0.72rem;background:rgba(56,189,248,0.2);color:#38bdf8;padding:0.15rem 0.5rem;border-radius:var(--radius-full);font-weight:800;">أسبوعي</span>
+            </div>
+            <div style="font-size:0.9rem;color:#38bdf8;font-weight:800;display:flex;align-items:center;gap:0.35rem;">
+              <span>🗓️ الأربعاء</span> • <span>⏰ 07:00 م</span>
+            </div>
+            <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.35rem;">دراسة الكلمة والتسبحة الكنسية والتماجيد</div>
+          </div>
+
+          <!-- 3. القداس الإلهي -->
+          <div style="background:rgba(234,179,8,0.06);border:1px solid rgba(234,179,8,0.25);border-radius:var(--radius-md);padding:0.85rem 1rem;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem;">
+              <span style="font-weight:800;font-size:0.95rem;color:var(--text-main);">⛪ القداس الإلهي</span>
+              <span style="font-size:0.72rem;background:rgba(234,179,8,0.2);color:#eab308;padding:0.15rem 0.5rem;border-radius:var(--radius-full);font-weight:800;">أسبوعي</span>
+            </div>
+            <div style="font-size:0.9rem;color:#eab308;font-weight:800;display:flex;align-items:center;gap:0.35rem;">
+              <span>🗓️ الخميس</span> • <span>⏰ 07:00 ص</span>
+            </div>
+            <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.35rem;">صلاة القداس الإلهي وسر الإفخارستيا والتناول</div>
+          </div>
+
+          <!-- 4. اجتماع الصلاة -->
+          <div style="background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.25);border-radius:var(--radius-md);padding:0.85rem 1rem;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem;">
+              <span style="font-weight:800;font-size:0.95rem;color:var(--text-main);">🕊️ اجتماع الصلاة</span>
+              <span style="font-size:0.72rem;background:rgba(16,185,129,0.2);color:#34d399;padding:0.15rem 0.5rem;border-radius:var(--radius-full);font-weight:800;">أسبوعي</span>
+            </div>
+            <div style="font-size:0.9rem;color:#34d399;font-weight:800;display:flex;align-items:center;gap:0.35rem;">
+              <span>🗓️ الجمعة</span> • <span>⏰ 08:00 م</span>
+            </div>
+            <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.35rem;">ساعة الصلاة السهمية وطلبات واحتياجات الشباب</div>
+          </div>
+        </div>
+      </div>
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:1rem;">
         <div>
           <h2 style="font-size:1.4rem;font-weight:800;color:var(--accent-gold);">
@@ -3639,12 +3720,14 @@
           <div>
             <label style="font-size:0.85rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:0.35rem;">البند السريع:</label>
             <select id="ptCategorySelect" class="session-select" style="width:100%;font-size:0.9rem;padding:0.55rem 0.85rem;" onchange="onPtCategoryChange()">
-              <option value="mass" data-pts="10">حضور القداس (+10)</option>
-              <option value="early" data-pts="5">حضور مبكر (+5)</option>
-              <option value="bible" data-pts="5">إحضار إنجيل/أجبية (+5)</option>
-              <option value="quiz" data-pts="15">مسابقة وتفاعل (+15)</option>
-              <option value="activity" data-pts="10">كورال / نشاط (+10)</option>
-              <option value="service" data-pts="15">خدمة وافتقاد (+15)</option>
+              <option value="mass" data-pts="10">حضور قداس الخميس 7:00 ص (+10)</option>
+              <option value="bible_study" data-pts="10">حضور الكتاب والتسبحة الأربعاء 7:00 م (+10)</option>
+              <option value="prayer_meeting" data-pts="10">حضور اجتماع الصلاة الجمعة 8:00 م (+10)</option>
+              <option value="youth_meeting" data-pts="10">حضور اجتماع الشباب الثلاثاء 7:00 م (+10)</option>
+              <option value="early" data-pts="5">حضور مبكر قبل 7:00 م (+5)</option>
+              <option value="bible" data-pts="5">إحضار إنجيل / أجبية (+5)</option>
+              <option value="quiz" data-pts="15">فوز أو إجابة في المسابقة (+15)</option>
+              <option value="service" data-pts="15">خدمة أو افتقاد مميز (+15)</option>
               <option value="custom" data-pts="10">مخصص (إدخال يدوي)</option>
             </select>
           </div>
@@ -9287,14 +9370,17 @@
       downloadCurrentBrandedCardPng();
 
       const text = encodeURIComponent(
-        `سلام ونعمة يا ${m.name} ❤️✝️\n\n` +
-        `كارت الـ QR الذكي الخاص بك لحضور اجتماع يوسف الصديق للشباب — كنيسة السيدة العذراء مريم بالقناطر الخيرية.\n\n` +
-        `👤 *الاسم:* ${m.name}\n` +
+        `سلام ونعمة يا ${m.name} 🌸\n` +
+        `اجتماع يوسف الصديق للشباب — كنيسة السيدة العذراء مريم بالقناطر الخيرية.\n\n` +
+        `ده كارت الـ QR الذكي الخاص بيك لحضور الاجتماع والأنشطة 🪪✨\n` +
         `🆔 *كود الحضور:* ${m.id}\n` +
-        `🎓 *المرحلة:* ${m.collegeStage || getCollegeStage(m) || ''}\n` +
-        `📍 *المنطقة:* ${m.areaGroup || m.groupCode || ''}\n\n` +
-        `تم تنزيل كارت الحضور المصمم باللوجو واسمك في التنزيلات. يرجى إبراز الكود عند الدخول لتسجيل حضورك فورياً.\n` +
-        `نورت بيتك واجتماعك!`
+        `🎓 *المرحلة:* ${m.collegeStage || getCollegeStage(m) || 'شباب'}\n\n` +
+        `📅 *مواعيد لقاءاتنا الأسبوعية بالكنيسة:*\n` +
+        `• 👥 *اجتماع الشباب:* الثلاثاء 7:00 م\n` +
+        `• 📖 *الكتاب المقدس والتسبحة:* الأربعاء 7:00 م\n` +
+        `• ⛪ *القداس الإلهي:* الخميس 7:00 ص\n` +
+        `• 🕊️ *اجتماع الصلاة:* الجمعة 8:00 م\n\n` +
+        `تم حفظ صورة الكارت على جهازك لإبرازه عند الدخول بالباركود. منتظرينك تنورنا دايماً! 🙏❤️`
       );
       window.open(`https://wa.me/2${m.phone}?text=${text}`, '_blank');
     }
