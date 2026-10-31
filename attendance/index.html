@@ -9179,26 +9179,26 @@
     async function drawBrandedQrToCanvas(canvas, m) {
       if (!canvas || !m) return;
       canvas.width = 600;
-      canvas.height = 780;
+      canvas.height = 630;
       const ctx = canvas.getContext('2d');
 
       // 1. Background Luxury Gradient
-      const grad = ctx.createLinearGradient(0, 0, 0, 780);
+      const grad = ctx.createLinearGradient(0, 0, 0, 630);
       grad.addColorStop(0, '#070c18');
       grad.addColorStop(0.5, '#0f172a');
       grad.addColorStop(1, '#020617');
       ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, 600, 780);
+      ctx.fillRect(0, 0, 600, 630);
 
       // 2. Dual Gold Card Borders
       ctx.strokeStyle = '#c59b27';
       ctx.lineWidth = 3.5;
-      drawRoundedRect(ctx, 14, 14, 572, 752, 26);
+      drawRoundedRect(ctx, 14, 14, 572, 602, 24);
       ctx.stroke();
 
       ctx.strokeStyle = 'rgba(197, 155, 39, 0.3)';
       ctx.lineWidth = 1;
-      drawRoundedRect(ctx, 22, 22, 556, 736, 18);
+      drawRoundedRect(ctx, 22, 22, 556, 586, 16);
       ctx.stroke();
 
       // 3. Header Logo & Title
@@ -9283,50 +9283,10 @@
         ctx.restore();
       }
 
-      // 7. Member Name (Large & Prominent)
+      // 7. Member Name Only (Large & Bold)
       ctx.fillStyle = '#ffffff';
-      ctx.font = 'bold 26px Cairo, Tajawal, sans-serif';
-      ctx.fillText(m.name, 300, 560);
-
-      // 8. ID Code Pill
-      const pillW = 200;
-      const pillH = 34;
-      const pillX = 300 - (pillW / 2);
-      const pillY = 580;
-
-      const pillGrad = ctx.createLinearGradient(pillX, pillY, pillX + pillW, pillY);
-      pillGrad.addColorStop(0, '#f59e0b');
-      pillGrad.addColorStop(1, '#d97706');
-      ctx.fillStyle = pillGrad;
-      drawRoundedRect(ctx, pillX, pillY, pillW, pillH, 17);
-      ctx.fill();
-
-      ctx.fillStyle = '#0b1120';
-      ctx.font = 'bold 16px Cairo, monospace, sans-serif';
-      ctx.fillText(`كود الحضور: ${m.id}`, 300, pillY + 23);
-
-      // 9. Meta Details (Stage • Area)
-      const stageText = m.collegeStage || getCollegeStage(m) || '';
-      const areaText = m.areaGroup || (m.groupCode ? ('منطقة ' + m.groupCode) : 'اجتماع الشباب');
-
-      ctx.fillStyle = '#38bdf8';
-      ctx.font = '700 15px Cairo, Tajawal, sans-serif';
-      ctx.fillText(`🎓 ${stageText}   •   📍 ${areaText}`, 300, 650);
-
-      // 10. Secondary Details
-      if (m.father || m.phone) {
-        ctx.fillStyle = '#94a3b8';
-        ctx.font = '600 13px Cairo, Tajawal, sans-serif';
-        const fatherStr = m.father ? `أب الاعتراف: ${m.father}` : '';
-        const phoneStr = m.phone ? `الموبايل: ${m.phone}` : '';
-        const combined = [fatherStr, phoneStr].filter(Boolean).join('  |  ');
-        ctx.fillText(combined, 300, 680);
-      }
-
-      // 11. Card Footer
-      ctx.fillStyle = '#475569';
-      ctx.font = '600 11px Cairo, Tajawal, sans-serif';
-      ctx.fillText('بطاقة الهوية الرقمية الذكية بالـ QR • 2026 - 2027 ✝️', 300, 730);
+      ctx.font = 'bold 28px Cairo, Tajawal, sans-serif';
+      ctx.fillText(m.name, 300, 572);
     }
 
     async function openBrandedQrModal(id) {
