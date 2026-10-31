@@ -18,6 +18,7 @@
   <!-- QR Scanner & Generator Libraries with local fallbacks -->
   <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
   <!-- Firebase Cloud Firestore SDKs (Real-Time Cloud Synchronization) -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
@@ -2204,7 +2205,7 @@
     <button class="tab-btn active" data-tab="tabScanner">
       📷 تسجيل الحضور
     </button>
-    <button class="tab-btn" data-tab="tabBadges">
+    <button class="tab-btn" data-tab="tabBadges" style="display:none !important;">
       🪪 الكروت والكارنيهات
       <span class="tab-count" id="badgeCountPill">157</span>
     </button>
@@ -2341,9 +2342,9 @@
     </div>
 
     <!-- ============================================== -->
-    <!-- TAB 2: QR ID CARDS (PRINTABLE BADGES)         -->
+    <!-- TAB 2: QR ID CARDS (HIDDEN AS REQUESTED)      -->
     <!-- ============================================== -->
-    <div class="tab-pane" id="tabBadges">
+    <div class="tab-pane" id="tabBadges" style="display:none !important;">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:1rem;">
         <div>
           <h2 style="font-size:1.35rem;font-weight:800;color:var(--accent-gold);display:flex;align-items:center;gap:0.5rem;">
@@ -2428,6 +2429,12 @@
           </div>
 
           <button class="btn btn-brand-primary" id="openAddMemberModalBtn">+ إضافة مخدوم</button>
+          <button type="button" class="btn btn-gold btn-sm" onclick="openFastSenderModal()" title="إرسال كروت الـ QR بالواتساب لجميع الشباب بسرعة">
+            🚀 إرسال كروت الـ QR بالواتساب
+          </button>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="downloadAllBrandedQrsZip()" id="btnDownloadAllQrsZip" title="تنزيل كل صور كروت الـ QR للـ 157 شاب بملف مضغوط واحد">
+            📦 تحميل كروت الـ QR (ملف ZIP)
+          </button>
           <button class="btn btn-sm" id="exportMembersBtn">تصدير إكسل</button>
         </div>
       </div>
@@ -2506,8 +2513,8 @@
               <th style="text-align:center;">النوع</th>
               <th style="text-align:center;">أب الاعتراف</th>
               <th>العنوان السكني</th>
-              <th style="text-align:center;width:130px;">الموبايل</th>
-              <th style="text-align:center;width:95px;">واتساب</th>
+              <th style="text-align:center;width:120px;">الموبايل</th>
+              <th style="text-align:center;width:230px;">الإجراءات والـ QR</th>
             </tr>
           </thead>
           <tbody id="membersTableBody">
@@ -3120,8 +3127,180 @@
   </div>
 
   <!-- ============================================== -->
-  <!-- JAVASCRIPT APPLICATION CORE                    -->
+  <!-- MODAL: EDIT MEMBER DATA (دليل الشباب والأسر)  -->
   <!-- ============================================== -->
+  <div class="modal-backdrop" id="editMemberModal" style="display:none;">
+    <div class="modal-box" style="max-width:620px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;border-bottom:1px solid var(--border);padding-bottom:0.75rem;">
+        <h3 style="font-size:1.25rem;font-weight:800;color:var(--accent-gold);margin:0;display:flex;align-items:center;gap:0.5rem;">
+          <span>✏️</span> تعديل بيانات المخدوم
+        </h3>
+        <button type="button" class="btn btn-icon-only btn-sm" onclick="closeEditMemberModal()" style="border:none;background:none;font-size:1.2rem;color:var(--text-muted);cursor:pointer;">✕</button>
+      </div>
+
+      <form id="editMemberForm" onsubmit="event.preventDefault(); saveEditedMember();">
+        <input type="hidden" id="editMemberId">
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.85rem;margin-bottom:0.85rem;">
+          <div class="form-group">
+            <label style="font-weight:700;font-size:0.82rem;color:var(--text-main);margin-bottom:0.35rem;display:block;">الاسم بالكامل:</label>
+            <input type="text" id="editMemberName" class="form-control" required style="font-weight:700;">
+          </div>
+          <div class="form-group">
+            <label style="font-weight:700;font-size:0.82rem;color:var(--text-main);margin-bottom:0.35rem;display:block;">رقم الموبايل:</label>
+            <input type="tel" id="editMemberPhone" class="form-control" dir="ltr" style="font-weight:700;font-family:monospace;">
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.85rem;margin-bottom:0.85rem;">
+          <div class="form-group">
+            <label style="font-weight:700;font-size:0.82rem;color:var(--text-main);margin-bottom:0.35rem;display:block;">المرحلة الجامعية:</label>
+            <select id="editMemberStage" class="form-control" style="font-weight:700;">
+              <option value="أولى كلية">أولى كلية</option>
+              <option value="تانية كلية">تانية كلية</option>
+              <option value="تالتة كلية">تالتة كلية</option>
+              <option value="رابعة كلية">رابعة كلية</option>
+              <option value="خامسة كلية">خامسة كلية</option>
+              <option value="خريج">خريج</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label style="font-weight:700;font-size:0.82rem;color:var(--text-main);margin-bottom:0.35rem;display:block;">النوع:</label>
+            <select id="editMemberGender" class="form-control" style="font-weight:700;">
+              <option value="شاب">👦 شاب</option>
+              <option value="شابة">👧 شابة</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label style="font-weight:700;font-size:0.82rem;color:var(--text-main);margin-bottom:0.35rem;display:block;">المنطقة السكنية:</label>
+            <select id="editMemberAreaGroup" class="form-control" style="font-weight:700;">
+              <option value="منطقة A">منطقة A</option>
+              <option value="منطقة B">منطقة B</option>
+              <option value="منطقة C">منطقة C</option>
+              <option value="منطقة D">منطقة D</option>
+              <option value="منطقة E">منطقة E</option>
+              <option value="منطقة T">منطقة T (خارج القناطر)</option>
+              <option value="غير محدد">غير محدد</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.85rem;margin-bottom:0.85rem;">
+          <div class="form-group">
+            <label style="font-weight:700;font-size:0.82rem;color:var(--text-main);margin-bottom:0.35rem;display:block;">الأسرة:</label>
+            <input type="text" id="editMemberFamily" class="form-control" placeholder="مثال: أسرة 1 أو لم تحدد بعد">
+          </div>
+          <div class="form-group">
+            <label style="font-weight:700;font-size:0.82rem;color:var(--text-main);margin-bottom:0.35rem;display:block;">أب الاعتراف:</label>
+            <input type="text" id="editMemberFather" class="form-control" placeholder="مثال: ابونا إيساك">
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.85rem;margin-bottom:0.85rem;">
+          <div class="form-group">
+            <label style="font-weight:700;font-size:0.82rem;color:var(--text-main);margin-bottom:0.35rem;display:block;">تاريخ الميلاد:</label>
+            <input type="text" id="editMemberBirthdate" class="form-control" placeholder="مثال: 15 أكتوبر 2005">
+          </div>
+          <div class="form-group">
+            <label style="font-weight:700;font-size:0.82rem;color:var(--text-main);margin-bottom:0.35rem;display:block;">هاتف إضافي:</label>
+            <input type="tel" id="editMemberPhone2" class="form-control" dir="ltr">
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom:1.25rem;">
+          <label style="font-weight:700;font-size:0.82rem;color:var(--text-main);margin-bottom:0.35rem;display:block;">العنوان بالتفصيل:</label>
+          <input type="text" id="editMemberAddress" class="form-control" placeholder="المنطقة والشارع ورقم العمارة...">
+        </div>
+
+        <div style="display:flex;justify-content:flex-end;gap:0.75rem;">
+          <button type="button" class="btn btn-outline-danger" onclick="closeEditMemberModal()">إلغاء</button>
+          <button type="submit" class="btn btn-gold" style="min-width:140px;">💾 حفظ التعديلات</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL: BRANDED QR CARD (باللوجو واسم الشخص)     -->
+  <!-- ============================================== -->
+  <div class="modal-backdrop" id="brandedQrModal" style="display:none;">
+    <div class="modal-box" style="max-width:480px;text-align:center;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;border-bottom:1px solid var(--border);padding-bottom:0.65rem;">
+        <h3 id="brandedQrModalTitle" style="font-size:1.15rem;font-weight:800;color:var(--accent-gold);margin:0;display:flex;align-items:center;gap:0.45rem;">
+          <span>🪪</span> كارت الهوية الذكي
+        </h3>
+        <button type="button" class="btn btn-icon-only btn-sm" onclick="closeBrandedQrModal()" style="border:none;background:none;font-size:1.2rem;color:var(--text-muted);cursor:pointer;">✕</button>
+      </div>
+
+      <div style="display:flex;justify-content:center;margin-bottom:1.15rem;">
+        <canvas id="brandedCardCanvas" width="600" height="780" style="width:100%;max-width:360px;height:auto;border-radius:18px;box-shadow:0 12px 35px rgba(0,0,0,0.5);"></canvas>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.65rem;">
+        <button type="button" class="btn btn-gold" id="btnDownloadBrandedCard" onclick="downloadCurrentBrandedCardPng()">
+          📥 تحميل الكارت (PNG)
+        </button>
+        <button type="button" class="btn btn-success" id="btnShareBrandedCardWhatsapp" onclick="shareCurrentBrandedCardWhatsApp()">
+          📱 إرسال بالواتساب
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL: FAST WHATSAPP QR SENDER (مرسل الواتساب)  -->
+  <!-- ============================================== -->
+  <div class="modal-backdrop" id="qrFastSenderModal" style="display:none;">
+    <div class="modal-box" style="max-width:620px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;border-bottom:1px solid var(--border);padding-bottom:0.75rem;">
+        <h3 style="font-size:1.2rem;font-weight:800;color:var(--accent-emerald);margin:0;display:flex;align-items:center;gap:0.5rem;">
+          <span>🚀</span> مرسل كروت الـ QR السريع لجميع الشباب
+        </h3>
+        <button type="button" class="btn btn-icon-only btn-sm" onclick="closeFastSenderModal()" style="border:none;background:none;font-size:1.2rem;color:var(--text-muted);cursor:pointer;">✕</button>
+      </div>
+
+      <!-- Sender Progress Card -->
+      <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-md);padding:0.95rem;margin-bottom:1rem;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem;font-size:0.88rem;font-weight:700;">
+          <span>تقدم الإرسال: <strong id="fastSenderProgressText" style="color:var(--accent-gold);">0 / 157</strong></span>
+          <span id="fastSenderProgressPercent" style="color:var(--accent-emerald);font-weight:800;">0%</span>
+        </div>
+        <div style="width:100%;height:10px;background:rgba(255,255,255,0.08);border-radius:var(--radius-full);overflow:hidden;">
+          <div id="fastSenderProgressBar" style="width:0%;height:100%;background:linear-gradient(90deg, #10b981, #06b6d4);transition:width 0.3s ease;"></div>
+        </div>
+      </div>
+
+      <!-- Current Member in Queue Box -->
+      <div id="fastSenderCurrentQueueBox" style="background:rgba(16,185,129,0.06);border:1.5px solid rgba(16,185,129,0.3);border-radius:var(--radius-md);padding:1.15rem;margin-bottom:1.15rem;text-align:center;">
+        <div style="font-size:0.75rem;color:var(--text-muted);font-weight:700;margin-bottom:0.35rem;">المخدوم الحالي في طابور الإرسال:</div>
+        <h4 id="fastSenderCurrentName" style="font-size:1.35rem;font-weight:900;color:var(--text-main);margin-bottom:0.4rem;">—</h4>
+        <div id="fastSenderCurrentMeta" style="display:flex;align-items:center;justify-content:center;gap:0.5rem;flex-wrap:wrap;margin-bottom:1rem;font-size:0.82rem;">
+          <span class="badge-id" id="fastSenderCurrentId">SM-01</span>
+          <span class="family-pill pill-stage" id="fastSenderCurrentStage">أولى كلية</span>
+          <span style="color:var(--accent-blue);font-family:monospace;font-weight:700;" id="fastSenderCurrentPhone">012...</span>
+        </div>
+
+        <div style="display:flex;gap:0.65rem;justify-content:center;flex-wrap:wrap;">
+          <button type="button" class="btn btn-success" id="btnSendNextWhatsApp" onclick="sendNextInFastQueue()" style="font-size:0.95rem;font-weight:800;padding:0.65rem 1.35rem;">
+            🟢 إرسال عبر واتساب ومتابعة التالي
+          </button>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="skipCurrentInFastQueue()" title="تخطي للشخص التالي">
+            ⏭️ تخطي
+          </button>
+        </div>
+      </div>
+
+      <!-- Queue Controls & Reset -->
+      <div style="display:flex;align-items:center;justify-content:space-between;padding-top:0.65rem;border-top:1px solid var(--border);flex-wrap:wrap;gap:0.5rem;">
+        <button type="button" class="btn btn-outline-danger btn-sm" onclick="resetFastSenderQueue()">
+          🔄 تصفير حالة الإرسال للجميع
+        </button>
+        <button type="button" class="btn btn-secondary btn-sm" onclick="downloadAllBrandedQrsZip()">
+          📦 تحميل الكل في ملف ZIP
+        </button>
+      </div>
+    </div>
+  </div>
   <script>
     // ==============================================
     // SERVANT ROLES & ACCESS CONTROL CONFIGURATION
@@ -3159,7 +3338,7 @@
         badgeName: 'أمناء الاجتماع',
         icon: '👑',
         color: '#f59e0b',
-        allowedTabs: ['tabScanner', 'tabBadges', 'tabMembers', 'tabBirthdays', 'tabFamilyScores', 'tabSessions', 'tabVisitation', 'tabAnalytics'],
+        allowedTabs: ['tabScanner', 'tabMembers', 'tabBirthdays', 'tabFamilyScores', 'tabSessions', 'tabVisitation', 'tabAnalytics'],
         defaultTab: 'tabScanner',
         canManageSettings: true
       },
@@ -8262,7 +8441,15 @@
               ${m.phone ? `<a href="tel:${m.phone}" style="color:var(--accent-blue);font-family:monospace;font-size:0.88rem;text-decoration:none;font-weight:700;direction:ltr;display:inline-block;" title="اتصال هاتفي">${m.phone}</a>` : '<span style="color:var(--text-muted);font-size:0.82rem;">—</span>'}
             </td>
             <td style="text-align:center;">
-              ${m.phone ? `<a href="https://wa.me/2${m.phone}" target="_blank" class="btn btn-whatsapp" style="padding:0.25rem 0.65rem;font-size:0.75rem;">واتساب</a>` : '—'}
+              <div style="display:inline-flex;align-items:center;gap:0.35rem;flex-wrap:wrap;justify-content:center;">
+                <button type="button" class="btn btn-sm btn-gold" onclick="openEditMemberModal('${m.id}')" style="padding:0.25rem 0.55rem;font-size:0.75rem;" title="تعديل بيانات المخدوم">
+                  ✏️ تعديل
+                </button>
+                <button type="button" class="btn btn-sm btn-secondary" onclick="openBrandedQrModal('${m.id}')" style="padding:0.25rem 0.55rem;font-size:0.75rem;" title="عرض وتحميل كارت الـ QR باللوجو والاسم">
+                  🪪 كارت QR
+                </button>
+                ${m.phone ? `<a href="https://wa.me/2${m.phone}" target="_blank" class="btn btn-whatsapp" style="padding:0.25rem 0.55rem;font-size:0.75rem;" title="مراسلة واتساب">💬</a>` : ''}
+              </div>
             </td>
           `;
           tbody.appendChild(tr);
@@ -8291,7 +8478,13 @@
               ${(m.area || m.street) ? `<div class="member-meta-line"><span class="meta-icon">🏠</span> <span>${m.area || ''} ${m.street ? '— ' + m.street : ''}</span></div>` : ''}
             </div>` : ''}
 
-            <div class="member-card-actions">
+            <div class="member-card-actions" style="display:grid;grid-template-columns:1fr 1fr;gap:0.45rem;">
+              <button type="button" class="btn btn-gold btn-sm" onclick="openEditMemberModal('${m.id}')" style="font-size:0.8rem;padding:0.45rem 0.6rem;">
+                ✏️ تعديل البيانات
+              </button>
+              <button type="button" class="btn btn-secondary btn-sm" onclick="openBrandedQrModal('${m.id}')" style="font-size:0.8rem;padding:0.45rem 0.6rem;">
+                🪪 كارت الـ QR
+              </button>
               ${m.phone ? `
                 <a href="tel:${m.phone}" class="btn btn-call-mobile">
                   📞 اتصال (${m.phone})
@@ -8300,13 +8493,543 @@
                   💬 واتساب
                 </a>
               ` : `
-                <span style="font-size:0.8rem;color:var(--text-muted);text-align:center;width:100%;padding:0.25rem;">بدون رقم هاتف مسجل</span>
+                <span style="grid-column:1/-1;font-size:0.8rem;color:var(--text-muted);text-align:center;padding:0.25rem;">بدون رقم هاتف مسجل</span>
               `}
             </div>
           `;
           cardsGrid.appendChild(card);
         }
       });
+    }
+
+    // ==============================================
+    // DIRECTORY MEMBER EDITING (تعديل بيانات الدليل)
+    // ==============================================
+    let currentEditingMemberId = null;
+
+    function openEditMemberModal(id) {
+      const m = appData.members.find(x => x.id === id);
+      if (!m) return;
+      currentEditingMemberId = id;
+
+      document.getElementById('editMemberId').value = m.id;
+      document.getElementById('editMemberName').value = m.name || '';
+      document.getElementById('editMemberPhone').value = m.phone || '';
+      document.getElementById('editMemberPhone2').value = m.phone2 || '';
+      document.getElementById('editMemberStage').value = m.collegeStage || getCollegeStage(m) || 'أولى كلية';
+      document.getElementById('editMemberGender').value = m.gender || 'شاب';
+      document.getElementById('editMemberAreaGroup').value = m.areaGroup || (m.groupCode ? ('منطقة ' + m.groupCode) : 'غير محدد');
+      document.getElementById('editMemberFamily').value = (m.family && m.family !== 'غير محدد') ? m.family : '';
+      document.getElementById('editMemberFather').value = m.father || '';
+      document.getElementById('editMemberAddress').value = m.fullAddress || (m.area ? (m.area + (m.street ? ' — ' + m.street : '')) : '');
+      document.getElementById('editMemberBirthdate').value = m.birthDateText || '';
+
+      const modal = document.getElementById('editMemberModal');
+      if (modal) modal.style.display = 'flex';
+    }
+
+    function closeEditMemberModal() {
+      const modal = document.getElementById('editMemberModal');
+      if (modal) modal.style.display = 'none';
+      currentEditingMemberId = null;
+    }
+
+    async function saveEditedMember() {
+      if (!currentEditingMemberId) return;
+      const idx = appData.members.findIndex(m => m.id === currentEditingMemberId);
+      if (idx === -1) return;
+
+      const name = document.getElementById('editMemberName').value.trim();
+      const phone = document.getElementById('editMemberPhone').value.trim();
+      const phone2 = document.getElementById('editMemberPhone2').value.trim();
+      const collegeStage = document.getElementById('editMemberStage').value;
+      const gender = document.getElementById('editMemberGender').value;
+      const areaGroup = document.getElementById('editMemberAreaGroup').value;
+      const family = document.getElementById('editMemberFamily').value.trim() || 'لم تحدد بعد';
+      const father = document.getElementById('editMemberFather').value.trim();
+      const fullAddress = document.getElementById('editMemberAddress').value.trim();
+      const birthDateText = document.getElementById('editMemberBirthdate').value.trim();
+
+      let groupCode = appData.members[idx].groupCode;
+      if (areaGroup.startsWith('منطقة ')) {
+        groupCode = areaGroup.replace('منطقة ', '').trim();
+      }
+
+      const updated = Object.assign({}, appData.members[idx], {
+        name,
+        phone,
+        phone2,
+        collegeStage,
+        universityStage: collegeStage,
+        gender,
+        areaGroup,
+        groupCode,
+        family,
+        father,
+        fullAddress,
+        area: fullAddress,
+        birthDateText
+      });
+
+      appData.members[idx] = updated;
+      saveLocalData();
+
+      // Sync with Firestore if active
+      if (isFirebaseReady && db) {
+        db.collection('app_config').doc('members_data').set({
+          members: appData.members
+        }).catch(err => console.warn("Firestore member edit sync fallback:", err));
+      }
+
+      // Sync with local server if active
+      fetch('/api/members/update', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updated)
+      }).catch(() => {});
+
+      closeEditMemberModal();
+      renderMembersTable();
+      playBeepSuccess();
+      alert(`✅ تم تحديث بيانات المخدوم (${name}) بنجاح!`);
+    }
+
+    // ==============================================
+    // BRANDED QR CARD GENERATOR (باللوجو واسم الشخص)
+    // ==============================================
+    let currentBrandedMember = null;
+    let preloadedChurchLogo = null;
+
+    function getPreloadedLogo() {
+      if (preloadedChurchLogo && preloadedChurchLogo.complete && preloadedChurchLogo.naturalWidth !== 0) {
+        return Promise.resolve(preloadedChurchLogo);
+      }
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = () => {
+          preloadedChurchLogo = img;
+          resolve(img);
+        };
+        img.onerror = () => {
+          resolve(null);
+        };
+        img.src = 'favicon.png';
+      });
+    }
+
+    function drawRoundedRect(ctx, x, y, width, height, radius) {
+      ctx.beginPath();
+      ctx.moveTo(x + radius, y);
+      ctx.lineTo(x + width - radius, y);
+      ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+      ctx.lineTo(x + width, y + height - radius);
+      ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+      ctx.lineTo(x + radius, y + height);
+      ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+      ctx.lineTo(x, y + radius);
+      ctx.quadraticCurveTo(x, y + radius, x + radius, y);
+      ctx.closePath();
+    }
+
+    async function drawBrandedQrToCanvas(canvas, m) {
+      if (!canvas || !m) return;
+      canvas.width = 600;
+      canvas.height = 780;
+      const ctx = canvas.getContext('2d');
+
+      // 1. Background Luxury Gradient
+      const grad = ctx.createLinearGradient(0, 0, 0, 780);
+      grad.addColorStop(0, '#070c18');
+      grad.addColorStop(0.5, '#0f172a');
+      grad.addColorStop(1, '#020617');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 600, 780);
+
+      // 2. Dual Gold Card Borders
+      ctx.strokeStyle = '#c59b27';
+      ctx.lineWidth = 3.5;
+      drawRoundedRect(ctx, 14, 14, 572, 752, 26);
+      ctx.stroke();
+
+      ctx.strokeStyle = 'rgba(197, 155, 39, 0.3)';
+      ctx.lineWidth = 1;
+      drawRoundedRect(ctx, 22, 22, 556, 736, 18);
+      ctx.stroke();
+
+      // 3. Header Logo & Title
+      const logoImg = await getPreloadedLogo();
+      if (logoImg) {
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(300, 68, 34, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.clip();
+        ctx.drawImage(logoImg, 266, 34, 68, 68);
+        ctx.restore();
+
+        ctx.strokeStyle = '#c59b27';
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        ctx.arc(300, 68, 35, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#f59e0b';
+      ctx.font = 'bold 22px Cairo, Tajawal, sans-serif';
+      ctx.fillText('اجتماع يوسف الصديق للشباب', 300, 132);
+
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = '700 13px Cairo, Tajawal, sans-serif';
+      ctx.fillText('كنيسة السيدة العذراء مريم بالقناطر الخيرية', 300, 154);
+
+      ctx.fillStyle = '#c59b27';
+      ctx.font = 'bold 13px Cairo, sans-serif';
+      ctx.fillText('─── ✝ ───', 300, 175);
+
+      // 4. White Center Box for QR
+      drawRoundedRect(ctx, 140, 195, 320, 320, 20);
+      ctx.fillStyle = '#ffffff';
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(197, 155, 39, 0.5)';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // 5. Generate and Draw QR code
+      const tempQrDiv = document.createElement('div');
+      tempQrDiv.style.display = 'none';
+      document.body.appendChild(tempQrDiv);
+
+      new QRCode(tempQrDiv, {
+        text: m.id,
+        width: 280,
+        height: 280,
+        colorDark: '#070c18',
+        colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.H
+      });
+
+      await new Promise(r => setTimeout(r, 40));
+      const qrCanvas = tempQrDiv.querySelector('canvas');
+      const qrImg = tempQrDiv.querySelector('img');
+
+      if (qrCanvas) {
+        ctx.drawImage(qrCanvas, 160, 215, 280, 280);
+      } else if (qrImg && qrImg.src) {
+        ctx.drawImage(qrImg, 160, 215, 280, 280);
+      }
+      tempQrDiv.remove();
+
+      // 6. Draw Circular Center Badge inside QR
+      ctx.beginPath();
+      ctx.arc(300, 355, 24, 0, Math.PI * 2);
+      ctx.fillStyle = '#ffffff';
+      ctx.fill();
+      ctx.strokeStyle = '#c59b27';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      if (logoImg) {
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(300, 355, 21, 0, Math.PI * 2);
+        ctx.clip();
+        ctx.drawImage(logoImg, 279, 334, 42, 42);
+        ctx.restore();
+      }
+
+      // 7. Member Name (Large & Prominent)
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 26px Cairo, Tajawal, sans-serif';
+      ctx.fillText(m.name, 300, 560);
+
+      // 8. ID Code Pill
+      const pillW = 200;
+      const pillH = 34;
+      const pillX = 300 - (pillW / 2);
+      const pillY = 580;
+
+      const pillGrad = ctx.createLinearGradient(pillX, pillY, pillX + pillW, pillY);
+      pillGrad.addColorStop(0, '#f59e0b');
+      pillGrad.addColorStop(1, '#d97706');
+      ctx.fillStyle = pillGrad;
+      drawRoundedRect(ctx, pillX, pillY, pillW, pillH, 17);
+      ctx.fill();
+
+      ctx.fillStyle = '#0b1120';
+      ctx.font = 'bold 16px Cairo, monospace, sans-serif';
+      ctx.fillText(`كود الحضور: ${m.id}`, 300, pillY + 23);
+
+      // 9. Meta Details (Stage • Area)
+      const stageText = m.collegeStage || getCollegeStage(m) || '';
+      const areaText = m.areaGroup || (m.groupCode ? ('منطقة ' + m.groupCode) : 'اجتماع الشباب');
+
+      ctx.fillStyle = '#38bdf8';
+      ctx.font = '700 15px Cairo, Tajawal, sans-serif';
+      ctx.fillText(`🎓 ${stageText}   •   📍 ${areaText}`, 300, 650);
+
+      // 10. Secondary Details
+      if (m.father || m.phone) {
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '600 13px Cairo, Tajawal, sans-serif';
+        const fatherStr = m.father ? `أب الاعتراف: ${m.father}` : '';
+        const phoneStr = m.phone ? `الموبايل: ${m.phone}` : '';
+        const combined = [fatherStr, phoneStr].filter(Boolean).join('  |  ');
+        ctx.fillText(combined, 300, 680);
+      }
+
+      // 11. Card Footer
+      ctx.fillStyle = '#475569';
+      ctx.font = '600 11px Cairo, Tajawal, sans-serif';
+      ctx.fillText('بطاقة الهوية الرقمية الذكية بالـ QR • 2026 - 2027 ✝️', 300, 730);
+    }
+
+    async function openBrandedQrModal(id) {
+      const m = appData.members.find(x => x.id === id);
+      if (!m) return;
+      currentBrandedMember = m;
+
+      const titleEl = document.getElementById('brandedQrModalTitle');
+      if (titleEl) titleEl.innerHTML = `<span>🪪</span> كارت QR: <strong>${m.name}</strong> (${m.id})`;
+
+      const canvas = document.getElementById('brandedCardCanvas');
+      await drawBrandedQrToCanvas(canvas, m);
+
+      const modal = document.getElementById('brandedQrModal');
+      if (modal) modal.style.display = 'flex';
+    }
+
+    function closeBrandedQrModal() {
+      const modal = document.getElementById('brandedQrModal');
+      if (modal) modal.style.display = 'none';
+      currentBrandedMember = null;
+    }
+
+    function downloadCurrentBrandedCardPng() {
+      if (!currentBrandedMember) return;
+      const canvas = document.getElementById('brandedCardCanvas');
+      if (!canvas) return;
+
+      const cleanName = (currentBrandedMember.name || '').replace(/[\\/:*?"<>|]/g, '_').trim();
+      const a = document.createElement('a');
+      a.download = `${cleanName} - ${currentBrandedMember.id}.png`;
+      a.href = canvas.toDataURL('image/png');
+      a.click();
+    }
+
+    function shareCurrentBrandedCardWhatsApp() {
+      if (!currentBrandedMember) return;
+      const m = currentBrandedMember;
+
+      downloadCurrentBrandedCardPng();
+
+      const text = encodeURIComponent(
+        `سلام ونعمة يا ${m.name} ❤️✝️\n\n` +
+        `كارت الـ QR الذكي الخاص بك لحضور اجتماع يوسف الصديق للشباب — كنيسة السيدة العذراء مريم بالقناطر الخيرية.\n\n` +
+        `👤 *الاسم:* ${m.name}\n` +
+        `🆔 *كود الحضور:* ${m.id}\n` +
+        `🎓 *المرحلة:* ${m.collegeStage || getCollegeStage(m) || ''}\n` +
+        `📍 *المنطقة:* ${m.areaGroup || m.groupCode || ''}\n\n` +
+        `تم تنزيل كارت الحضور المصمم باللوجو واسمك في التنزيلات. يرجى إبراز الكود عند الدخول لتسجيل حضورك فورياً.\n` +
+        `نورت بيتك واجتماعك!`
+      );
+      window.open(`https://wa.me/2${m.phone}?text=${text}`, '_blank');
+    }
+
+    // ==============================================
+    // BATCH ZIP DOWNLOAD (تحميل كل كروت الـ 157 شاب)
+    // ==============================================
+    async function downloadAllBrandedQrsZip() {
+      if (typeof JSZip === 'undefined') {
+        alert("جارٍ تحميل مكتبة الضغط، يرجى المحاولة بعد لحظات...");
+        return;
+      }
+
+      const btn = document.getElementById('btnDownloadAllQrsZip');
+      const originalText = btn ? btn.innerHTML : '';
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '⏳ توليد الـ 157 كارت...';
+      }
+
+      try {
+        const zip = new JSZip();
+        const offscreenCanvas = document.createElement('canvas');
+
+        for (let i = 0; i < appData.members.length; i++) {
+          const m = appData.members[i];
+          await drawBrandedQrToCanvas(offscreenCanvas, m);
+          const dataUrl = offscreenCanvas.toDataURL('image/png');
+          const base64Data = dataUrl.replace(/^data:image\/png;base64,/, '');
+          const cleanName = (m.name || '').replace(/[\\/:*?"<>|]/g, '_').trim();
+          zip.file(`${cleanName} - ${m.id}.png`, base64Data, { base64: true });
+
+          if ((i + 1) % 25 === 0 && btn) {
+            btn.innerHTML = `⏳ معالجة ${i + 1} من ${appData.members.length}...`;
+          }
+        }
+
+        if (btn) btn.innerHTML = '📦 جارٍ ضغط الملف...';
+        const content = await zip.generateAsync({ type: 'blob' });
+
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(content);
+        a.download = `كروت_QR_اجتماع_يوسف_الصديق_157_شاب.zip`;
+        a.click();
+
+        alert("✅ تم تحميل جميع كروت الـ QR (157 كارت مخصص بالاسم واللوجو) بنجاح!");
+      } catch (err) {
+        alert("حدث خطأ أثناء إنشاء ملف الـ ZIP: " + err.message);
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = originalText;
+        }
+      }
+    }
+
+    // ==============================================
+    // FAST WHATSAPP QR QUEUE SENDER (مرسل الواتساب السريع)
+    // ==============================================
+    let fastSenderIndex = 0;
+
+    function getSentIds() {
+      try {
+        return JSON.parse(localStorage.getItem('egtma3_qr_sent_ids') || '[]');
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function saveSentId(id) {
+      const ids = getSentIds();
+      if (!ids.includes(id)) {
+        ids.push(id);
+        localStorage.setItem('egtma3_qr_sent_ids', JSON.stringify(ids));
+      }
+    }
+
+    function openFastSenderModal() {
+      const modal = document.getElementById('qrFastSenderModal');
+      if (modal) {
+        modal.style.display = 'flex';
+        updateFastSenderUI();
+      }
+    }
+
+    function closeFastSenderModal() {
+      const modal = document.getElementById('qrFastSenderModal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function getUnsentMembers() {
+      const sentIds = getSentIds();
+      return appData.members.filter(m => m.phone && !sentIds.includes(m.id));
+    }
+
+    function updateFastSenderUI() {
+      const totalMembersWithPhone = appData.members.filter(m => m.phone).length;
+      const sentIds = getSentIds();
+      const sentCount = appData.members.filter(m => m.phone && sentIds.includes(m.id)).length;
+      const remainingCount = totalMembersWithPhone - sentCount;
+      const percent = totalMembersWithPhone ? Math.round((sentCount / totalMembersWithPhone) * 100) : 0;
+
+      const progressText = document.getElementById('fastSenderProgressText');
+      const progressPercent = document.getElementById('fastSenderProgressPercent');
+      const progressBar = document.getElementById('fastSenderProgressBar');
+
+      if (progressText) progressText.textContent = `${sentCount} / ${totalMembersWithPhone}`;
+      if (progressPercent) progressPercent.textContent = `${percent}%`;
+      if (progressBar) progressBar.style.width = `${percent}%`;
+
+      const unsent = getUnsentMembers();
+      const currentBox = document.getElementById('fastSenderCurrentQueueBox');
+      if (!currentBox) return;
+
+      if (unsent.length === 0) {
+        currentBox.innerHTML = `
+          <div style="padding:1.5rem 1rem;">
+            <div style="font-size:2.5rem;margin-bottom:0.5rem;">🎉</div>
+            <h4 style="color:var(--accent-emerald);font-size:1.25rem;font-weight:900;margin-bottom:0.4rem;">اكتمل إرسال جميع كروت الـ QR!</h4>
+            <p style="font-size:0.85rem;color:var(--text-muted);">تم إرسال كروت الحضور لجميع الشباب المسجل لهم أرقام هواتف (${sentCount} عضو).</p>
+          </div>
+        `;
+        return;
+      }
+
+      if (fastSenderIndex >= unsent.length) fastSenderIndex = 0;
+      const current = unsent[fastSenderIndex];
+
+      currentBox.innerHTML = `
+        <div style="font-size:0.75rem;color:var(--text-muted);font-weight:700;margin-bottom:0.35rem;">المخدوم التالي في طابور الإرسال:</div>
+        <h4 id="fastSenderCurrentName" style="font-size:1.35rem;font-weight:900;color:var(--text-main);margin-bottom:0.4rem;">${current.name}</h4>
+        <div style="display:flex;align-items:center;justify-content:center;gap:0.5rem;flex-wrap:wrap;margin-bottom:1rem;font-size:0.82rem;">
+          <span class="badge-id">${current.id}</span>
+          <span class="family-pill pill-stage">${current.collegeStage || getCollegeStage(current) || ''}</span>
+          <span style="color:var(--accent-blue);font-family:monospace;font-weight:700;">${current.phone}</span>
+        </div>
+
+        <div style="display:flex;gap:0.65rem;justify-content:center;flex-wrap:wrap;">
+          <button type="button" class="btn btn-success" onclick="sendNextInFastQueue()" style="font-size:0.95rem;font-weight:800;padding:0.65rem 1.35rem;">
+            🟢 إرسال عبر واتساب ومتابعة التالي
+          </button>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="skipCurrentInFastQueue()" title="تخطي للشخص التالي">
+            ⏭️ تخطي
+          </button>
+        </div>
+      `;
+    }
+
+    async function sendNextInFastQueue() {
+      const unsent = getUnsentMembers();
+      if (unsent.length === 0) return;
+      if (fastSenderIndex >= unsent.length) fastSenderIndex = 0;
+      const m = unsent[fastSenderIndex];
+
+      // 1. Generate & download their branded PNG image automatically
+      const tempCanvas = document.createElement('canvas');
+      await drawBrandedQrToCanvas(tempCanvas, m);
+      const cleanName = (m.name || '').replace(/[\\/:*?"<>|]/g, '_').trim();
+      const a = document.createElement('a');
+      a.download = `${cleanName} - ${m.id}.png`;
+      a.href = tempCanvas.toDataURL('image/png');
+      a.click();
+
+      // 2. Mark as sent
+      saveSentId(m.id);
+
+      // 3. Open WhatsApp chat with personalized message
+      const text = encodeURIComponent(
+        `سلام ونعمة يا ${m.name} ❤️✝️\n\n` +
+        `كارت الـ QR الذكي الخاص بك لحضور اجتماع يوسف الصديق للشباب — كنيسة السيدة العذراء مريم بالقناطر الخيرية.\n\n` +
+        `👤 *الاسم:* ${m.name}\n` +
+        `🆔 *كود الحضور:* ${m.id}\n` +
+        `🎓 *المرحلة:* ${m.collegeStage || getCollegeStage(m) || ''}\n` +
+        `📍 *المنطقة:* ${m.areaGroup || m.groupCode || ''}\n\n` +
+        `تم تنزيل كارت الحضور المخصص باسمك ولوجو الاجتماع في التنزيلات. يرجى إبراز الكود عند الدخول لتسجيل حضورك فورياً.\n` +
+        `نورت بيتك واجتماعك!`
+      );
+      window.open(`https://wa.me/2${m.phone}?text=${text}`, '_blank');
+
+      // 4. Update UI to next recipient
+      updateFastSenderUI();
+    }
+
+    function skipCurrentInFastQueue() {
+      const unsent = getUnsentMembers();
+      if (unsent.length <= 1) return;
+      fastSenderIndex = (fastSenderIndex + 1) % unsent.length;
+      updateFastSenderUI();
+    }
+
+    function resetFastSenderQueue() {
+      if (confirm("هل ترغب في إعادة تصفير حالة إرسال كروت الـ QR للجميع للبدء من جديد؟")) {
+        localStorage.removeItem('egtma3_qr_sent_ids');
+        fastSenderIndex = 0;
+        updateFastSenderUI();
+        alert("✓ تم تصفير طابور الإرسال للبدء من جديد.");
+      }
     }
 
     function renderSessionsTable() {

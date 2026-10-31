@@ -399,6 +399,40 @@ const server = http.createServer((req, res) => {
       return;
     }
 
+    // POST /api/members/update (Update member details in Directory)
+    if (pathname === '/api/members/update' && req.method === 'POST') {
+      let body = '';
+      req.on('data', chunk => body += chunk);
+      req.on('end', async () => {
+        try {
+          const updated = JSON.parse(body);
+          if (!updated.id) {
+            res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' });
+            res.end(JSON.stringify({ success: false, message: 'معرف العضو مطلوب' }));
+            return;
+          }
+          const result = await queueDBWrite(db => {
+            const idx = db.members.findIndex(m => m.id === updated.id);
+            if (idx === -1) return { notFound: true };
+            db.members[idx] = Object.assign({}, db.members[idx], updated);
+            return db.members[idx];
+          });
+
+          if (result.notFound) {
+            res.writeHead(404, { 'Content-Type': 'application/json; charset=utf-8' });
+            res.end(JSON.stringify({ success: false, message: 'العضو غير موجود' }));
+          } else {
+            res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+            res.end(JSON.stringify({ success: true, member: result }));
+          }
+        } catch (e) {
+          res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' });
+          res.end(JSON.stringify({ success: false, message: 'خطأ في تعديل العضو: ' + e.message }));
+        }
+      });
+      return;
+    }
+
     // POST /api/sessions (Add new session)
     if (pathname === '/api/sessions' && req.method === 'POST') {
       let body = '';
