@@ -2915,27 +2915,6 @@
         <button type="submit" id="submitLoginBtn" class="login-submit-btn">
           تسجيل الدخول إلى المنظومة
         </button>
-
-        <!-- Quick Role Helper / Credentials Guide -->
-        <div style="margin-top:1.25rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,0.08);text-align:center;">
-          <div style="font-size:0.75rem;color:var(--text-muted);font-weight:700;margin-bottom:0.6rem;">
-            🔑 الدخول السريع بحسابات الخدمة المصرحة (اضغط للتعبئة الفورية):
-          </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.45rem;">
-            <button type="button" class="btn btn-sm btn-secondary" onclick="quickFillLogin('admin')" style="font-size:0.75rem;padding:0.45rem 0.6rem;justify-content:flex-start;width:100%;" title="صلاحيات كاملة لكل تابات المنظومة">
-              👑 أمناء الاجتماع
-            </button>
-            <button type="button" class="btn btn-sm btn-secondary" onclick="quickFillLogin('secretariat')" style="font-size:0.75rem;padding:0.45rem 0.6rem;justify-content:flex-start;width:100%;" title="تسجيل الحضور والغياب فقط">
-              📋 السكرتارية
-            </button>
-            <button type="button" class="btn btn-sm btn-secondary" onclick="quickFillLogin('visitation')" style="font-size:0.75rem;padding:0.45rem 0.6rem;justify-content:flex-start;width:100%;" title="متابعة الغياب وأعياد الميلاد">
-              📞 لجنة الافتقاد
-            </button>
-            <button type="button" class="btn btn-sm btn-secondary" onclick="quickFillLogin('schedule')" style="font-size:0.75rem;padding:0.45rem 0.6rem;justify-content:flex-start;width:100%;" title="عرض جدول اللقاءات المعتمد">
-              📅 خدام اللقاءات
-            </button>
-          </div>
-        </div>
       </form>
     </div>
   </div>
@@ -8742,19 +8721,6 @@
     // ==============================================
     // SERVANT RBAC & AUTHENTICATION LOGIC
     // ==============================================
-    function quickFillLogin(roleKey) {
-      const accs = (authSettings && authSettings.accounts) || DEFAULT_AUTH_SETTINGS.accounts;
-      const acc = accs[roleKey];
-      if (!acc) return;
-      const userInput = document.getElementById('loginUsernameInput');
-      const passInput = document.getElementById('loginPasswordInput');
-      if (userInput) userInput.value = acc.username;
-      if (passInput) passInput.value = acc.password;
-      const errMsg = document.getElementById('loginErrorMessage');
-      if (errMsg) errMsg.style.display = 'none';
-      if (passInput) passInput.focus();
-    }
-
     function applyRolePermissions(roleId) {
       const role = ROLES[roleId] || ROLES.admin;
       currentServantRole = role.id;
