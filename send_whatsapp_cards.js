@@ -317,91 +317,64 @@ async function main() {
       // ==========================================
       // 2. AUTOMATICALLY ATTACH & SEND PHOTO
       // ==========================================
-      console.log('   ⏳ فتح قائمة المرفقات لإرفاق كارت الـ QR كصورة...');
+      console.log('   📸 جاري إرفاق كارت الـ QR كصورة فوتوغرافية حقيقية...');
 
-      // Open attach menu (+) if not already open
-      const isMenuOpen = await page.$('ul[data-animate-dropdown-item="true"], li[aria-label="Photos & videos"], li[aria-label="الصور ومقاطع الفيديو"]');
-      if (!isMenuOpen) {
-        const attachBtn = await page.$('span[data-icon="plus"], button[title="إرفاق"], button[title="Attach"], [data-icon="attach-menu-plus"]');
-        if (attachBtn) {
-          await page.evaluate(el => (el.closest('button, div[role="button"]') || el).click(), attachBtn);
-          await sleep(1200);
+      const fileBuffer = fs.readFileSync(cardPath);
+      const base64Data = fileBuffer.toString('base64');
+      const fileName = path.basename(cardPath);
+
+      // Paste image file via DataTransfer clipboard event (guarantees sending as Photo, not sticker)
+      await page.evaluate(({ base64Data, fileName }) => {
+        const byteCharacters = atob(base64Data);
+        const byteNumbers = new Array(byteCharacters.length);
+        for (let i = 0; i < byteCharacters.length; i++) {
+          byteNumbers[i] = byteCharacters.charCodeAt(i);
         }
-      }
+        const byteArray = new Uint8Array(byteNumbers);
+        const blob = new Blob([byteArray], { type: 'image/png' });
+        const file = new File([blob], fileName, { type: 'image/png' });
 
-      // Find file inputs on page
-      const allInputs = await page.$$('input[type="file"]');
-      let photoInput = null;
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(file);
 
-      // Priority 1: Input with 'video' in accept attribute (Photos & videos ALWAYS accepts video and image, never sticker)
-      for (const inp of allInputs) {
-        const accept = (await page.evaluate(el => el.getAttribute('accept') || '', inp)).toLowerCase();
-        if (accept.includes('video') && (accept.includes('image') || accept.includes('*'))) {
-          photoInput = inp;
-          break;
+        const targetDiv = document.querySelector('footer div[contenteditable="true"]');
+        if (targetDiv) {
+          targetDiv.focus();
+          const pasteEvent = new ClipboardEvent('paste', {
+            bubbles: true,
+            cancelable: true,
+            clipboardData: dataTransfer
+          });
+          targetDiv.dispatchEvent(pasteEvent);
         }
-      }
+      }, { base64Data, fileName });
 
-      // Priority 2: Input inside menu item for Photos & videos
-      if (!photoInput) {
-        const menuItems = await page.$$('li, div[role="button"]');
-        for (const item of menuItems) {
-          const label = (await page.evaluate(el => (el.getAttribute('aria-label') || el.innerText || ''), item)).toLowerCase();
-          if ((label.includes('photo') || label.includes('صور') || label.includes('فيديو') || label.includes('media')) && !label.includes('sticker') && !label.includes('ملصق')) {
-            const inp = await item.$('input[type="file"]');
-            if (inp) {
-              photoInput = inp;
-              break;
-            }
-          }
-        }
-      }
+      console.log('   📸 بانتظار شاشة المعاينة لإرسال الصورة تلقائياً...');
+      await sleep(2500);
 
-      // Priority 3: Input with multiple attribute
-      if (!photoInput) {
-        for (const inp of allInputs) {
-          const isMultiple = await page.evaluate(el => el.hasAttribute('multiple'), inp);
-          if (isMultiple) {
-            photoInput = inp;
-            break;
-          }
-        }
-      }
-
-      if (photoInput) {
-        await photoInput.uploadFile(cardPath);
-        console.log('   📸 تم رفع الكارت في قسم الصور، بانتظار شاشة المعاينة...');
-
-        // Wait for Media Preview screen animation to fully settle
-        await sleep(3500);
-
-        // Click Send inside the media preview modal automatically
-        let photoSent = await page.evaluate(() => {
-          const sendBtn = document.querySelector('div[aria-label="إرسال"]') ||
-                          document.querySelector('div[aria-label="Send"]') ||
-                          document.querySelector('span[data-icon="send"]') ||
-                          document.querySelector('span[data-testid="send"]') ||
-                          document.querySelector('[data-icon="send"]') ||
-                          document.querySelector('div[role="button"] span[data-icon="send"]');
-          if (sendBtn) {
-            const clickable = sendBtn.closest('button, div[role="button"]') || sendBtn;
-            clickable.click();
-            return true;
-          }
-          return false;
+      // Click Send button on photo preview modal (matches Send 1 selected / إرسال / ic-send-filled)
+      const photoSent = await page.evaluate(() => {
+        const btns = Array.from(document.querySelectorAll('div[role="button"], button'));
+        const sendBtn = btns.find(b => {
+          const aria = (b.getAttribute('aria-label') || '').toLowerCase();
+          const titleText = b.querySelector('svg title') ? b.querySelector('svg title').textContent.toLowerCase() : '';
+          return aria.includes('send') || aria.includes('إرسال') || titleText.includes('send') || titleText.includes('إرسال');
         });
 
-        // Backup: press Enter in the media preview if click didn't trigger
-        if (!photoSent) {
-          await page.keyboard.press('Enter');
+        if (sendBtn) {
+          sendBtn.click();
+          return true;
         }
+        return false;
+      });
 
-        // Wait for photo upload to finish
-        await sleep(3000);
-        console.log('   📸 تم إرسال كارت الـ QR كصورة فوتوغرافية تلقائياً بنجاح.');
-      } else {
-        console.log('   ⚠️ لم يتم العثور على خيار رفع الصور، تم إرسال الرسالة فقط.');
+      if (!photoSent) {
+        // Fallback: press Enter on the preview modal
+        await page.keyboard.press('Enter');
       }
+
+      await sleep(3000);
+      console.log('   📸 تم إرسال كارت الـ QR كصورة فوتوغرافية تلقائياً بنجاح.');
 
       console.log(`   ✅ تم إرسال الكارت والرسالة بنجاح إلى: ${m.name}`);
       report.sent[m.id] = { name: m.name, phone: phoneFormatted, date: new Date().toISOString() };
