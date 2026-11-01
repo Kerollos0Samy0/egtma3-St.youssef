@@ -274,28 +274,57 @@ async function main() {
         }
       }
 
-      // 1. Wait for chat input box (pre-filled with welcome message from URL)
-      const chatInput = await page.waitForSelector('footer div[contenteditable="true"]', { timeout: 15000 });
+      // ==========================================
+      // 1. AUTOMATICALLY SEND THE TEXT MESSAGE
+      // ==========================================
+      console.log('   ⏳ انتظار تحميل صندوق الرسالة...');
+      await page.waitForSelector('footer div[contenteditable="true"]', { timeout: 20000 });
       await sleep(1500);
 
-      // 2. Send the welcome message first
-      const chatSendBtn = await page.$('span[data-icon="send"], button[aria-label="إرسال"], button[aria-label="Send"]');
-      if (chatSendBtn) {
-        await chatSendBtn.click();
-      } else if (chatInput) {
-        await chatInput.focus();
-        await page.keyboard.press('Enter');
-      }
-      console.log('   ✉️ تم إرسال رسالة الترحيب.');
-      await sleep(2000);
+      // Focus and trigger an input change so React converts Mic icon to Send button
+      await page.focus('footer div[contenteditable="true"]');
+      await sleep(400);
+      await page.keyboard.press('End');
+      await page.keyboard.press('Space');
+      await page.keyboard.press('Backspace');
+      await sleep(600);
 
-      // 3. Attach card as a PHOTO (specifically targeting Photos & videos input to prevent sending as sticker)
-      // Open attach menu (+)
+      // Attempt 1: Click Send button via DOM evaluate (most reliable in React)
+      let textSent = await page.evaluate(() => {
+        const sendBtn = document.querySelector('footer span[data-icon="send"]') ||
+                        document.querySelector('footer span[data-testid="send"]') ||
+                        document.querySelector('footer button[aria-label="إرسال"]') ||
+                        document.querySelector('footer button[aria-label="Send"]') ||
+                        document.querySelector('footer [data-icon="send"]') ||
+                        document.querySelector('footer button[data-tab="11"]');
+        if (sendBtn) {
+          const clickable = sendBtn.closest('button, div[role="button"]') || sendBtn;
+          clickable.click();
+          return true;
+        }
+        return false;
+      });
+
+      // Attempt 2: Press Enter if button wasn't clicked
+      if (!textSent) {
+        await page.keyboard.press('Enter');
+        await sleep(800);
+      }
+
+      console.log('   ✉️ تم إرسال رسالة الترحيب تلقائياً وبدون أي تدخل يدوي.');
+      await sleep(2500);
+
+      // ==========================================
+      // 2. AUTOMATICALLY ATTACH & SEND PHOTO
+      // ==========================================
+      console.log('   ⏳ فتح قائمة المرفقات لإرفاق كارت الـ QR كصورة...');
+
+      // Open attach menu (+) if not already open
       const isMenuOpen = await page.$('ul[data-animate-dropdown-item="true"], li[aria-label="Photos & videos"], li[aria-label="الصور ومقاطع الفيديو"]');
       if (!isMenuOpen) {
         const attachBtn = await page.$('span[data-icon="plus"], button[title="إرفاق"], button[title="Attach"], [data-icon="attach-menu-plus"]');
         if (attachBtn) {
-          await attachBtn.click();
+          await page.evaluate(el => (el.closest('button, div[role="button"]') || el).click(), attachBtn);
           await sleep(1200);
         }
       }
@@ -304,7 +333,7 @@ async function main() {
       const allInputs = await page.$$('input[type="file"]');
       let photoInput = null;
 
-      // Check 1: Input with 'video' in accept attribute (Photos & videos input ALWAYS accepts both images and videos)
+      // Priority 1: Input with 'video' in accept attribute (Photos & videos ALWAYS accepts video and image, never sticker)
       for (const inp of allInputs) {
         const accept = (await page.evaluate(el => el.getAttribute('accept') || '', inp)).toLowerCase();
         if (accept.includes('video') && (accept.includes('image') || accept.includes('*'))) {
@@ -313,12 +342,12 @@ async function main() {
         }
       }
 
-      // Check 2: Input inside list item for Photos & videos
+      // Priority 2: Input inside menu item for Photos & videos
       if (!photoInput) {
         const menuItems = await page.$$('li, div[role="button"]');
         for (const item of menuItems) {
           const label = (await page.evaluate(el => (el.getAttribute('aria-label') || el.innerText || ''), item)).toLowerCase();
-          if (label.includes('photo') || label.includes('صور') || label.includes('فيديو') || label.includes('media')) {
+          if ((label.includes('photo') || label.includes('صور') || label.includes('فيديو') || label.includes('media')) && !label.includes('sticker') && !label.includes('ملصق')) {
             const inp = await item.$('input[type="file"]');
             if (inp) {
               photoInput = inp;
@@ -328,7 +357,7 @@ async function main() {
         }
       }
 
-      // Check 3: Input with multiple attribute (Stickers never allow multiple, photos do)
+      // Priority 3: Input with multiple attribute
       if (!photoInput) {
         for (const inp of allInputs) {
           const isMultiple = await page.evaluate(el => el.hasAttribute('multiple'), inp);
@@ -339,36 +368,37 @@ async function main() {
         }
       }
 
-      // Check 4: Filter out any input that accepts webp-only (sticker maker)
-      if (!photoInput && allInputs.length > 0) {
-        for (const inp of allInputs) {
-          const accept = (await page.evaluate(el => el.getAttribute('accept') || '', inp)).toLowerCase();
-          if (!accept.includes('webp')) {
-            photoInput = inp;
-            break;
-          }
-        }
-      }
-
       if (photoInput) {
         await photoInput.uploadFile(cardPath);
         console.log('   📸 تم رفع الكارت في قسم الصور، بانتظار شاشة المعاينة...');
 
-        // Wait for Media Preview screen and its Send button
-        await sleep(3000);
-        const mediaSendBtn = await page.waitForSelector(
-          'span[data-icon="send"], div[aria-label="إرسال"], div[aria-label="Send"], [data-testid="send"]',
-          { timeout: 20000 }
-        );
+        // Wait for Media Preview screen animation to fully settle
+        await sleep(3500);
 
-        if (mediaSendBtn) {
-          await page.evaluate(el => {
-            const btn = el.closest('button, div[role="button"]') || el;
-            btn.click();
-          }, mediaSendBtn);
-          console.log('   📸 تم إرسال كارت الـ QR كصورة فوتوغرافية عالية الدقة بنجاح.');
-          await sleep(3000);
+        // Click Send inside the media preview modal automatically
+        let photoSent = await page.evaluate(() => {
+          const sendBtn = document.querySelector('div[aria-label="إرسال"]') ||
+                          document.querySelector('div[aria-label="Send"]') ||
+                          document.querySelector('span[data-icon="send"]') ||
+                          document.querySelector('span[data-testid="send"]') ||
+                          document.querySelector('[data-icon="send"]') ||
+                          document.querySelector('div[role="button"] span[data-icon="send"]');
+          if (sendBtn) {
+            const clickable = sendBtn.closest('button, div[role="button"]') || sendBtn;
+            clickable.click();
+            return true;
+          }
+          return false;
+        });
+
+        // Backup: press Enter in the media preview if click didn't trigger
+        if (!photoSent) {
+          await page.keyboard.press('Enter');
         }
+
+        // Wait for photo upload to finish
+        await sleep(3000);
+        console.log('   📸 تم إرسال كارت الـ QR كصورة فوتوغرافية تلقائياً بنجاح.');
       } else {
         console.log('   ⚠️ لم يتم العثور على خيار رفع الصور، تم إرسال الرسالة فقط.');
       }
