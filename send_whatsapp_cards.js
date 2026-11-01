@@ -142,45 +142,77 @@ async function main() {
   const sentCount = Object.keys(report.sent).length;
   console.log(`✓ تم إرسال الكروت سابقاً إلى: ${sentCount} عضو\n`);
 
-  console.log('اختر نوع العملية:');
-  console.log('1. [تجربة أولاً] إرسال كارت تجريبي لرقم هاتف محدد للتأكد');
-  console.log('2. [استئناف] إرسال الكروت لمن لم يتم الإرسال لهم بعد');
-  console.log('3. [إرسال للجميع] البدء من جديد لجميع الأعضاء الـ 157');
-  console.log('4. إرسال لعضو محدد بالاسم أو الكود');
-  console.log('0. خروج');
-
-  const choice = await ask('\nاكتب رقم الخيار ثم اضغط Enter: ');
-
+  // Check for CLI arguments (e.g. --skip 90 or --from 91)
+  const args = process.argv.slice(2);
   let targetList = [];
 
-  if (choice === '0') {
-    console.log('تم الإلغاء.');
-    return;
-  } else if (choice === '1') {
-    const testPhone = await ask('أدخل رقم الهاتف للتجربة (مثال: 01234567890): ');
-    const memberSample = members[0];
-    targetList.push({
-      ...memberSample,
-      name: 'تجربة الإرسال',
-      phone: testPhone
-    });
-  } else if (choice === '2') {
-    targetList = members.filter(m => !report.sent[m.id]);
-    console.log(`المتبقي للإرسال: ${targetList.length} عضو.`);
-  } else if (choice === '3') {
-    targetList = [...members];
-  } else if (choice === '4') {
-    const search = await ask('أدخل كود أو اسم العضو: ');
-    const found = members.filter(m => m.id.includes(search) || m.name.includes(search));
-    if (found.length === 0) {
-      console.log('❌ لم يتم العثور على أعضاء مطابقة.');
+  let cliSkip = null;
+  const skipIdx = args.indexOf('--skip');
+  if (skipIdx !== -1 && args[skipIdx + 1]) {
+    cliSkip = parseInt(args[skipIdx + 1], 10);
+  }
+  const fromIdx = args.indexOf('--from');
+  if (fromIdx !== -1 && args[fromIdx + 1]) {
+    cliSkip = parseInt(args[fromIdx + 1], 10) - 1;
+  }
+
+  if (cliSkip !== null && !isNaN(cliSkip)) {
+    const startNum = cliSkip + 1;
+    console.log(`⚡ تشغيل تلقائي عبر الأوامر: تم تخطي أول ${cliSkip} عضو والبدء مباشرة من رقم ${startNum} حتى ${members.length}...`);
+    targetList = members.slice(cliSkip);
+  } else {
+    console.log('اختر نوع العملية:');
+    console.log('1. [تخطي أول 90] البدء من العضو رقم 91 حتى 157 (المتبقي: 67 عضو)');
+    console.log('2. [استئناف] إرسال الكروت لمن لم يتم الإرسال لهم بعد في التقرير');
+    console.log('3. [تحديد بداية مخصصة] كتابة رقم العضو للبدء من عنده (مثلاً: 91)');
+    console.log('4. [إرسال للجميع] البدء لجميع الأعضاء الـ 157 من البداية');
+    console.log('5. [تجربة أولاً] إرسال كارت تجريبي لرقم هاتف محدد للتأكد');
+    console.log('6. إرسال لعضو محدد بالاسم أو الكود');
+    console.log('0. خروج');
+
+    const choice = await ask('\nاكتب رقم الخيار ثم اضغط Enter: ');
+
+    if (choice === '0') {
+      console.log('تم الإلغاء.');
+      return;
+    } else if (choice === '1') {
+      targetList = members.slice(90);
+      console.log(`✓ تم اختيار تخطي أول 90 عضو. سيبدأ الإرسال من رقم 91 (${targetList[0].name}) حتى 157 (إجمالي: ${targetList.length} عضو).`);
+    } else if (choice === '2') {
+      targetList = members.filter(m => !report.sent[m.id]);
+      console.log(`المتبقي للإرسال حسب التقرير: ${targetList.length} عضو.`);
+    } else if (choice === '3') {
+      const customStart = await ask(`أدخل رقم العضو للبدء من عنده (1 - ${members.length}): `);
+      const parsedStart = parseInt(customStart, 10);
+      if (isNaN(parsedStart) || parsedStart < 1 || parsedStart > members.length) {
+        console.log('❌ رقم غير صحيح.');
+        return;
+      }
+      targetList = members.slice(parsedStart - 1);
+      console.log(`✓ سيبدأ الإرسال من العضو رقم ${parsedStart} (${targetList[0].name}) بإجمالي ${targetList.length} عضو.`);
+    } else if (choice === '4') {
+      targetList = [...members];
+    } else if (choice === '5') {
+      const testPhone = await ask('أدخل رقم الهاتف للتجربة (مثال: 01234567890): ');
+      const memberSample = members[0];
+      targetList.push({
+        ...memberSample,
+        name: 'تجربة الإرسال',
+        phone: testPhone
+      });
+    } else if (choice === '6') {
+      const search = await ask('أدخل كود أو اسم العضو: ');
+      const found = members.filter(m => m.id.includes(search) || m.name.includes(search));
+      if (found.length === 0) {
+        console.log('❌ لم يتم العثور على أعضاء مطابقة.');
+        return;
+      }
+      console.log(`تم العثور على: ${found.map(m => `${m.name} (${m.id})`).join('، ')}`);
+      targetList = found;
+    } else {
+      console.log('خيار غير صحيح.');
       return;
     }
-    console.log(`تم العثور على: ${found.map(m => `${m.name} (${m.id})`).join('، ')}`);
-    targetList = found;
-  } else {
-    console.log('خيار غير صحيح.');
-    return;
   }
 
   if (targetList.length === 0) {
@@ -233,7 +265,8 @@ async function main() {
     const phoneFormatted = formatPhone(m.phone);
     const cardPath = findCardFile(m);
 
-    console.log(`[${i + 1}/${targetList.length}] جاري معالجة: ${m.name} (${m.id}) - تليفون: ${m.phone || 'بدون'}`);
+    const globalIdx = members.findIndex(x => x.id === m.id) + 1;
+    console.log(`\n[${i + 1}/${targetList.length}] (عضو رقم ${globalIdx} من ${members.length}) جاري معالجة: ${m.name} (${m.id}) - تليفون: ${m.phone || 'بدون'}`);
 
     if (!phoneFormatted) {
       console.log(`   ⚠️ تم التخطي: لا يوجد رقم هاتف صالح.`);
