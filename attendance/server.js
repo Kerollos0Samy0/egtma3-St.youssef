@@ -158,6 +158,17 @@ function queueDBWrite(mutatorFn) {
   });
 }
 
+// Update member visitation summary (last visitation, invitation, priest, servants)
+function updateMemberVisitationSummary(member) {
+  if (!member.visitations) member.visitations = [];
+  member.visitations.sort((a, b) => (b.date || '').localeCompare(a.date || '') || (b.createdAt || '').localeCompare(a.createdAt || ''));
+  member.visitationsCount = member.visitations.length;
+  member.lastVisitation = member.visitations[0] || null;
+  member.lastInvitation = member.visitations.find(v => v.type === 'invitation') || null;
+  member.lastPriestVisit = member.visitations.find(v => v.type === 'priest') || null;
+  member.lastServantVisit = member.visitations.find(v => v.type === 'servants') || null;
+}
+
 // Ensure DB exists on start
 getDB();
 
@@ -597,6 +608,155 @@ const server = http.createServer((req, res) => {
         } catch (e) {
           res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' });
           res.end(JSON.stringify({ success: false, message: 'خطأ في حذف النقطة' }));
+        }
+      });
+      return;
+    }
+
+    // POST /api/visitations/add (Add a single visitation record)
+    if (pathname === '/api/visitations/add' && req.method === 'POST') {
+      let body = '';
+      req.on('data', chunk => body += chunk);
+      req.on('end', async () => {
+        try {
+          const entry = JSON.parse(body);
+          if (!entry.memberId || !entry.type || !entry.date) {
+            res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' });
+            res.end(JSON.stringify({ success: false, message: 'بيانات الافتقاد غير مكتملة (المعرف، النوع، والتاريخ مطلوبة).' }));
+            return;
+          }
+
+          const result = await queueDBWrite(db => {
+            if (!db.visitationLog) db.visitationLog = [];
+            const member = (db.members || []).find(m => m.id === entry.memberId);
+            if (!member) return { notFound: true };
+
+            if (!member.visitations) member.visitations = [];
+            if (!entry.id) {
+              entry.id = 'VIS-' + Date.now() + '-' + Math.floor(Math.random() * 1000);
+            }
+            entry.createdAt = entry.createdAt || new Date().toISOString();
+            entry.memberName = member.name;
+
+            member.visitations.unshift(entry);
+            db.visitationLog.unshift(entry);
+
+            updateMemberVisitationSummary(member);
+            return { entry, member };
+          });
+
+          if (result.notFound) {
+            res.writeHead(404, { 'Content-Type': 'application/json; charset=utf-8' });
+            res.end(JSON.stringify({ success: false, message: 'العضو غير موجود بالنظام' }));
+          } else {
+            res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+            res.end(JSON.stringify({ success: true, ...result }));
+          }
+        } catch (e) {
+          res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' });
+          res.end(JSON.stringify({ success: false, message: 'خطأ في حفظ الافتقاد: ' + e.message }));
+        }
+      });
+      return;
+    }
+
+    // POST /api/visitations/batch-invitations (Bulk assign weekly invitations)
+    if (pathname === '/api/visitations/batch-invitations' && req.method === 'POST') {
+      let body = '';
+      req.on('data', chunk => body += chunk);
+      req.on('end', async () => {
+        try {
+          const data = JSON.parse(body);
+          if (!Array.isArray(data.memberIds) || data.memberIds.length === 0) {
+            res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' });
+            res.end(JSON.stringify({ success: false, message: 'قائمة الأعضاء فارغة' }));
+            return;
+          }
+
+          const result = await queueDBWrite(db => {
+            if (!db.visitationLog) db.visitationLog = [];
+            const now = Date.now();
+            const dateStr = data.date || new Date().toISOString().split('T')[0];
+            const servantStr = data.servant || 'خدام الافتقاد';
+            const notesStr = data.notes || 'تم تسليم إنفتيشن الاجتماع الأسبوعي';
+            let count = 0;
+
+            data.memberIds.forEach((mId, idx) => {
+              const member = (db.members || []).find(m => m.id === mId);
+              if (member) {
+                if (!member.visitations) member.visitations = [];
+                const entry = {
+                  id: `VIS-INV-${now}-${idx}-${Math.floor(Math.random() * 1000)}`,
+                  memberId: member.id,
+                  memberName: member.name,
+                  type: 'invitation',
+                  date: dateStr,
+                  servant: servantStr,
+                  father: '',
+                  status: 'completed',
+                  statusText: 'تم تسليم الانفتيشن',
+                  notes: notesStr,
+                  createdAt: new Date().toISOString()
+                };
+                member.visitations.unshift(entry);
+                db.visitationLog.unshift(entry);
+                updateMemberVisitationSummary(member);
+                count++;
+              }
+            });
+            return { updatedCount: count };
+          });
+
+          res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+          res.end(JSON.stringify({ success: true, ...result }));
+        } catch (e) {
+          res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' });
+          res.end(JSON.stringify({ success: false, message: 'خطأ في التوزيع الجماعي: ' + e.message }));
+        }
+      });
+      return;
+    }
+
+    // POST /api/visitations/delete (Delete a visitation entry)
+    if (pathname === '/api/visitations/delete' && req.method === 'POST') {
+      let body = '';
+      req.on('data', chunk => body += chunk);
+      req.on('end', async () => {
+        try {
+          const { memberId, visitationId } = JSON.parse(body);
+          if (!memberId || !visitationId) {
+            res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' });
+            res.end(JSON.stringify({ success: false, message: 'معرف العضو ومعرف الافتقاد مطلوبان' }));
+            return;
+          }
+
+          const result = await queueDBWrite(db => {
+            const member = (db.members || []).find(m => m.id === memberId);
+            if (!member || !member.visitations) return { notFound: true };
+
+            const idx = member.visitations.findIndex(v => v.id === visitationId);
+            if (idx === -1) return { notFound: true };
+
+            const removed = member.visitations.splice(idx, 1)[0];
+            if (db.visitationLog) {
+              const logIdx = db.visitationLog.findIndex(v => v.id === visitationId);
+              if (logIdx !== -1) db.visitationLog.splice(logIdx, 1);
+            }
+
+            updateMemberVisitationSummary(member);
+            return { removed, member };
+          });
+
+          if (result.notFound) {
+            res.writeHead(404, { 'Content-Type': 'application/json; charset=utf-8' });
+            res.end(JSON.stringify({ success: false, message: 'الافتقاد غير موجود' }));
+          } else {
+            res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+            res.end(JSON.stringify({ success: true, ...result }));
+          }
+        } catch (e) {
+          res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' });
+          res.end(JSON.stringify({ success: false, message: 'خطأ في حذف الافتقاد: ' + e.message }));
         }
       });
       return;

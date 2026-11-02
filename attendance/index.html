@@ -2251,6 +2251,210 @@
       padding: 0.25rem 0.75rem;
       border-radius: var(--radius-full);
     }
+    /* ============================================== */
+    /* ENHANCED VISITATION SYSTEM STYLES              */
+    /* ============================================== */
+    .vis-stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 0.9rem 1.1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.25rem;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .vis-stat-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    .vis-pill-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.2rem 0.6rem;
+      font-size: 0.76rem;
+      font-weight: 800;
+      border-radius: var(--radius-full);
+      white-space: nowrap;
+    }
+    .badge-vis-invitation {
+      background: rgba(139, 92, 246, 0.15);
+      color: #a78bfa;
+      border: 1px solid rgba(139, 92, 246, 0.35);
+    }
+    body.light-theme .badge-vis-invitation {
+      background: #ede9fe;
+      color: #6d28d9;
+      border-color: #ddd6fe;
+    }
+    .badge-vis-priest {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.35);
+    }
+    body.light-theme .badge-vis-priest {
+      background: #fef3c7;
+      color: #b45309;
+      border-color: #fde68a;
+    }
+    .badge-vis-servants {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+    }
+    body.light-theme .badge-vis-servants {
+      background: #d1fae5;
+      color: #047857;
+      border-color: #a7f3d0;
+    }
+    .badge-vis-call {
+      background: rgba(56, 189, 248, 0.15);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+    }
+    body.light-theme .badge-vis-call {
+      background: #e0f2fe;
+      color: #0369a1;
+      border-color: #bae6fd;
+    }
+
+    /* Quick 1-click invitation button */
+    .btn-quick-inv {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.28rem 0.7rem;
+      font-size: 0.78rem;
+      font-weight: 800;
+      border-radius: var(--radius-full);
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.22) 0%, rgba(124, 58, 237, 0.3) 100%);
+      color: #c4b5fd;
+      border: 1px solid rgba(139, 92, 246, 0.45);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .btn-quick-inv:hover {
+      background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+      color: #ffffff;
+      box-shadow: 0 3px 12px rgba(139, 92, 246, 0.45);
+      transform: translateY(-1px);
+    }
+    body.light-theme .btn-quick-inv {
+      background: #ede9fe;
+      color: #6d28d9;
+      border-color: #c4b5fd;
+    }
+    body.light-theme .btn-quick-inv:hover {
+      background: #7c3aed;
+      color: #ffffff;
+    }
+
+    .badge-inv-delivered {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.25rem 0.65rem;
+      font-size: 0.78rem;
+      font-weight: 800;
+      border-radius: var(--radius-full);
+      background: rgba(16, 185, 129, 0.15);
+      color: #10b981;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      white-space: nowrap;
+    }
+    body.light-theme .badge-inv-delivered {
+      background: #d1fae5;
+      color: #047857;
+      border-color: #a7f3d0;
+    }
+
+    /* Timeline styles */
+    .vis-timeline {
+      position: relative;
+      padding-right: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 0.75rem;
+    }
+    .vis-timeline::before {
+      content: '';
+      position: absolute;
+      right: 8px;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      background: var(--border);
+    }
+    .vis-timeline-item {
+      position: relative;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 0.85rem 1rem;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+    }
+    .vis-timeline-item:hover {
+      border-color: var(--accent-gold);
+      transform: translateX(-2px);
+    }
+    .vis-timeline-item::after {
+      content: '';
+      position: absolute;
+      right: -25px;
+      top: 14px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent-gold);
+      border: 2px solid var(--bg-secondary);
+    }
+    .vis-timeline-item.type-invitation::after { background: #8b5cf6; }
+    .vis-timeline-item.type-priest::after { background: #f59e0b; }
+    .vis-timeline-item.type-servants::after { background: #10b981; }
+    .vis-timeline-item.type-call::after { background: #38bdf8; }
+
+    /* Batch members grid checklist */
+    .vis-batch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 0.6rem;
+      max-height: 340px;
+      overflow-y: auto;
+      padding: 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--bg-primary);
+    }
+    .vis-batch-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.5rem 0.65rem;
+      border-radius: var(--radius-sm);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease;
+      font-size: 0.85rem;
+    }
+    .vis-batch-item:hover {
+      background: rgba(245, 158, 11, 0.08);
+      border-color: var(--accent-gold);
+    }
+    .vis-batch-item input[type="checkbox"] {
+      width: 17px;
+      height: 17px;
+      cursor: pointer;
+      accent-color: var(--accent-gold);
+    }
   </style>
 </head>
 <body>
@@ -3115,35 +3319,138 @@
     <!-- ============================================== -->
     <!-- TAB 5: VISITATION & ABSENCE TRACKING          -->
     <!-- ============================================== -->
+    <!-- TAB 5: VISITATION & ABSENCE TRACKING          -->
+    <!-- ============================================== -->
     <div class="tab-pane" id="tabVisitation">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem;">
+      <!-- Header Banner -->
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:1rem;">
         <div>
-          <h2 style="font-size:1.4rem;font-weight:800;color:var(--accent-rose);display:flex;align-items:center;gap:0.5rem;">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-            لوحة لجنة الافتقاد ومتابعة الغياب
+          <h2 style="font-size:1.45rem;font-weight:800;color:var(--accent-gold);display:flex;align-items:center;gap:0.6rem;margin-bottom:0.25rem;">
+            <span>📞</span> لوحة الافتقاد والمتابعة الميدانية
           </h2>
-          <p style="font-size:0.9rem;color:var(--text-muted);">
-            تحديد من غاب اليوم أو غاب لعدة أسابيع، مع إمكانية إرسال رسالة افتقاد ودية بالواتساب بنقرة واحدة!
+          <p style="font-size:0.88rem;color:var(--text-muted);margin:0;">
+            متابعة شاملة بالتواريخ: من عدينا عليه، توزيع الإنفتيشن الأسبوعي، افتقاد أبونا، وافتقاد الخدام.
           </p>
         </div>
 
-        <div style="display:flex;gap:0.5rem;">
-          <button class="btn btn-gold" id="btnFilterAbsentToday">غائب اليوم</button>
-          <button class="btn" id="btnFilterAbsentMultiple">غائب أسبوعين فأكثر ⚠️</button>
+        <div style="display:flex;gap:0.6rem;flex-wrap:wrap;align-items:center;">
+          <button type="button" class="btn btn-gold btn-sm" id="btnOpenAddVisitationModal" style="display:inline-flex;align-items:center;gap:0.4rem;font-weight:800;">
+            <span>➕</span> تسجيل افتقاد جديد
+          </button>
+          <button type="button" class="btn btn-secondary btn-sm" id="btnOpenBatchInvitationModal" style="display:inline-flex;align-items:center;gap:0.4rem;font-weight:800;">
+            <span>💌</span> توزيع إنفتيشن جماعي
+          </button>
+          <button type="button" class="btn btn-sm" id="btnExportVisitationCSV" style="display:inline-flex;align-items:center;gap:0.4rem;" title="تصدير بيانات الافتقاد إلى Excel">
+            <span>📥</span> كشف الافتقاد (CSV)
+          </button>
         </div>
       </div>
 
+      <!-- KPI Stats Row -->
+      <div class="stats-row" style="margin-bottom:1.25rem;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));">
+        <div class="stat-card" style="border-right:3px solid #8b5cf6;">
+          <div class="stat-val" id="statVisWeeklyInvCount" style="color:#a78bfa;">0</div>
+          <div class="stat-title">💌 إنفتيشن هذا الأسبوع</div>
+          <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.2rem;" id="statVisWeeklyInvPercent">0% من الشباب</div>
+        </div>
+
+        <div class="stat-card" style="border-right:3px solid var(--accent-gold);">
+          <div class="stat-val" id="statVisPriestCount" style="color:var(--accent-gold);">0</div>
+          <div class="stat-title">✝️ افتقاد أبونا</div>
+          <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.2rem;">زيارات رعوية وصلوات</div>
+        </div>
+
+        <div class="stat-card" style="border-right:3px solid var(--accent-emerald);">
+          <div class="stat-val" id="statVisServantsCount" style="color:var(--accent-emerald);">0</div>
+          <div class="stat-title">🤝 افتقاد الخدام</div>
+          <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.2rem;">زيارات منزلية وميدانية</div>
+        </div>
+
+        <div class="stat-card" style="border-right:3px solid #38bdf8;">
+          <div class="stat-val" id="statVisVisitedTotalCount" style="color:#38bdf8;">0</div>
+          <div class="stat-title">👥 عدينا عليهم (تم افتقادهم)</div>
+          <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.2rem;" id="statVisVisitedTotalPercent">0% تمت زيارتهم</div>
+        </div>
+
+        <div class="stat-card" style="border-right:3px solid #fb7185;">
+          <div class="stat-val" id="statVisNeedsAttentionCount" style="color:#fb7185;">0</div>
+          <div class="stat-title">⚠️ يحتاجون افتقاد</div>
+          <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.2rem;">لم يتم افتقادهم أو غائبين</div>
+        </div>
+      </div>
+
+      <!-- Advanced Filter & Search Toolbar -->
+      <div class="streamlined-toolbar" style="margin-bottom:1rem;">
+        <div class="toolbar-top-line">
+          <div class="toolbar-search-box">
+            <input type="text" id="visSearchInput" class="form-control" style="padding-right:2.4rem;" placeholder="🔍 ابحث بالاسم، الموبايل، المنطقة، العنوان، أو كود الشاب...">
+          </div>
+
+          <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+            <div style="display:flex;align-items:center;gap:0.35rem;">
+              <span class="pills-label">المنطقة:</span>
+              <select id="visAreaFilter" class="form-control" style="width:auto;padding:0.4rem 0.75rem;font-size:0.85rem;">
+                <option value="all">كل المناطق (A, B, C, D, E, T)</option>
+                <option value="E">منطقة E</option>
+                <option value="A">منطقة A</option>
+                <option value="B">منطقة B</option>
+                <option value="C">منطقة C</option>
+                <option value="D">منطقة D</option>
+                <option value="T">منطقة T</option>
+              </select>
+            </div>
+
+            <div style="display:flex;align-items:center;gap:0.35rem;">
+              <span class="pills-label">ترتيب حسب:</span>
+              <select id="visSortFilter" class="form-control" style="width:auto;padding:0.4rem 0.75rem;font-size:0.85rem;">
+                <option value="code">الكود الرقمي (#1 - #157)</option>
+                <option value="name">الاسم أبجدياً (أ - ي)</option>
+                <option value="latest_visit">أحدث تاريخ افتقاد ⬇️</option>
+                <option value="oldest_visit">الأولى بالزيارة (الأقدم أو لم يُفتقد) ⚠️</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="toolbar-pills-line" style="gap:0.5rem;overflow-x:auto;">
+          <div class="pills-subgroup">
+            <span class="pills-label">الحالة:</span>
+            <button type="button" class="filter-pill active" data-vis-filter="all">الكل (<span id="visPillCountAll">157</span>)</button>
+            <button type="button" class="filter-pill" data-vis-filter="visited">✓ عدينا عليهم (<span id="visPillCountVisited">0</span>)</button>
+            <button type="button" class="filter-pill" data-vis-filter="not_visited">⏳ لم يتم افتقادهم (<span id="visPillCountNotVisited">0</span>)</button>
+          </div>
+
+          <div class="pills-subgroup">
+            <span class="pills-label">النوع:</span>
+            <button type="button" class="filter-pill" data-vis-filter="invitation_week">💌 إنفتيشن هذا الأسبوع</button>
+            <button type="button" class="filter-pill" data-vis-filter="needs_invitation">⚠️ محتاجين إنفتيشن</button>
+            <button type="button" class="filter-pill" data-vis-filter="priest">✝️ افتقاد أبونا</button>
+            <button type="button" class="filter-pill" data-vis-filter="servants">🤝 افتقاد الخدام</button>
+          </div>
+
+          <div class="pills-subgroup">
+            <span class="pills-label">الغياب:</span>
+            <button type="button" class="filter-pill" data-vis-filter="absent_today">غائب اليوم</button>
+            <button type="button" class="filter-pill" data-vis-filter="absent_multiple">غائب أسبوعين فأكثر ⚠️</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Table -->
       <div class="data-table-container">
         <table class="data-table">
           <thead>
             <tr>
-              <th>الاسم</th>
-              <th>المنطقة</th>
-              <th>الأسرة</th>
+              <th style="width:75px;"># والكود</th>
+              <th>الاسم والحضور</th>
+              <th>المنطقة والعنوان</th>
               <th>الموبايل</th>
-              <th>حالة الحضور اليوم</th>
-              <th>إرسال افتقاد واتساب</th>
-              <th>ملاحظات الافتقاد</th>
+              <th>أب الاعتراف</th>
+              <th style="text-align:center;">💌 إنفتيشن الأسبوع</th>
+              <th>✝️ افتقاد أبونا</th>
+              <th>🤝 افتقاد الخدام</th>
+              <th>آخر افتقاد وتاريخه</th>
+              <th style="text-align:center;min-width:180px;">الإجراءات</th>
             </tr>
           </thead>
           <tbody id="visitationTableBody">
@@ -9590,51 +9897,752 @@
       });
     }
 
-    // Render Visitation Table (لجنة الافتقاد)
-    function renderVisitationTable(filter = 'all') {
+    // ==============================================
+    // ENHANCED VISITATION SYSTEM JAVASCRIPT
+    // ==============================================
+    const AR_MONTH_NAMES = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
+
+    function formatArabicDate(dateStr) {
+      if (!dateStr) return '—';
+      try {
+        const parts = dateStr.split('-');
+        if (parts.length === 3) {
+          const y = parts[0];
+          const m = parseInt(parts[1], 10) - 1;
+          const d = parseInt(parts[2], 10);
+          return `${d} ${AR_MONTH_NAMES[m] || parts[1]} ${y}`;
+        }
+      } catch(e) {}
+      return dateStr;
+    }
+
+    function isThisWeekInvitation(dateStr) {
+      if (!dateStr) return false;
+      try {
+        const invTime = new Date(dateStr + 'T00:00:00').getTime();
+        const nowTime = new Date().getTime();
+        const diffDays = (nowTime - invTime) / (1000 * 60 * 60 * 24);
+        return diffDays >= -1 && diffDays <= 7;
+      } catch(e) {
+        return false;
+      }
+    }
+
+    function updateMemberVisitationSummary(member) {
+      if (!member.visitations) member.visitations = [];
+      member.visitations.sort((a, b) => (b.date || '').localeCompare(a.date || '') || (b.createdAt || '').localeCompare(a.createdAt || ''));
+      member.visitationsCount = member.visitations.length;
+      member.lastVisitation = member.visitations[0] || null;
+      member.lastInvitation = member.visitations.find(v => v.type === 'invitation') || null;
+      member.lastPriestVisit = member.visitations.find(v => v.type === 'priest') || null;
+      member.lastServantVisit = member.visitations.find(v => v.type === 'servants') || null;
+    }
+
+    function normalizeVisitationData() {
+      if (!appData.visitationLog) appData.visitationLog = [];
+      (appData.members || []).forEach(m => {
+        updateMemberVisitationSummary(m);
+      });
+    }
+
+    // State for visitation table
+    let currentVisFilter = 'all';
+    let currentVisArea = 'all';
+    let currentVisSort = 'code';
+    let currentVisSearch = '';
+
+    // Render Visitation Table (لوحة الافتقاد)
+    function renderVisitationTable() {
+      normalizeVisitationData();
       const tbody = document.getElementById('visitationTableBody');
+      if (!tbody) return;
       tbody.innerHTML = '';
+
       const session = getCurrentSession();
       const attendees = session.attendees || [];
+      const totalMembers = appData.members.length;
 
+      // Calculate Stats
+      let weeklyInvCount = 0;
+      let priestCount = 0;
+      let servantsCount = 0;
+      let visitedTotalCount = 0;
+      let needsAttentionCount = 0;
+
+      appData.members.forEach(m => {
+        const isAttended = attendees.some(a => a.memberId === m.id);
+        const hasWeeklyInv = isThisWeekInvitation(m.lastInvitation ? m.lastInvitation.date : null);
+        const hasPriest = Boolean(m.lastPriestVisit);
+        const hasServants = Boolean(m.lastServantVisit);
+        const hasVisited = Boolean(m.visitationsCount && m.visitationsCount > 0);
+
+        if (hasWeeklyInv) weeklyInvCount++;
+        if (hasPriest) priestCount++;
+        if (hasServants) servantsCount++;
+        if (hasVisited) visitedTotalCount++;
+        if (!hasVisited || (!isAttended && !hasWeeklyInv)) needsAttentionCount++;
+      });
+
+      // Update KPI Cards
+      const elInv = document.getElementById('statVisWeeklyInvCount');
+      if (elInv) elInv.textContent = weeklyInvCount;
+      const elInvPct = document.getElementById('statVisWeeklyInvPercent');
+      if (elInvPct) elInvPct.textContent = totalMembers > 0 ? Math.round((weeklyInvCount / totalMembers) * 100) + '% من الشباب' : '0%';
+
+      const elPriest = document.getElementById('statVisPriestCount');
+      if (elPriest) elPriest.textContent = priestCount;
+
+      const elServ = document.getElementById('statVisServantsCount');
+      if (elServ) elServ.textContent = servantsCount;
+
+      const elVis = document.getElementById('statVisVisitedTotalCount');
+      if (elVis) elVis.textContent = visitedTotalCount;
+      const elVisPct = document.getElementById('statVisVisitedTotalPercent');
+      if (elVisPct) elVisPct.textContent = totalMembers > 0 ? Math.round((visitedTotalCount / totalMembers) * 100) + '% تمت زيارتهم' : '0%';
+
+      const elNeeds = document.getElementById('statVisNeedsAttentionCount');
+      if (elNeeds) elNeeds.textContent = needsAttentionCount;
+
+      // Update filter pill counts
+      const elCountAll = document.getElementById('visPillCountAll');
+      if (elCountAll) elCountAll.textContent = totalMembers;
+      const elCountVis = document.getElementById('visPillCountVisited');
+      if (elCountVis) elCountVis.textContent = visitedTotalCount;
+      const elCountNotVis = document.getElementById('visPillCountNotVisited');
+      if (elCountNotVis) elCountNotVis.textContent = totalMembers - visitedTotalCount;
+
+      // Filter list
       let list = appData.members.filter(m => {
         const isAttended = attendees.some(a => a.memberId === m.id);
-        if (filter === 'absent_today') return !isAttended;
+        const hasWeeklyInv = isThisWeekInvitation(m.lastInvitation ? m.lastInvitation.date : null);
+        const hasPriest = Boolean(m.lastPriestVisit);
+        const hasServants = Boolean(m.lastServantVisit);
+        const hasVisited = Boolean(m.visitationsCount && m.visitationsCount > 0);
+
+        // Filter pills
+        if (currentVisFilter === 'visited' && !hasVisited) return false;
+        if (currentVisFilter === 'not_visited' && hasVisited) return false;
+        if (currentVisFilter === 'invitation_week' && !hasWeeklyInv) return false;
+        if (currentVisFilter === 'needs_invitation' && hasWeeklyInv) return false;
+        if (currentVisFilter === 'priest' && !hasPriest) return false;
+        if (currentVisFilter === 'servants' && !hasServants) return false;
+        if (currentVisFilter === 'absent_today' && isAttended) return false;
+        if (currentVisFilter === 'absent_multiple') {
+          const s1 = appData.sessions[appData.sessions.length - 1];
+          const s2 = appData.sessions[appData.sessions.length - 2];
+          const in1 = s1 && (s1.attendees || []).some(a => a.memberId === m.id);
+          const in2 = s2 && (s2.attendees || []).some(a => a.memberId === m.id);
+          if (in1 || in2) return false;
+        }
+
+        // Area Filter
+        if (currentVisArea !== 'all') {
+          const areaMatch = (m.groupCode === currentVisArea) || (m.areaGroup && m.areaGroup.includes(currentVisArea));
+          if (!areaMatch) return false;
+        }
+
+        // Search Filter
+        if (currentVisSearch) {
+          const q = currentVisSearch.toLowerCase().trim();
+          const matchName = (m.name || '').toLowerCase().includes(q);
+          const matchPhone = (m.phone || '').includes(q);
+          const matchId = (m.id || '').toLowerCase().includes(q);
+          const matchAddress = (m.fullAddress || '').toLowerCase().includes(q) || (m.area || '').toLowerCase().includes(q);
+          const matchFather = (m.father || '').toLowerCase().includes(q);
+          if (!matchName && !matchPhone && !matchId && !matchAddress && !matchFather) return false;
+        }
+
         return true;
       });
+
+      // Sort list
+      list.sort((a, b) => {
+        if (currentVisSort === 'name') {
+          return (a.name || '').localeCompare(b.name || '', 'ar');
+        } else if (currentVisSort === 'latest_visit') {
+          const dateA = a.lastVisitation ? a.lastVisitation.date : '';
+          const dateB = b.lastVisitation ? b.lastVisitation.date : '';
+          return dateB.localeCompare(dateA);
+        } else if (currentVisSort === 'oldest_visit') {
+          const countA = a.visitationsCount || 0;
+          const countB = b.visitationsCount || 0;
+          if (countA !== countB) return countA - countB;
+          const dateA = a.lastVisitation ? a.lastVisitation.date : '9999';
+          const dateB = b.lastVisitation ? b.lastVisitation.date : '9999';
+          return dateA.localeCompare(dateB);
+        } else {
+          return (a.num || 0) - (b.num || 0);
+        }
+      });
+
+      if (list.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="10" style="text-align:center;padding:2.5rem;color:var(--text-muted);font-size:1rem;">
+          🔍 لا توجد نتائج مطابقة لخيارات التصفية والبحث المحددة.
+        </td></tr>`;
+        return;
+      }
 
       list.forEach(m => {
         const isAttended = attendees.some(a => a.memberId === m.id);
         const tr = document.createElement('tr');
         const sessionTitle = session.title || 'اجتماع الشباب';
-        const defaultMsg = encodeURIComponent(`سلام يا ${m.name} ❤️ وحشتنا جداً النهاردة في اجتماع الشباب! كنا بنصلي لأجلك وبنتمنى تكون بألف خير، ومستنينك الأسبوع الجاي إن شاء الله في لقاء: ${sessionTitle}`);
+        const defaultMsg = encodeURIComponent(`سلام يا ${m.name.split(' ')[0]} ❤️ وحشتنا جداً في اجتماع الشباب! بنتمنى تكون بألف خير ومستنينك في لقاء: ${sessionTitle} يوم الثلاثاء القادم 7:00 م بكنيسة العذراء مريم.`);
 
         const areaName = m.areaGroup || (m.groupCode ? ('منطقة ' + m.groupCode) : 'غير محدد');
-        const familyName = (m.family && m.family !== 'غير محدد' && !m.family.includes('مجموعة') && !m.family.includes('منطقة')) ? m.family : 'لم تحدد بعد';
+        const hasWeeklyInv = isThisWeekInvitation(m.lastInvitation ? m.lastInvitation.date : null);
+
+        // Invitation cell
+        let invCellHTML = '';
+        if (hasWeeklyInv) {
+          invCellHTML = `<span class="badge-inv-delivered" title="تم تسليم إنفتيشن الاجتماع الأسبوعي">` +
+            `✓ تم التسليم (${formatArabicDate(m.lastInvitation.date)})` +
+            `</span>`;
+        } else {
+          invCellHTML = `<button type="button" class="btn-quick-inv" onclick="quickDeliverInvitation('${m.id}')" title="تسجيل تسليم إنفتيشن هذا الأسبوع بتاريخ اليوم بنقرة واحدة">` +
+            `⚡ تسليم الآن` +
+            `</button>`;
+        }
+
+        // Priest cell
+        let priestCellHTML = '<span style="color:var(--text-muted);font-size:0.8rem;">—</span>';
+        if (m.lastPriestVisit) {
+          const fName = m.lastPriestVisit.father || m.lastPriestVisit.servant || 'قدس أبونا';
+          priestCellHTML = `<div class="vis-pill-badge badge-vis-priest" title="${fName} - ${m.lastPriestVisit.notes || ''}">` +
+            `✝️ ${formatArabicDate(m.lastPriestVisit.date)}` +
+            `</div><div style="font-size:0.72rem;color:var(--text-muted);margin-top:2px;">${fName}</div>`;
+        }
+
+        // Servant cell
+        let servantCellHTML = '<span style="color:var(--text-muted);font-size:0.8rem;">—</span>';
+        if (m.lastServantVisit) {
+          const sName = m.lastServantVisit.servant || 'الخدام';
+          servantCellHTML = `<div class="vis-pill-badge badge-vis-servants" title="${sName} - ${m.lastServantVisit.notes || ''}">` +
+            `🤝 ${formatArabicDate(m.lastServantVisit.date)}` +
+            `</div><div style="font-size:0.72rem;color:var(--text-muted);margin-top:2px;">${sName}</div>`;
+        }
+
+        // Last visit overall cell
+        let lastVisitCellHTML = '<span style="color:var(--text-muted);font-size:0.8rem;">لم يُفتقد بعد</span>';
+        if (m.lastVisitation) {
+          let typeIcon = '📞';
+          let badgeClass = 'badge-vis-call';
+          if (m.lastVisitation.type === 'invitation') { typeIcon = '💌'; badgeClass = 'badge-vis-invitation'; }
+          else if (m.lastVisitation.type === 'priest') { typeIcon = '✝️'; badgeClass = 'badge-vis-priest'; }
+          else if (m.lastVisitation.type === 'servants') { typeIcon = '🤝'; badgeClass = 'badge-vis-servants'; }
+
+          lastVisitCellHTML = `<div class="vis-pill-badge ${badgeClass}" title="${m.lastVisitation.notes || ''}">` +
+            `${typeIcon} ${formatArabicDate(m.lastVisitation.date)}` +
+            `</div><div style="font-size:0.72rem;color:var(--text-muted);margin-top:2px;">${m.lastVisitation.statusText || 'تمت بنجاح'}</div>`;
+        }
 
         tr.innerHTML = `
-          <td><strong>${m.name}</strong></td>
-          <td><span class="family-pill ${getFamilyClass(areaName)}">${areaName}</span></td>
-          <td><span class="family-pill family-unassigned">${familyName}</span></td>
-          <td>${m.phone || '—'}</td>
-          <td>
-            ${isAttended 
-              ? '<span class="family-pill pill-present">✓ حاضر اليوم</span>' 
-              : '<span class="family-pill pill-absent">✗ غائب اليوم</span>'}
+          <td style="font-weight:800;color:var(--text-muted);font-size:0.85rem;">
+            ${m.num || '—'} <span style="font-size:0.75rem;opacity:0.7;">(${m.id})</span>
           </td>
           <td>
-            <a href="https://wa.me/2${m.phone}?text=${defaultMsg}" target="_blank" class="btn btn-success" style="padding:0.25rem 0.65rem;font-size:0.8rem;">
-              💬 رسالة افتقاد
-            </a>
+            <div style="font-weight:800;font-size:0.95rem;color:var(--text-main);">${m.name}</div>
+            <div style="margin-top:0.25rem;">
+              ${isAttended 
+                ? '<span class="family-pill pill-present" style="font-size:0.7rem;padding:0.15rem 0.5rem;">✓ حاضر اليوم</span>' 
+                : '<span class="family-pill pill-absent" style="font-size:0.7rem;padding:0.15rem 0.5rem;">✗ غائب اليوم</span>'}
+            </div>
           </td>
           <td>
-            <input type="text" class="form-control" style="padding:0.25rem 0.5rem;font-size:0.8rem;" placeholder="اكتب ملاحظة..." value="${m.visitationNote || ''}" onchange="saveVisitationNote('${m.id}', this.value)">
+            <div><span class="family-pill ${getFamilyClass(areaName)}" style="font-size:0.72rem;">${areaName}</span></div>
+            <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.2rem;max-width:180px;line-height:1.3;" title="${m.fullAddress || ''}">
+              ${m.fullAddress || m.area || '—'}
+            </div>
+          </td>
+          <td>
+            <div style="font-family:monospace;font-size:0.85rem;">${m.phone || '—'}</div>
+          </td>
+          <td>
+            <span style="font-size:0.84rem;font-weight:700;color:var(--text-main);">${m.father || '—'}</span>
+          </td>
+          <td style="text-align:center;">
+            ${invCellHTML}
+          </td>
+          <td>
+            ${priestCellHTML}
+          </td>
+          <td>
+            ${servantCellHTML}
+          </td>
+          <td>
+            ${lastVisitCellHTML}
+          </td>
+          <td style="text-align:center;">
+            <div style="display:inline-flex;gap:0.35rem;align-items:center;flex-wrap:wrap;justify-content:center;">
+              <button type="button" class="btn btn-gold btn-sm" onclick="openAddVisitationModal('${m.id}')" title="تسجيل افتقاد جديد لهذا الشاب" style="padding:0.25rem 0.55rem;font-size:0.75rem;font-weight:800;">
+                ➕ افتقاد
+              </button>
+              <button type="button" class="btn btn-secondary btn-sm" onclick="openVisitationHistoryModal('${m.id}')" title="عرض السجل التاريخي الكامل للافتقادات" style="padding:0.25rem 0.55rem;font-size:0.75rem;font-weight:800;">
+                📜 السجل (${m.visitationsCount || 0})
+              </button>
+              <a href="https://wa.me/2${m.phone}?text=${defaultMsg}" target="_blank" class="btn btn-success btn-sm" title="إرسال رسالة افتقاد بالواتساب" style="padding:0.25rem 0.5rem;font-size:0.8rem;">
+                💬
+              </a>
+            </div>
           </td>
         `;
         tbody.appendChild(tr);
       });
     }
 
+    // 1-Click Quick Deliver Weekly Invitation
+    async function quickDeliverInvitation(memberId) {
+      const member = appData.members.find(m => m.id === memberId);
+      if (!member) return;
+
+      const todayStr = new Date().toISOString().split('T')[0];
+      const entry = {
+        id: 'VIS-INV-' + Date.now() + '-' + Math.floor(Math.random() * 1000),
+        memberId: member.id,
+        memberName: member.name,
+        type: 'invitation',
+        date: todayStr,
+        servant: (currentServantRole && ROLES[currentServantRole]) ? ROLES[currentServantRole].badgeName : 'خدام الافتقاد',
+        father: '',
+        status: 'completed',
+        statusText: 'تم تسليم الانفتيشن',
+        notes: 'تم تسليم إنفتيشن الاجتماع الأسبوعي والتأكيد على الحضور',
+        createdAt: new Date().toISOString()
+      };
+
+      if (!member.visitations) member.visitations = [];
+      member.visitations.unshift(entry);
+      if (!appData.visitationLog) appData.visitationLog = [];
+      appData.visitationLog.unshift(entry);
+
+      updateMemberVisitationSummary(member);
+      saveLocalData();
+      renderVisitationTable();
+
+      if (typeof SoundFX !== 'undefined' && SoundFX.scanSuccess) {
+        SoundFX.scanSuccess();
+      }
+
+      // Sync to Server
+      try {
+        fetch('/api/visitations/add', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(entry)
+        });
+      } catch(e) {}
+    }
+
+    // Open Add Visitation Modal
+    function openAddVisitationModal(preselectedMemberId = null) {
+      const modal = document.getElementById('modalAddVisitation');
+      if (!modal) return;
+
+      const sel = document.getElementById('visAddMemberSelect');
+      sel.innerHTML = '';
+      appData.members.forEach(m => {
+        const opt = document.createElement('option');
+        opt.value = m.id;
+        opt.textContent = `${m.num ? `#${m.num} - ` : ''}${m.name} (${m.id}) - ${m.areaGroup || m.area || ''}`;
+        if (preselectedMemberId && m.id === preselectedMemberId) {
+          opt.selected = true;
+        }
+        sel.appendChild(opt);
+      });
+
+      // Default date to today
+      document.getElementById('visAddDate').value = new Date().toISOString().split('T')[0];
+
+      // Pre-fill father if member has one
+      const selectedMember = appData.members.find(m => m.id === (preselectedMemberId || sel.value));
+      const fatherContainer = document.getElementById('visAddFatherContainer');
+      const fatherSelect = document.getElementById('visAddFatherSelect');
+      if (selectedMember && selectedMember.father && fatherSelect) {
+        fatherSelect.value = selectedMember.father;
+      }
+
+      // Check current servant
+      const servantInput = document.getElementById('visAddServant');
+      if (servantInput && !servantInput.value) {
+        servantInput.value = (currentServantRole && ROLES[currentServantRole]) ? ROLES[currentServantRole].badgeName : '';
+      }
+
+      document.getElementById('visAddNotes').value = '';
+      document.getElementById('visAddStatus').value = 'completed';
+
+      modal.classList.add('open');
+    }
+
+    function closeAddVisitationModal() {
+      const modal = document.getElementById('modalAddVisitation');
+      if (modal) modal.classList.remove('open');
+    }
+
+    // Save Add Visitation Form
+    async function saveAddVisitation() {
+      const memberId = document.getElementById('visAddMemberSelect').value;
+      const member = appData.members.find(m => m.id === memberId);
+      if (!member) return;
+
+      const type = document.getElementById('visAddType').value;
+      const date = document.getElementById('visAddDate').value || new Date().toISOString().split('T')[0];
+      const servant = document.getElementById('visAddServant').value.trim() || 'خدام الافتقاد';
+      const status = document.getElementById('visAddStatus').value;
+      const notes = document.getElementById('visAddNotes').value.trim();
+      let father = '';
+
+      if (type === 'priest') {
+        father = document.getElementById('visAddFatherSelect').value || (member.father || 'أبونا');
+      }
+
+      let statusText = 'تمت الزيارة بنجاح';
+      if (status === 'completed') statusText = (type === 'invitation' ? 'تم تسليم الانفتيشن' : 'تمت بنجاح');
+      else if (status === 'not_home') statusText = 'لم يتواجد بالمنزل';
+      else if (status === 'needs_followup') statusText = 'يحتاج متابعة وصلاة';
+      else if (status === 'postponed') statusText = 'مؤجل لموعد آخر';
+
+      const entry = {
+        id: 'VIS-' + Date.now() + '-' + Math.floor(Math.random() * 1000),
+        memberId: member.id,
+        memberName: member.name,
+        type: type,
+        date: date,
+        servant: servant,
+        father: father,
+        status: status,
+        statusText: statusText,
+        notes: notes,
+        createdAt: new Date().toISOString()
+      };
+
+      if (!member.visitations) member.visitations = [];
+      member.visitations.unshift(entry);
+      if (!appData.visitationLog) appData.visitationLog = [];
+      appData.visitationLog.unshift(entry);
+
+      updateMemberVisitationSummary(member);
+      saveLocalData();
+      closeAddVisitationModal();
+      renderVisitationTable();
+
+      if (typeof SoundFX !== 'undefined' && SoundFX.scanSuccess) {
+        SoundFX.scanSuccess();
+      }
+
+      // Sync to Server
+      try {
+        fetch('/api/visitations/add', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(entry)
+        });
+      } catch(e) {}
+    }
+
+    // Open Visitation History Timeline Modal
+    let activeHistoryMemberId = null;
+    function openVisitationHistoryModal(memberId) {
+      activeHistoryMemberId = memberId;
+      const member = appData.members.find(m => m.id === memberId);
+      if (!member) return;
+
+      const modal = document.getElementById('modalVisitationHistory');
+      if (!modal) return;
+
+      document.getElementById('visHistMemberName').textContent = member.name;
+      document.getElementById('visHistMemberMeta').innerHTML = `كود: <strong>${member.id}</strong> | تليفون: <strong>${member.phone || 'بدون'}</strong> | أب الاعتراف: <strong>${member.father || 'غير محدد'}</strong> | المنطقة: <strong>${member.areaGroup || member.area || 'غير محدد'}</strong>`;
+
+      // Update counters
+      document.getElementById('visHistCountTotal').textContent = member.visitationsCount || 0;
+      document.getElementById('visHistLastInv').textContent = member.lastInvitation ? formatArabicDate(member.lastInvitation.date) : 'لا يوجد';
+      document.getElementById('visHistLastPriest').textContent = member.lastPriestVisit ? formatArabicDate(member.lastPriestVisit.date) : 'لا يوجد';
+      document.getElementById('visHistLastServant').textContent = member.lastServantVisit ? formatArabicDate(member.lastServantVisit.date) : 'لا يوجد';
+
+      // WhatsApp link in history modal
+      const sessionTitle = getCurrentSession().title || 'اجتماع الشباب';
+      const waMsg = encodeURIComponent(`سلام يا ${member.name.split(' ')[0]} ❤️ وحشتنا في اجتماع الشباب! بنتمنى تكون بألف خير ومستنينك في لقاء: ${sessionTitle} يوم الثلاثاء القادم 7:00 م.`);
+      document.getElementById('btnHistWhatsApp').href = `https://wa.me/2${member.phone}?text=${waMsg}`;
+
+      // Hook add visit button for this member
+      document.getElementById('btnHistAddVisitForMember').onclick = () => {
+        closeVisitationHistoryModal();
+        openAddVisitationModal(member.id);
+      };
+
+      // Render timeline entries
+      const timelineContainer = document.getElementById('visHistoryTimeline');
+      timelineContainer.innerHTML = '';
+
+      const visits = member.visitations || [];
+      if (visits.length === 0) {
+        timelineContainer.innerHTML = `<div style="text-align:center;padding:2.5rem;color:var(--text-muted);font-size:0.95rem;">
+          📭 لم يتم تسجيل أي افتقادات أو زيارات سابقة لهذا العضو حتى الآن.<br>
+          <button type="button" class="btn btn-gold btn-sm" onclick="closeVisitationHistoryModal(); openAddVisitationModal('${member.id}');" style="margin-top:1rem;font-weight:800;">➕ تسجيل أول افتقاد الآن</button>
+        </div>`;
+      } else {
+        visits.forEach(v => {
+          const item = document.createElement('div');
+          item.className = `vis-timeline-item type-${v.type || 'call'}`;
+
+          let typeLabel = '📞 مكالمة هاتفية / تواصل';
+          let badgeClass = 'badge-vis-call';
+          if (v.type === 'invitation') { typeLabel = '💌 توزيع إنفتيشن أسبوعي'; badgeClass = 'badge-vis-invitation'; }
+          else if (v.type === 'priest') { typeLabel = '✝️ افتقاد من أبونا'; badgeClass = 'badge-vis-priest'; }
+          else if (v.type === 'servants') { typeLabel = '🤝 افتقاد من الخدام'; badgeClass = 'badge-vis-servants'; }
+
+          item.innerHTML = `
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.4rem;">
+              <div style="display:flex;align-items:center;gap:0.4rem;">
+                <span class="vis-pill-badge ${badgeClass}">${typeLabel}</span>
+                <span style="font-weight:800;font-size:0.88rem;color:var(--text-main);">${formatArabicDate(v.date)}</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:0.4rem;">
+                <span style="font-size:0.75rem;padding:0.15rem 0.5rem;border-radius:var(--radius-full);background:rgba(255,255,255,0.08);color:var(--text-muted);">
+                  ${v.statusText || 'تمت بنجاح'}
+                </span>
+                <button type="button" class="btn btn-icon-only btn-sm" onclick="deleteVisitation('${member.id}', '${v.id}')" title="حذف هذا الافتقاد من السجل" style="background:none;border:none;color:#fb7185;cursor:pointer;padding:0.2rem;">
+                  🗑️
+                </button>
+              </div>
+            </div>
+
+            <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:0.35rem;">
+              القائم بالزيارة: <strong style="color:var(--text-main);">${v.father ? `${v.father} (مع ${v.servant || 'الخدام'})` : (v.servant || 'خدام الافتقاد')}</strong>
+            </div>
+
+            ${v.notes ? `<div style="font-size:0.84rem;color:var(--text-main);background:var(--bg-primary);padding:0.5rem 0.75rem;border-radius:var(--radius-sm);border:1px solid var(--border);line-height:1.5;">${v.notes}</div>` : ''}
+          `;
+          timelineContainer.appendChild(item);
+        });
+      }
+
+      modal.classList.add('open');
+    }
+
+    function closeVisitationHistoryModal() {
+      const modal = document.getElementById('modalVisitationHistory');
+      if (modal) modal.classList.remove('open');
+    }
+
+    // Delete a Visitation Record
+    async function deleteVisitation(memberId, visitationId) {
+      if (!confirm('هل أنت متأكد من حذف هذا الافتقاد من سجل العضو؟')) return;
+
+      const member = appData.members.find(m => m.id === memberId);
+      if (!member || !member.visitations) return;
+
+      const idx = member.visitations.findIndex(v => v.id === visitationId);
+      if (idx !== -1) {
+        member.visitations.splice(idx, 1);
+        if (appData.visitationLog) {
+          const logIdx = appData.visitationLog.findIndex(v => v.id === visitationId);
+          if (logIdx !== -1) appData.visitationLog.splice(logIdx, 1);
+        }
+
+        updateMemberVisitationSummary(member);
+        saveLocalData();
+        renderVisitationTable();
+        openVisitationHistoryModal(memberId);
+
+        // Sync to Server
+        try {
+          fetch('/api/visitations/delete', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ memberId, visitationId })
+          });
+        } catch(e) {}
+      }
+    }
+
+    // Batch Weekly Invitation Modal
+    function openBatchInvitationModal() {
+      const modal = document.getElementById('modalBatchInvitation');
+      if (!modal) return;
+
+      document.getElementById('visBatchDate').value = new Date().toISOString().split('T')[0];
+      const servantInput = document.getElementById('visBatchServant');
+      if (servantInput && !servantInput.value) {
+        servantInput.value = (currentServantRole && ROLES[currentServantRole]) ? ROLES[currentServantRole].badgeName : 'خدام الافتقاد';
+      }
+
+      renderBatchMembersList();
+      modal.classList.add('open');
+    }
+
+    function closeBatchInvitationModal() {
+      const modal = document.getElementById('modalBatchInvitation');
+      if (modal) modal.classList.remove('open');
+    }
+
+    function renderBatchMembersList() {
+      const container = document.getElementById('visBatchMembersContainer');
+      if (!container) return;
+      container.innerHTML = '';
+
+      const area = document.getElementById('visBatchAreaSelect').value;
+      const q = (document.getElementById('visBatchSearch').value || '').toLowerCase().trim();
+
+      let filtered = appData.members.filter(m => {
+        if (area !== 'all') {
+          const match = (m.groupCode === area) || (m.areaGroup && m.areaGroup.includes(area));
+          if (!match) return false;
+        }
+        if (q) {
+          const matchName = (m.name || '').toLowerCase().includes(q);
+          const matchId = (m.id || '').toLowerCase().includes(q);
+          if (!matchName && !matchId) return false;
+        }
+        return true;
+      });
+
+      filtered.forEach(m => {
+        const item = document.createElement('label');
+        item.className = 'vis-batch-item';
+        const hasInv = isThisWeekInvitation(m.lastInvitation ? m.lastInvitation.date : null);
+
+        item.innerHTML = `
+          <input type="checkbox" class="vis-batch-chk" value="${m.id}" onchange="updateBatchSelectedCount()" ${hasInv ? '' : 'checked'}>
+          <div style="flex:1;overflow:hidden;">
+            <div style="font-weight:700;color:var(--text-main);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+              ${m.name}
+            </div>
+            <div style="font-size:0.72rem;color:var(--text-muted);display:flex;gap:0.4rem;align-items:center;">
+              <span>${m.areaGroup || m.area || 'منطقة'}</span>
+              ${hasInv ? '<span style="color:#10b981;">✓ استلم هذا الأسبوع</span>' : '<span style="color:#f59e0b;">لم يستلم بعد</span>'}
+            </div>
+          </div>
+        `;
+        container.appendChild(item);
+      });
+
+      updateBatchSelectedCount();
+    }
+
+    function filterBatchMembersList() {
+      renderBatchMembersList();
+    }
+
+    function batchSelectAll(select) {
+      document.querySelectorAll('.vis-batch-chk').forEach(chk => chk.checked = select);
+      updateBatchSelectedCount();
+    }
+
+    function updateBatchSelectedCount() {
+      const count = document.querySelectorAll('.vis-batch-chk:checked').length;
+      const countEl = document.getElementById('visBatchSelectedCount');
+      if (countEl) countEl.textContent = `تم تحديد ${count} عضو`;
+    }
+
+    async function saveBatchInvitations() {
+      const checkedBoxes = Array.from(document.querySelectorAll('.vis-batch-chk:checked'));
+      const memberIds = checkedBoxes.map(c => c.value);
+
+      if (memberIds.length === 0) {
+        alert('يرجى تحديد عضو واحد على الأقل.');
+        return;
+      }
+
+      const dateStr = document.getElementById('visBatchDate').value || new Date().toISOString().split('T')[0];
+      const servantStr = document.getElementById('visBatchServant').value.trim() || 'خدام الافتقاد';
+      const notesStr = document.getElementById('visBatchNotes').value.trim() || 'تم تسليم إنفتيشن الاجتماع الأسبوعي';
+
+      const now = Date.now();
+      memberIds.forEach((mId, idx) => {
+        const member = appData.members.find(m => m.id === mId);
+        if (member) {
+          const entry = {
+            id: `VIS-INV-${now}-${idx}-${Math.floor(Math.random() * 1000)}`,
+            memberId: member.id,
+            memberName: member.name,
+            type: 'invitation',
+            date: dateStr,
+            servant: servantStr,
+            father: '',
+            status: 'completed',
+            statusText: 'تم تسليم الانفتيشن',
+            notes: notesStr,
+            createdAt: new Date().toISOString()
+          };
+          if (!member.visitations) member.visitations = [];
+          member.visitations.unshift(entry);
+          if (!appData.visitationLog) appData.visitationLog = [];
+          appData.visitationLog.unshift(entry);
+          updateMemberVisitationSummary(member);
+        }
+      });
+
+      saveLocalData();
+      closeBatchInvitationModal();
+      renderVisitationTable();
+
+      if (typeof SoundFX !== 'undefined' && SoundFX.scanSuccess) {
+        SoundFX.scanSuccess();
+      }
+
+      // Sync to Server
+      try {
+        fetch('/api/visitations/batch-invitations', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ memberIds, date: dateStr, servant: servantStr, notes: notesStr })
+        });
+      } catch(e) {}
+    }
+
+    // Export Complete Visitation Report as UTF-8 CSV (Compatible with Excel)
+    function exportVisitationCSV() {
+      let csv = '﻿';
+      csv += 'الكود,الاسم,المنطقة,العنوان,الموبايل,أب الاعتراف,حالة الحضور,استلم انفتيشن هذا الأسبوع,تاريخ آخر انفتيشن,تاريخ آخر افتقاد أبونا,قدس أبونا,تاريخ آخر افتقاد خدام,خدام الافتقاد,إجمالي الافتقادات,تاريخ آخر افتقاد عام,نوع آخر افتقاد,ملاحظات آخر افتقاد\n';
+
+      const session = getCurrentSession();
+      const attendees = session.attendees || [];
+
+      appData.members.forEach(m => {
+        const isAttended = attendees.some(a => a.memberId === m.id) ? 'حاضر اليوم' : 'غائب';
+        const hasWeeklyInv = isThisWeekInvitation(m.lastInvitation ? m.lastInvitation.date : null) ? 'نعم' : 'لا';
+        const lastInvDate = m.lastInvitation ? m.lastInvitation.date : '—';
+        const lastPriestDate = m.lastPriestVisit ? m.lastPriestVisit.date : '—';
+        const lastPriestFather = m.lastPriestVisit ? (m.lastPriestVisit.father || m.lastPriestVisit.servant || '') : '—';
+        const lastServantDate = m.lastServantVisit ? m.lastServantVisit.date : '—';
+        const lastServantNames = m.lastServantVisit ? (m.lastServantVisit.servant || '') : '—';
+        const totalVisits = m.visitationsCount || 0;
+        const lastOverallDate = m.lastVisitation ? m.lastVisitation.date : '—';
+        const lastOverallType = m.lastVisitation ? (m.lastVisitation.type === 'invitation' ? 'إنفتيشن أسبوعي' : (m.lastVisitation.type === 'priest' ? 'افتقاد أبونا' : (m.lastVisitation.type === 'servants' ? 'افتقاد الخدام' : 'مكالمة هاتفية'))) : 'لم يفتقد';
+        const lastNotes = m.lastVisitation ? (m.lastVisitation.notes || '').replace(/[\r\n,]/g, ' ') : '';
+
+        const row = [
+          `"${m.id || ''}"`,
+          `"${m.name || ''}"`,
+          `"${m.areaGroup || m.area || ''}"`,
+          `"${(m.fullAddress || '').replace(/[\r\n,]/g, ' ')}"`,
+          `"${m.phone || ''}"`,
+          `"${m.father || ''}"`,
+          `"${isAttended}"`,
+          `"${hasWeeklyInv}"`,
+          `"${lastInvDate}"`,
+          `"${lastPriestDate}"`,
+          `"${lastPriestFather}"`,
+          `"${lastServantDate}"`,
+          `"${lastServantNames}"`,
+          totalVisits,
+          `"${lastOverallDate}"`,
+          `"${lastOverallType}"`,
+          `"${lastNotes}"`
+        ];
+        csv += row.join(',') + '\n';
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.setAttribute('href', url);
+      link.setAttribute('download', `كشف_افتقاد_اجتماع_الشباب_${new Date().toISOString().split('T')[0]}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // Retain saveVisitationNote for backward compatibility
     function saveVisitationNote(memberId, text) {
       const m = appData.members.find(x => x.id === memberId);
       if (m) {
@@ -10258,9 +11266,67 @@
       alert("✅ تم حفظ أسماء المستخدمين وكلمات المرور وحدود جدول اللقاءات بنجاح ومزامنتها سحابياً!");
     }
 
-    // Visitation Filters
-    document.getElementById('btnFilterAbsentToday').addEventListener('click', () => renderVisitationTable('absent_today'));
-    document.getElementById('btnFilterAbsentMultiple').addEventListener('click', () => renderVisitationTable('absent_today'));
+    // Enhanced Visitation System Event Listeners
+    const visSearchEl = document.getElementById('visSearchInput');
+    if (visSearchEl) {
+      visSearchEl.addEventListener('input', (e) => {
+        currentVisSearch = e.target.value;
+        renderVisitationTable();
+      });
+    }
+
+    const visAreaEl = document.getElementById('visAreaFilter');
+    if (visAreaEl) {
+      visAreaEl.addEventListener('change', (e) => {
+        currentVisArea = e.target.value;
+        renderVisitationTable();
+      });
+    }
+
+    const visSortEl = document.getElementById('visSortFilter');
+    if (visSortEl) {
+      visSortEl.addEventListener('change', (e) => {
+        currentVisSort = e.target.value;
+        renderVisitationTable();
+      });
+    }
+
+    document.querySelectorAll('button[data-vis-filter]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('button[data-vis-filter]').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentVisFilter = btn.getAttribute('data-vis-filter');
+        renderVisitationTable();
+      });
+    });
+
+    const btnOpenAddVis = document.getElementById('btnOpenAddVisitationModal');
+    if (btnOpenAddVis) btnOpenAddVis.addEventListener('click', () => openAddVisitationModal());
+
+    const btnOpenBatchInv = document.getElementById('btnOpenBatchInvitationModal');
+    if (btnOpenBatchInv) btnOpenBatchInv.addEventListener('click', () => openBatchInvitationModal());
+
+    const btnExportVisCSV = document.getElementById('btnExportVisitationCSV');
+    if (btnExportVisCSV) btnExportVisCSV.addEventListener('click', () => exportVisitationCSV());
+
+    // Toggle priest select visibility in Add Visitation Modal
+    const visAddTypeEl = document.getElementById('visAddType');
+    if (visAddTypeEl) {
+      visAddTypeEl.addEventListener('change', (e) => {
+        const fatherContainer = document.getElementById('visAddFatherContainer');
+        if (fatherContainer) {
+          fatherContainer.style.display = e.target.value === 'priest' ? 'block' : 'none';
+        }
+      });
+    }
+
+    // Tab button click listener to refresh visitation when tab is opened
+    const visTabBtn = document.querySelector('.tab-btn[data-tab="tabVisitation"]');
+    if (visTabBtn) {
+      visTabBtn.addEventListener('click', () => {
+        renderVisitationTable();
+      });
+    }
 
     // Export & Backup
     document.getElementById('exportFullJsonBackupBtn').addEventListener('click', () => {
@@ -12742,6 +13808,220 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
           📥 تحميل ملف PDF المعتمد (A4)
         </a>
         <button type="button" class="btn" id="doneRubricModalBtn">إغلاق</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL: ADD / LOG NEW VISITATION                -->
+  <!-- ============================================== -->
+  <div class="modal-backdrop" id="modalAddVisitation">
+    <div class="modal-box" style="max-width:540px;max-height:90vh;overflow-y:auto;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.15rem;border-bottom:1px solid var(--border);padding-bottom:0.75rem;">
+        <h3 style="font-size:1.25rem;font-weight:800;color:var(--accent-gold);margin:0;display:flex;align-items:center;gap:0.5rem;">
+          <span>➕</span> تسجيل افتقاد جديد
+        </h3>
+        <button type="button" class="btn btn-icon-only btn-sm" onclick="closeAddVisitationModal()" style="border:none;background:none;font-size:1.2rem;color:var(--text-muted);cursor:pointer;">✕</button>
+      </div>
+
+      <form id="formAddVisitation" onsubmit="event.preventDefault(); saveAddVisitation();">
+        <!-- Member Selection -->
+        <div class="form-group" style="margin-bottom:1rem;">
+          <label style="font-weight:700;font-size:0.88rem;color:var(--text-main);margin-bottom:0.35rem;display:block;">اختر العضو / المخدوم: *</label>
+          <select id="visAddMemberSelect" class="form-control" required style="font-size:0.9rem;">
+            <!-- Populated by JS -->
+          </select>
+        </div>
+
+        <!-- Visitation Type -->
+        <div class="form-group" style="margin-bottom:1rem;">
+          <label style="font-weight:700;font-size:0.88rem;color:var(--text-main);margin-bottom:0.35rem;display:block;">نوع الافتقاد: *</label>
+          <select id="visAddType" class="form-control" required style="font-size:0.9rem;">
+            <option value="invitation">💌 توزيع إنفتيشن أسبوعي (دعوة الاجتماع)</option>
+            <option value="priest">✝️ افتقاد من أبونا (زيارة رعوية / صلاة)</option>
+            <option value="servants">🤝 افتقاد من الخدام (زيارة منزلية ميدانية)</option>
+            <option value="call">📞 مكالمة هاتفية / تواصل واطمئنان</option>
+          </select>
+        </div>
+
+        <!-- Date with Quick "Today" Button -->
+        <div class="form-group" style="margin-bottom:1rem;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem;">
+            <label style="font-weight:700;font-size:0.88rem;color:var(--text-main);margin:0;">تاريخ الافتقاد: *</label>
+            <button type="button" class="btn btn-sm" onclick="document.getElementById('visAddDate').value = new Date().toISOString().split('T')[0]" style="padding:0.15rem 0.5rem;font-size:0.75rem;">📅 اليوم</button>
+          </div>
+          <input type="date" id="visAddDate" class="form-control" required style="font-size:0.9rem;">
+        </div>
+
+        <!-- Priest Specific Field (Shows when type is 'priest') -->
+        <div class="form-group" id="visAddFatherContainer" style="display:none;margin-bottom:1rem;">
+          <label style="font-weight:700;font-size:0.88rem;color:var(--accent-gold);margin-bottom:0.35rem;display:block;">قدس أبونا القائم بالزيارة:</label>
+          <select id="visAddFatherSelect" class="form-control" style="font-size:0.9rem;">
+            <option value="ابونا إيساك">ابونا إيساك</option>
+            <option value="ابونا متياس">ابونا متياس</option>
+            <option value="ابونا اباكير">ابونا اباكير</option>
+            <option value="ابونا اسحق">ابونا اسحق</option>
+            <option value="ابونا كيرلس">ابونا كيرلس</option>
+            <option value="ابونا دانييل">ابونا دانييل</option>
+            <option value="ابونا تادرس">ابونا تادرس</option>
+            <option value="ابونا دافيد">ابونا دافيد</option>
+            <option value="ابونا يوساب">ابونا يوساب</option>
+            <option value="كاهن آخر">كاهن آخر</option>
+          </select>
+        </div>
+
+        <!-- Servant Name -->
+        <div class="form-group" style="margin-bottom:1rem;">
+          <label style="font-weight:700;font-size:0.88rem;color:var(--text-main);margin-bottom:0.35rem;display:block;">الخادم / الخدام القائمين بالافتقاد:</label>
+          <input type="text" id="visAddServant" class="form-control" placeholder="مثال: كيرلس بطرس، هيلانة اشرف..." style="font-size:0.9rem;">
+        </div>
+
+        <!-- Status -->
+        <div class="form-group" style="margin-bottom:1rem;">
+          <label style="font-weight:700;font-size:0.88rem;color:var(--text-main);margin-bottom:0.35rem;display:block;">حالة الزيارة والنتيجة: *</label>
+          <select id="visAddStatus" class="form-control" required style="font-size:0.9rem;">
+            <option value="completed">✓ تمت بنجاح / تم تسليم الإنفتيشن والتأكيد</option>
+            <option value="not_home">🏠 لم يتواجد بالمنزل (غير موجود / مسافر)</option>
+            <option value="needs_followup">⚠️ يحتاج متابعة وصلاة عاجلة (ظروف خاصة)</option>
+            <option value="postponed">⏳ مؤجل لموعد آخر متفق عليه</option>
+          </select>
+        </div>
+
+        <!-- Notes -->
+        <div class="form-group" style="margin-bottom:1.25rem;">
+          <label style="font-weight:700;font-size:0.88rem;color:var(--text-main);margin-bottom:0.35rem;display:block;">ملاحظات وتفاصيل الافتقاد:</label>
+          <textarea id="visAddNotes" class="form-control" rows="3" placeholder="اكتب ملاحظات الزيارة، طلبات الصلاة، أسباب الغياب، أو رد فعل الشاب..." style="font-size:0.88rem;"></textarea>
+        </div>
+
+        <div style="display:flex;justify-content:flex-end;gap:0.75rem;border-top:1px solid var(--border);padding-top:1rem;">
+          <button type="button" class="btn" onclick="closeAddVisitationModal()">إلغاء</button>
+          <button type="submit" class="btn btn-gold" id="btnSaveAddVisitation" style="font-weight:800;">💾 حفظ وتسجيل الافتقاد</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL: MEMBER VISITATION HISTORY (TIMELINE)    -->
+  <!-- ============================================== -->
+  <div class="modal-backdrop" id="modalVisitationHistory">
+    <div class="modal-box" style="max-width:680px;max-height:88vh;display:flex;flex-direction:column;">
+      <div style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);padding-bottom:0.75rem;margin-bottom:1rem;">
+        <div>
+          <h3 style="font-size:1.25rem;font-weight:800;color:var(--accent-gold);margin:0;display:flex;align-items:center;gap:0.5rem;">
+            <span>📜</span> سجل الافتقاد والمتابعة: <span id="visHistMemberName"></span>
+          </h3>
+          <div style="font-size:0.8rem;color:var(--text-muted);margin-top:0.25rem;" id="visHistMemberMeta"></div>
+        </div>
+        <button type="button" class="btn btn-icon-only btn-sm" onclick="closeVisitationHistoryModal()" style="border:none;background:none;font-size:1.2rem;color:var(--text-muted);cursor:pointer;">✕</button>
+      </div>
+
+      <!-- Quick Summary Cards -->
+      <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:0.5rem;margin-bottom:1rem;">
+        <div style="background:var(--bg-primary);padding:0.6rem;border-radius:var(--radius-sm);border:1px solid var(--border);text-align:center;">
+          <div style="font-size:1.2rem;font-weight:800;color:var(--accent-gold);" id="visHistCountTotal">0</div>
+          <div style="font-size:0.7rem;color:var(--text-muted);">إجمالي الافتقادات</div>
+        </div>
+        <div style="background:var(--bg-primary);padding:0.6rem;border-radius:var(--radius-sm);border:1px solid var(--border);text-align:center;">
+          <div style="font-size:0.85rem;font-weight:800;color:#a78bfa;" id="visHistLastInv">لا يوجد</div>
+          <div style="font-size:0.7rem;color:var(--text-muted);">آخر إنفتيشن</div>
+        </div>
+        <div style="background:var(--bg-primary);padding:0.6rem;border-radius:var(--radius-sm);border:1px solid var(--border);text-align:center;">
+          <div style="font-size:0.85rem;font-weight:800;color:var(--accent-gold);" id="visHistLastPriest">لا يوجد</div>
+          <div style="font-size:0.7rem;color:var(--text-muted);">آخر افتقاد أبونا</div>
+        </div>
+        <div style="background:var(--bg-primary);padding:0.6rem;border-radius:var(--radius-sm);border:1px solid var(--border);text-align:center;">
+          <div style="font-size:0.85rem;font-weight:800;color:var(--accent-emerald);" id="visHistLastServant">لا يوجد</div>
+          <div style="font-size:0.7rem;color:var(--text-muted);">آخر افتقاد خدام</div>
+        </div>
+      </div>
+
+      <!-- Scrollable Timeline Body -->
+      <div style="flex:1;overflow-y:auto;padding:0.25rem 0.5rem 0.5rem 0.25rem;">
+        <div id="visHistoryTimeline" class="vis-timeline">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Footer Buttons -->
+      <div style="display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);padding-top:0.85rem;margin-top:0.75rem;flex-wrap:wrap;gap:0.5rem;">
+        <div style="display:flex;gap:0.5rem;">
+          <button type="button" class="btn btn-gold btn-sm" id="btnHistAddVisitForMember" style="font-weight:800;">➕ إضافة افتقاد لهذا الشاب</button>
+          <a id="btnHistWhatsApp" href="#" target="_blank" class="btn btn-success btn-sm" style="display:inline-flex;align-items:center;gap:0.35rem;">💬 واتساب</a>
+        </div>
+        <button type="button" class="btn btn-sm" onclick="closeVisitationHistoryModal()">إغلاق</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL: BATCH WEEKLY INVITATION DISTRIBUTION    -->
+  <!-- ============================================== -->
+  <div class="modal-backdrop" id="modalBatchInvitation">
+    <div class="modal-box" style="max-width:650px;max-height:90vh;display:flex;flex-direction:column;">
+      <div style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);padding-bottom:0.75rem;margin-bottom:1rem;">
+        <div>
+          <h3 style="font-size:1.25rem;font-weight:800;color:#a78bfa;margin:0;display:flex;align-items:center;gap:0.5rem;">
+            <span>💌</span> توزيع الإنفتيشن الأسبوعي الجماعي
+          </h3>
+          <p style="font-size:0.82rem;color:var(--text-muted);margin:0.2rem 0 0;">
+            تسجيل تسليم دعوة الاجتماع لعدة شباب في منطقة معينة دفعة واحدة بنقرة واحدة!
+          </p>
+        </div>
+        <button type="button" class="btn btn-icon-only btn-sm" onclick="closeBatchInvitationModal()" style="border:none;background:none;font-size:1.2rem;color:var(--text-muted);cursor:pointer;">✕</button>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:0.75rem;">
+        <div>
+          <label style="font-size:0.8rem;font-weight:700;display:block;margin-bottom:0.25rem;">تصفية حسب المنطقة:</label>
+          <select id="visBatchAreaSelect" class="form-control" style="font-size:0.85rem;" onchange="renderBatchMembersList()">
+            <option value="all">كل المناطق (157 عضو)</option>
+            <option value="E">منطقة E</option>
+            <option value="A">منطقة A</option>
+            <option value="B">منطقة B</option>
+            <option value="C">منطقة C</option>
+            <option value="D">منطقة D</option>
+            <option value="T">منطقة T</option>
+          </select>
+        </div>
+
+        <div>
+          <label style="font-size:0.8rem;font-weight:700;display:block;margin-bottom:0.25rem;">تاريخ التوزيع:</label>
+          <input type="date" id="visBatchDate" class="form-control" style="font-size:0.85rem;">
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:0.75rem;">
+        <div>
+          <label style="font-size:0.8rem;font-weight:700;display:block;margin-bottom:0.25rem;">الخادم القائم بالتوزيع:</label>
+          <input type="text" id="visBatchServant" class="form-control" placeholder="اسم الخادم..." style="font-size:0.85rem;">
+        </div>
+        <div>
+          <label style="font-size:0.8rem;font-weight:700;display:block;margin-bottom:0.25rem;">ملاحظات التوزيع:</label>
+          <input type="text" id="visBatchNotes" class="form-control" value="تم تسليم إنفتيشن الاجتماع الأسبوعي والتأكيد" style="font-size:0.85rem;">
+        </div>
+      </div>
+
+      <!-- Quick Search & Select All in batch modal -->
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem;gap:0.5rem;flex-wrap:wrap;">
+        <input type="text" id="visBatchSearch" class="form-control" style="flex:1;min-width:180px;padding:0.35rem 0.65rem;font-size:0.82rem;" placeholder="🔍 ابحث في القائمة..." oninput="filterBatchMembersList()">
+        <div style="display:flex;gap:0.4rem;">
+          <button type="button" class="btn btn-sm" onclick="batchSelectAll(true)" style="padding:0.25rem 0.6rem;font-size:0.75rem;">تحديد الكل</button>
+          <button type="button" class="btn btn-sm" onclick="batchSelectAll(false)" style="padding:0.25rem 0.6rem;font-size:0.75rem;">إلغاء التحديد</button>
+        </div>
+      </div>
+
+      <!-- Members Checklist Container -->
+      <div id="visBatchMembersContainer" class="vis-batch-grid">
+        <!-- Rendered by JS -->
+      </div>
+
+      <div style="display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);padding-top:0.85rem;margin-top:0.75rem;">
+        <span style="font-size:0.85rem;color:var(--text-muted);" id="visBatchSelectedCount">تم تحديد 0 عضو</span>
+        <div style="display:flex;gap:0.5rem;">
+          <button type="button" class="btn" onclick="closeBatchInvitationModal()">إلغاء</button>
+          <button type="button" class="btn btn-gold" id="btnSaveBatchInvitations" onclick="saveBatchInvitations()" style="font-weight:800;">✓ تسجيل تسليم الإنفتيشن للمحددين</button>
+        </div>
       </div>
     </div>
   </div>
