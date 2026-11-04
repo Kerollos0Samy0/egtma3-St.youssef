@@ -2670,6 +2670,322 @@
       border-top: 1px solid var(--border);
     }
 
+
+    /* ======================================================== */
+    /* ENHANCED TYPOGRAPHY, CONTRAST & COLOR REFORMATTING      */
+    /* Solves screen clutter and ensures 100% text readability  */
+    /* ======================================================== */
+
+    /* Universal Table Header Styling */
+    .data-table th {
+      background: #0f172a !important;
+      color: #fbbf24 !important;
+      font-weight: 800 !important;
+      font-size: 0.92rem !important;
+      padding: 0.95rem 1rem !important;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.12) !important;
+      white-space: nowrap !important;
+    }
+
+    body.light-theme .data-table th {
+      background: #f1f5f9 !important;
+      color: #0f172a !important;
+      font-weight: 800 !important;
+      font-size: 0.92rem !important;
+      padding: 0.95rem 1rem !important;
+      border-bottom: 2px solid #cbd5e1 !important;
+    }
+
+    body.light-theme .data-table td {
+      color: #1e293b !important;
+      border-bottom: 1px solid #e2e8f0 !important;
+    }
+
+    body.light-theme .data-table tr:hover td {
+      background: #f8fafc !important;
+    }
+
+    /* Light Theme Navigation Bar */
+    body.light-theme .nav-tabs {
+      background: rgba(255, 255, 255, 0.98) !important;
+      border-bottom: 2px solid #e2e8f0 !important;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05) !important;
+    }
+
+    body.light-theme .tab-btn {
+      color: #334155 !important;
+      font-weight: 700 !important;
+    }
+
+    body.light-theme .tab-btn:hover {
+      color: #0f172a !important;
+      background: #f1f5f9 !important;
+    }
+
+    body.light-theme .tab-btn.active {
+      color: #0f172a !important;
+      background: #e2e8f0 !important;
+      border: 1px solid #cbd5e1 !important;
+      border-bottom: 3px solid #0f172a !important;
+      font-weight: 800 !important;
+    }
+
+    body.light-theme .tab-count {
+      background: #e2e8f0 !important;
+      color: #0f172a !important;
+      font-weight: 800 !important;
+    }
+
+    /* Filter Strips & Section Labels */
+    .filter-row-label {
+      font-size: 0.86rem !important;
+      font-weight: 800 !important;
+      color: #fbbf24 !important;
+      min-width: 65px;
+    }
+
+    body.light-theme .filter-row-label {
+      color: #0f172a !important;
+      font-weight: 800 !important;
+    }
+
+    body.light-theme .members-filter-card {
+      background: #ffffff !important;
+      border: 1px solid #e2e8f0 !important;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04) !important;
+    }
+
+    body.light-theme .filter-divider {
+      background: #e2e8f0 !important;
+    }
+
+    /* Filter Pills (Area, Stage, Gender) in Light Theme */
+    body.light-theme .pill-btn,
+    body.light-theme .btn.group-filter-btn,
+    body.light-theme .btn.stage-filter-btn,
+    body.light-theme .btn.badge-stage-btn,
+    body.light-theme .btn.gender-filter-btn {
+      background: #f1f5f9 !important;
+      color: #1e293b !important;
+      border: 1px solid #cbd5e1 !important;
+      font-weight: 700 !important;
+      font-size: 0.8rem !important;
+    }
+
+    body.light-theme .pill-btn:hover,
+    body.light-theme .btn.group-filter-btn:hover,
+    body.light-theme .btn.stage-filter-btn:hover,
+    body.light-theme .btn.badge-stage-btn:hover,
+    body.light-theme .btn.gender-filter-btn:hover {
+      background: #e2e8f0 !important;
+      color: #0f172a !important;
+      border-color: #94a3b8 !important;
+    }
+
+    body.light-theme .pill-btn.active,
+    body.light-theme .btn.group-filter-btn.active,
+    body.light-theme .btn.stage-filter-btn.active,
+    body.light-theme .btn.badge-stage-btn.active,
+    body.light-theme .btn.gender-filter-btn.active {
+      background: #0f172a !important;
+      color: #ffffff !important;
+      border-color: #0f172a !important;
+      font-weight: 800 !important;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.25) !important;
+    }
+
+    /* Member Search Input Box */
+    body.light-theme .member-search-box {
+      background: #ffffff !important;
+      border: 1.5px solid #cbd5e1 !important;
+      color: #0f172a !important;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+    }
+
+    body.light-theme .member-search-box::placeholder {
+      color: #64748b !important;
+      opacity: 1 !important;
+    }
+
+    body.light-theme .member-search-box:focus {
+      border-color: #0284c7 !important;
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15) !important;
+    }
+
+    body.light-theme .filter-search-wrap .search-icon {
+      color: #475569 !important;
+    }
+
+    body.light-theme .filter-count-badge {
+      background: #ecfdf5 !important;
+      color: #065f46 !important;
+      border: 1px solid #a7f3d0 !important;
+      font-weight: 800 !important;
+      padding: 0.35rem 0.85rem !important;
+    }
+
+    /* Phone Number Badge (High Contrast in Both Themes) */
+    .member-phone-badge {
+      color: #38bdf8 !important;
+      background: rgba(56, 189, 248, 0.12) !important;
+      border: 1px solid rgba(56, 189, 248, 0.3) !important;
+      padding: 0.22rem 0.65rem !important;
+      border-radius: 6px !important;
+      font-family: monospace !important;
+      font-size: 0.88rem !important;
+      font-weight: 800 !important;
+      text-decoration: none !important;
+      direction: ltr !important;
+      display: inline-block !important;
+      transition: all 0.15s ease !important;
+    }
+
+    .member-phone-badge:hover {
+      background: #38bdf8 !important;
+      color: #0b1120 !important;
+      transform: translateY(-1px);
+    }
+
+    body.light-theme .member-phone-badge {
+      color: #0369a1 !important;
+      background: #e0f2fe !important;
+      border-color: #bae6fd !important;
+    }
+
+    body.light-theme .member-phone-badge:hover {
+      background: #0284c7 !important;
+      color: #ffffff !important;
+      border-color: #0284c7 !important;
+    }
+
+    /* ID Code Badge */
+    body.light-theme .badge-id {
+      color: #92400e !important;
+      background: #fef3c7 !important;
+      border: 1px solid #fde68a !important;
+      font-weight: 900 !important;
+    }
+
+    /* High-Contrast Family & Area Badges (Light Mode) */
+    body.light-theme .family-a {
+      background: #fef3c7 !important;
+      color: #92400e !important;
+      border-color: #fde68a !important;
+      font-weight: 800 !important;
+    }
+
+    body.light-theme .family-b {
+      background: #e0f2fe !important;
+      color: #0369a1 !important;
+      border-color: #bae6fd !important;
+      font-weight: 800 !important;
+    }
+
+    body.light-theme .family-c {
+      background: #d1fae5 !important;
+      color: #065f46 !important;
+      border-color: #a7f3d0 !important;
+      font-weight: 800 !important;
+    }
+
+    body.light-theme .family-d {
+      background: #ede9fe !important;
+      color: #5b21b6 !important;
+      border-color: #ddd6fe !important;
+      font-weight: 800 !important;
+    }
+
+    body.light-theme .family-e {
+      background: #fce7f3 !important;
+      color: #9d174d !important;
+      border-color: #fbcfe8 !important;
+      font-weight: 800 !important;
+    }
+
+    body.light-theme .family-t {
+      background: #ccfbf1 !important;
+      color: #115e59 !important;
+      border-color: #99f6e4 !important;
+      font-weight: 800 !important;
+    }
+
+    body.light-theme .family-unassigned {
+      background: #f1f5f9 !important;
+      color: #334155 !important;
+      border-color: #cbd5e1 !important;
+      font-weight: 800 !important;
+    }
+
+    body.light-theme .family-leaders {
+      background: #f3e8ff !important;
+      color: #6b21a8 !important;
+      border-color: #e9d5ff !important;
+      font-weight: 800 !important;
+    }
+
+    body.light-theme .pill-stage,
+    body.light-theme .pill-gender {
+      background: #f8fafc !important;
+      color: #1e293b !important;
+      border-color: #cbd5e1 !important;
+      font-weight: 800 !important;
+    }
+
+    /* Confession Father & Address Typography in Light Mode */
+    .member-father-cell {
+      color: var(--accent-gold);
+      font-weight: 800;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    body.light-theme .member-father-cell {
+      color: #78350f !important; /* Deep Bronze */
+    }
+
+    .member-address-cell {
+      color: var(--text-muted);
+      font-size: 0.86rem;
+      font-weight: 600;
+    }
+
+    body.light-theme .member-address-cell {
+      color: #334155 !important;
+    }
+
+    /* Headings & Subtitles */
+    body.light-theme h2,
+    body.light-theme h3 {
+      color: #0f172a !important;
+    }
+
+    body.light-theme .brand-gold,
+    body.light-theme .accent-gold {
+      color: #92400e !important;
+    }
+
+    /* Mobile Contact Cards (Light Mode) */
+    body.light-theme .member-mobile-card {
+      background: #ffffff !important;
+      border: 1px solid #e2e8f0 !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+    }
+
+    body.light-theme .member-card-name {
+      color: #0f172a !important;
+      font-weight: 800 !important;
+    }
+
+    body.light-theme .member-card-meta {
+      background: #f8fafc !important;
+      border: 1px solid #e2e8f0 !important;
+      color: #334155 !important;
+    }
+
+    body.light-theme .member-meta-line strong {
+      color: #0f172a !important;
+    }
+
 </style>
 </head>
 <body>
@@ -9650,15 +9966,15 @@
 
           tr.innerHTML = `
             <td style="text-align:center;"><span class="badge-id">${m.id}</span></td>
-            <td><strong style="color:var(--text-main);font-size:0.95rem;">${m.name}</strong></td>
+            <td><strong style="color:var(--text-main);font-size:0.95rem;font-weight:800;">${m.name}</strong></td>
             <td style="text-align:center;"><span class="family-pill ${getFamilyClass(areaName)}">${areaName}</span></td>
             <td style="text-align:center;"><span class="family-pill family-unassigned">${familyName}</span></td>
             <td style="text-align:center;"><span class="family-pill pill-stage">${getCollegeStage(m)}</span></td>
             <td style="text-align:center;"><span class="family-pill pill-gender">${m.gender === 'شابة' ? '👧 شابة' : '👦 شاب'}</span></td>
-            <td style="text-align:center;color:var(--accent-gold);font-weight:700;font-size:0.88rem;">${m.father || '—'}</td>
-            <td style="color:var(--text-muted);font-size:0.85rem;">${m.area || ''} ${m.street ? '— ' + m.street : ''}</td>
+            <td class="member-father-cell">${m.father || '—'}</td>
+            <td class="member-address-cell">${m.area || ''} ${m.street ? '— ' + m.street : ''}</td>
             <td style="text-align:center;">
-              ${m.phone ? `<a href="tel:${m.phone}" style="color:var(--accent-blue);font-family:monospace;font-size:0.88rem;text-decoration:none;font-weight:700;direction:ltr;display:inline-block;" title="اتصال هاتفي">${m.phone}</a>` : '<span style="color:var(--text-muted);font-size:0.82rem;">—</span>'}
+              ${m.phone ? `<a href="tel:${m.phone}" class="member-phone-badge" title="اتصال هاتفي">${m.phone}</a>` : '<span style="color:var(--text-muted);font-size:0.82rem;">—</span>'}
             </td>
             <td style="text-align:center;">
               <div style="display:inline-flex;align-items:center;gap:0.35rem;flex-wrap:wrap;justify-content:center;">
