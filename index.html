@@ -2455,7 +2455,222 @@
       cursor: pointer;
       accent-color: var(--accent-gold);
     }
-  </style>
+  
+    /* ============================================== */
+    /* ADMIN NOTIFICATION BELL & FAMILY MEETINGS CSS */
+    /* ============================================== */
+    .notif-bell-container {
+      position: relative;
+      display: inline-block;
+    }
+    .notif-badge-pill {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      background: #ef4444;
+      color: #ffffff;
+      font-size: 0.68rem;
+      font-weight: 800;
+      min-width: 18px;
+      height: 18px;
+      padding: 0 4px;
+      border-radius: var(--radius-full);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 10px rgba(239, 68, 68, 0.6);
+      animation: pulseAlert 2s infinite;
+      z-index: 10;
+    }
+    @keyframes pulseAlert {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+    .notif-dropdown-panel {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      width: 320px;
+      max-width: 90vw;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+      z-index: 1000;
+      overflow: hidden;
+      display: none;
+      animation: fadeInDown 0.2s ease;
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .notif-panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1rem;
+      background: rgba(255, 255, 255, 0.03);
+      border-bottom: 1px solid var(--border);
+    }
+    .notif-panel-body {
+      max-height: 340px;
+      overflow-y: auto;
+    }
+    .notif-item {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: background 0.15s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .notif-item:hover {
+      background: rgba(245, 158, 11, 0.06);
+    }
+    .notif-item.unread {
+      background: rgba(245, 158, 11, 0.09);
+      border-right: 3px solid var(--accent-gold);
+    }
+    .notif-item-title {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--accent-gold);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .notif-item-desc {
+      font-size: 0.78rem;
+      color: var(--text-main);
+      line-height: 1.4;
+    }
+    .notif-item-time {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      align-self: flex-start;
+      margin-top: 0.2rem;
+    }
+
+    /* Live Toast Notification Banner */
+    .admin-toast-banner {
+      position: fixed;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999;
+      background: var(--bg-card);
+      border: 1px solid var(--accent-gold);
+      border-radius: var(--radius-lg);
+      padding: 0.85rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5), 0 0 15px rgba(245, 158, 11, 0.3);
+      max-width: 90vw;
+      width: 460px;
+      animation: slideInDown 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes slideInDown {
+      from { transform: translate(-50%, -100%); opacity: 0; }
+      to { transform: translate(-50%, 0); opacity: 1; }
+    }
+    .admin-toast-banner .toast-icon {
+      font-size: 1.6rem;
+      flex-shrink: 0;
+    }
+    .admin-toast-banner .toast-content {
+      flex: 1;
+      min-width: 0;
+    }
+    .admin-toast-banner .toast-title {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: var(--accent-gold);
+    }
+    .admin-toast-banner .toast-body {
+      font-size: 0.8rem;
+      color: var(--text-main);
+      margin-top: 0.15rem;
+      line-height: 1.35;
+    }
+    .admin-toast-banner .toast-close {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 1.15rem;
+      padding: 0.2rem;
+    }
+
+    /* Family Meetings Cards Grid */
+    .family-meetings-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .family-meeting-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      position: relative;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow-sm);
+    }
+    .family-meeting-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+    .family-meeting-card.family-a { border-top: 4px solid #3b82f6; }
+    .family-meeting-card.family-b { border-top: 4px solid #10b981; }
+    .family-meeting-card.family-c { border-top: 4px solid #f59e0b; }
+    .family-meeting-card.family-d { border-top: 4px solid #ec4899; }
+    .family-meeting-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .family-meeting-badge {
+      font-size: 0.78rem;
+      font-weight: 800;
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-full);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .family-meeting-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.4;
+    }
+    .family-meeting-meta {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: var(--radius-md);
+      padding: 0.65rem;
+    }
+    .family-meeting-card-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: auto;
+      padding-top: 0.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+</style>
 </head>
 <body>
 
@@ -2483,6 +2698,35 @@
       </button>
 
       <!-- Backup Button -->
+      
+      <!-- Schedule Family Meeting Button for Admins -->
+      <button type="button" class="btn btn-gold btn-sm role-restricted" id="btnHeaderScheduleMeeting" onclick="openScheduleFamilyMeetingModal()" title="تحديد موعد اجتماع أسرة وإشعار الأمناء" style="display:none !important;">
+        <span>📅</span> موعد اجتماع أسرة
+      </button>
+
+      <!-- Admin Notification Bell -->
+      <div class="notif-bell-container" id="adminNotifBellContainer" style="display:none !important;">
+        <button type="button" class="btn btn-icon-only btn-sm" id="adminNotifBellBtn" onclick="toggleAdminNotificationsPanel()" title="إشعارات وتنبيهات الأمناء">
+          🔔
+          <span class="notif-badge-pill" id="adminNotifBadge" style="display:none;">0</span>
+        </button>
+
+        <!-- Dropdown Notifications Panel -->
+        <div class="notif-dropdown-panel" id="adminNotifDropdown" style="display:none;">
+          <div class="notif-panel-header">
+            <div style="font-weight:800;display:flex;align-items:center;gap:0.4rem;color:var(--text-main);font-size:0.9rem;">
+              <span>🔔</span> تنبيهات مواعيد الاجتماعات
+            </div>
+            <button type="button" class="btn btn-sm" onclick="markAllNotificationsAsRead()" style="font-size:0.75rem;padding:0.2rem 0.5rem;">
+              مقروء ✓
+            </button>
+          </div>
+          <div class="notif-panel-body" id="adminNotifList">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+      </div>
+
       <button type="button" class="btn btn-secondary btn-sm" id="backupModalBtn" onclick="openBackupModal()" title="النسخ الاحتياطي وحماية البيانات">
         <span>💾</span> النسخ الاحتياطي
       </button>
@@ -2510,26 +2754,18 @@
     </div>
   </header>
 
-  <!-- Weekly Church Schedule Bar -->
-  <div class="weekly-schedule-bar" style="background:var(--bg-card);border-bottom:1px solid var(--border);padding:0.6rem 1.25rem;display:flex;align-items:center;justify-content:center;gap:1.25rem;flex-wrap:wrap;font-size:0.84rem;box-shadow:var(--shadow-sm);">
-    <div style="display:flex;align-items:center;gap:0.4rem;color:var(--accent-gold);font-weight:800;">
-      <span>📅</span> مواعيدنا الأسبوعية الثابتة:
+  <!-- Modern Direct Navigation Tabs -->
+  
+  <!-- Floating Live Toast Alert for Family Meeting Notifications -->
+  <div id="liveAdminToast" class="admin-toast-banner" style="display:none;">
+    <div class="toast-icon">🔔</div>
+    <div class="toast-content">
+      <div class="toast-title" id="toastTitle">تنبيه لأمناء الاجتماع</div>
+      <div class="toast-body" id="toastBody">تم تحديد موعد اجتماع أسرة جديد</div>
     </div>
-    <div style="display:inline-flex;align-items:center;gap:0.35rem;background:rgba(245,158,11,0.1);padding:0.25rem 0.65rem;border-radius:var(--radius-full);border:1px solid rgba(245,158,11,0.25);">
-      <span>👥</span> <strong>اجتماع الشباب:</strong> الثلاثاء 7:00 م
-    </div>
-    <div style="display:inline-flex;align-items:center;gap:0.35rem;background:rgba(56,189,248,0.1);padding:0.25rem 0.65rem;border-radius:var(--radius-full);border:1px solid rgba(56,189,248,0.25);color:#38bdf8;">
-      <span>📖</span> <strong>الكتاب المقدس والتسبحة:</strong> الأربعاء 7:00 م
-    </div>
-    <div style="display:inline-flex;align-items:center;gap:0.35rem;background:rgba(234,179,8,0.1);padding:0.25rem 0.65rem;border-radius:var(--radius-full);border:1px solid rgba(234,179,8,0.25);color:#eab308;">
-      <span>⛪</span> <strong>القداس الإلهي:</strong> الخميس 7:00 ص
-    </div>
-    <div style="display:inline-flex;align-items:center;gap:0.35rem;background:rgba(16,185,129,0.1);padding:0.25rem 0.65rem;border-radius:var(--radius-full);border:1px solid rgba(16,185,129,0.25);color:#34d399;">
-      <span>🕊️</span> <strong>اجتماع الصلاة:</strong> الجمعة 8:00 م
-    </div>
+    <button type="button" class="toast-close" onclick="closeAdminToast()">✕</button>
   </div>
 
-  <!-- Modern Direct Navigation Tabs -->
   <div class="nav-tabs">
     <button class="tab-btn active" data-tab="tabScanner">
       📷 تسجيل الحضور
@@ -3149,6 +3385,10 @@
           <button type="button" class="btn btn-sm btn-gold" id="btnScoreFamilyModal" title="رصد درجات الأسرة في يومها">
             ✍️ رصد تقييم أسرة
           </button>
+          <button type="button" class="btn btn-sm btn-gold" id="btnScheduleMeetingInScores" onclick="openScheduleFamilyMeetingModal()" title="تحديد موعد اجتماع أسرة جديد وإرسال Notification للأمناء">
+            📅 موعد اجتماع أسرة
+          </button>
+
           <button type="button" class="btn btn-sm" id="btnPreviewFamilyAnnouncement" style="background:rgba(37,211,102,0.15);color:#25d366;border:1px solid rgba(37,211,102,0.3);" title="تجهيز رسالة إعلان النتيجة لجروب الواتساب">
             📲 إعلان النتيجة بالواتساب
           </button>
@@ -3216,70 +3456,31 @@
           <!-- Rendered by JS -->
         </div>
       </div>
+    
+      <!-- Family Scheduled Meetings & Reminders Section -->
+      <div class="family-standings-card" style="margin-top:1.5rem;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:0.75rem;">
+          <div>
+            <h3 style="font-size:1.15rem;font-weight:800;color:var(--accent-gold);margin:0;display:flex;align-items:center;gap:0.4rem;">
+              <span>📅</span> مواعيد اجتماعات الأسر المعتمدة
+            </h3>
+            <p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.2rem;">
+              جدول لقاءات واجتماعات الأسر، مع إمكانية إرسال إشعار تذكيري فوري لكل الأمناء عبر الواتساب بنقرة واحدة.
+            </p>
+          </div>
+          <button type="button" class="btn btn-gold btn-sm role-admin-only" onclick="openScheduleFamilyMeetingModal()">
+            + تحديد موعد اجتماع أسرة جديد
+          </button>
+        </div>
+
+        <div id="familyMeetingsListContainer">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
     </div>
 
         <div class="tab-pane" id="tabSessions">
-      <!-- Official Weekly Recurring Timetable Card -->
-      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.15rem 1.35rem;margin-bottom:1.25rem;box-shadow:var(--shadow-sm);">
-        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;margin-bottom:0.85rem;">
-          <h3 style="font-size:1.1rem;font-weight:800;color:var(--accent-gold);margin:0;display:flex;align-items:center;gap:0.45rem;">
-            <span>⛪</span> مواعيد الاجتماعات والقداسات الأسبوعية الرسمية
-          </h3>
-          <span style="font-size:0.75rem;background:rgba(245,158,11,0.15);color:#fbbf24;padding:0.2rem 0.6rem;border-radius:var(--radius-full);font-weight:700;">
-            كنيسة السيدة العذراء مريم بالقناطر الخيرية
-          </span>
-        </div>
-
-        <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(210px, 1fr));gap:0.85rem;">
-          <!-- 1. اجتماع الشباب -->
-          <div style="background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.25);border-radius:var(--radius-md);padding:0.85rem 1rem;">
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem;">
-              <span style="font-weight:800;font-size:0.95rem;color:var(--text-main);">👥 اجتماع الشباب</span>
-              <span style="font-size:0.72rem;background:rgba(245,158,11,0.2);color:#fbbf24;padding:0.15rem 0.5rem;border-radius:var(--radius-full);font-weight:800;">أسبوعي</span>
-            </div>
-            <div style="font-size:0.9rem;color:var(--accent-gold);font-weight:800;display:flex;align-items:center;gap:0.35rem;">
-              <span>🗓️ الثلاثاء</span> • <span>⏰ 07:00 م</span>
-            </div>
-            <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.35rem;">اللقاء العام للشباب ودراسات وأنشطة ومسابقات</div>
-          </div>
-
-          <!-- 2. اجتماع الكتاب المقدس والتسبحة -->
-          <div style="background:rgba(56,189,248,0.06);border:1px solid rgba(56,189,248,0.25);border-radius:var(--radius-md);padding:0.85rem 1rem;">
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem;">
-              <span style="font-weight:800;font-size:0.95rem;color:var(--text-main);">📖 الكتاب المقدس والتسبحة</span>
-              <span style="font-size:0.72rem;background:rgba(56,189,248,0.2);color:#38bdf8;padding:0.15rem 0.5rem;border-radius:var(--radius-full);font-weight:800;">أسبوعي</span>
-            </div>
-            <div style="font-size:0.9rem;color:#38bdf8;font-weight:800;display:flex;align-items:center;gap:0.35rem;">
-              <span>🗓️ الأربعاء</span> • <span>⏰ 07:00 م</span>
-            </div>
-            <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.35rem;">دراسة الكلمة والتسبحة الكنسية والتماجيد</div>
-          </div>
-
-          <!-- 3. القداس الإلهي -->
-          <div style="background:rgba(234,179,8,0.06);border:1px solid rgba(234,179,8,0.25);border-radius:var(--radius-md);padding:0.85rem 1rem;">
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem;">
-              <span style="font-weight:800;font-size:0.95rem;color:var(--text-main);">⛪ القداس الإلهي</span>
-              <span style="font-size:0.72rem;background:rgba(234,179,8,0.2);color:#eab308;padding:0.15rem 0.5rem;border-radius:var(--radius-full);font-weight:800;">أسبوعي</span>
-            </div>
-            <div style="font-size:0.9rem;color:#eab308;font-weight:800;display:flex;align-items:center;gap:0.35rem;">
-              <span>🗓️ الخميس</span> • <span>⏰ 07:00 ص</span>
-            </div>
-            <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.35rem;">صلاة القداس الإلهي وسر الإفخارستيا والتناول</div>
-          </div>
-
-          <!-- 4. اجتماع الصلاة -->
-          <div style="background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.25);border-radius:var(--radius-md);padding:0.85rem 1rem;">
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem;">
-              <span style="font-weight:800;font-size:0.95rem;color:var(--text-main);">🕊️ اجتماع الصلاة</span>
-              <span style="font-size:0.72rem;background:rgba(16,185,129,0.2);color:#34d399;padding:0.15rem 0.5rem;border-radius:var(--radius-full);font-weight:800;">أسبوعي</span>
-            </div>
-            <div style="font-size:0.9rem;color:#34d399;font-weight:800;display:flex;align-items:center;gap:0.35rem;">
-              <span>🗓️ الجمعة</span> • <span>⏰ 08:00 م</span>
-            </div>
-            <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.35rem;">ساعة الصلاة السهمية وطلبات واحتياجات الشباب</div>
-          </div>
-        </div>
-      </div>
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:1rem;">
         <div>
           <h2 style="font-size:1.4rem;font-weight:800;color:var(--accent-gold);">
@@ -3501,6 +3702,133 @@
   <!-- ============================================== -->
   <!-- MODAL: ADD / EDIT MEMBER                       -->
   <!-- ============================================== -->
+  
+  <!-- ============================================== -->
+  <!-- MODAL: SCHEDULE FAMILY MEETING & NOTIFY ADMINS -->
+  <!-- ============================================== -->
+  <div class="modal-backdrop" id="scheduleFamilyMeetingModal" style="display:none;">
+    <div class="modal-box" style="max-width:580px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.15rem;border-bottom:1px solid var(--border);padding-bottom:0.75rem;">
+        <h3 style="font-size:1.25rem;font-weight:800;color:var(--accent-gold);display:flex;align-items:center;gap:0.5rem;margin:0;">
+          <span>📅</span> تحديد موعد اجتماع أسرة وإشعار الأمناء
+        </h3>
+        <button type="button" style="background:none;border:none;color:inherit;cursor:pointer;font-size:1.2rem;" onclick="closeScheduleFamilyMeetingModal()">✕</button>
+      </div>
+
+      <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:1.15rem;line-height:1.5;">
+        قم بتسجيل تفاصيل موعد اجتماع الأسرة. سيقوم النظام بحفظ الموعد فورياً وبث إشعار وتنبيه لجميع أمناء الاجتماع مع إمكانية إرسال برقية واتساب.
+      </p>
+
+      <form id="scheduleFamilyMeetingForm" onsubmit="handleSaveFamilyMeeting(event)">
+        <input type="hidden" id="fmEditMeetingId" value="">
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+          <div class="form-group">
+            <label>الأسرة:</label>
+            <select id="fmFamilySelect" class="form-control" required>
+              <option value="الأسرة أ">الأسرة أ</option>
+              <option value="الأسرة ب">الأسرة ب</option>
+              <option value="الأسرة ج">الأسرة ج</option>
+              <option value="أمناء الاجتماع">أمناء الاجتماع</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>تاريخ الاجتماع:</label>
+            <input type="date" id="fmMeetingDate" class="form-control" required onchange="handleDateAutoDay(this.value)">
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+          <div class="form-group">
+            <label>يوم الأسبوع:</label>
+            <select id="fmMeetingDay" class="form-control" required>
+              <option value="الجمعة">الجمعة</option>
+              <option value="السبت">السبت</option>
+              <option value="الأحد">الأحد</option>
+              <option value="الإثنين">الإثنين</option>
+              <option value="الثلاثاء">الثلاثاء</option>
+              <option value="الأربعاء">الأربعاء</option>
+              <option value="الخميس">الخميس</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>ساعة وتوقيت الاجتماع:</label>
+            <input type="text" id="fmMeetingTime" class="form-control" placeholder="مثال: 07:00 م أو 06:30 م" required value="07:00 م">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>مكان الاجتماع:</label>
+          <input type="text" id="fmMeetingLocation" class="form-control" placeholder="مثال: قاعة مارمرقس / كنيسة العذراء / Zoom" required value="قاعة الكنيسة">
+        </div>
+
+        <div class="form-group">
+          <label>موضوع الاجتماع / الأجندة:</label>
+          <input type="text" id="fmMeetingTopic" class="form-control" placeholder="مثال: تحضير اليوم الروحي ومناقشة الاسكريبت والديكور" required>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+          <div class="form-group">
+            <label>مسؤول اللقاء / منسق الاجتماع:</label>
+            <input type="text" id="fmMeetingCoordinator" class="form-control" placeholder="اسم الخادم المسؤول..." value="أمين الأسرة" required>
+          </div>
+
+          <div class="form-group">
+            <label>وسيلة التواصل / رابط (اختياري):</label>
+            <input type="text" id="fmMeetingLink" class="form-control" placeholder="رابط Zoom أو رقم التواصل...">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>ملاحظات إضافية للأمناء:</label>
+          <textarea id="fmMeetingNotes" class="form-control" rows="2" placeholder="أي تفاصيل خاصة باليوم والتكليفات..."></textarea>
+        </div>
+
+        <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);border-radius:var(--radius-md);padding:0.75rem 1rem;font-size:0.83rem;color:var(--accent-gold);margin-top:0.4rem;display:flex;align-items:center;gap:0.5rem;">
+          <span>🔔</span>
+          <span>سيتم إرسال Notification وتنبيه فوري لجميع الأمناء فور الحفظ.</span>
+        </div>
+
+        <div style="display:flex;justify-content:flex-end;gap:0.75rem;margin-top:1.25rem;">
+          <button type="button" class="btn btn-secondary" onclick="closeScheduleFamilyMeetingModal()">إلغاء</button>
+          <button type="submit" class="btn btn-gold">💾 حفظ الموعد وإرسال Notification</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: BROADCAST MEETING WHATSAPP TO ADMINS -->
+  <div class="modal-backdrop" id="broadcastMeetingWhatsAppModal" style="display:none;">
+    <div class="modal-box" style="max-width:540px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.15rem;border-bottom:1px solid var(--border);padding-bottom:0.75rem;">
+        <h3 style="font-size:1.25rem;font-weight:800;color:var(--accent-gold);margin:0;display:flex;align-items:center;gap:0.5rem;">
+          <span>📢</span> برقية إشعار موعد الاجتماع للأمناء
+        </h3>
+        <button type="button" class="btn btn-icon-only btn-sm" onclick="closeBroadcastMeetingWhatsAppModal()" style="border:none;background:none;font-size:1.2rem;color:var(--text-muted);cursor:pointer;">✕</button>
+      </div>
+
+      <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:0.85rem;">
+        تم توليد برقية رسمية جاهزة لإشعار وتنبيه كل الأمناء بموعد الاجتماع على جروب الواتساب:
+      </p>
+
+      <div style="background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.3);border-radius:var(--radius-md);padding:1rem;font-size:0.88rem;line-height:1.65;color:var(--text-main);white-space:pre-wrap;direction:rtl;" id="broadcastMeetingPreviewText">
+        <!-- Generated by JS -->
+      </div>
+
+      <div style="margin-top:1.25rem;display:flex;gap:0.75rem;justify-content:flex-end;flex-wrap:wrap;">
+        <button type="button" class="btn btn-success" id="btnShareMeetingWhatsAppGroup">
+          📲 إرسال على جروب واتساب الأمناء
+        </button>
+        <button type="button" class="btn btn-brand-primary" id="btnCopyMeetingBroadcast">
+          📋 نسخ نص البرقية
+        </button>
+        <button type="button" class="btn" onclick="closeBroadcastMeetingWhatsAppModal()">إغلاق</button>
+      </div>
+    </div>
+  </div>
+
   <div class="modal-backdrop" id="memberModal">
     <div class="modal-box">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;">
@@ -3617,6 +3945,16 @@
         <button type="submit" id="submitLoginBtn" class="login-submit-btn">
           تسجيل الدخول إلى المنظومة
         </button>
+        <!-- Direct Servant / Youth Access to Directory & Families -->
+        <div style="margin-top:1.15rem;border-top:1px dashed var(--border);padding-top:1rem;text-align:center;">
+          <button type="button" class="btn btn-secondary" id="btnGuestDirectoryLogin" onclick="loginAsGuest()" style="width:100%;padding:0.75rem 1rem;font-weight:700;font-size:0.92rem;display:flex;align-items:center;justify-content:center;gap:0.5rem;border-radius:var(--radius-md);background:rgba(255,255,255,0.05);border:1px solid rgba(245,158,11,0.35);color:var(--text-main);cursor:pointer;">
+            <span>👥</span> استعراض دليل الشباب والأسر (دخول مباشر)
+          </button>
+          <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.4rem;">
+            متاح لجميع الخدام للاطلاع والبحث والتواصل مع الشباب ومتابعة الأسر
+          </div>
+        </div>
+
       </form>
     </div>
   </div>
@@ -4182,7 +4520,7 @@
       scheduleVisibleLimit: '8'
     };
 
-    const ROLES = {
+            const ROLES = {
       admin: {
         id: 'admin',
         name: 'أمناء الاجتماع (الـ 4 الكبار)',
@@ -4199,7 +4537,7 @@
         badgeName: 'السكرتارية',
         icon: '📋',
         color: '#10b981',
-        allowedTabs: ['tabScanner', 'tabPoints'],
+        allowedTabs: ['tabScanner', 'tabPoints', 'tabMembers', 'tabFamilyScores'],
         defaultTab: 'tabScanner',
         canManageSettings: false
       },
@@ -4209,7 +4547,7 @@
         badgeName: 'لجنة الافتقاد',
         icon: '📞',
         color: '#06b6d4',
-        allowedTabs: ['tabVisitation', 'tabBirthdays'],
+        allowedTabs: ['tabVisitation', 'tabBirthdays', 'tabMembers', 'tabFamilyScores'],
         defaultTab: 'tabVisitation',
         canManageSettings: false
       },
@@ -4219,8 +4557,18 @@
         badgeName: 'خدام اللقاءات',
         icon: '📅',
         color: '#a78bfa',
-        allowedTabs: ['tabSessions'],
+        allowedTabs: ['tabSessions', 'tabMembers', 'tabFamilyScores'],
         defaultTab: 'tabSessions',
+        canManageSettings: false
+      },
+      guest: {
+        id: 'guest',
+        name: 'استعراض عام (دليل الشباب والأسر)',
+        badgeName: 'استعراض الدليل',
+        icon: '👥',
+        color: '#818cf8',
+        allowedTabs: ['tabMembers', 'tabFamilyScores'],
+        defaultTab: 'tabMembers',
         canManageSettings: false
       }
     };
@@ -8574,6 +8922,8 @@
 
     // State
     let appData = JSON.parse(JSON.stringify(SEED_DATA));
+    if (!appData.familyMeetings) appData.familyMeetings = [];
+    if (!appData.adminNotifications) appData.adminNotifications = [];
     let currentSessionId = "SES-01";
     let html5QrScanner = null;
     let isScanning = false;
@@ -8948,6 +9298,10 @@
       renderKPIs();
       renderBirthdaysSection();
       renderFamilyScoresSection();
+      renderFamilyMeetingsList();
+      updateAdminNotificationUI();
+      renderFamilyMeetingsList();
+      updateAdminNotificationUI();
       renderPointsLeaderboard();
 
       // Counts
@@ -10312,7 +10666,35 @@
         statusText: statusText,
         notes: notes,
         createdAt: new Date().toISOString()
-      };
+            // 6. Meeting Notification Bell Chime: Golden Bell Chime (C5 -> E5 -> G5 -> C6)
+      meetingNotif() {
+        if (!this.enabled) return;
+        try {
+          this.init();
+          const now = this.ctx.currentTime;
+          const notes = [
+            { freq: 523.25, time: 0, dur: 0.4 },
+            { freq: 659.25, time: 0.1, dur: 0.45 },
+            { freq: 783.99, time: 0.2, dur: 0.5 },
+            { freq: 1046.50, time: 0.32, dur: 0.7 }
+          ];
+          notes.forEach(n => {
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(n.freq, now + n.time);
+            gain.gain.setValueAtTime(0.18, now + n.time);
+            gain.gain.exponentialRampToValueAtTime(0.0001, now + n.time + n.dur);
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            osc.start(now + n.time);
+            osc.stop(now + n.time + n.dur);
+          });
+        } catch (e) {}
+      }
+    };
+    function playNotificationChime() { SoundFX.meetingNotif(); }
+
 
       if (!member.visitations) member.visitations = [];
       member.visitations.unshift(entry);
@@ -10975,7 +11357,10 @@
         document.getElementById('newSessionBtn'),
         document.getElementById('addNewSessionModalBtn'),
         document.getElementById('openAddMemberModalBtn'),
-        document.getElementById('btnScoreFamilyModal')
+        document.getElementById('btnScoreFamilyModal'),
+        document.getElementById('btnHeaderScheduleMeeting'),
+        document.getElementById('adminNotifBellContainer'),
+        document.getElementById('btnScheduleMeetingInScores')
       ];
 
       adminElements.forEach(el => {
@@ -11215,6 +11600,16 @@
       const overlay = document.getElementById('loginOverlay');
       if (overlay) overlay.classList.add('hidden');
     }
+
+    function loginAsGuest() {
+      localStorage.setItem('st_youssef_servant_role', 'guest');
+      hideLoginOverlay();
+      applyRolePermissions('guest');
+      playBeepSuccess();
+      const membersTabBtn = document.querySelector('.tab-btn[data-tab="tabMembers"]');
+      if (membersTabBtn) membersTabBtn.click();
+    }
+
 
     function saveAdminSettings() {
       authSettings = {
@@ -13476,6 +13871,501 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
         });
       }
     });
+
+    
+    // ==============================================
+    // FAMILY MEETINGS SCHEDULER & ADMIN NOTIFICATIONS
+    // ==============================================
+    if (!appData.familyMeetings) appData.familyMeetings = [];
+    if (!appData.adminNotifications) appData.adminNotifications = [];
+
+    // Helper: Map Date to Arabic Weekday
+    function getArabicWeekdayFromDate(dateStr) {
+      if (!dateStr) return 'الجمعة';
+      try {
+        const parts = dateStr.split('-');
+        if (parts.length === 3) {
+          const d = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+          const days = ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
+          return days[d.getDay()] || 'الجمعة';
+        }
+      } catch (e) {}
+      return 'الجمعة';
+    }
+
+    function handleDateAutoDay(dateVal) {
+      const daySelect = document.getElementById('fmMeetingDay');
+      if (daySelect && dateVal) {
+        daySelect.value = getArabicWeekdayFromDate(dateVal);
+      }
+    }
+
+    function openScheduleFamilyMeetingModal(editId = null) {
+      if (currentServantRole !== 'admin') {
+        alert('تحديد وإضافة مواعيد اجتماعات الأسر مخصص لأمناء الاجتماع فقط.');
+        return;
+      }
+      const modal = document.getElementById('scheduleFamilyMeetingModal');
+      if (!modal) return;
+
+      const editIdInput = document.getElementById('fmEditMeetingId');
+      const famSelect = document.getElementById('fmFamilySelect');
+      const dateInput = document.getElementById('fmMeetingDate');
+      const daySelect = document.getElementById('fmMeetingDay');
+      const timeInput = document.getElementById('fmMeetingTime');
+      const locInput = document.getElementById('fmMeetingLocation');
+      const topicInput = document.getElementById('fmMeetingTopic');
+      const coordInput = document.getElementById('fmMeetingCoordinator');
+      const linkInput = document.getElementById('fmMeetingLink');
+      const notesInput = document.getElementById('fmMeetingNotes');
+
+      if (editId) {
+        const meeting = (appData.familyMeetings || []).find(m => m.id === editId);
+        if (meeting) {
+          if (editIdInput) editIdInput.value = meeting.id;
+          if (famSelect) famSelect.value = meeting.family || 'الأسرة أ';
+          if (dateInput) dateInput.value = meeting.date || '';
+          if (daySelect) daySelect.value = meeting.day || 'الجمعة';
+          if (timeInput) timeInput.value = meeting.time || '07:00 م';
+          if (locInput) locInput.value = meeting.location || 'قاعة الكنيسة';
+          if (topicInput) topicInput.value = meeting.topic || '';
+          if (coordInput) coordInput.value = meeting.coordinator || 'أمين الأسرة';
+          if (linkInput) linkInput.value = meeting.link || '';
+          if (notesInput) notesInput.value = meeting.notes || '';
+        }
+      } else {
+        if (editIdInput) editIdInput.value = '';
+        if (famSelect) famSelect.value = 'الأسرة أ';
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const dd = String(today.getDate()).padStart(2, '0');
+        const dateStr = `${yyyy}-${mm}-${dd}`;
+        if (dateInput) dateInput.value = dateStr;
+        if (daySelect) daySelect.value = getArabicWeekdayFromDate(dateStr);
+        if (timeInput) timeInput.value = '07:00 م';
+        if (locInput) locInput.value = 'قاعة الكنيسة';
+        if (topicInput) topicInput.value = '';
+        if (coordInput) coordInput.value = 'أمين الأسرة';
+        if (linkInput) linkInput.value = '';
+        if (notesInput) notesInput.value = '';
+      }
+
+      modal.style.display = 'flex';
+    }
+
+    function closeScheduleFamilyMeetingModal() {
+      const modal = document.getElementById('scheduleFamilyMeetingModal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function handleSaveFamilyMeeting(event) {
+      event.preventDefault();
+
+      const editId = (document.getElementById('fmEditMeetingId').value || '').trim();
+      const family = document.getElementById('fmFamilySelect').value;
+      const date = document.getElementById('fmMeetingDate').value;
+      const day = document.getElementById('fmMeetingDay').value;
+      const time = document.getElementById('fmMeetingTime').value.trim();
+      const location = document.getElementById('fmMeetingLocation').value.trim();
+      const topic = document.getElementById('fmMeetingTopic').value.trim();
+      const coordinator = document.getElementById('fmMeetingCoordinator').value.trim();
+      const link = (document.getElementById('fmMeetingLink').value || '').trim();
+      const notes = (document.getElementById('fmMeetingNotes').value || '').trim();
+
+      if (!family || !date || !time || !topic) {
+        alert('برجاء ملء الحقول الإلزامية: الأسرة، التاريخ، الوقت، والموضوع.');
+        return;
+      }
+
+      if (!appData.familyMeetings) appData.familyMeetings = [];
+      if (!appData.adminNotifications) appData.adminNotifications = [];
+
+      let meeting;
+      const isEdit = Boolean(editId);
+
+      if (isEdit) {
+        const idx = appData.familyMeetings.findIndex(m => m.id === editId);
+        if (idx !== -1) {
+          appData.familyMeetings[idx] = {
+            ...appData.familyMeetings[idx],
+            family, date, day, time, location, topic, coordinator, link, notes,
+            updatedAt: new Date().toISOString()
+          };
+          meeting = appData.familyMeetings[idx];
+        } else {
+          meeting = {
+            id: editId,
+            family, date, day, time, location, topic, coordinator, link, notes,
+            createdAt: new Date().toISOString()
+          };
+          appData.familyMeetings.push(meeting);
+        }
+      } else {
+        meeting = {
+          id: 'FM-' + Date.now(),
+          family, date, day, time, location, topic, coordinator, link, notes,
+          createdAt: new Date().toISOString()
+        };
+        appData.familyMeetings.unshift(meeting);
+      }
+
+      // Generate Real-time Notification for all Admins
+      const notif = {
+        id: 'NOTIF-' + Date.now(),
+        type: 'family_meeting',
+        meetingId: meeting.id,
+        title: isEdit ? `📝 تعديل موعد اجتماع: ${family}` : `📅 موعد اجتماع أسرة جديد: ${family}`,
+        message: `${isEdit ? 'تم تحديث' : 'تم تحديد'} موعد اجتماع ${family} يوم ${day} ${date} الساعة ${time} (${location}) - موضوع: ${topic}`,
+        family: family,
+        date: date,
+        day: day,
+        time: time,
+        location: location,
+        topic: topic,
+        createdAt: new Date().toISOString(),
+        read: false
+      };
+
+      appData.adminNotifications.unshift(notif);
+      if (appData.adminNotifications.length > 50) {
+        appData.adminNotifications = appData.adminNotifications.slice(0, 50);
+      }
+
+      saveLocalData();
+
+      // Sync with Node.js backend server if available
+      fetch('/api/family-meetings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(meeting)
+      }).catch(err => console.warn('Family meeting server sync note:', err));
+
+      // Trigger Audio Chime
+      playNotificationChime();
+
+      // Trigger On-Screen Toast Alert
+      showAdminToastNotification(notif);
+
+      // Trigger Desktop / Mobile Web Notification API
+      try {
+        if ("Notification" in window) {
+          if (Notification.permission === "granted") {
+            new Notification(notif.title, {
+              body: notif.message,
+              icon: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📅</text></svg>"
+            });
+          } else if (Notification.permission !== "denied") {
+            Notification.requestPermission();
+          }
+        }
+      } catch (e) {}
+
+      closeScheduleFamilyMeetingModal();
+      renderFamilyMeetingsList();
+      updateAdminNotificationUI();
+
+      // Open WhatsApp Broadcast Modal for immediate team dispatch
+      openBroadcastMeetingWhatsAppModal(meeting);
+    }
+
+    function deleteFamilyMeeting(meetingId) {
+      if (currentServantRole !== 'admin') {
+        alert('حذف مواعيد اجتماعات الأسر مخصص لأمناء الاجتماع فقط.');
+        return;
+      }
+      if (!confirm('هل أنت متأكد من رغبتك في حذف موعد هذا الاجتماع؟')) return;
+      if (!appData.familyMeetings) return;
+
+      appData.familyMeetings = appData.familyMeetings.filter(m => m.id !== meetingId);
+      saveLocalData();
+
+      // Sync delete with server
+      fetch(`/api/family-meetings/${meetingId}`, {
+        method: 'DELETE'
+      }).catch(err => console.warn('Family meeting server delete note:', err));
+
+      renderFamilyMeetingsList();
+    }
+
+    function renderFamilyMeetingsList() {
+      const container = document.getElementById('familyMeetingsListContainer');
+      if (!container) return;
+
+      const meetings = (appData.familyMeetings || []).slice().sort((a, b) => {
+        return (a.date || '').localeCompare(b.date || '');
+      });
+
+      if (meetings.length === 0) {
+        container.innerHTML = `
+          <div style="background:rgba(255,255,255,0.02);border:1px dashed var(--border);border-radius:var(--radius-lg);padding:2.5rem 1.5rem;text-align:center;color:var(--text-muted);">
+            <div style="font-size:2.5rem;margin-bottom:0.75rem;">📅</div>
+            <div style="font-size:1.05rem;font-weight:700;color:var(--text-main);margin-bottom:0.35rem;">لا توجد مواعيد اجتماعات أسر مجدولة حالياً</div>
+            <div style="font-size:0.85rem;margin-bottom:1.25rem;">جدول مواعيد لقاءات واجتماعات الأسر ومشاركتها مع الخدام.</div>
+            ${currentServantRole === 'admin' ? `
+            <button type="button" class="btn btn-gold btn-sm" onclick="openScheduleFamilyMeetingModal()">
+              + تحديد أول موعد اجتماع أسرة
+            </button>` : ''}
+          </div>
+        `;
+        return;
+      }
+
+      let html = '<div class="family-meetings-grid">';
+      meetings.forEach(m => {
+        let famClass = 'family-a';
+        let famBadgeColor = '#3b82f6';
+        if ((m.family || '').includes('ب') || (m.family || '').includes('2')) {
+          famClass = 'family-b';
+          famBadgeColor = '#10b981';
+        } else if ((m.family || '').includes('ج') || (m.family || '').includes('3')) {
+          famClass = 'family-c';
+          famBadgeColor = '#f59e0b';
+        } else if ((m.family || '').includes('أمناء') || (m.family || '').includes('خدام')) {
+          famClass = 'family-d';
+          famBadgeColor = '#ec4899';
+        }
+
+        html += `
+          <div class="family-meeting-card ${famClass}">
+            <div class="family-meeting-card-header">
+              <span class="family-meeting-badge" style="background:${famBadgeColor}20;color:${famBadgeColor};border:1px solid ${famBadgeColor}40;">
+                👥 ${m.family}
+              </span>
+              <div style="font-size:0.8rem;color:var(--text-muted);display:flex;align-items:center;gap:0.3rem;">
+                <span>⏰</span> ${m.time}
+              </div>
+            </div>
+
+            <div class="family-meeting-title">
+              📖 ${m.topic}
+            </div>
+
+            <div class="family-meeting-meta">
+              <div>
+                <span>🗓️</span> <strong>${m.day}</strong> الموافق ${m.date}
+              </div>
+              <div>
+                <span>📍</span> <strong>المكان:</strong> ${m.location || 'قاعة الكنيسة'}
+              </div>
+              <div>
+                <span>👤</span> <strong>المسؤول:</strong> ${m.coordinator || 'أمين الأسرة'}
+              </div>
+              ${m.link ? `<div><span>🔗</span> <a href="${m.link}" target="_blank" style="color:var(--accent-gold);text-decoration:none;">رابط اللقاء / Zoom</a></div>` : ''}
+              ${m.notes ? `<div style="margin-top:0.3rem;background:rgba(255,255,255,0.03);padding:0.4rem 0.6rem;border-radius:var(--radius-sm);border-right:3px solid ${famBadgeColor};font-size:0.8rem;"><span>📝</span> ${m.notes}</div>` : ''}
+            </div>
+
+            <div class="family-meeting-card-actions">
+              <button type="button" class="btn btn-sm btn-success" onclick="openBroadcastMeetingWhatsAppModal('${m.id}')" title="إرسال برقية تذكير لجروب واتساب الأمناء">
+                📲 تذكير واتساب
+              </button>
+              ${currentServantRole === 'admin' ? `
+              <button type="button" class="btn btn-sm" onclick="openScheduleFamilyMeetingModal('${m.id}')" title="تعديل تفاصيل الموعد">
+                ✏️ تعديل
+              </button>
+              <button type="button" class="btn btn-sm btn-danger" onclick="deleteFamilyMeeting('${m.id}')" title="حذف هذا الموعد">
+                🗑️
+              </button>` : ''}
+            </div>
+          </div>
+        `;
+      });
+      html += '</div>';
+
+      container.innerHTML = html;
+    }
+
+    // Admin Notification Bell UI & Handlers
+    function toggleAdminNotificationsPanel(forceState = null) {
+      const dropdown = document.getElementById('adminNotifDropdown');
+      if (!dropdown) return;
+      if (forceState !== null) {
+        dropdown.style.display = forceState ? 'block' : 'none';
+      } else {
+        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+      }
+    }
+
+    // Close notifications dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+      const bellContainer = document.getElementById('adminNotifBellContainer');
+      const dropdown = document.getElementById('adminNotifDropdown');
+      if (bellContainer && dropdown && !bellContainer.contains(e.target)) {
+        dropdown.style.display = 'none';
+      }
+    });
+
+    function markAllNotificationsAsRead() {
+      if (!appData.adminNotifications) return;
+      appData.adminNotifications.forEach(n => n.read = true);
+      saveLocalData();
+      updateAdminNotificationUI();
+    }
+
+    function updateAdminNotificationUI() {
+      const badge = document.getElementById('adminNotifBadge');
+      const listContainer = document.getElementById('adminNotifList');
+      if (!badge || !listContainer) return;
+
+      const notifs = appData.adminNotifications || [];
+      const unreadCount = notifs.filter(n => !n.read).length;
+
+      if (unreadCount > 0) {
+        badge.textContent = unreadCount > 99 ? '99+' : unreadCount;
+        badge.style.display = 'inline-flex';
+      } else {
+        badge.style.display = 'none';
+      }
+
+      if (notifs.length === 0) {
+        listContainer.innerHTML = `
+          <div style="padding:2rem 1rem;text-align:center;color:var(--text-muted);font-size:0.85rem;">
+            <div style="font-size:1.8rem;margin-bottom:0.4rem;">🔔</div>
+            لا توجد إشعارات أو تنبيهات حالياً
+          </div>
+        `;
+        return;
+      }
+
+      let html = '';
+      notifs.slice(0, 15).forEach(n => {
+        const timeAgo = formatNotifTimeAgo(n.createdAt);
+        html += `
+          <div class="notif-item ${n.read ? '' : 'unread'}" onclick="handleNotifItemClick('${n.id}')">
+            <div class="notif-item-title">
+              <span>${n.read ? '⚪' : '🔔'}</span>
+              <span>${n.title}</span>
+            </div>
+            <div class="notif-item-desc">${n.message}</div>
+            <div class="notif-item-time">${timeAgo}</div>
+          </div>
+        `;
+      });
+      listContainer.innerHTML = html;
+    }
+
+    function handleNotifItemClick(notifId) {
+      const notif = (appData.adminNotifications || []).find(n => n.id === notifId);
+      if (notif) {
+        notif.read = true;
+        saveLocalData();
+        updateAdminNotificationUI();
+
+        // If it links to a meeting, scroll to family scores / meeting list
+        if (notif.meetingId) {
+          const tabScoresBtn = document.querySelector('.tab-btn[data-tab="tabFamilyScores"]');
+          if (tabScoresBtn) tabScoresBtn.click();
+          const listCard = document.getElementById('familyMeetingsListContainer');
+          if (listCard) listCard.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    }
+
+    function formatNotifTimeAgo(dateStr) {
+      if (!dateStr) return '';
+      try {
+        const d = new Date(dateStr);
+        const diffMs = Date.now() - d.getTime();
+        const diffMins = Math.floor(diffMs / 60000);
+        if (diffMins < 1) return 'الآن';
+        if (diffMins < 60) return `منذ ${diffMins} دقيقة`;
+        const diffHours = Math.floor(diffMins / 60);
+        if (diffHours < 24) return `منذ ${diffHours} ساعة`;
+        const diffDays = Math.floor(diffHours / 24);
+        return `منذ ${diffDays} يوم`;
+      } catch (e) {
+        return '';
+      }
+    }
+
+    let toastTimeout = null;
+    function showAdminToastNotification(notif) {
+      const toast = document.getElementById('liveAdminToast');
+      const titleEl = document.getElementById('toastTitle') || document.getElementById('adminToastTitle');
+      const bodyEl = document.getElementById('toastBody') || document.getElementById('adminToastBody');
+      if (!toast) return;
+
+      if (titleEl) titleEl.textContent = notif.title;
+      if (bodyEl) bodyEl.textContent = notif.message;
+
+      toast.style.display = 'flex';
+
+      if (toastTimeout) clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        closeAdminToast();
+      }, 7000);
+    }
+
+    function closeAdminToast() {
+      const toast = document.getElementById('liveAdminToast');
+      if (!toast) return;
+      toast.style.display = 'none';
+      if (toastTimeout) clearTimeout(toastTimeout);
+    }
+
+    // WhatsApp Broadcast Modal & Link Generator
+    function formatWhatsAppBroadcastMessage(m) {
+      if (!m) return '';
+      return `🔔 *إشعار موعد اجتماع أسرة — أمناء الاجتماع* 🔔\n` +
+        `━━━━━━━━━━━━━━━━━\n` +
+        `📅 *الأسرة:* ${m.family}\n` +
+        `🗓️ *اليوم والتاريخ:* ${m.day} الموافق ${m.date}\n` +
+        `⏰ *الساعة:* ${m.time}\n` +
+        `📍 *المكان:* ${m.location || 'قاعة الكنيسة'}\n` +
+        `📖 *الموضوع والأجندة:* ${m.topic}\n` +
+        `👤 *المسؤول / المنسق:* ${m.coordinator || 'أمين الأسرة'}\n` +
+        (m.link ? `🔗 *رابط اللقاء:* ${m.link}\n` : '') +
+        (m.notes ? `📝 *ملاحظات للأمناء:* ${m.notes}\n` : '') +
+        `━━━━━━━━━━━━━━━━━\n` +
+        `✝️ صلواتكم لبركة الخدمة ونجاح اليوم\n` +
+        `*اجتماع يوسف الصديق للشباب - القناطر الخيرية*`;
+    }
+
+    function openBroadcastMeetingWhatsAppModal(meetingOrId) {
+      const modal = document.getElementById('broadcastMeetingWhatsAppModal');
+      const previewText = document.getElementById('broadcastMeetingPreviewText');
+      if (!modal) return;
+
+      let meeting = null;
+      if (typeof meetingOrId === 'string') {
+        meeting = (appData.familyMeetings || []).find(m => m.id === meetingOrId);
+      } else {
+        meeting = meetingOrId;
+      }
+
+      if (!meeting) return;
+
+      const formatted = formatWhatsAppBroadcastMessage(meeting);
+      if (previewText) previewText.textContent = formatted;
+
+      // Setup actions
+      const shareBtn = document.getElementById('btnShareMeetingWhatsAppGroup');
+      const copyBtn = document.getElementById('btnCopyMeetingBroadcast');
+
+      if (shareBtn) {
+        shareBtn.onclick = () => {
+          const encoded = encodeURIComponent(formatted);
+          window.open(`https://api.whatsapp.com/send?text=${encoded}`, '_blank');
+        };
+      }
+
+      if (copyBtn) {
+        copyBtn.onclick = () => {
+          navigator.clipboard.writeText(formatted).then(() => {
+            copyBtn.textContent = '✓ تم النسخ!';
+            setTimeout(() => { copyBtn.textContent = '📋 نسخ نص البرقية'; }, 2000);
+          });
+        };
+      }
+
+      modal.style.display = 'flex';
+    }
+
+    function closeBroadcastMeetingWhatsAppModal() {
+      const modal = document.getElementById('broadcastMeetingWhatsAppModal');
+      if (!modal) return;
+      modal.style.display = 'none';
+    }
 
     refreshUI();
   </script>

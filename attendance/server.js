@@ -241,6 +241,95 @@ const server = http.createServer((req, res) => {
       return;
     }
 
+    
+    // GET /api/family-meetings (Fetch scheduled family meetings)
+    if (pathname === '/api/family-meetings' && req.method === 'GET') {
+      const db = await readDB();
+      res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+      res.end(JSON.stringify({
+        meetings: db.familyMeetings || [],
+        notifications: db.adminNotifications || []
+      }));
+      return;
+    }
+
+    // POST /api/family-meetings (Schedule or update a family meeting)
+    if (pathname === '/api/family-meetings' && req.method === 'POST') {
+      let body = '';
+      req.on('data', chunk => body += chunk);
+      req.on('end', async () => {
+        try {
+          const meetingData = JSON.parse(body);
+          if (!meetingData.family || !meetingData.date || !meetingData.topic) {
+            res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' });
+            res.end(JSON.stringify({ success: false, message: 'بيانات الاجتماع غير مكتملة (الأسرة، التاريخ، والموضوع مطلوبة).' }));
+            return;
+          }
+
+          const result = await queueDBWrite(db => {
+            if (!db.familyMeetings) db.familyMeetings = [];
+            if (!db.adminNotifications) db.adminNotifications = [];
+
+            const isEdit = Boolean(meetingData.id);
+            let savedMeeting;
+
+            if (isEdit) {
+              const idx = db.familyMeetings.findIndex(m => m.id === meetingData.id);
+              if (idx !== -1) {
+                db.familyMeetings[idx] = { ...db.familyMeetings[idx], ...meetingData, updatedAt: new Date().toISOString() };
+                savedMeeting = db.familyMeetings[idx];
+              } else {
+                savedMeeting = { ...meetingData, createdAt: new Date().toISOString() };
+                db.familyMeetings.push(savedMeeting);
+              }
+            } else {
+              savedMeeting = {
+                id: 'FM-' + Date.now(),
+                ...meetingData,
+                createdAt: new Date().toISOString()
+              };
+              db.familyMeetings.unshift(savedMeeting);
+            }
+
+            const notif = {
+              id: 'NOTIF-' + Date.now(),
+              type: 'family_meeting',
+              meetingId: savedMeeting.id,
+              title: isEdit ? `📝 تعديل موعد اجتماع: ${savedMeeting.family}` : `📅 موعد اجتماع أسرة جديد: ${savedMeeting.family}`,
+              message: `${isEdit ? 'تم تحديث' : 'تم تحديد'} موعد اجتماع ${savedMeeting.family} يوم ${savedMeeting.day || ''} ${savedMeeting.date} الساعة ${savedMeeting.time || ''} (${savedMeeting.location || 'قاعة الكنيسة'}).`,
+              createdAt: new Date().toISOString(),
+              read: false
+            };
+            db.adminNotifications.unshift(notif);
+            if (db.adminNotifications.length > 50) db.adminNotifications = db.adminNotifications.slice(0, 50);
+
+            return { meeting: savedMeeting, notification: notif };
+          });
+
+          res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+          res.end(JSON.stringify({ success: true, ...result }));
+        } catch (e) {
+          res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' });
+          res.end(JSON.stringify({ success: false, message: 'خطأ في معالجة موعد الاجتماع: ' + e.message }));
+        }
+      });
+      return;
+    }
+
+    // DELETE /api/family-meetings/:id
+    if (pathname.startsWith('/api/family-meetings/') && req.method === 'DELETE') {
+      const meetingId = pathname.replace('/api/family-meetings/', '').trim();
+      const result = await queueDBWrite(db => {
+        if (!db.familyMeetings) db.familyMeetings = [];
+        const initialLen = db.familyMeetings.length;
+        db.familyMeetings = db.familyMeetings.filter(m => m.id !== meetingId);
+        return { deleted: db.familyMeetings.length < initialLen };
+      });
+      res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+      res.end(JSON.stringify({ success: true, ...result }));
+      return;
+    }
+
     // GET /api/backup - Download complete timestamped JSON backup
     if (pathname === '/api/backup' && req.method === 'GET') {
       const db = getDB();
