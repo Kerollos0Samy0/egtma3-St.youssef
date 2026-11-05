@@ -2999,6 +2999,20 @@
       display: none !important;
     }
 
+
+    /* Absolute Zero Clutter: Strictly only Logo, Theme Toggle and Logout */
+    #roleBadgeContainer,
+    #adminSettingsBtn,
+    #backupModalBtn,
+    #btnHeaderScheduleMeeting,
+    #adminNotifBellContainer,
+    #liveSyncStatusPill,
+    #soundToggleBtn,
+    #hiddenAdminHeaderControls,
+    .weekly-schedule-bar {
+      display: none !important;
+    }
+
 </style>
 </head>
 <body>
@@ -3013,64 +3027,40 @@
       </div>
     </div>
 
-    <!-- Actions Bar -->
+    <!-- Actions Bar: Strictly Theme Toggle and Logout Only -->
     <div class="header-actions">
-      <!-- Hidden Elements (Preserved in DOM for JavaScript references without throwing null errors) -->
-      <div id="roleBadgeContainer" class="role-badge-pill" style="display:none !important;" title="الحساب المسجل حالياً">
-        <span id="currentRoleIcon">👑</span>
-        <span id="currentRoleTitle">أمناء الاجتماع</span>
-      </div>
-
-      <button class="btn btn-gold btn-sm" id="adminSettingsBtn" title="إعدادات الحسابات وكلمات المرور" style="display:none !important;">
-        ⚙️ الصلاحيات
-      </button>
-
-      <button type="button" class="btn btn-gold btn-sm role-restricted" id="btnHeaderScheduleMeeting" onclick="openScheduleFamilyMeetingModal()" title="تحديد موعد اجتماع أسرة وإشعار الأمناء" style="display:none !important;">
-        <span>📅</span> موعد اجتماع أسرة
-      </button>
-
-      <div class="notif-bell-container" id="adminNotifBellContainer" style="display:none !important;">
-        <button type="button" class="btn btn-icon-only btn-sm" id="adminNotifBellBtn" onclick="toggleAdminNotificationsPanel()" title="إشعارات وتنبيهات الأمناء">
-          🔔
-          <span class="notif-badge-pill" id="adminNotifBadge" style="display:none;">0</span>
-        </button>
-        <div class="notif-dropdown-panel" id="adminNotifDropdown" style="display:none;">
-          <div class="notif-panel-header">
-            <div style="font-weight:800;display:flex;align-items:center;gap:0.4rem;color:var(--text-main);font-size:0.9rem;">
-              <span>🔔</span> تنبيهات مواعيد الاجتماعات
-            </div>
-            <button type="button" class="btn btn-sm" onclick="markAllNotificationsAsRead()" style="font-size:0.75rem;padding:0.2rem 0.5rem;">
-              مقروء ✓
-            </button>
-          </div>
-          <div class="notif-panel-body" id="adminNotifList"></div>
-        </div>
-      </div>
-
-      <button type="button" class="btn btn-secondary btn-sm" id="backupModalBtn" onclick="openBackupModal()" title="النسخ الاحتياطي وحماية البيانات" style="display:none !important;">
-        <span>💾</span> النسخ الاحتياطي
-      </button>
-
-      <div id="liveSyncStatusPill" style="display:none !important;">
-        <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:currentColor;"></span>
-        <span id="liveSyncText">متصل بالسيرفر</span>
-      </div>
-
-      <button type="button" class="btn btn-icon-only btn-sm" id="soundToggleBtn" onclick="SoundFX.toggle()" title="المؤثرات الصوتية" style="display:none !important;">
-        🔊
-      </button>
-
-      <!-- Theme Toggle Button (KEPT VISIBLE) -->
+      <!-- Theme Toggle Button -->
       <button type="button" class="btn btn-icon-only btn-sm" id="themeToggleBtn" title="تبديل المظهر">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
       </button>
 
-      <!-- Logout Button (KEPT VISIBLE) -->
+      <!-- Logout Button -->
       <button class="btn btn-outline-danger btn-sm" id="logoutBtn" title="تسجيل الخروج والتبديل لحساب آخر">
         🚪 خروج
       </button>
     </div>
   </header>
+
+  <!-- Detached Hidden Administrative Elements (Preserved for JS DOM references without polluting header) -->
+  <div id="hiddenAdminHeaderControls" style="display:none !important;" aria-hidden="true" hidden>
+    <div id="roleBadgeContainer" class="role-badge-pill" style="display:none !important;" title="الحساب المسجل حالياً">
+      <span id="currentRoleIcon">👑</span>
+      <span id="currentRoleTitle">أمناء الاجتماع</span>
+    </div>
+    <button class="btn btn-gold btn-sm" id="adminSettingsBtn" title="إعدادات الحسابات وكلمات المرور" style="display:none !important;">⚙️ الصلاحيات</button>
+    <button type="button" class="btn btn-gold btn-sm role-restricted" id="btnHeaderScheduleMeeting" onclick="openScheduleFamilyMeetingModal()" style="display:none !important;"><span>📅</span> موعد اجتماع أسرة</button>
+    <div class="notif-bell-container" id="adminNotifBellContainer" style="display:none !important;">
+      <button type="button" class="btn btn-icon-only btn-sm" id="adminNotifBellBtn" onclick="toggleAdminNotificationsPanel()">🔔<span class="notif-badge-pill" id="adminNotifBadge" style="display:none;">0</span></button>
+      <div class="notif-dropdown-panel" id="adminNotifDropdown" style="display:none;">
+        <div class="notif-panel-header"><span>🔔</span> تنبيهات مواعيد الاجتماعات</div>
+        <div class="notif-panel-body" id="adminNotifList"></div>
+      </div>
+    </div>
+    <button type="button" class="btn btn-secondary btn-sm" id="backupModalBtn" onclick="openBackupModal()" style="display:none !important;"><span>💾</span> النسخ الاحتياطي</button>
+    <div id="liveSyncStatusPill" style="display:none !important;"><span id="liveSyncText">متصل بالسيرفر</span></div>
+    <button type="button" class="btn btn-icon-only btn-sm" id="soundToggleBtn" onclick="SoundFX.toggle()" style="display:none !important;">🔊</button>
+  </div>
+
 
   <!-- Modern Direct Navigation Tabs -->
   
@@ -12922,10 +12912,6 @@
       if (roleTitle) roleTitle.textContent = role.badgeName;
       if (badgeContainer) {
         badgeContainer.style.setProperty('display', 'none', 'important');
-      }`;
-        badgeContainer.style.borderColor = role.color;
-        badgeContainer.style.color = role.color;
-        badgeContainer.style.backgroundColor = role.color + '22';
       }
 
       // 2. Admin Only Buttons and Controls
