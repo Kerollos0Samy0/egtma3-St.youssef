@@ -794,6 +794,8 @@
     .family-e { background: rgba(236, 72, 153, 0.2); color: #f472b6; border-color: rgba(236, 72, 153, 0.4); }
     .family-t { background: rgba(20, 184, 166, 0.2); color: #2dd4bf; border-color: rgba(20, 184, 166, 0.4); }
     .family-unassigned { background: rgba(148, 163, 184, 0.15); color: #94a3b8; border-color: rgba(148, 163, 184, 0.3); }
+    .family-revive { background: rgba(14, 165, 233, 0.2); color: #38bdf8; border-color: rgba(14, 165, 233, 0.4); font-weight: 800; }
+    .family-one-heart { background: rgba(239, 68, 68, 0.2); color: #f87171; border-color: rgba(239, 68, 68, 0.4); font-weight: 800; }
     .family-leaders { background: rgba(168, 85, 247, 0.2); color: #c084fc; border-color: rgba(168, 85, 247, 0.4); }
 
     /* Recent Attendees List */
@@ -2958,6 +2960,18 @@
       border-color: #cbd5e1 !important;
       font-weight: 800 !important;
     }
+    .family-revive {
+      background: #e0f2fe !important;
+      color: #0369a1 !important;
+      border-color: #bae6fd !important;
+      font-weight: 800 !important;
+    }
+    .family-one-heart {
+      background: #fee2e2 !important;
+      color: #b91c1c !important;
+      border-color: #fca5a5 !important;
+      font-weight: 800 !important;
+    }
 
     body.light-theme .family-leaders {
       background: #f3e8ff !important;
@@ -3537,12 +3551,27 @@
         </div>
 
         <!-- Row 3: Gender Filter -->
-        <div class="filter-row" style="margin-bottom:0;">
+        <div class="filter-row">
           <span class="filter-row-label">النوع:</span>
           <div class="filter-pills-wrap">
             <button class="pill-btn gender-filter-btn active" data-gen="all">الكل</button>
             <button class="pill-btn gender-filter-btn" data-gen="شاب">شباب (87)</button>
             <button class="pill-btn gender-filter-btn" data-gen="شابة">شابات (70)</button>
+          </div>
+        </div>
+
+        <!-- Row 4: Family Filter (الأسر والخدمات) -->
+        <div class="filter-row" style="margin-bottom:0;">
+          <span class="filter-row-label">الأسرة:</span>
+          <div class="filter-pills-wrap">
+            <button class="pill-btn fam-filter-btn active" data-fam="all">الكل</button>
+            <button class="pill-btn fam-filter-btn" data-fam="Revive">🏠 أسرة Revive</button>
+            <button class="pill-btn fam-filter-btn" data-fam="قلب واحد">🏠 أسرة قلب واحد</button>
+            <button class="pill-btn fam-filter-btn" data-fam="الميديا">أسرة الميديا</button>
+            <button class="pill-btn fam-filter-btn" data-fam="الأنشطة">أسرة الأنشطة</button>
+            <button class="pill-btn fam-filter-btn" data-fam="الافتقاد">أسرة الافتقاد</button>
+            <button class="pill-btn fam-filter-btn" data-fam="دراسة الكتاب">دراسة الكتاب</button>
+            <button class="pill-btn fam-filter-btn" data-fam="أمناء">الأمناء والخُدام</button>
           </div>
         </div>
       </div>
@@ -3713,11 +3742,19 @@
             <option value="خريجين">مرحلة خريجين</option>
           </select>
           <select id="pointsFamilyFilter" onchange="filterPointsLeaderboard()" class="session-select-clean" style="font-size:0.82rem;padding:0.45rem 0.75rem;">
-            <option value="">جميع الأسر</option>
-            <option value="مارمرقس">أسرة مارمرقس</option>
-            <option value="يوسف الصديق">أسرة يوسف الصديق</option>
-            <option value="الأنبا بيشوي">أسرة الأنبا بيشوي</option>
-            <option value="الشهيد إسطفانوس">أسرة الشهيد إسطفانوس</option>
+            <option value="">جميع الأسر والمجموعات</option>
+            <option value="أسرة 1">أسرة 1</option>
+            <option value="أسرة 2">أسرة 2</option>
+            <option value="أسرة 3">أسرة 3</option>
+            <option value="أسرة 4">أسرة 4</option>
+            <option value="أسرة 5">أسرة 5</option>
+            <option value="أسرة 6">أسرة 6</option>
+            <option value="أسرة الميديا">أسرة الميديا</option>
+            <option value="أسرة الأنشطة">أسرة الأنشطة</option>
+            <option value="أسرة الافتقاد">أسرة الافتقاد</option>
+            <option value="أسرة Revive">أسرة Revive</option>
+            <option value="أسرة قلب واحد">أسرة قلب واحد</option>
+            <option value="دراسة الكتاب المقدس">دراسة الكتاب المقدس</option>
           </select>
           <select id="pointsRankFilter" onchange="filterPointsLeaderboard()" class="session-select-clean" style="font-size:0.82rem;padding:0.45rem 0.75rem;">
             <option value="">جميع الرتب</option>
@@ -3802,11 +3839,19 @@
             <option value="خريجين">مرحلة خريجين</option>
           </select>
           <select id="pointsFamilyFilter" onchange="filterPointsLeaderboard()" class="session-select-clean" style="font-size:0.82rem;padding:0.45rem 0.75rem;">
-            <option value="">جميع الأسر</option>
-            <option value="مارمرقس">أسرة مارمرقس</option>
-            <option value="يوسف الصديق">أسرة يوسف الصديق</option>
-            <option value="الأنبا بيشوي">أسرة الأنبا بيشوي</option>
-            <option value="الشهيد إسطفانوس">أسرة الشهيد إسطفانوس</option>
+            <option value="">جميع الأسر والمجموعات</option>
+            <option value="أسرة 1">أسرة 1</option>
+            <option value="أسرة 2">أسرة 2</option>
+            <option value="أسرة 3">أسرة 3</option>
+            <option value="أسرة 4">أسرة 4</option>
+            <option value="أسرة 5">أسرة 5</option>
+            <option value="أسرة 6">أسرة 6</option>
+            <option value="أسرة الميديا">أسرة الميديا</option>
+            <option value="أسرة الأنشطة">أسرة الأنشطة</option>
+            <option value="أسرة الافتقاد">أسرة الافتقاد</option>
+            <option value="أسرة Revive">أسرة Revive</option>
+            <option value="أسرة قلب واحد">أسرة قلب واحد</option>
+            <option value="دراسة الكتاب المقدس">دراسة الكتاب المقدس</option>
           </select>
           <select id="pointsRankFilter" onchange="filterPointsLeaderboard()" class="session-select-clean" style="font-size:0.82rem;padding:0.45rem 0.75rem;">
             <option value="">جميع الرتب</option>
@@ -4476,6 +4521,11 @@
         
         <select id="manAttFamilyFilter" class="form-control" style="width:auto;min-width:140px;font-size:0.85rem;" onchange="renderManualAttendanceList()">
           <option value="all">كل الأسر والمناطق</option>
+          <option value="Revive">🏠 أسرة Revive</option>
+          <option value="قلب واحد">🏠 أسرة قلب واحد</option>
+          <option value="الميديا">أسرة الميديا</option>
+          <option value="الأنشطة">أسرة الأنشطة</option>
+          <option value="الافتقاد">أسرة الافتقاد</option>
           <option value="E">منطقة E</option>
           <option value="A">منطقة A</option>
           <option value="B">منطقة B</option>
@@ -5039,10 +5089,18 @@
           <label style="font-size:0.85rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:0.35rem;">المجموعة المستهدفة:</label>
           <select id="batchTargetSelect" class="session-select" style="width:100%;font-size:0.9rem;padding:0.55rem 0.85rem;">
             <option value="current_attendees">🎯 جميع الحاضرين في لقاء اليوم المسجلين</option>
-            <option value="family_مارمرقس">أسرة مارمرقس (الجميع)</option>
-            <option value="family_يوسف الصديق">أسرة يوسف الصديق (الجميع)</option>
-            <option value="family_الأنبا بيشوي">أسرة الأنبا بيشوي (الجميع)</option>
-            <option value="family_الشهيد إسطفانوس">أسرة الشهيد إسطفانوس (الجميع)</option>
+            <option value="family_أسرة 1">أسرة 1 (الجميع)</option>
+            <option value="family_أسرة 2">أسرة 2 (الجميع)</option>
+            <option value="family_أسرة 3">أسرة 3 (الجميع)</option>
+            <option value="family_أسرة 4">أسرة 4 (الجميع)</option>
+            <option value="family_أسرة 5">أسرة 5 (الجميع)</option>
+            <option value="family_أسرة 6">أسرة 6 (الجميع)</option>
+            <option value="family_أسرة الميديا">أسرة الميديا (الجميع)</option>
+            <option value="family_أسرة الأنشطة">أسرة الأنشطة (الجميع)</option>
+            <option value="family_أسرة الافتقاد">أسرة الافتقاد (الجميع)</option>
+            <option value="family_أسرة Revive">أسرة Revive (الجميع)</option>
+            <option value="family_أسرة قلب واحد">أسرة قلب واحد (الجميع)</option>
+            <option value="family_دراسة الكتاب المقدس">دراسة الكتاب المقدس (الجميع)</option>
             <option value="all_members">جميع الـ 157 عضواً في الاجتماع</option>
           </select>
           <div id="batchTargetCountInfo" style="margin-top:0.35rem;font-size:0.8rem;color:var(--accent-emerald);font-weight:700;"></div>
@@ -13098,7 +13156,7 @@
     // Load from LocalStorage (Upgraded to v4 with foolproof fallbacks)
     function loadLocalData() {
       try {
-        const saved = localStorage.getItem('st_mariam_attendance_v13');
+        const saved = localStorage.getItem('st_mariam_attendance_v14');
         if (saved) {
           const parsed = JSON.parse(saved);
           if (parsed && parsed.members && parsed.members.length > 0) {
@@ -13110,7 +13168,7 @@
           // Initialize fresh from SEED_DATA
           appData = JSON.parse(JSON.stringify(SEED_DATA));
           // Migrate any attendee scans from previous session versions
-          ['st_mariam_attendance_v11', 'st_mariam_attendance_v10', 'st_mariam_attendance_v9'].forEach(k => {
+          ['st_mariam_attendance_v13', 'st_mariam_attendance_v11', 'st_mariam_attendance_v10', 'st_mariam_attendance_v9'].forEach(k => {
             const oldStr = localStorage.getItem(k);
             if (oldStr) {
               try {
@@ -13170,7 +13228,7 @@
 
     function saveLocalData() {
       try {
-        localStorage.setItem('st_mariam_attendance_v13', JSON.stringify(appData));
+        localStorage.setItem('st_mariam_attendance_v14', JSON.stringify(appData));
       } catch (e) {}
     }
 
@@ -13431,6 +13489,8 @@
 
     function getFamilyClass(str) {
       if (!str) return 'family-unassigned';
+      if (str.includes('Revive')) return 'family-revive';
+      if (str.includes('قلب واحد')) return 'family-one-heart';
       if (str.includes('خدام')) return 'family-servants';
       if (str.includes('A') || str.includes('أ')) return 'family-a';
       if (str.includes('B') || str.includes('ب')) return 'family-b';
@@ -14157,6 +14217,7 @@
     let selectedGenderFilter = 'all';
     let selectedStageFilter = 'all';
     let selectedBadgeStageFilter = 'all';
+    let selectedFamilyFilter = 'all';
     let memberSearchQuery = '';
 
     let currentMembersView = 'table';
@@ -14200,17 +14261,24 @@
         const matchGroup = selectedGroupFilter === 'all' || m.groupCode === selectedGroupFilter;
         const matchGender = selectedGenderFilter === 'all' || m.gender === selectedGenderFilter;
         const matchStage = selectedStageFilter === 'all' || getCollegeStage(m) === selectedStageFilter;
+        const matchFamily = selectedFamilyFilter === 'all' || 
+          (m.family && m.family.includes(selectedFamilyFilter)) || 
+          (m.role && m.role.includes(selectedFamilyFilter)) || 
+          (m.areaGroup && m.areaGroup.includes(selectedFamilyFilter));
         const q = (memberSearchQuery || '').toLowerCase().trim();
         const nq = normArabic(q);
         const matchSearch = !q || (
-          m.name.toLowerCase().includes(q) ||
+          normArabic(m.name).includes(nq) ||
           m.id.toLowerCase().includes(q) ||
+          (m.family && normArabic(m.family).includes(nq)) ||
+          (m.role && normArabic(m.role).includes(nq)) ||
+          (m.areaGroup && normArabic(m.areaGroup).includes(nq)) ||
           (m.phone && m.phone.includes(q)) ||
           (m.fullAddress && m.fullAddress.toLowerCase().includes(q)) ||
           (m.father && m.father.toLowerCase().includes(q)) ||
           (m.collegeStage && m.collegeStage.toLowerCase().includes(q))
         );
-        return matchGroup && matchGender && matchStage && matchSearch;
+        return matchGroup && matchGender && matchStage && matchFamily && matchSearch;
       });
 
       const countEl = document.getElementById('displayedMembersCount');
@@ -17800,6 +17868,13 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
         selectedGenderFilter = e.target.getAttribute('data-gen');
         renderMembersTable();
       }
+
+      if (e.target.classList.contains('fam-filter-btn')) {
+        document.querySelectorAll('.fam-filter-btn').forEach(b => b.classList.remove('btn-gold', 'active'));
+        e.target.classList.add('btn-gold', 'active');
+        selectedFamilyFilter = e.target.getAttribute('data-fam');
+        renderMembersTable();
+      }
     });
 
     
@@ -19493,6 +19568,15 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
               <option value="أسرة 1">أسرة 1</option>
               <option value="أسرة 2">أسرة 2</option>
               <option value="أسرة 3">أسرة 3</option>
+              <option value="أسرة 4">أسرة 4</option>
+              <option value="أسرة 5">أسرة 5</option>
+              <option value="أسرة 6">أسرة 6</option>
+              <option value="أسرة الميديا">أسرة الميديا</option>
+              <option value="أسرة الأنشطة">أسرة الأنشطة</option>
+              <option value="أسرة الافتقاد">أسرة الافتقاد</option>
+              <option value="أسرة Revive">أسرة Revive</option>
+              <option value="أسرة قلب واحد">أسرة قلب واحد</option>
+              <option value="دراسة الكتاب المقدس">دراسة الكتاب المقدس</option>
             </select>
           </div>
           <div class="form-group" style="margin:0;">
