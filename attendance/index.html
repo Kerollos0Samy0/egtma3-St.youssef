@@ -459,6 +459,49 @@
       font-weight: 800 !important;
       box-shadow: 0 1px 3px rgba(15, 23, 42, 0.2) !important;
     }
+    /* Scanner Category Switcher Pills */
+    .scanner-cat-pill {
+      font-size: 0.88rem !important;
+      padding: 0.45rem 1rem !important;
+      font-weight: 800 !important;
+      border: 1px solid rgba(255, 255, 255, 0.12) !important;
+      background: rgba(255, 255, 255, 0.04) !important;
+      color: var(--text-muted) !important;
+      transition: all 0.2s ease !important;
+      cursor: pointer;
+    }
+    .scanner-cat-pill:hover {
+      background: rgba(255, 255, 255, 0.08) !important;
+      color: var(--text-main) !important;
+    }
+    .scanner-cat-pill.active {
+      background: var(--accent-gold) !important;
+      color: #0b1329 !important;
+      border-color: var(--accent-gold) !important;
+      box-shadow: 0 3px 12px rgba(245, 158, 11, 0.35) !important;
+    }
+    #btnScannerCatFamily.scanner-cat-pill.active {
+      background: var(--accent-emerald) !important;
+      color: #ffffff !important;
+      border-color: var(--accent-emerald) !important;
+      box-shadow: 0 3px 12px rgba(16, 185, 129, 0.35) !important;
+    }
+    body.light-theme .scanner-cat-pill {
+      background: #f1f5f9 !important;
+      border-color: #cbd5e1 !important;
+      color: #475569 !important;
+    }
+    body.light-theme .scanner-cat-pill.active {
+      background: #b45309 !important;
+      color: #ffffff !important;
+      border-color: #b45309 !important;
+    }
+    body.light-theme #btnScannerCatFamily.scanner-cat-pill.active {
+      background: #059669 !important;
+      color: #ffffff !important;
+      border-color: #059669 !important;
+    }
+
 
     /* Filter Search Row */
     .filter-search-row {
@@ -3149,33 +3192,86 @@
     <!-- ============================================== -->
     <div class="tab-pane active" id="tabScanner">
       <!-- Active Meeting Selector for Attendance (2-Step Weekly Architecture) -->
-      <div class="attendance-meeting-bar" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:0.9rem 1.25rem;margin-bottom:1.15rem;display:flex;flex-direction:column;gap:0.75rem;box-shadow:var(--shadow-sm);">
-        <!-- Step 1 Row: Week Dropdown & Live Attendance Stats -->
-        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;">
-          <div style="display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap;">
-            <span style="font-weight:800;color:var(--accent-gold);font-size:0.95rem;display:flex;align-items:center;gap:0.35rem;">
-              <span>🗓️</span> اختر الأسبوع:
-            </span>
-            <select id="scannerWeekSelect" class="session-select-clean" onchange="onScannerWeekChange(this.value)" style="min-width:270px;font-weight:700;font-size:0.92rem;padding:0.4rem 0.75rem;" title="اختر أسبوع الخدمة"></select>
+      <div class="attendance-meeting-bar" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:0.9rem 1.25rem;margin-bottom:1.15rem;display:flex;flex-direction:column;gap:0.85rem;box-shadow:var(--shadow-sm);">
+        
+        <!-- Category Switcher Bar (Dedicated categories: Weekly vs Family Meetings) -->
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;padding-bottom:0.75rem;border-bottom:1px solid rgba(255,255,255,0.08);">
+          <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
+            <span style="font-size:0.85rem;font-weight:800;color:var(--text-muted);margin-left:0.35rem;">نوع الاجتماعات:</span>
+            
+            <button type="button" id="btnScannerCatWeekly" class="pill-btn scanner-cat-pill active" onclick="switchScannerCategory('weekly')" style="display:inline-flex;align-items:center;gap:0.4rem;">
+              <span>👥</span> الاجتماعات الأسبوعية العامة
+            </button>
+            
+            <button type="button" id="btnScannerCatFamily" class="pill-btn scanner-cat-pill" onclick="switchScannerCategory('family')" style="display:inline-flex;align-items:center;gap:0.4rem;border:1.5px solid rgba(16,185,129,0.5);">
+              <span>🏠</span> اجتماعات الأسر
+            </button>
           </div>
 
-          <div class="attendee-stat-pill" title="إحصائيات حضور اللقاء المختار" style="background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.3);padding:0.35rem 0.95rem;border-radius:var(--radius-full);font-size:0.88rem;">
-            <span>حضور اللقاء المختار: <strong id="sessionAttendeeCount" style="color:var(--accent-gold);font-size:1.1rem;">0</strong> (<span id="sessionAttendanceRate" style="color:var(--accent-emerald);font-weight:800;">0%</span>)</span>
+          <div style="display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap;">
+            <!-- Category Status Badge (Points status vs No points) -->
+            <div id="scannerCategoryPointsBadge" style="font-size:0.8rem;font-weight:700;padding:0.3rem 0.75rem;border-radius:var(--radius-full);background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.3);color:var(--accent-gold);">
+              ⭐ حضور الاجتماع = 10 نقاط
+            </div>
+
+            <div class="attendee-stat-pill" title="إحصائيات حضور اللقاء المختار" style="background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.3);padding:0.3rem 0.85rem;border-radius:var(--radius-full);font-size:0.85rem;">
+              <span>حضور اللقاء: <strong id="sessionAttendeeCount" style="color:var(--accent-gold);font-size:1.05rem;">0</strong> (<span id="sessionAttendanceRate" style="color:var(--accent-emerald);font-weight:800;">0%</span>)</span>
+            </div>
           </div>
         </div>
 
-        <!-- Step 2 Row: Meeting Dropdown & 5 Interactive Activity Pills -->
-        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;padding-top:0.6rem;border-top:1px solid rgba(255,255,255,0.07);">
+        <!-- Section A: General Weekly Meetings Controls (Only visible when weekly) -->
+        <div id="scannerWeeklyControls" style="display:flex;flex-direction:column;gap:0.75rem;">
+          <!-- Step 1: Week Dropdown -->
           <div style="display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap;">
-            <span style="font-weight:800;color:var(--text-main);font-size:0.9rem;display:flex;align-items:center;gap:0.35rem;">
-              <span>🎯</span> اجتماع المسح:
+            <span style="font-weight:800;color:var(--accent-gold);font-size:0.92rem;display:flex;align-items:center;gap:0.35rem;">
+              <span>🗓️</span> اختر الأسبوع:
             </span>
-            <select id="scannerMeetingInWeekSelect" class="session-select-clean" onchange="onScannerMeetingChange(this.value)" style="min-width:290px;font-weight:700;font-size:0.9rem;padding:0.4rem 0.75rem;" title="اختر الاجتماع أو الفعالية المطلوب مسح حضورها"></select>
+            <select id="scannerWeekSelect" class="session-select-clean" onchange="onScannerWeekChange(this.value)" style="min-width:270px;font-weight:700;font-size:0.9rem;padding:0.4rem 0.75rem;" title="اختر أسبوع الخدمة"></select>
           </div>
 
-          <!-- Quick Activity Shortcut Pills for the selected week -->
-          <div id="scannerWeekActivityPills" class="meeting-type-quick-filter" style="display:flex;align-items:center;gap:0.35rem;flex-wrap:wrap;">
-            <!-- Populated dynamically: Youth, Tasbeha, Bible, Liturgy, Prayer -->
+          <!-- Step 2: Dropdown of the 5 weekly meetings & Activity Shortcut Pills -->
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;padding-top:0.5rem;border-top:1px solid rgba(255,255,255,0.06);">
+            <div style="display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap;">
+              <span style="font-weight:800;color:var(--text-main);font-size:0.9rem;display:flex;align-items:center;gap:0.35rem;">
+                <span>🎯</span> اجتماع المسح:
+              </span>
+              <select id="scannerMeetingInWeekSelect" class="session-select-clean" onchange="onScannerMeetingChange(this.value)" style="min-width:290px;font-weight:700;font-size:0.9rem;padding:0.4rem 0.75rem;" title="اختر الاجتماع الأسبوعي المطلوب مسح حضوره"></select>
+            </div>
+
+            <!-- Quick Activity Shortcut Pills for the 5 core meetings -->
+            <div id="scannerWeekActivityPills" class="meeting-type-quick-filter" style="display:flex;align-items:center;gap:0.35rem;flex-wrap:wrap;">
+              <!-- Populated dynamically with ONLY the 5 weekly meetings -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Section B: Dedicated Family Meetings Controls (Only visible when category is 'family') -->
+        <div id="scannerFamilyControls" style="display:none;flex-direction:column;gap:0.75rem;">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;">
+            <div style="display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap;">
+              <span style="font-weight:800;color:var(--accent-emerald);font-size:0.92rem;display:flex;align-items:center;gap:0.35rem;">
+                <span>🏠</span> اختر اجتماع الأسرة:
+              </span>
+              <select id="scannerFamilyMeetingSelect" class="session-select-clean" onchange="onScannerMeetingChange(this.value)" style="min-width:320px;font-weight:700;font-size:0.9rem;padding:0.4rem 0.75rem;border-color:rgba(16,185,129,0.4);" title="اختر اجتماع الأسرة المطلوب تسجيل حضوره"></select>
+            </div>
+
+            <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
+              <span style="font-size:0.82rem;color:var(--accent-emerald);background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);padding:0.35rem 0.75rem;border-radius:var(--radius-sm);font-weight:700;">
+                🌿 حضور وغياب للأسر فقط (بدون إضافة نقاط للمسابقة)
+              </span>
+              <button type="button" class="btn btn-secondary btn-sm" onclick="openCreateFamilyMeetingModal()" style="font-size:0.82rem;padding:0.35rem 0.75rem;font-weight:700;display:inline-flex;align-items:center;gap:0.3rem;">
+                <span>➕</span> إنشاء اجتماع أسرة جديد
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick Family Shortcut Pills -->
+          <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;padding-top:0.5rem;border-top:1px solid rgba(255,255,255,0.06);">
+            <span style="font-size:0.82rem;font-weight:700;color:var(--text-muted);">الأسر السريعة:</span>
+            <div id="scannerFamilyActivityPills" class="meeting-type-quick-filter" style="display:flex;align-items:center;gap:0.35rem;flex-wrap:wrap;">
+              <!-- Populated dynamically with family meetings -->
+            </div>
           </div>
         </div>
 
@@ -3889,7 +3985,7 @@
         <button type="button" class="pill-btn session-mtype-filter" data-stype="bible" onclick="filterSessionsTableType('bible', this)">📖 محبي الكتاب (25)</button>
         <button type="button" class="pill-btn session-mtype-filter" data-stype="liturgy" onclick="filterSessionsTableType('liturgy', this)">⛪ القداس الإلهي (25)</button>
         <button type="button" class="pill-btn session-mtype-filter" data-stype="prayer" onclick="filterSessionsTableType('prayer', this)">🕊️ اجتماع الصلاة (24)</button>
-        <button type="button" class="pill-btn session-mtype-filter" data-stype="sub" onclick="filterSessionsTableType('sub', this)" style="border:1.5px solid rgba(52,211,153,0.5);color:#34d399;font-weight:800;">🌿 الاجتماعات الفرعية (بدون نقاط)</button>
+        <button type="button" class="pill-btn session-mtype-filter" data-stype="family" onclick="filterSessionsTableType('family', this)" style="border:1.5px solid rgba(16,185,129,0.5);color:#34d399;font-weight:800;">🏠 اجتماعات الأسر (بدون نقاط)</button>
       </div>
 
       <div class="data-table-container">
@@ -4238,9 +4334,18 @@
         <div class="form-group">
           <label>الأسرة التابع لها:</label>
           <select id="mFamily" class="form-control">
-            <option value="الأسرة أ">الأسرة أ</option>
-            <option value="الأسرة ب">الأسرة ب</option>
-            <option value="الأسرة ج">الأسرة ج</option>
+            <option value="أسرة 1">أسرة 1</option>
+            <option value="أسرة 2">أسرة 2</option>
+            <option value="أسرة 3">أسرة 3</option>
+            <option value="أسرة 4">أسرة 4</option>
+            <option value="أسرة 5">أسرة 5</option>
+            <option value="أسرة 6">أسرة 6</option>
+            <option value="أسرة الميديا">أسرة الميديا</option>
+            <option value="أسرة الأنشطة">أسرة الأنشطة</option>
+            <option value="أسرة الافتقاد">أسرة الافتقاد</option>
+            <option value="أسرة Revive">أسرة Revive</option>
+            <option value="أسرة قلب واحد">أسرة قلب واحد</option>
+            <option value="دراسة الكتاب المقدس">دراسة الكتاب المقدس</option>
             <option value="أمناء الاجتماع">أمناء الاجتماع</option>
           </select>
         </div>
@@ -4273,7 +4378,7 @@
         <div class="form-group">
           <label style="font-weight:800;color:var(--accent-gold);">نوع اللقاء:</label>
           <select id="sMeetingType" class="form-control" style="font-weight:700;">
-            <option value="sub">🌿 اجتماع فرعي / أسر ولجان (حضور وغياب فقط - بدون نقاط)</option>
+            <option value="family" selected>🏠 اجتماع أسرة (حضور وغياب فقط - بدون نقاط)</option>
             <option value="youth">👥 اجتماع شباب رئيسي (+10 نقاط حضور)</option>
             <option value="tasbeha">🎶 التسبحة الكنسية والتماجيد (+10 نقاط)</option>
             <option value="bible">📖 محبي الكتاب ودراسة الكلمة (+10 نقاط)</option>
@@ -4300,9 +4405,18 @@
         <div class="form-group">
           <label>الأسرة المسؤولة عن تحضير اليوم:</label>
           <select id="sFamily" class="form-control">
-            <option value="الأسرة أ">الأسرة أ</option>
-            <option value="الأسرة ب">الأسرة ب</option>
-            <option value="الأسرة ج">الأسرة ج</option>
+            <option value="أسرة 1">أسرة 1</option>
+            <option value="أسرة 2">أسرة 2</option>
+            <option value="أسرة 3">أسرة 3</option>
+            <option value="أسرة 4">أسرة 4</option>
+            <option value="أسرة 5">أسرة 5</option>
+            <option value="أسرة 6">أسرة 6</option>
+            <option value="أسرة الميديا">أسرة الميديا</option>
+            <option value="أسرة الأنشطة">أسرة الأنشطة</option>
+            <option value="أسرة الافتقاد">أسرة الافتقاد</option>
+            <option value="أسرة Revive">أسرة Revive</option>
+            <option value="أسرة قلب واحد">أسرة قلب واحد</option>
+            <option value="دراسة الكتاب المقدس">دراسة الكتاب المقدس</option>
             <option value="أمناء الاجتماع">أمناء الاجتماع</option>
           </select>
         </div>
@@ -12879,14 +12993,53 @@
     // ==============================================
     // 2-STEP WEEKLY & MULTI-ACTIVITY SCANNER ENGINE
     // ==============================================
+    let currentScannerCategory = 'weekly'; // 'weekly' or 'family'
     let currentScannerMeetingTypeFilter = 'all';
     let currentSessionsTableMeetingTypeFilter = 'all';
+
+    function isFamilySession(session) {
+      if (!session) return false;
+      return session.meetingType === 'family' || session.meetingType === 'sub' || session.isSubMeeting === true || session.hasPoints === false;
+    }
+
+    function switchScannerCategory(cat) {
+      currentScannerCategory = cat;
+      if (cat === 'weekly') {
+        const current = getCurrentSession();
+        if (isFamilySession(current)) {
+          const weeklySess = (appData.sessions || []).find(s => !isFamilySession(s));
+          if (weeklySess) currentSessionId = weeklySess.id;
+        }
+      } else {
+        const current = getCurrentSession();
+        if (!isFamilySession(current)) {
+          const familySess = (appData.sessions || []).find(s => isFamilySession(s));
+          if (familySess) currentSessionId = familySess.id;
+        }
+      }
+      refreshUI();
+    }
+
+    function openCreateFamilyMeetingModal() {
+      if (currentServantRole !== 'admin') {
+        alert("⛔ إنشاء اللقاءات مقتصر على أمناء الاجتماع.");
+        return;
+      }
+      const modal = document.getElementById('sessionModal');
+      const typeSelect = document.getElementById('sMeetingType');
+      const titleInput = document.getElementById('sTitle');
+      const dateInput = document.getElementById('sDate');
+      if (typeSelect) typeSelect.value = 'family';
+      if (titleInput) titleInput.value = 'اجتماع أسرة ';
+      if (dateInput && !dateInput.value) dateInput.value = new Date().toISOString().split('T')[0];
+      if (modal) modal.classList.add('open');
+    }
 
     function getSessionWeekNumber(session) {
       if (!session) return 1;
       if (session.week && Number.isInteger(session.week)) return session.week;
       if (session.id) {
-        const m = session.id.match(/-(\d+)$/);
+        const m = session.id.match(/-(d+)$/);
         if (m) {
           const n = parseInt(m[1], 10);
           if (!isNaN(n) && n >= 1) return n;
@@ -12909,20 +13062,27 @@
 
     function getMeetingTypeMeta(session) {
       const mtype = session ? (session.meetingType || 'youth') : 'youth';
-      if (mtype === 'sub' || (session && session.isSubMeeting)) {
-        return { icon: '🌿', label: 'اجتماع فرعي (بدون نقاط)', short: (session.family ? ('فرعي: ' + session.family) : 'فرعي'), isSub: true };
+      if (mtype === 'family' || mtype === 'sub' || (session && session.isSubMeeting)) {
+        return { 
+          icon: '🏠', 
+          label: 'اجتماع أسرة (بدون نقاط)', 
+          short: (session.family ? session.family : 'اجتماع أسرة'), 
+          isSub: true,
+          hasPoints: false
+        };
       }
-      if (mtype === 'youth') return { icon: '👥', label: 'اجتماع الشباب', short: 'الشباب' };
-      if (mtype === 'tasbeha') return { icon: '🎶', label: 'التسبحة الكنسية', short: 'التسبحة' };
-      if (mtype === 'bible') return { icon: '📖', label: 'محبي الكتاب المقدس', short: 'محبي الكتاب' };
-      if (mtype === 'liturgy') return { icon: '⛪', label: 'صلاة القداس الإلهي', short: 'القداس' };
-      if (mtype === 'prayer') return { icon: '🕊️', label: 'اجتماع الصلاة', short: 'الصلاة' };
-      return { icon: '📅', label: session ? (session.title || 'لقاء') : 'لقاء', short: 'لقاء' };
+      if (mtype === 'youth') return { icon: '👥', label: 'اجتماع الشباب', short: 'الشباب', hasPoints: true };
+      if (mtype === 'tasbeha') return { icon: '🎶', label: 'التسبحة الكنسية', short: 'التسبحة', hasPoints: true };
+      if (mtype === 'bible') return { icon: '📖', label: 'محبي الكتاب المقدس', short: 'محبي الكتاب', hasPoints: true };
+      if (mtype === 'liturgy') return { icon: '⛪', label: 'صلاة القداس الإلهي', short: 'القداس', hasPoints: true };
+      if (mtype === 'prayer') return { icon: '🕊️', label: 'اجتماع الصلاة', short: 'الصلاة', hasPoints: true };
+      return { icon: '📅', label: session ? (session.title || 'لقاء') : 'لقاء', short: 'لقاء', hasPoints: true };
     }
 
     function getSessionsGroupedByWeek() {
       const grouped = {};
       (appData.sessions || []).forEach(s => {
+        if (isFamilySession(s)) return; // Strictly exclude family sessions from weekly groups
         const wn = getSessionWeekNumber(s);
         if (!grouped[wn]) grouped[wn] = [];
         grouped[wn].push(s);
@@ -12931,77 +13091,154 @@
     }
 
     function renderScannerWeekControls() {
+      const currentSession = getCurrentSession();
+      const isCurrentFamily = isFamilySession(currentSession);
+
+      // Keep active category in sync with current session if needed
+      if (isCurrentFamily && currentScannerCategory !== 'family') {
+        currentScannerCategory = 'family';
+      } else if (!isCurrentFamily && currentScannerCategory !== 'weekly') {
+        currentScannerCategory = 'weekly';
+      }
+
+      // Update switcher buttons and badges
+      const btnWeekly = document.getElementById('btnScannerCatWeekly');
+      const btnFamily = document.getElementById('btnScannerCatFamily');
+      const weeklyControls = document.getElementById('scannerWeeklyControls');
+      const familyControls = document.getElementById('scannerFamilyControls');
+      const pointsBadge = document.getElementById('scannerCategoryPointsBadge');
+
+      if (btnWeekly) btnWeekly.classList.toggle('active', currentScannerCategory === 'weekly');
+      if (btnFamily) btnFamily.classList.toggle('active', currentScannerCategory === 'family');
+
+      if (currentScannerCategory === 'weekly') {
+        if (weeklyControls) weeklyControls.style.display = 'flex';
+        if (familyControls) familyControls.style.display = 'none';
+        if (pointsBadge) {
+          pointsBadge.innerHTML = '⭐ حضور الاجتماع = 10 نقاط';
+          pointsBadge.style.background = 'rgba(245,158,11,0.12)';
+          pointsBadge.style.borderColor = 'rgba(245,158,11,0.3)';
+          pointsBadge.style.color = 'var(--accent-gold)';
+        }
+      } else {
+        if (weeklyControls) weeklyControls.style.display = 'none';
+        if (familyControls) familyControls.style.display = 'flex';
+        if (pointsBadge) {
+          pointsBadge.innerHTML = '🏠 اجتماعات الأسر (حضور وغياب بدون نقاط)';
+          pointsBadge.style.background = 'rgba(16,185,129,0.12)';
+          pointsBadge.style.borderColor = 'rgba(16,185,129,0.3)';
+          pointsBadge.style.color = 'var(--accent-emerald)';
+        }
+      }
+
+      // 1. POPULATE WEEKLY CONTROLS (Only weekly meetings, strictly no family meetings)
       const weekSelect = document.getElementById('scannerWeekSelect');
       const meetingSelect = document.getElementById('scannerMeetingInWeekSelect');
       const pillsContainer = document.getElementById('scannerWeekActivityPills');
-      const legacySelect = document.getElementById('activeSessionSelect');
-
-      if (!weekSelect || !meetingSelect) return;
+      const ARABIC_DAYS = ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
 
       const grouped = getSessionsGroupedByWeek();
-      const currentSession = getCurrentSession();
-      const currentWeek = getSessionWeekNumber(currentSession);
+      const currentWeek = isCurrentFamily ? 1 : getSessionWeekNumber(currentSession);
       const weekNums = Object.keys(grouped).map(Number).sort((a, b) => a - b);
 
-      // 1. Populate Week Dropdown (if empty or needs refresh)
-      if (weekSelect.children.length === 0 || weekSelect.children.length !== weekNums.length) {
-        weekSelect.innerHTML = '';
-        for (const w of weekNums) {
-          const sessionsInW = grouped[w] || [];
-          if (sessionsInW.length === 0) continue;
-          const youthSess = sessionsInW.find(s => s.meetingType === 'youth') || sessionsInW[0];
-          const datePart = youthSess ? formatArabicDateShort(youthSess.date) : '';
-          let theme = '';
-          if (youthSess && youthSess.title) {
-            theme = youthSess.title.includes('—') ? youthSess.title.split('—').slice(1).join('—').trim() : youthSess.title;
+      if (weekSelect && meetingSelect) {
+        if (weekSelect.children.length === 0 || weekSelect.children.length !== weekNums.length) {
+          weekSelect.innerHTML = '';
+          for (const w of weekNums) {
+            const sessionsInW = grouped[w] || [];
+            if (sessionsInW.length === 0) continue;
+            const youthSess = sessionsInW.find(s => s.meetingType === 'youth') || sessionsInW[0];
+            const datePart = youthSess ? formatArabicDateShort(youthSess.date) : '';
+            let theme = '';
+            if (youthSess && youthSess.title) {
+              theme = youthSess.title.includes('—') ? youthSess.title.split('—').slice(1).join('—').trim() : youthSess.title;
+            }
+            const opt = document.createElement('option');
+            opt.value = String(w);
+            opt.textContent = `الأسبوع ${w} (${datePart})${theme ? ' — ' + theme : ''}`;
+            if (w === currentWeek) opt.selected = true;
+            weekSelect.appendChild(opt);
           }
-          const opt = document.createElement('option');
-          opt.value = String(w);
-          opt.textContent = `الأسبوع ${w} (${datePart})${theme ? ' — ' + theme : ''}`;
-          if (w === currentWeek) opt.selected = true;
-          weekSelect.appendChild(opt);
+        } else {
+          weekSelect.value = String(currentWeek);
         }
-      } else {
-        weekSelect.value = String(currentWeek);
-      }
 
-      // 2. Populate Meetings for Current Week in Dropdown
-      const ARABIC_DAYS = ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
-      const sessionsInCurrentWeek = grouped[currentWeek] || [];
-      meetingSelect.innerHTML = '';
-      sessionsInCurrentWeek.forEach(s => {
-        const meta = getMeetingTypeMeta(s);
-        const dayName = s.day || (s.date ? ARABIC_DAYS[new Date(s.date + 'T12:00:00Z').getDay()] : '');
-        const timePart = s.time ? ` ${s.time}` : '';
-        const opt = document.createElement('option');
-        opt.value = s.id;
-        const count = (s.attendees || []).length;
-        const countTxt = count > 0 ? ` [حاضر: ${count}]` : '';
-        opt.textContent = `${meta.icon} ${meta.label} (${dayName}${timePart} - ${formatArabicDateShort(s.date)})${countTxt}`;
-        if (s.id === currentSessionId) opt.selected = true;
-        meetingSelect.appendChild(opt);
-      });
-
-      // 3. Render Activity Pill Buttons for Current Week
-      if (pillsContainer) {
-        pillsContainer.innerHTML = '';
+        const sessionsInCurrentWeek = grouped[currentWeek] || [];
+        meetingSelect.innerHTML = '';
         sessionsInCurrentWeek.forEach(s => {
           const meta = getMeetingTypeMeta(s);
           const dayName = s.day || (s.date ? ARABIC_DAYS[new Date(s.date + 'T12:00:00Z').getDay()] : '');
+          const timePart = s.time ? ` ${s.time}` : '';
+          const opt = document.createElement('option');
+          opt.value = s.id;
+          const count = (s.attendees || []).length;
+          const countTxt = count > 0 ? ` [حاضر: ${count}]` : '';
+          opt.textContent = `${meta.icon} ${meta.label} (${dayName}${timePart} - ${formatArabicDateShort(s.date)})${countTxt}`;
+          if (s.id === currentSessionId) opt.selected = true;
+          meetingSelect.appendChild(opt);
+        });
+
+        if (pillsContainer) {
+          pillsContainer.innerHTML = '';
+          sessionsInCurrentWeek.forEach(s => {
+            const meta = getMeetingTypeMeta(s);
+            const dayName = s.day || (s.date ? ARABIC_DAYS[new Date(s.date + 'T12:00:00Z').getDay()] : '');
+            const count = (s.attendees || []).length;
+            const isActive = (s.id === currentSessionId);
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = `pill-btn mini-mtype-btn ${isActive ? 'active' : ''}`;
+            btn.style.cssText = 'display:inline-flex;align-items:center;gap:0.35rem;padding:0.4rem 0.75rem;font-size:0.82rem;font-weight:700;';
+            const badgeHtml = count > 0 ? `<span style="background:var(--accent-gold);color:#000;font-weight:900;border-radius:10px;padding:0 5px;font-size:0.75rem;margin-right:2px;">${count}</span>` : '';
+            btn.innerHTML = `<span>${meta.icon}</span> <span>${meta.short} (${dayName})</span> ${badgeHtml}`;
+            btn.onclick = () => selectScannerSession(s.id);
+            pillsContainer.appendChild(btn);
+          });
+        }
+      }
+
+      // 2. POPULATE FAMILY CONTROLS (Only family meetings!)
+      const famSelect = document.getElementById('scannerFamilyMeetingSelect');
+      const famPillsContainer = document.getElementById('scannerFamilyActivityPills');
+      const familySessions = (appData.sessions || []).filter(s => isFamilySession(s));
+
+      if (famSelect) {
+        famSelect.innerHTML = '';
+        familySessions.forEach(s => {
+          const meta = getMeetingTypeMeta(s);
+          const count = (s.attendees || []).length;
+          const countTxt = count > 0 ? ` [حاضر: ${count}]` : '';
+          const opt = document.createElement('option');
+          opt.value = s.id;
+          opt.textContent = `${meta.icon} ${s.title || meta.label} (${s.family || 'أسرة'})${countTxt}`;
+          if (s.id === currentSessionId) opt.selected = true;
+          famSelect.appendChild(opt);
+        });
+        if (isCurrentFamily && currentSessionId) {
+          famSelect.value = currentSessionId;
+        }
+      }
+
+      if (famPillsContainer) {
+        famPillsContainer.innerHTML = '';
+        familySessions.forEach(s => {
+          const meta = getMeetingTypeMeta(s);
           const count = (s.attendees || []).length;
           const isActive = (s.id === currentSessionId);
           const btn = document.createElement('button');
           btn.type = 'button';
           btn.className = `pill-btn mini-mtype-btn ${isActive ? 'active' : ''}`;
-          btn.style.cssText = 'display:inline-flex;align-items:center;gap:0.35rem;padding:0.4rem 0.75rem;font-size:0.82rem;font-weight:700;';
+          btn.style.cssText = `display:inline-flex;align-items:center;gap:0.35rem;padding:0.4rem 0.75rem;font-size:0.82rem;font-weight:700;${isActive ? 'background:var(--accent-emerald);color:#ffffff;border-color:var(--accent-emerald);box-shadow:0 2px 10px rgba(16,185,129,0.35);' : 'border-color:rgba(16,185,129,0.3);'}`;
           const badgeHtml = count > 0 ? `<span style="background:var(--accent-gold);color:#000;font-weight:900;border-radius:10px;padding:0 5px;font-size:0.75rem;margin-right:2px;">${count}</span>` : '';
-          btn.innerHTML = `<span>${meta.icon}</span> <span>${meta.short} (${dayName})</span> ${badgeHtml}`;
+          const shortTitle = s.title.replace('اجتماع فرعي وتحضير — ', '').replace('اجتماع فرعي — ', '').replace('اجتماع ', '');
+          btn.innerHTML = `<span>${meta.icon}</span> <span>${shortTitle}</span> ${badgeHtml}`;
           btn.onclick = () => selectScannerSession(s.id);
-          pillsContainer.appendChild(btn);
+          famPillsContainer.appendChild(btn);
         });
       }
 
-      // 4. Update legacy hidden activeSessionSelect for backward compatibility
+      // 3. Update legacy hidden select
+      const legacySelect = document.getElementById('activeSessionSelect');
       if (legacySelect) {
         legacySelect.innerHTML = '';
         (appData.sessions || []).forEach(s => {
@@ -13021,14 +13258,11 @@
       const sessionsInWeek = grouped[weekNum] || [];
       if (sessionsInWeek.length === 0) return;
 
-      // Retain the current meeting type if present in the selected week
       const currentSess = getCurrentSession();
-      const currentType = currentSess ? currentSess.meetingType : 'youth';
+      const currentType = (currentSess && !isFamilySession(currentSess)) ? currentSess.meetingType : 'youth';
 
       let targetSess = sessionsInWeek.find(s => s.meetingType === currentType);
-      if (!targetSess) {
-        targetSess = sessionsInWeek[0];
-      }
+      if (!targetSess) targetSess = sessionsInWeek[0];
 
       currentSessionId = targetSess.id;
       refreshUI();
@@ -13037,12 +13271,20 @@
     function onScannerMeetingChange(sessionId) {
       if (!sessionId) return;
       currentSessionId = sessionId;
+      const s = (appData.sessions || []).find(x => x.id === sessionId);
+      if (s) {
+        currentScannerCategory = isFamilySession(s) ? 'family' : 'weekly';
+      }
       refreshUI();
     }
 
     function selectScannerSession(sessionId) {
       if (!sessionId) return;
       currentSessionId = sessionId;
+      const s = (appData.sessions || []).find(x => x.id === sessionId);
+      if (s) {
+        currentScannerCategory = isFamilySession(s) ? 'family' : 'weekly';
+      }
       refreshUI();
     }
 
@@ -13072,8 +13314,12 @@
       const nowMins = new Date().getMinutes();
       const currentMinutes = nowHours * 60 + nowMins;
 
+      // Filter for weekly meetings by default so user begins on a weekly session
+      const weeklySessions = appData.sessions.filter(s => !isFamilySession(s));
+      const pool = weeklySessions.length > 0 ? weeklySessions : appData.sessions;
+
       // 1. Check if there are sessions for today
-      const todaySessions = appData.sessions.filter(s => s.date === todayStr);
+      const todaySessions = pool.filter(s => s.date === todayStr);
       if (todaySessions.length === 1) {
         currentSessionId = todaySessions[0].id;
         return;
@@ -13239,7 +13485,10 @@
           date: new Date().toISOString().split('T')[0]
         };
         session.attendees.push(newAttendee);
-        awardAttendancePointsOnScan(member, session);
+        const isFamSess = isFamilySession(session);
+        if (!isFamSess) {
+          awardAttendancePointsOnScan(member, session);
+        }
 
         saveLocalData();
 
@@ -13249,7 +13498,11 @@
         badge.className = `family-pill ${getFamilyClass(member.family)}`;
         nameEl.textContent = member.name;
         timeEl.textContent = `تم تسجيل الحضور الآن: ${currentTime}`;
-        msgEl.innerHTML = `<span style="color:var(--accent-emerald);">أهلاً بك يا ${member.name}! نورت الاجتماع وحصلت على +10 نقاط ⭐</span>`;
+        if (isFamSess) {
+          msgEl.innerHTML = `<span style="color:var(--accent-emerald);">أهلاً بك يا ${member.name}! تم تسجيل حضور اجتماع الأسرة بنجاح 🏠</span>`;
+        } else {
+          msgEl.innerHTML = `<span style="color:var(--accent-emerald);">أهلاً بك يا ${member.name}! نورت الاجتماع وحصلت على +10 نقاط ⭐</span>`;
+        }
 
         // Sync with Firebase Firestore (Real-time Cloud Sync across all servants' devices)
         if (isFirebaseReady && db) {
@@ -14080,7 +14333,12 @@
       
       let visibleList = getVisibleSessions(currentServantRole === 'admin');
       if (currentSessionsTableMeetingTypeFilter && currentSessionsTableMeetingTypeFilter !== 'all') {
-        visibleList = visibleList.filter(s => (s.meetingType || 'youth') === currentSessionsTableMeetingTypeFilter);
+        visibleList = visibleList.filter(s => {
+          if (currentSessionsTableMeetingTypeFilter === 'family' || currentSessionsTableMeetingTypeFilter === 'sub') {
+            return isFamilySession(s);
+          }
+          return (s.meetingType || 'youth') === currentSessionsTableMeetingTypeFilter;
+        });
       }
 
       // Update count header in tabSessions
@@ -15254,6 +15512,10 @@
 
     function setCurrentSession(id) {
       currentSessionId = id;
+      const s = (appData.sessions || []).find(x => x.id === id);
+      if (s) {
+        currentScannerCategory = isFamilySession(s) ? 'family' : 'weekly';
+      }
       refreshUI();
       // switch to scanner tab
       document.querySelector('.tab-btn[data-tab="tabScanner"]').click();
@@ -15551,10 +15813,10 @@
       const date = document.getElementById('sDate').value;
       const title = document.getElementById('sTitle').value.trim();
       const family = document.getElementById('sFamily').value;
-      const mtype = (document.getElementById('sMeetingType') && document.getElementById('sMeetingType').value) || 'sub';
+      const mtype = (document.getElementById('sMeetingType') && document.getElementById('sMeetingType').value) || 'family';
       const weekVal = parseInt((document.getElementById('sWeek') && document.getElementById('sWeek').value) || '1', 10);
       const timeVal = (document.getElementById('sTime') && document.getElementById('sTime').value.trim()) || '07:00 م';
-      const isSub = (mtype === 'sub');
+      const isSub = (mtype === 'family' || mtype === 'sub');
 
       const nextNum = appData.sessions.length + 1;
       const id = isSub ? `SES-SUB-${String(nextNum).padStart(2, '0')}-${weekVal}` : `SES-${String(nextNum).padStart(2, '0')}`;
@@ -15566,12 +15828,13 @@
         week: weekVal,
         title,
         family,
-        meetingType: mtype,
+        meetingType: isSub ? 'family' : mtype,
         isSubMeeting: isSub,
         hasPoints: !isSub,
-        typeLabel: isSub ? '🌿 اجتماع فرعي' : '👥 اجتماع شباب',
+        typeLabel: isSub ? '🏠 اجتماع أسرة' : '👥 اجتماع شباب',
         attendees: []
       };
+      if (isSub) currentScannerCategory = 'family';
       appData.sessions.push(newS);
       currentSessionId = id;
       saveLocalData();
@@ -16420,7 +16683,7 @@
 
       // 2. Collect ALL sessions belonging to the selected weeks (Youth, Tasbeha, Bible, Liturgy, Prayer)
       const allSessionsInSelectedWeeks = allSessions.filter(s => selectedWeeks.has(getSessionWeekNumber(s)));
-      const tuesdaySessions = allSessionsInSelectedWeeks.filter(s => (s.meetingType === 'youth' || (s.id && s.id.startsWith('SES-') && !s.id.includes('-TAS-') && !s.id.includes('-BIB-') && !s.id.includes('-LIT-') && !s.id.includes('-PRY-'))));
+      const tuesdaySessions = allSessionsInSelectedWeeks.filter(s => !isFamilySession(s) && (s.meetingType === 'youth' || (s.id && s.id.startsWith('SES-') && !s.id.includes('-TAS-') && !s.id.includes('-BIB-') && !s.id.includes('-LIT-') && !s.id.includes('-PRY-') && !s.id.includes('-SUB-'))));
 
       const stats = {
         'أسرة 1': { hostDay: null, hostCount: 0, hostRate: 0, hostScore: 8.5, otherCounts: [], otherAvgRate: 0, otherScore: 8.0 },
@@ -17592,6 +17855,7 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
     // Award Points on attendance scan
     function awardAttendancePointsOnScan(member, session) {
       if (!appData.pointsLog) appData.pointsLog = [];
+      if (session && isFamilySession(session)) return; // Zero points for family/sub meetings
       const sessDate = session.date || new Date().toISOString().split('T')[0];
       const sessId = session.id || 'SES';
 
