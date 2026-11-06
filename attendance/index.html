@@ -12548,6 +12548,9 @@
 
         const currSession = getCurrentSession();
         const isPresentInCurr = currSession && currSession.attendees && currSession.attendees.some(a => a.memberId === m.id);
+        const isServant = m.role && (m.role.includes('أمين') || m.role.includes('أمينة') || m.role.includes('سكرتير') || m.role.includes('خادم') || m.role.includes('خادمة'));
+        const roleBadge = isServant ? `<span style="background:rgba(245,158,11,0.2);color:var(--accent-gold);border:1px solid rgba(245,158,11,0.45);padding:0.12rem 0.45rem;border-radius:6px;font-size:0.72rem;font-weight:800;margin-right:0.35rem;display:inline-block;">✝️ ${m.role}</span>` : '';
+        const attBadge = isPresentInCurr ? '<span style="color:#10b981;font-weight:900;margin-left:0.35rem;" title="حاضر في هذا اللقاء">✓ </span>' : '';
 
         // 1. Desktop Table Row (All 10 columns wide & non-wrapping)
         if (tbody) {
@@ -13107,7 +13110,10 @@
       if (!tbody) return;
       tbody.innerHTML = '';
       
-      const visibleList = getVisibleSessions(currentServantRole === 'admin');
+      let visibleList = getVisibleSessions(currentServantRole === 'admin');
+      if (currentSessionsTableMeetingTypeFilter && currentSessionsTableMeetingTypeFilter !== 'all') {
+        visibleList = visibleList.filter(s => (s.meetingType || 'youth') === currentSessionsTableMeetingTypeFilter);
+      }
 
       // Update count header in tabSessions
       const countHeader = document.getElementById('sessionsCountHeader');
