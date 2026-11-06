@@ -10198,6 +10198,27 @@
           "role": "شاب",
           "time": "07:35 م",
           "date": "2026-11-03"
+        },
+        {
+          "memberId": "E09",
+          "name": "بيشوي ماهر",
+          "family": "أسرة E",
+          "time": "08:00 م",
+          "date": "2026-11-03"
+        },
+        {
+          "memberId": "YS-002",
+          "name": "ابانوب هاني حشمت",
+          "family": "منطقة كفر الدوار",
+          "time": "08:05 م",
+          "date": "2026-11-03"
+        },
+        {
+          "memberId": "YS-023",
+          "name": "بيشوي ايمن كمال",
+          "family": "منطقة كفر الدوار",
+          "time": "08:10 م",
+          "date": "2026-11-03"
         }
       ],
       "day": "الثلاثاء",
@@ -11518,7 +11539,8 @@
   "visitationNotes": []
 };
 
-        function normArabic(s) {
+    
+    function normArabic(s) {
       if (!s) return "";
       return s
         .toLowerCase()
@@ -11527,13 +11549,12 @@
         .replace(/ى/g, "ي")
         .replace(/ؤ/g, "و")
         .replace(/ئ/g, "ي")
-        .replace(/[\u064B-\u065F]/g, "")
+        .replace(/[ً-ٟ]/g, "")
         .replace(/كارين/g, "كارن")
         .replace(/دافيد/g, "ديفيد")
         .trim();
     }
 
-    // Dynamic College Stage Resolver
     function getCollegeStage(m) {
       if (!m) return 'أولى كلية';
       if (m.collegeStage && m.collegeStage !== 'جامعي') return m.collegeStage;
@@ -11558,7 +11579,7 @@
     // Load from LocalStorage (Upgraded to v4 with foolproof fallbacks)
     function loadLocalData() {
       try {
-        const saved = localStorage.getItem('st_mariam_attendance_v11');
+        const saved = localStorage.getItem('st_mariam_attendance_v12');
         if (saved) {
           const parsed = JSON.parse(saved);
           if (parsed && parsed.members && parsed.members.length > 0) {
@@ -11570,7 +11591,7 @@
           // Initialize fresh from SEED_DATA
           appData = JSON.parse(JSON.stringify(SEED_DATA));
           // Migrate any attendee scans from previous session versions
-          ['st_mariam_attendance_v11', 'st_mariam_attendance_v11', 'st_mariam_attendance_v11'].forEach(k => {
+          ['st_mariam_attendance_v11', 'st_mariam_attendance_v10', 'st_mariam_attendance_v9'].forEach(k => {
             const oldStr = localStorage.getItem(k);
             if (oldStr) {
               try {
@@ -11630,7 +11651,7 @@
 
     function saveLocalData() {
       try {
-        localStorage.setItem('st_mariam_attendance_v11', JSON.stringify(appData));
+        localStorage.setItem('st_mariam_attendance_v12', JSON.stringify(appData));
       } catch (e) {}
     }
 
@@ -11743,9 +11764,24 @@
             const remoteSess = doc.data();
             let localSess = appData.sessions.find(s => s.id === remoteSess.id);
             if (localSess) {
-              if (JSON.stringify(localSess.attendees) !== JSON.stringify(remoteSess.attendees)) {
-                localSess.attendees = remoteSess.attendees || [];
+              const remoteAttendees = remoteSess.attendees || [];
+              const localAttendees = localSess.attendees || [];
+              const attMap = new Map();
+              localAttendees.forEach(a => {
+                const k = a.memberId || a.name;
+                if (k) attMap.set(k, a);
+              });
+              remoteAttendees.forEach(a => {
+                const k = a.memberId || a.name;
+                if (k && !attMap.has(k)) attMap.set(k, a);
+              });
+              const merged = Array.from(attMap.values());
+              if (merged.length !== localAttendees.length) {
+                localSess.attendees = merged;
                 hasNewChanges = true;
+              }
+              if (merged.length > remoteAttendees.length) {
+                sessionsCol.doc(localSess.id).set({ attendees: merged }, { merge: true }).catch(() => {});
               }
               if (remoteSess.title && remoteSess.title !== localSess.title) {
                 localSess.title = remoteSess.title;
@@ -11760,7 +11796,7 @@
           if (hasNewChanges) {
             saveLocalData();
             initMembersViewMode();
-    refreshUI();
+            refreshUI();
           }
           updateSyncStatusBadge(true, '● متصل سحابياً');
         }, (error) => {
@@ -11790,18 +11826,31 @@
           }
         }, (err) => console.warn("Firestore auth_settings error:", err));
 
-        // 4. Real-time Listener for Members List
+        // 4. Real-time Listener for Members List (Union Merge)
         db.collection('app_config').doc('members_data').onSnapshot((docSnap) => {
           if (docSnap.exists) {
             const data = docSnap.data();
             if (data && Array.isArray(data.members) && data.members.length > 0) {
-              if (data.members.length !== appData.members.length || !appData.members[0].collegeStage) {
-                appData.members = data.members;
+              const membersMap = new Map();
+              (SEED_DATA.members || []).forEach(m => membersMap.set(m.id, { ...m }));
+              (appData.members || []).forEach(m => membersMap.set(m.id, Object.assign({}, membersMap.get(m.id) || {}, m)));
+              data.members.forEach(m => membersMap.set(m.id, Object.assign({}, membersMap.get(m.id) || {}, m)));
+              const mergedMembers = Array.from(membersMap.values());
+
+              if (mergedMembers.length > data.members.length) {
+                db.collection('app_config').doc('members_data').set({
+                  members: mergedMembers,
+                  total: mergedMembers.length,
+                  updatedAt: new Date().toISOString()
+                }, { merge: true }).catch(err => {});
+              }
+
+              if (mergedMembers.length !== appData.members.length || !appData.members[0].collegeStage) {
+                appData.members = mergedMembers;
                 saveLocalData();
                 refreshUI();
               }
             } else {
-              // Cloud doc exists but has empty members, populate with SEED_DATA
               db.collection('app_config').doc('members_data').set({
                 members: SEED_DATA.members,
                 total: SEED_DATA.members.length,
@@ -11809,7 +11858,6 @@
               }, { merge: true }).catch(err => {});
             }
           } else {
-            // Cloud doc does not exist, initialize it!
             db.collection('app_config').doc('members_data').set({
               members: SEED_DATA.members,
               total: SEED_DATA.members.length,
@@ -12161,7 +12209,9 @@
     function processAttendance(scannedText) {
       const clean = scannedText.trim();
       const nClean = normArabic(clean);
-            let member = appData.members.find(m => m.id === clean || m.name === clean || m.phone === clean);
+      const aliasMap = { 'SM-158': 'T12', 'SM-159': 'KH-02', 'SM-160': 'KH-01', 'SM-161': 'KH-04' };
+      const lookupId = aliasMap[clean] || clean;
+      let member = appData.members.find(m => m.id === lookupId || m.id === clean || m.name === clean || m.phone === clean);
             if (!member) {
               member = appData.members.find(m => {
                 const nm = normArabic(m.name);
