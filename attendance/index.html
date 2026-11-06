@@ -3785,7 +3785,7 @@
         <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
           <div style="display:flex;align-items:center;gap:0.45rem;">
             <span style="font-size:0.88rem;font-weight:800;color:var(--accent-gold);display:flex;align-items:center;gap:0.35rem;">
-              <span>📅</span> اختر أيام التقييم:
+              <span>📅</span> اختر لقاءات التقييم (أيام الثلاثاء):
             </span>
             <span style="font-size:0.78rem;color:var(--text-muted);" id="evalSessionsCountBadge">
               (4 أيام محددة)
@@ -15417,14 +15417,25 @@
     // Compute live attendance statistics for selected sessions
     function computeAttendanceStatsForSelectedSessions() {
       const allSessions = (appData && Array.isArray(appData.sessions)) ? appData.sessions : [];
-      const selectedSessions = allSessions.filter(s => selectedEvalSessionIds.includes(s.id));
+      
+      // 1. Identify selected weeks from the chosen Tuesday evaluation sessions
+      const selectedWeeks = new Set();
+      selectedEvalSessionIds.forEach(id => {
+        const s = allSessions.find(sess => sess.id === id);
+        if (s) selectedWeeks.add(getSessionWeekNumber(s));
+      });
+
+      // 2. Collect ALL sessions belonging to the selected weeks (Youth, Tasbeha, Bible, Liturgy, Prayer)
+      const allSessionsInSelectedWeeks = allSessions.filter(s => selectedWeeks.has(getSessionWeekNumber(s)));
+      const tuesdaySessions = allSessionsInSelectedWeeks.filter(s => (s.meetingType === 'youth' || (s.id && s.id.startsWith('SES-') && !s.id.includes('-TAS-') && !s.id.includes('-BIB-') && !s.id.includes('-LIT-') && !s.id.includes('-PRY-'))));
 
       const stats = {
         'أسرة 1': { hostDay: null, hostCount: 0, hostRate: 0, hostScore: 8.5, otherCounts: [], otherAvgRate: 0, otherScore: 8.0 },
         'أسرة 2': { hostDay: null, hostCount: 0, hostRate: 0, hostScore: 8.5, otherCounts: [], otherAvgRate: 0, otherScore: 8.0 },
         'أسرة 3': { hostDay: null, hostCount: 0, hostRate: 0, hostScore: 8.5, otherCounts: [], otherAvgRate: 0, otherScore: 8.0 },
-        totalSelected: selectedSessions.length,
-        totalAttendeesAcrossSelected: 0
+        selectedWeeksCount: selectedWeeks.size,
+        totalMeetingsInWeeks: allSessionsInSelectedWeeks.length,
+        totalTuesdays: tuesdaySessions.length
       };
 
       const famKeys = ['أسرة 1', 'أسرة 2', 'أسرة 3'];
@@ -15432,8 +15443,8 @@
       famKeys.forEach(fName => {
         const baseSize = familyBaseSizes[fName] || 40;
 
-        // Find the session assigned as this family's host day
-        const hostSess = selectedSessions.find(s => {
+        // Find the host Tuesday meeting assigned for this family
+        const hostSess = tuesdaySessions.find(s => {
           const assignedRole = evalSessionHostRoles[s.id] || (s.title && s.title.includes(fName) ? fName : '');
           return assignedRole === fName;
         });
@@ -15442,16 +15453,15 @@
           stats[fName].hostDay = hostSess;
           const hostAttCount = getSessionFamilyAttendeeCount(hostSess, fName);
           stats[fName].hostCount = hostAttCount;
-          // If attendees exist in session, calculate percentage, else keep calibrated default
           if (hostSess.attendees && hostSess.attendees.length > 0) {
             const rate = Math.min(Math.round((hostAttCount / baseSize) * 100), 100);
             stats[fName].hostRate = rate;
-            stats[fName].hostScore = Math.round((rate / 10) * 10) / 10;
+            stats[fName].hostScore = hostAttCount > 0 ? (Math.round((rate / 10) * 10) / 10) : 8.5;
           }
         }
 
-        // Other selected sessions (support days)
-        const otherSessions = selectedSessions.filter(s => s !== hostSess);
+        // All OTHER sessions across all selected weeks (Tasbeha, Bible, Liturgy, Prayer, and other Tuesdays)
+        const otherSessions = allSessionsInSelectedWeeks.filter(s => !hostSess || s.id !== hostSess.id);
         let otherRatesSum = 0;
         let otherSessionsWithAttendance = 0;
 
@@ -15496,8 +15506,12 @@
         ? getVisibleSessions(currentServantRole === 'admin')
         : appData.sessions;
 
-      visibleSessions.forEach((sess, idx) => {
+      // Evaluation days are TUESDAYS ONLY (Youth Meetings)
+      const tuesdaySessions = visibleSessions.filter(s => (s.meetingType === 'youth' || (s.id && s.id.startsWith('SES-') && !s.id.includes('-TAS-') && !s.id.includes('-BIB-') && !s.id.includes('-LIT-') && !s.id.includes('-PRY-'))));
+
+      tuesdaySessions.forEach((sess, idx) => {
         const isSelected = selectedEvalSessionIds.includes(sess.id);
+        const weekNum = getSessionWeekNumber(sess);
         const shortDate = formatSessionShortDate(sess.date);
         const titleText = (sess.title || '').trim();
 
@@ -15505,11 +15519,11 @@
         pill.type = 'button';
         pill.className = `eval-session-pill ${isSelected ? 'is-selected' : ''}`;
         pill.setAttribute('data-id', sess.id);
-        pill.setAttribute('title', `لقاء ${idx + 1}: ${sess.date} - ${sess.title || ''}`);
+        pill.setAttribute('title', `الأسبوع ${weekNum}: الثلاثاء ${sess.date} - ${sess.title || ''}`);
 
         pill.innerHTML = `
           <span class="eval-pill-check">${isSelected ? '✓' : '○'}</span>
-          <span>${idx + 1} • ${shortDate}</span>
+          <span>الأسبوع ${weekNum} • ${shortDate}</span>
           <span style="opacity:0.85;">(${titleText})</span>
         `;
 
@@ -15530,7 +15544,7 @@
       // Update count badge
       const countBadge = document.getElementById('evalSessionsCountBadge');
       if (countBadge) {
-        countBadge.textContent = `(${selectedEvalSessionIds.length} أيام محددة)`;
+        countBadge.textContent = `(${selectedEvalSessionIds.length} أسابيع / أيام محددة)`;
       }
 
       renderEvaluationSummaryBanner();
@@ -15542,13 +15556,11 @@
       if (!banner) return;
 
       const stats = computeAttendanceStatsForSelectedSessions();
-      const allSessions = (appData && Array.isArray(appData.sessions)) ? appData.sessions : [];
-      const selectedSessions = allSessions.filter(s => selectedEvalSessionIds.includes(s.id));
 
-      if (selectedSessions.length === 0) {
+      if (!stats.selectedWeeksCount || stats.selectedWeeksCount === 0) {
         banner.innerHTML = `
           <div style="font-size:0.8rem;color:var(--accent-rose);font-weight:700;">
-            ⚠️ لم تختر أي أيام بعد. انقر على أي لقاء أعلاه لإضافته للتقييم.
+            ⚠️ لم تختر أي أسابيع للتقييم بعد. انقر على أي لقاء ثلاثاء أعلاه لتضمين الأسبوع في التقييم.
           </div>
         `;
         return;
@@ -15560,16 +15572,16 @@
         chipsHtml += `
           <div class="eval-mini-summary-chip">
             <strong style="color:var(--text-main);">${fName}:</strong>
-            <span>يومها: <strong style="color:var(--accent-gold);">${s.hostScore}/10</strong> (${s.hostRate}%)</span>
+            <span>يومها (الثلاثاء): <strong style="color:var(--accent-gold);">${s.hostScore}/10</strong> (${s.hostRate}%)</span>
             <span style="color:var(--text-muted);">|</span>
-            <span>باقي الأيام: <strong style="color:var(--accent-blue);">${s.otherScore}/10</strong> (${s.otherAvgRate}%)</span>
+            <span>باقي اجتماعات الأسابيع: <strong style="color:var(--accent-blue);">${s.otherScore}/10</strong> (${s.otherAvgRate}%)</span>
           </div>
         `;
       });
 
       banner.innerHTML = `
         <div style="display:flex;align-items:center;gap:0.4rem;font-size:0.8rem;font-weight:800;color:var(--accent-gold);">
-          <span>⚡ نسب الحضور المحسوبة:</span>
+          <span>⚡ نسب الحضور المحسوبة (شاملة كل لقاءات الـ ${stats.selectedWeeksCount} أسابيع: ${stats.totalMeetingsInWeeks} اجتماع):</span>
         </div>
         <div style="display:flex;align-items:center;gap:0.4rem;flex-wrap:wrap;">
           ${chipsHtml}
@@ -15812,12 +15824,14 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
         if (presetBtn) {
           const preset = presetBtn.getAttribute('data-preset');
           const allSessions = (appData && Array.isArray(appData.sessions)) ? appData.sessions : [];
+          const tuesdaySessions = allSessions.filter(s => (s.meetingType === 'youth' || (s.id && s.id.startsWith('SES-') && !s.id.includes('-TAS-') && !s.id.includes('-BIB-') && !s.id.includes('-LIT-') && !s.id.includes('-PRY-'))));
+          
           if (preset === '1-4') {
-            selectedEvalSessionIds = allSessions.slice(0, 4).map(s => s.id);
+            selectedEvalSessionIds = tuesdaySessions.slice(0, 4).map(s => s.id);
           } else if (preset === '5-8') {
-            selectedEvalSessionIds = allSessions.slice(4, 8).map(s => s.id);
+            selectedEvalSessionIds = tuesdaySessions.slice(4, 8).map(s => s.id);
           } else if (preset === '9-12') {
-            selectedEvalSessionIds = allSessions.slice(8, 12).map(s => s.id);
+            selectedEvalSessionIds = tuesdaySessions.slice(8, 12).map(s => s.id);
           }
           saveEvaluationState();
           renderFamilyScoresSection();
@@ -15825,7 +15839,8 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
 
         if (e.target && e.target.id === 'btnSelectAllEvalSessions') {
           const allSessions = (appData && Array.isArray(appData.sessions)) ? appData.sessions : [];
-          selectedEvalSessionIds = allSessions.map(s => s.id);
+          const tuesdaySessions = allSessions.filter(s => (s.meetingType === 'youth' || (s.id && s.id.startsWith('SES-') && !s.id.includes('-TAS-') && !s.id.includes('-BIB-') && !s.id.includes('-LIT-') && !s.id.includes('-PRY-'))));
+          selectedEvalSessionIds = tuesdaySessions.map(s => s.id);
           saveEvaluationState();
           renderFamilyScoresSection();
         }
@@ -15836,7 +15851,6 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
           renderFamilyScoresSection();
         }
 
-        // Apply calculated attendance to Modal inputs
         if (e.target && e.target.id === 'btnApplyCalculatedAttendanceToModal') {
           const targetFamSelect = document.getElementById('scoreTargetFamily');
           const targetFam = targetFamSelect ? targetFamSelect.value : 'أسرة 1';
