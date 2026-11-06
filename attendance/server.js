@@ -19,33 +19,175 @@ if (!fs.existsSync(BACKUPS_DIR)) {
 // Initial seed data with servants from Book1.xlsx
 const DEFAULT_DATA = {
   members: [
-    { id: "SM-01", name: "ريموندا عزمي", family: "الأسرة أ", phone: "01200000001", role: "أمين قلب واحد", active: true },
-    { id: "SM-02", name: "بولا هشام", family: "الأسرة أ", phone: "01200000002", role: "مساعد قلب واحد", active: true },
-    { id: "SM-03", name: "ساندي ميلاد", family: "الأسرة أ", phone: "01200000003", role: "أمين ديكور", active: true },
-    { id: "SM-04", name: "كيرلس بطرس", family: "الأسرة ب", phone: "01200000004", role: "أمين الافتقاد", active: true },
-    { id: "SM-05", name: "هيلانة اشرف", family: "الأسرة ب", phone: "01200000005", role: "مساعد الافتقاد", active: true },
-    { id: "SM-06", name: "فيرونيا عزمي", family: "الأسرة ب", phone: "01200000006", role: "عضو افتقاد", active: true },
-    { id: "SM-07", name: "بافلي داود", family: "الأسرة ج", phone: "01200000007", role: "أمين الميديا", active: true },
-    { id: "SM-08", name: "مينا ايهاب", family: "الأسرة ج", phone: "01200000008", role: "مساعد ميديا", active: true },
-    { id: "SM-09", name: "توني عادل", family: "الأسرة ج", phone: "01200000009", role: "عضو ميديا", active: true },
-    { id: "SM-10", name: "بولا ايليا", family: "الأسرة أ", phone: "01200000010", role: "أمين Revive", active: true },
-    { id: "SM-11", name: "جومانا عاطف", family: "الأسرة أ", phone: "01200000011", role: "مساعد Revive", active: true },
-    { id: "SM-12", name: "كريم شريف", family: "الأسرة أ", phone: "01200000012", role: "عضو Revive", active: true },
-    { id: "SM-13", name: "مينا عادل شفيق", family: "الأسرة ب", phone: "01200000013", role: "أمين الكتاب المقدس", active: true },
-    { id: "SM-14", name: "انجيل هاني", family: "الأسرة ب", phone: "01200000014", role: "مساعد الكتاب المقدس", active: true },
-    { id: "SM-15", name: "ماريا وحيد", family: "الأسرة ب", phone: "01200000015", role: "عضو دراسة كتاب", active: true },
-    { id: "SM-16", name: "دافيد ايهاب", family: "الأسرة ج", phone: "01200000016", role: "أمين التسبيح", active: true },
-    { id: "SM-17", name: "كارين فيكتور", family: "الأسرة ج", phone: "01200000017", role: "مساعد تسبيح", active: true },
-    { id: "SM-18", name: "يوستينا جورج", family: "الأسرة ج", phone: "01200000018", role: "عضو كورال", active: true },
-    { id: "SM-19", name: "ميريام جورج", family: "الأسرة أ", phone: "01200000019", role: "مساعد ديكور", active: true },
-    { id: "SM-20", name: "شيري فادي", family: "الأسرة أ", phone: "01200000020", role: "عضو ديكور", active: true },
-    { id: "SM-21", name: "مارتينا مدحت", family: "الأسرة ب", phone: "01200000021", role: "أمين المطبخ", active: true },
-    { id: "SM-22", name: "مادونا عاطف", family: "الأسرة ب", phone: "01200000022", role: "مساعد مطبخ", active: true },
-    { id: "SM-23", name: "مريم سعيد انور", family: "الأسرة ب", phone: "01200000023", role: "عضو ضيافة", active: true },
-    { id: "SM-24", name: "توماس ملاك", family: "أمناء الاجتماع", phone: "01200000024", role: "أمين الصلاة", active: true },
-    { id: "SM-25", name: "سارة يحي", family: "أمناء الاجتماع", phone: "01200000025", role: "مساعد صلاة", active: true },
-    { id: "SM-26", name: "ماريا ايليا", family: "أمناء الاجتماع", phone: "01200000026", role: "عضو صلاة", active: true }
-  ],
+    {
+        "id": "YS-014",
+        "name": "بافلي داود",
+        "family": "أسرة الميديا",
+        "phone": "01210943516",
+        "role": "✝️ أمين أسرة الميديا",
+        "active": true
+    },
+    {
+        "id": "D11",
+        "name": "بولا ايساك",
+        "family": "أمناء الأسر",
+        "phone": "01223757761",
+        "role": "أمين أسرة",
+        "active": true
+    },
+    {
+        "id": "A25",
+        "name": "بولا هشام",
+        "family": "أسرة الأنشطة",
+        "phone": "01207205034",
+        "role": "أمين أسرة الأنشطة",
+        "active": true
+    },
+    {
+        "id": "A40",
+        "name": "توماس ملاك",
+        "family": "دراسة الكتاب المقدس",
+        "phone": "01287284098",
+        "role": "✝️ أمين دراسة الكتاب المقدس",
+        "active": true
+    },
+    {
+        "id": "E30",
+        "name": "فيلوباتير مدحت",
+        "family": "أمناء الأسر",
+        "phone": "01228754558",
+        "role": "أمين أسرة",
+        "active": true
+    },
+    {
+        "id": "C12",
+        "name": "كارين فيكتور",
+        "family": "أمناء الأسر",
+        "phone": "01221934211",
+        "role": "أمينة أسرة",
+        "active": true
+    },
+    {
+        "id": "D15",
+        "name": "كريم شريف",
+        "family": "أسرة Revive",
+        "phone": "01276680787",
+        "role": "✝️ أمين أسرة Revive",
+        "active": true
+    },
+    {
+        "id": "A17",
+        "name": "كيرلس امير إبراهيم",
+        "family": "أمناء الأسر",
+        "phone": "01282076103",
+        "role": "أمين أسرة",
+        "active": true
+    },
+    {
+        "id": "T12",
+        "name": "كيرلس سامي",
+        "family": "أمناء الاجتماع",
+        "phone": "01223708282",
+        "role": "أمين الاجتماع",
+        "active": true
+    },
+    {
+        "id": "A08",
+        "name": "ماثيو ادوارد",
+        "family": "السكرتارية العامة",
+        "phone": "01222716609",
+        "role": "سكرتير عام",
+        "active": true
+    },
+    {
+        "id": "D19",
+        "name": "مينا ايهاب",
+        "family": "أسرة الميديا",
+        "phone": "01287142498",
+        "role": "✝️ أمين أسرة الميديا",
+        "active": true
+    },
+    {
+        "id": "A02",
+        "name": "مينا عادل شفيق",
+        "family": "أسرة قلب واحد",
+        "phone": "01278865619",
+        "role": "أمين أسرة قلب واحد",
+        "active": true
+    },
+    {
+        "id": "C01",
+        "name": "يوستينا فادي",
+        "family": "أمناء الأسر",
+        "phone": "01288808642",
+        "role": "أمينة أسرة",
+        "active": true
+    },
+    {
+        "id": "SM-04",
+        "name": "كيرلس بطرس",
+        "family": "أسرة الافتقاد",
+        "phone": "01200000014",
+        "role": "✝️ أمين أسرة الافتقاد",
+        "active": true
+    },
+    {
+        "id": "SM-10",
+        "name": "بولا ايليا",
+        "family": "أسرة Revive",
+        "phone": "01200000015",
+        "role": "✝️ أمين أسرة Revive",
+        "active": true
+    },
+    {
+        "id": "SM-01",
+        "name": "ريموندا عزمي",
+        "family": "أسرة قلب واحد",
+        "phone": "01200000016",
+        "role": "✝️ أمينة أسرة قلب واحد",
+        "active": true
+    },
+    {
+        "id": "KH-01",
+        "name": "فيرونيا كامل",
+        "family": "أمناء الاجتماع",
+        "phone": "01200000017",
+        "role": "أمينة الاجتماع",
+        "active": true
+    },
+    {
+        "id": "KH-02",
+        "name": "مينا هشام",
+        "family": "أمناء الاجتماع",
+        "phone": "01200000018",
+        "role": "أمين الاجتماع",
+        "active": true
+    },
+    {
+        "id": "KH-03",
+        "name": "يوستينا بطرس",
+        "family": "أمناء الاجتماع",
+        "phone": "01200000019",
+        "role": "أمينة الاجتماع",
+        "active": true
+    },
+    {
+        "id": "KH-04",
+        "name": "ايلي عماد",
+        "family": "أمناء الأسر",
+        "phone": "01200000020",
+        "role": "أمين أسرة",
+        "active": true
+    },
+    {
+        "id": "KH-05",
+        "name": "دميانة نبيل",
+        "family": "أمناء الاجتماع",
+        "phone": "01200000021",
+        "role": "أمينة الاجتماع",
+        "active": true
+    }
+],
   sessions: [
     { id: "SES-01", date: "2026-11-03", title: "خدام", family: "خدام", attendees: [] },
     { id: "SES-02", date: "2026-11-10", title: "أسرة 1", family: "أسرة", attendees: [] },
