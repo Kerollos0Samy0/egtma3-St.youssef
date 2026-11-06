@@ -3889,6 +3889,7 @@
         <button type="button" class="pill-btn session-mtype-filter" data-stype="bible" onclick="filterSessionsTableType('bible', this)">📖 محبي الكتاب (25)</button>
         <button type="button" class="pill-btn session-mtype-filter" data-stype="liturgy" onclick="filterSessionsTableType('liturgy', this)">⛪ القداس الإلهي (25)</button>
         <button type="button" class="pill-btn session-mtype-filter" data-stype="prayer" onclick="filterSessionsTableType('prayer', this)">🕊️ اجتماع الصلاة (24)</button>
+        <button type="button" class="pill-btn session-mtype-filter" data-stype="sub" onclick="filterSessionsTableType('sub', this)" style="border:1.5px solid rgba(52,211,153,0.5);color:#34d399;font-weight:800;">🌿 الاجتماعات الفرعية (بدون نقاط)</button>
       </div>
 
       <div class="data-table-container">
@@ -4270,8 +4271,27 @@
       </div>
       <form id="sessionForm">
         <div class="form-group">
+          <label style="font-weight:800;color:var(--accent-gold);">نوع اللقاء:</label>
+          <select id="sMeetingType" class="form-control" style="font-weight:700;">
+            <option value="sub">🌿 اجتماع فرعي / أسر ولجان (حضور وغياب فقط - بدون نقاط)</option>
+            <option value="youth">👥 اجتماع شباب رئيسي (+10 نقاط حضور)</option>
+            <option value="tasbeha">🎶 التسبحة الكنسية والتماجيد (+10 نقاط)</option>
+            <option value="bible">📖 محبي الكتاب ودراسة الكلمة (+10 نقاط)</option>
+            <option value="liturgy">⛪ صلاة القداس الإلهي (+10 نقاط)</option>
+            <option value="prayer">🕊️ اجتماع الصلاة وساعة الطلبات (+10 نقاط)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>الأسبوع التابع له:</label>
+          <input type="number" id="sWeek" class="form-control" value="1" min="1" max="25" placeholder="رقم الأسبوع من 1 إلى 25">
+        </div>
+        <div class="form-group">
           <label>تاريخ اللقاء:</label>
           <input type="date" id="sDate" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label>وقت اللقاء:</label>
+          <input type="text" id="sTime" class="form-control" placeholder="07:00 م" value="07:00 م">
         </div>
         <div class="form-group">
           <label>عنوان الموضوع / الفعالية:</label>
@@ -11706,6 +11726,90 @@
       "title": "اجتماع الصلاة وساعة السهمية والطلبات",
       "family": "أسرة الصلاة والشفاعة",
       "attendees": []
+    },
+    {
+      "id": "SES-SUB-FAM-01",
+      "week": 1,
+      "date": "2026-11-06",
+      "day": "الجمعة",
+      "time": "06:00 م",
+      "meetingType": "sub",
+      "typeLabel": "🌿 اجتماع فرعي",
+      "title": "اجتماع فرعي وتحضير — أسرة 1",
+      "family": "أسرة 1",
+      "isSubMeeting": true,
+      "hasPoints": false,
+      "attendees": []
+    },
+    {
+      "id": "SES-SUB-FAM-02",
+      "week": 2,
+      "date": "2026-11-13",
+      "day": "الجمعة",
+      "time": "06:00 م",
+      "meetingType": "sub",
+      "typeLabel": "🌿 اجتماع فرعي",
+      "title": "اجتماع فرعي وتحضير — أسرة 2",
+      "family": "أسرة 2",
+      "isSubMeeting": true,
+      "hasPoints": false,
+      "attendees": []
+    },
+    {
+      "id": "SES-SUB-FAM-03",
+      "week": 3,
+      "date": "2026-11-20",
+      "day": "الجمعة",
+      "time": "06:00 م",
+      "meetingType": "sub",
+      "typeLabel": "🌿 اجتماع فرعي",
+      "title": "اجتماع فرعي وتحضير — أسرة 3",
+      "family": "أسرة 3",
+      "isSubMeeting": true,
+      "hasPoints": false,
+      "attendees": []
+    },
+    {
+      "id": "SES-SUB-MED-01",
+      "week": 1,
+      "date": "2026-11-08",
+      "day": "الأحد",
+      "time": "07:00 م",
+      "meetingType": "sub",
+      "typeLabel": "🌿 اجتماع فرعي",
+      "title": "اجتماع فرعي — أسرة الميديا والتصوير",
+      "family": "أسرة الميديا",
+      "isSubMeeting": true,
+      "hasPoints": false,
+      "attendees": []
+    },
+    {
+      "id": "SES-SUB-ACT-01",
+      "week": 1,
+      "date": "2026-11-09",
+      "day": "الاثنين",
+      "time": "07:00 م",
+      "meetingType": "sub",
+      "typeLabel": "🌿 اجتماع فرعي",
+      "title": "اجتماع فرعي — أسرة الأنشطة والمسابقات",
+      "family": "أسرة الأنشطة",
+      "isSubMeeting": true,
+      "hasPoints": false,
+      "attendees": []
+    },
+    {
+      "id": "SES-SUB-VIS-01",
+      "week": 1,
+      "date": "2026-11-07",
+      "day": "السبت",
+      "time": "06:30 م",
+      "meetingType": "sub",
+      "typeLabel": "🌿 اجتماع فرعي",
+      "title": "اجتماع فرعي — أسرة الافتقاد ومتابعة الغياب",
+      "family": "أسرة الافتقاد",
+      "isSubMeeting": true,
+      "hasPoints": false,
+      "attendees": []
     }
   ],
   "visitationNotes": [],
@@ -12779,11 +12883,14 @@
     let currentSessionsTableMeetingTypeFilter = 'all';
 
     function getSessionWeekNumber(session) {
-      if (!session || !session.id) return 1;
-      const m = session.id.match(/-(\d+)$/);
-      if (m) {
-        const n = parseInt(m[1], 10);
-        if (!isNaN(n) && n >= 1) return n;
+      if (!session) return 1;
+      if (session.week && Number.isInteger(session.week)) return session.week;
+      if (session.id) {
+        const m = session.id.match(/-(\d+)$/);
+        if (m) {
+          const n = parseInt(m[1], 10);
+          if (!isNaN(n) && n >= 1) return n;
+        }
       }
       return 1;
     }
@@ -12802,6 +12909,9 @@
 
     function getMeetingTypeMeta(session) {
       const mtype = session ? (session.meetingType || 'youth') : 'youth';
+      if (mtype === 'sub' || (session && session.isSubMeeting)) {
+        return { icon: '🌿', label: 'اجتماع فرعي (بدون نقاط)', short: (session.family ? ('فرعي: ' + session.family) : 'فرعي'), isSub: true };
+      }
       if (mtype === 'youth') return { icon: '👥', label: 'اجتماع الشباب', short: 'الشباب' };
       if (mtype === 'tasbeha') return { icon: '🎶', label: 'التسبحة الكنسية', short: 'التسبحة' };
       if (mtype === 'bible') return { icon: '📖', label: 'محبي الكتاب المقدس', short: 'محبي الكتاب' };
@@ -14023,7 +14133,10 @@
           <td><span class="badge-id">${s.id}</span></td>
           <td><strong>${s.date}</strong></td>
           <td>${s.title}</td>
-          <td><span class="family-pill ${getFamilyClass(s.family)}">${s.family}</span></td>
+          <td>
+            <span class="family-pill ${getFamilyClass(s.family)}">${s.family}</span>
+            ${(s.isSubMeeting || s.meetingType === 'sub') ? '<span class="family-pill" style="background:rgba(52,211,153,0.15);color:#34d399;font-size:0.7rem;margin-right:0.25rem;">🌿 فرعي (بدون نقاط)</span>' : ''}
+          </td>
           <td><strong style="color:var(--accent-gold);">${count}</strong> حاضر</td>
           <td><span class="family-pill pill-rate-tag">${rate}%</span></td>
           <td>${actionColHtml}</td>
@@ -14261,7 +14374,10 @@
             time: currentTime,
             date: session.date || new Date().toISOString().split('T')[0]
           });
-          awardAttendancePointsOnScan(member, session);
+          const isSubMeeting = (session.isSubMeeting === true || session.meetingType === 'sub' || session.hasPoints === false);
+          if (!isSubMeeting) {
+            awardAttendancePointsOnScan(member, session);
+          }
           try { SoundFX.scanSuccess(); } catch(e) {}
         }
       } else {
@@ -14351,7 +14467,10 @@
               time: currentTime,
               date: sessDate
             });
-            awardAttendancePointsOnScan(member, session);
+            const isSubMeeting = (session.isSubMeeting === true || session.meetingType === 'sub' || session.hasPoints === false);
+            if (!isSubMeeting) {
+              awardAttendancePointsOnScan(member, session);
+            }
           }
         });
         try { SoundFX.celebrate(); } catch(e) {}
@@ -15432,11 +15551,27 @@
       const date = document.getElementById('sDate').value;
       const title = document.getElementById('sTitle').value.trim();
       const family = document.getElementById('sFamily').value;
+      const mtype = (document.getElementById('sMeetingType') && document.getElementById('sMeetingType').value) || 'sub';
+      const weekVal = parseInt((document.getElementById('sWeek') && document.getElementById('sWeek').value) || '1', 10);
+      const timeVal = (document.getElementById('sTime') && document.getElementById('sTime').value.trim()) || '07:00 م';
+      const isSub = (mtype === 'sub');
 
       const nextNum = appData.sessions.length + 1;
-      const id = `SES-${String(nextNum).padStart(2, '0')}`;
+      const id = isSub ? `SES-SUB-${String(nextNum).padStart(2, '0')}-${weekVal}` : `SES-${String(nextNum).padStart(2, '0')}`;
 
-      const newS = { id, date, title, family, attendees: [] };
+      const newS = {
+        id,
+        date,
+        time: timeVal,
+        week: weekVal,
+        title,
+        family,
+        meetingType: mtype,
+        isSubMeeting: isSub,
+        hasPoints: !isSub,
+        typeLabel: isSub ? '🌿 اجتماع فرعي' : '👥 اجتماع شباب',
+        attendees: []
+      };
       appData.sessions.push(newS);
       currentSessionId = id;
       saveLocalData();
@@ -17376,6 +17511,8 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
       let backfilled = 0;
       if (appData.sessions && Array.isArray(appData.sessions)) {
         appData.sessions.forEach(sess => {
+          const isSub = (sess.isSubMeeting === true || sess.meetingType === 'sub' || sess.hasPoints === false);
+          if (isSub) return;
           if (sess.attendees && Array.isArray(sess.attendees)) {
             sess.attendees.forEach((att, idx) => {
               const sessDate = att.date || sess.date;
