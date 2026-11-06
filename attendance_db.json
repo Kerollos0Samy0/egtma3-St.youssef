@@ -5276,7 +5276,10 @@
       "day": "الثلاثاء",
       "time": "07:00 م",
       "meetingType": "youth",
-      "typeLabel": "👥 اجتماع الشباب"
+      "typeLabel": "👥 اجتماع الشباب",
+      "week": 1,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-TAS-01",
@@ -5287,7 +5290,10 @@
       "typeLabel": "🎶 التسبحة الكنسية",
       "title": "التسبحة الكنسية والتماجيد",
       "family": "لجنة الألحان والتسبحة",
-      "attendees": []
+      "attendees": [],
+      "week": 1,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-BIB-01",
@@ -5298,7 +5304,10 @@
       "typeLabel": "📖 محبي الكتاب المقدس",
       "title": "اجتماع محبي الكتاب ودراسة الكلمة",
       "family": "أسرة الكتاب المقدس",
-      "attendees": []
+      "attendees": [],
+      "week": 1,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-LIT-01",
@@ -5309,7 +5318,10 @@
       "typeLabel": "⛪ القداس الإلهي",
       "title": "صلاة القداس الإلهي وسر التناول",
       "family": "الآباء الكهنة والشمامسة",
-      "attendees": []
+      "attendees": [],
+      "week": 1,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-PRY-01",
@@ -5320,7 +5332,10 @@
       "typeLabel": "🕊️ اجتماع الصلاة",
       "title": "اجتماع الصلاة وساعة السهمية والطلبات",
       "family": "أسرة الصلاة والشفاعة",
-      "attendees": []
+      "attendees": [],
+      "week": 1,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-02",
@@ -5331,7 +5346,10 @@
       "day": "الثلاثاء",
       "time": "07:00 م",
       "meetingType": "youth",
-      "typeLabel": "👥 اجتماع الشباب"
+      "typeLabel": "👥 اجتماع الشباب",
+      "week": 2,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-TAS-02",
@@ -5342,7 +5360,10 @@
       "typeLabel": "🎶 التسبحة الكنسية",
       "title": "التسبحة الكنسية والتماجيد",
       "family": "لجنة الألحان والتسبحة",
-      "attendees": []
+      "attendees": [],
+      "week": 2,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-BIB-02",
@@ -5353,7 +5374,10 @@
       "typeLabel": "📖 محبي الكتاب المقدس",
       "title": "اجتماع محبي الكتاب ودراسة الكلمة",
       "family": "أسرة الكتاب المقدس",
-      "attendees": []
+      "attendees": [],
+      "week": 2,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-LIT-02",
@@ -5364,7 +5388,10 @@
       "typeLabel": "⛪ القداس الإلهي",
       "title": "صلاة القداس الإلهي وسر التناول",
       "family": "الآباء الكهنة والشمامسة",
-      "attendees": []
+      "attendees": [],
+      "week": 2,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-PRY-02",
@@ -5375,7 +5402,10 @@
       "typeLabel": "🕊️ اجتماع الصلاة",
       "title": "اجتماع الصلاة وساعة السهمية والطلبات",
       "family": "أسرة الصلاة والشفاعة",
-      "attendees": []
+      "attendees": [],
+      "week": 2,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-03",
@@ -5386,7 +5416,10 @@
       "day": "الثلاثاء",
       "time": "07:00 م",
       "meetingType": "youth",
-      "typeLabel": "👥 اجتماع الشباب"
+      "typeLabel": "👥 اجتماع الشباب",
+      "week": 3,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-TAS-03",
@@ -5397,7 +5430,10 @@
       "typeLabel": "🎶 التسبحة الكنسية",
       "title": "التسبحة الكنسية والتماجيد",
       "family": "لجنة الألحان والتسبحة",
-      "attendees": []
+      "attendees": [],
+      "week": 3,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-BIB-03",
@@ -5408,7 +5444,10 @@
       "typeLabel": "📖 محبي الكتاب المقدس",
       "title": "اجتماع محبي الكتاب ودراسة الكلمة",
       "family": "أسرة الكتاب المقدس",
-      "attendees": []
+      "attendees": [],
+      "week": 3,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-LIT-03",
@@ -5419,7 +5458,10 @@
       "typeLabel": "⛪ القداس الإلهي",
       "title": "صلاة القداس الإلهي وسر التناول",
       "family": "الآباء الكهنة والشمامسة",
-      "attendees": []
+      "attendees": [],
+      "week": 3,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-PRY-03",
@@ -5430,7 +5472,10 @@
       "typeLabel": "🕊️ اجتماع الصلاة",
       "title": "اجتماع الصلاة وساعة السهمية والطلبات",
       "family": "أسرة الصلاة والشفاعة",
-      "attendees": []
+      "attendees": [],
+      "week": 3,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-04",
@@ -5441,7 +5486,10 @@
       "day": "الثلاثاء",
       "time": "07:00 م",
       "meetingType": "youth",
-      "typeLabel": "👥 اجتماع الشباب"
+      "typeLabel": "👥 اجتماع الشباب",
+      "week": 4,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-TAS-04",
@@ -5452,7 +5500,10 @@
       "typeLabel": "🎶 التسبحة الكنسية",
       "title": "التسبحة الكنسية والتماجيد",
       "family": "لجنة الألحان والتسبحة",
-      "attendees": []
+      "attendees": [],
+      "week": 4,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-BIB-04",
@@ -5463,7 +5514,10 @@
       "typeLabel": "📖 محبي الكتاب المقدس",
       "title": "اجتماع محبي الكتاب ودراسة الكلمة",
       "family": "أسرة الكتاب المقدس",
-      "attendees": []
+      "attendees": [],
+      "week": 4,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-LIT-04",
@@ -5474,7 +5528,10 @@
       "typeLabel": "⛪ القداس الإلهي",
       "title": "صلاة القداس الإلهي وسر التناول",
       "family": "الآباء الكهنة والشمامسة",
-      "attendees": []
+      "attendees": [],
+      "week": 4,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-PRY-04",
@@ -5485,7 +5542,10 @@
       "typeLabel": "🕊️ اجتماع الصلاة",
       "title": "اجتماع الصلاة وساعة السهمية والطلبات",
       "family": "أسرة الصلاة والشفاعة",
-      "attendees": []
+      "attendees": [],
+      "week": 4,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-05",
@@ -5496,7 +5556,10 @@
       "day": "الثلاثاء",
       "time": "07:00 م",
       "meetingType": "youth",
-      "typeLabel": "👥 اجتماع الشباب"
+      "typeLabel": "👥 اجتماع الشباب",
+      "week": 5,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-TAS-05",
@@ -5507,7 +5570,10 @@
       "typeLabel": "🎶 التسبحة الكنسية",
       "title": "التسبحة الكنسية والتماجيد",
       "family": "لجنة الألحان والتسبحة",
-      "attendees": []
+      "attendees": [],
+      "week": 5,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-BIB-05",
@@ -5518,7 +5584,10 @@
       "typeLabel": "📖 محبي الكتاب المقدس",
       "title": "اجتماع محبي الكتاب ودراسة الكلمة",
       "family": "أسرة الكتاب المقدس",
-      "attendees": []
+      "attendees": [],
+      "week": 5,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-LIT-05",
@@ -5529,7 +5598,10 @@
       "typeLabel": "⛪ القداس الإلهي",
       "title": "صلاة القداس الإلهي وسر التناول",
       "family": "الآباء الكهنة والشمامسة",
-      "attendees": []
+      "attendees": [],
+      "week": 5,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-PRY-05",
@@ -5540,7 +5612,10 @@
       "typeLabel": "🕊️ اجتماع الصلاة",
       "title": "اجتماع الصلاة وساعة السهمية والطلبات",
       "family": "أسرة الصلاة والشفاعة",
-      "attendees": []
+      "attendees": [],
+      "week": 5,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-06",
@@ -5551,7 +5626,10 @@
       "day": "الثلاثاء",
       "time": "07:00 م",
       "meetingType": "youth",
-      "typeLabel": "👥 اجتماع الشباب"
+      "typeLabel": "👥 اجتماع الشباب",
+      "week": 6,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-TAS-06",
@@ -5562,7 +5640,10 @@
       "typeLabel": "🎶 التسبحة الكنسية",
       "title": "التسبحة الكنسية والتماجيد",
       "family": "لجنة الألحان والتسبحة",
-      "attendees": []
+      "attendees": [],
+      "week": 6,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-BIB-06",
@@ -5573,7 +5654,10 @@
       "typeLabel": "📖 محبي الكتاب المقدس",
       "title": "اجتماع محبي الكتاب ودراسة الكلمة",
       "family": "أسرة الكتاب المقدس",
-      "attendees": []
+      "attendees": [],
+      "week": 6,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-LIT-06",
@@ -5584,7 +5668,10 @@
       "typeLabel": "⛪ القداس الإلهي",
       "title": "صلاة القداس الإلهي وسر التناول",
       "family": "الآباء الكهنة والشمامسة",
-      "attendees": []
+      "attendees": [],
+      "week": 6,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-PRY-06",
@@ -5595,7 +5682,10 @@
       "typeLabel": "🕊️ اجتماع الصلاة",
       "title": "اجتماع الصلاة وساعة السهمية والطلبات",
       "family": "أسرة الصلاة والشفاعة",
-      "attendees": []
+      "attendees": [],
+      "week": 6,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-07",
@@ -5606,7 +5696,10 @@
       "day": "الثلاثاء",
       "time": "07:00 م",
       "meetingType": "youth",
-      "typeLabel": "👥 اجتماع الشباب"
+      "typeLabel": "👥 اجتماع الشباب",
+      "week": 7,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-TAS-07",
@@ -5617,7 +5710,10 @@
       "typeLabel": "🎶 التسبحة الكنسية",
       "title": "التسبحة الكنسية والتماجيد",
       "family": "لجنة الألحان والتسبحة",
-      "attendees": []
+      "attendees": [],
+      "week": 7,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-BIB-07",
@@ -5628,7 +5724,10 @@
       "typeLabel": "📖 محبي الكتاب المقدس",
       "title": "اجتماع محبي الكتاب ودراسة الكلمة",
       "family": "أسرة الكتاب المقدس",
-      "attendees": []
+      "attendees": [],
+      "week": 7,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-LIT-07",
@@ -5639,7 +5738,10 @@
       "typeLabel": "⛪ القداس الإلهي",
       "title": "صلاة القداس الإلهي وسر التناول",
       "family": "الآباء الكهنة والشمامسة",
-      "attendees": []
+      "attendees": [],
+      "week": 7,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-PRY-07",
@@ -5650,7 +5752,10 @@
       "typeLabel": "🕊️ اجتماع الصلاة",
       "title": "اجتماع الصلاة وساعة السهمية والطلبات",
       "family": "أسرة الصلاة والشفاعة",
-      "attendees": []
+      "attendees": [],
+      "week": 7,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-08",
@@ -5661,7 +5766,10 @@
       "day": "الثلاثاء",
       "time": "07:00 م",
       "meetingType": "youth",
-      "typeLabel": "👥 اجتماع الشباب"
+      "typeLabel": "👥 اجتماع الشباب",
+      "week": 8,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-TAS-08",
@@ -5672,7 +5780,10 @@
       "typeLabel": "🎶 التسبحة الكنسية",
       "title": "التسبحة الكنسية والتماجيد",
       "family": "لجنة الألحان والتسبحة",
-      "attendees": []
+      "attendees": [],
+      "week": 8,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-BIB-08",
@@ -5683,7 +5794,10 @@
       "typeLabel": "📖 محبي الكتاب المقدس",
       "title": "اجتماع محبي الكتاب ودراسة الكلمة",
       "family": "أسرة الكتاب المقدس",
-      "attendees": []
+      "attendees": [],
+      "week": 8,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-LIT-08",
@@ -5694,7 +5808,10 @@
       "typeLabel": "⛪ القداس الإلهي",
       "title": "صلاة القداس الإلهي وسر التناول",
       "family": "الآباء الكهنة والشمامسة",
-      "attendees": []
+      "attendees": [],
+      "week": 8,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-09",
@@ -5705,7 +5822,10 @@
       "day": "الثلاثاء",
       "time": "07:00 م",
       "meetingType": "youth",
-      "typeLabel": "👥 اجتماع الشباب"
+      "typeLabel": "👥 اجتماع الشباب",
+      "week": 9,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-10",
@@ -5716,7 +5836,10 @@
       "day": "الثلاثاء",
       "time": "07:00 م",
       "meetingType": "youth",
-      "typeLabel": "👥 اجتماع الشباب"
+      "typeLabel": "👥 اجتماع الشباب",
+      "week": 10,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-TAS-10",
@@ -5727,7 +5850,10 @@
       "typeLabel": "🎶 التسبحة الكنسية",
       "title": "التسبحة الكنسية والتماجيد",
       "family": "لجنة الألحان والتسبحة",
-      "attendees": []
+      "attendees": [],
+      "week": 10,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-BIB-10",
@@ -5738,7 +5864,10 @@
       "typeLabel": "📖 محبي الكتاب المقدس",
       "title": "اجتماع محبي الكتاب ودراسة الكلمة",
       "family": "أسرة الكتاب المقدس",
-      "attendees": []
+      "attendees": [],
+      "week": 10,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-LIT-10",
@@ -5749,7 +5878,10 @@
       "typeLabel": "⛪ القداس الإلهي",
       "title": "صلاة القداس الإلهي وسر التناول",
       "family": "الآباء الكهنة والشمامسة",
-      "attendees": []
+      "attendees": [],
+      "week": 10,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-PRY-10",
@@ -5760,7 +5892,10 @@
       "typeLabel": "🕊️ اجتماع الصلاة",
       "title": "اجتماع الصلاة وساعة السهمية والطلبات",
       "family": "أسرة الصلاة والشفاعة",
-      "attendees": []
+      "attendees": [],
+      "week": 10,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-11",
@@ -5771,7 +5906,10 @@
       "day": "الثلاثاء",
       "time": "07:00 م",
       "meetingType": "youth",
-      "typeLabel": "👥 اجتماع الشباب"
+      "typeLabel": "👥 اجتماع الشباب",
+      "week": 11,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-TAS-11",
@@ -5782,7 +5920,10 @@
       "typeLabel": "🎶 التسبحة الكنسية",
       "title": "التسبحة الكنسية والتماجيد",
       "family": "لجنة الألحان والتسبحة",
-      "attendees": []
+      "attendees": [],
+      "week": 11,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-BIB-11",
@@ -5793,7 +5934,10 @@
       "typeLabel": "📖 محبي الكتاب المقدس",
       "title": "اجتماع محبي الكتاب ودراسة الكلمة",
       "family": "أسرة الكتاب المقدس",
-      "attendees": []
+      "attendees": [],
+      "week": 11,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-LIT-11",
@@ -5804,7 +5948,10 @@
       "typeLabel": "⛪ القداس الإلهي",
       "title": "صلاة القداس الإلهي وسر التناول",
       "family": "الآباء الكهنة والشمامسة",
-      "attendees": []
+      "attendees": [],
+      "week": 11,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-PRY-11",
@@ -5815,7 +5962,10 @@
       "typeLabel": "🕊️ اجتماع الصلاة",
       "title": "اجتماع الصلاة وساعة السهمية والطلبات",
       "family": "أسرة الصلاة والشفاعة",
-      "attendees": []
+      "attendees": [],
+      "week": 11,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-12",
@@ -5826,7 +5976,10 @@
       "day": "الثلاثاء",
       "time": "07:00 م",
       "meetingType": "youth",
-      "typeLabel": "👥 اجتماع الشباب"
+      "typeLabel": "👥 اجتماع الشباب",
+      "week": 12,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-TAS-12",
@@ -5837,7 +5990,10 @@
       "typeLabel": "🎶 التسبحة الكنسية",
       "title": "التسبحة الكنسية والتماجيد",
       "family": "لجنة الألحان والتسبحة",
-      "attendees": []
+      "attendees": [],
+      "week": 12,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-BIB-12",
@@ -5848,7 +6004,10 @@
       "typeLabel": "📖 محبي الكتاب المقدس",
       "title": "اجتماع محبي الكتاب ودراسة الكلمة",
       "family": "أسرة الكتاب المقدس",
-      "attendees": []
+      "attendees": [],
+      "week": 12,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-LIT-12",
@@ -5859,7 +6018,10 @@
       "typeLabel": "⛪ القداس الإلهي",
       "title": "صلاة القداس الإلهي وسر التناول",
       "family": "الآباء الكهنة والشمامسة",
-      "attendees": []
+      "attendees": [],
+      "week": 12,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-PRY-12",
@@ -5870,7 +6032,10 @@
       "typeLabel": "🕊️ اجتماع الصلاة",
       "title": "اجتماع الصلاة وساعة السهمية والطلبات",
       "family": "أسرة الصلاة والشفاعة",
-      "attendees": []
+      "attendees": [],
+      "week": 12,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-13",
@@ -5881,7 +6046,10 @@
       "day": "الثلاثاء",
       "time": "07:00 م",
       "meetingType": "youth",
-      "typeLabel": "👥 اجتماع الشباب"
+      "typeLabel": "👥 اجتماع الشباب",
+      "week": 13,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-TAS-13",
@@ -5892,7 +6060,10 @@
       "typeLabel": "🎶 التسبحة الكنسية",
       "title": "التسبحة الكنسية والتماجيد",
       "family": "لجنة الألحان والتسبحة",
-      "attendees": []
+      "attendees": [],
+      "week": 13,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-BIB-13",
@@ -5903,7 +6074,10 @@
       "typeLabel": "📖 محبي الكتاب المقدس",
       "title": "اجتماع محبي الكتاب ودراسة الكلمة",
       "family": "أسرة الكتاب المقدس",
-      "attendees": []
+      "attendees": [],
+      "week": 13,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-LIT-13",
@@ -5914,7 +6088,10 @@
       "typeLabel": "⛪ القداس الإلهي",
       "title": "صلاة القداس الإلهي وسر التناول",
       "family": "الآباء الكهنة والشمامسة",
-      "attendees": []
+      "attendees": [],
+      "week": 13,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-PRY-13",
@@ -5925,7 +6102,10 @@
       "typeLabel": "🕊️ اجتماع الصلاة",
       "title": "اجتماع الصلاة وساعة السهمية والطلبات",
       "family": "أسرة الصلاة والشفاعة",
-      "attendees": []
+      "attendees": [],
+      "week": 13,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-14",
@@ -5936,7 +6116,10 @@
       "day": "الثلاثاء",
       "time": "07:00 م",
       "meetingType": "youth",
-      "typeLabel": "👥 اجتماع الشباب"
+      "typeLabel": "👥 اجتماع الشباب",
+      "week": 14,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-TAS-14",
@@ -5947,7 +6130,10 @@
       "typeLabel": "🎶 التسبحة الكنسية",
       "title": "التسبحة الكنسية والتماجيد",
       "family": "لجنة الألحان والتسبحة",
-      "attendees": []
+      "attendees": [],
+      "week": 14,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-BIB-14",
@@ -5958,7 +6144,10 @@
       "typeLabel": "📖 محبي الكتاب المقدس",
       "title": "اجتماع محبي الكتاب ودراسة الكلمة",
       "family": "أسرة الكتاب المقدس",
-      "attendees": []
+      "attendees": [],
+      "week": 14,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-LIT-14",
@@ -5969,7 +6158,10 @@
       "typeLabel": "⛪ القداس الإلهي",
       "title": "صلاة القداس الإلهي وسر التناول",
       "family": "الآباء الكهنة والشمامسة",
-      "attendees": []
+      "attendees": [],
+      "week": 14,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-PRY-14",
@@ -5980,7 +6172,10 @@
       "typeLabel": "🕊️ اجتماع الصلاة",
       "title": "اجتماع الصلاة وساعة السهمية والطلبات",
       "family": "أسرة الصلاة والشفاعة",
-      "attendees": []
+      "attendees": [],
+      "week": 14,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-15",
@@ -5991,7 +6186,10 @@
       "day": "الثلاثاء",
       "time": "07:00 م",
       "meetingType": "youth",
-      "typeLabel": "👥 اجتماع الشباب"
+      "typeLabel": "👥 اجتماع الشباب",
+      "week": 15,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-TAS-15",
@@ -6002,7 +6200,10 @@
       "typeLabel": "🎶 التسبحة الكنسية",
       "title": "التسبحة الكنسية والتماجيد",
       "family": "لجنة الألحان والتسبحة",
-      "attendees": []
+      "attendees": [],
+      "week": 15,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-BIB-15",
@@ -6013,7 +6214,10 @@
       "typeLabel": "📖 محبي الكتاب المقدس",
       "title": "اجتماع محبي الكتاب ودراسة الكلمة",
       "family": "أسرة الكتاب المقدس",
-      "attendees": []
+      "attendees": [],
+      "week": 15,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-LIT-15",
@@ -6024,7 +6228,10 @@
       "typeLabel": "⛪ القداس الإلهي",
       "title": "صلاة القداس الإلهي وسر التناول",
       "family": "الآباء الكهنة والشمامسة",
-      "attendees": []
+      "attendees": [],
+      "week": 15,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-PRY-15",
@@ -6035,7 +6242,10 @@
       "typeLabel": "🕊️ اجتماع الصلاة",
       "title": "اجتماع الصلاة وساعة السهمية والطلبات",
       "family": "أسرة الصلاة والشفاعة",
-      "attendees": []
+      "attendees": [],
+      "week": 15,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-16",
@@ -6046,7 +6256,10 @@
       "day": "الثلاثاء",
       "time": "07:00 م",
       "meetingType": "youth",
-      "typeLabel": "👥 اجتماع الشباب"
+      "typeLabel": "👥 اجتماع الشباب",
+      "week": 16,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-TAS-16",
@@ -6057,7 +6270,10 @@
       "typeLabel": "🎶 التسبحة الكنسية",
       "title": "التسبحة الكنسية والتماجيد",
       "family": "لجنة الألحان والتسبحة",
-      "attendees": []
+      "attendees": [],
+      "week": 16,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-BIB-16",
@@ -6068,7 +6284,10 @@
       "typeLabel": "📖 محبي الكتاب المقدس",
       "title": "اجتماع محبي الكتاب ودراسة الكلمة",
       "family": "أسرة الكتاب المقدس",
-      "attendees": []
+      "attendees": [],
+      "week": 16,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-LIT-16",
@@ -6079,7 +6298,10 @@
       "typeLabel": "⛪ القداس الإلهي",
       "title": "صلاة القداس الإلهي وسر التناول",
       "family": "الآباء الكهنة والشمامسة",
-      "attendees": []
+      "attendees": [],
+      "week": 16,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-PRY-16",
@@ -6090,7 +6312,10 @@
       "typeLabel": "🕊️ اجتماع الصلاة",
       "title": "اجتماع الصلاة وساعة السهمية والطلبات",
       "family": "أسرة الصلاة والشفاعة",
-      "attendees": []
+      "attendees": [],
+      "week": 16,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-17",
@@ -6101,7 +6326,10 @@
       "day": "الثلاثاء",
       "time": "07:00 م",
       "meetingType": "youth",
-      "typeLabel": "👥 اجتماع الشباب"
+      "typeLabel": "👥 اجتماع الشباب",
+      "week": 17,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-TAS-17",
@@ -6112,7 +6340,10 @@
       "typeLabel": "🎶 التسبحة الكنسية",
       "title": "التسبحة الكنسية والتماجيد",
       "family": "لجنة الألحان والتسبحة",
-      "attendees": []
+      "attendees": [],
+      "week": 17,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-BIB-17",
@@ -6123,7 +6354,10 @@
       "typeLabel": "📖 محبي الكتاب المقدس",
       "title": "اجتماع محبي الكتاب ودراسة الكلمة",
       "family": "أسرة الكتاب المقدس",
-      "attendees": []
+      "attendees": [],
+      "week": 17,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-LIT-17",
@@ -6134,7 +6368,10 @@
       "typeLabel": "⛪ القداس الإلهي",
       "title": "صلاة القداس الإلهي وسر التناول",
       "family": "الآباء الكهنة والشمامسة",
-      "attendees": []
+      "attendees": [],
+      "week": 17,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-PRY-17",
@@ -6145,7 +6382,10 @@
       "typeLabel": "🕊️ اجتماع الصلاة",
       "title": "اجتماع الصلاة وساعة السهمية والطلبات",
       "family": "أسرة الصلاة والشفاعة",
-      "attendees": []
+      "attendees": [],
+      "week": 17,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-18",
@@ -6156,7 +6396,10 @@
       "day": "الثلاثاء",
       "time": "07:00 م",
       "meetingType": "youth",
-      "typeLabel": "👥 اجتماع الشباب"
+      "typeLabel": "👥 اجتماع الشباب",
+      "week": 18,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-TAS-18",
@@ -6167,7 +6410,10 @@
       "typeLabel": "🎶 التسبحة الكنسية",
       "title": "التسبحة الكنسية والتماجيد",
       "family": "لجنة الألحان والتسبحة",
-      "attendees": []
+      "attendees": [],
+      "week": 18,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-BIB-18",
@@ -6178,7 +6424,10 @@
       "typeLabel": "📖 محبي الكتاب المقدس",
       "title": "اجتماع محبي الكتاب ودراسة الكلمة",
       "family": "أسرة الكتاب المقدس",
-      "attendees": []
+      "attendees": [],
+      "week": 18,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-LIT-18",
@@ -6189,7 +6438,10 @@
       "typeLabel": "⛪ القداس الإلهي",
       "title": "صلاة القداس الإلهي وسر التناول",
       "family": "الآباء الكهنة والشمامسة",
-      "attendees": []
+      "attendees": [],
+      "week": 18,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-PRY-18",
@@ -6200,7 +6452,10 @@
       "typeLabel": "🕊️ اجتماع الصلاة",
       "title": "اجتماع الصلاة وساعة السهمية والطلبات",
       "family": "أسرة الصلاة والشفاعة",
-      "attendees": []
+      "attendees": [],
+      "week": 18,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-19",
@@ -6211,7 +6466,10 @@
       "day": "الثلاثاء",
       "time": "07:00 م",
       "meetingType": "youth",
-      "typeLabel": "👥 اجتماع الشباب"
+      "typeLabel": "👥 اجتماع الشباب",
+      "week": 19,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-TAS-19",
@@ -6222,7 +6480,10 @@
       "typeLabel": "🎶 التسبحة الكنسية",
       "title": "التسبحة الكنسية والتماجيد",
       "family": "لجنة الألحان والتسبحة",
-      "attendees": []
+      "attendees": [],
+      "week": 19,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-BIB-19",
@@ -6233,7 +6494,10 @@
       "typeLabel": "📖 محبي الكتاب المقدس",
       "title": "اجتماع محبي الكتاب ودراسة الكلمة",
       "family": "أسرة الكتاب المقدس",
-      "attendees": []
+      "attendees": [],
+      "week": 19,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-LIT-19",
@@ -6244,7 +6508,10 @@
       "typeLabel": "⛪ القداس الإلهي",
       "title": "صلاة القداس الإلهي وسر التناول",
       "family": "الآباء الكهنة والشمامسة",
-      "attendees": []
+      "attendees": [],
+      "week": 19,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-PRY-19",
@@ -6255,7 +6522,10 @@
       "typeLabel": "🕊️ اجتماع الصلاة",
       "title": "اجتماع الصلاة وساعة السهمية والطلبات",
       "family": "أسرة الصلاة والشفاعة",
-      "attendees": []
+      "attendees": [],
+      "week": 19,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-20",
@@ -6266,7 +6536,10 @@
       "day": "الثلاثاء",
       "time": "07:00 م",
       "meetingType": "youth",
-      "typeLabel": "👥 اجتماع الشباب"
+      "typeLabel": "👥 اجتماع الشباب",
+      "week": 20,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-TAS-20",
@@ -6277,7 +6550,10 @@
       "typeLabel": "🎶 التسبحة الكنسية",
       "title": "التسبحة الكنسية والتماجيد",
       "family": "لجنة الألحان والتسبحة",
-      "attendees": []
+      "attendees": [],
+      "week": 20,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-BIB-20",
@@ -6288,7 +6564,10 @@
       "typeLabel": "📖 محبي الكتاب المقدس",
       "title": "اجتماع محبي الكتاب ودراسة الكلمة",
       "family": "أسرة الكتاب المقدس",
-      "attendees": []
+      "attendees": [],
+      "week": 20,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-LIT-20",
@@ -6299,7 +6578,10 @@
       "typeLabel": "⛪ القداس الإلهي",
       "title": "صلاة القداس الإلهي وسر التناول",
       "family": "الآباء الكهنة والشمامسة",
-      "attendees": []
+      "attendees": [],
+      "week": 20,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-PRY-20",
@@ -6310,7 +6592,10 @@
       "typeLabel": "🕊️ اجتماع الصلاة",
       "title": "اجتماع الصلاة وساعة السهمية والطلبات",
       "family": "أسرة الصلاة والشفاعة",
-      "attendees": []
+      "attendees": [],
+      "week": 20,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-21",
@@ -6321,7 +6606,10 @@
       "day": "الثلاثاء",
       "time": "07:00 م",
       "meetingType": "youth",
-      "typeLabel": "👥 اجتماع الشباب"
+      "typeLabel": "👥 اجتماع الشباب",
+      "week": 21,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-TAS-21",
@@ -6332,7 +6620,10 @@
       "typeLabel": "🎶 التسبحة الكنسية",
       "title": "التسبحة الكنسية والتماجيد",
       "family": "لجنة الألحان والتسبحة",
-      "attendees": []
+      "attendees": [],
+      "week": 21,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-BIB-21",
@@ -6343,7 +6634,10 @@
       "typeLabel": "📖 محبي الكتاب المقدس",
       "title": "اجتماع محبي الكتاب ودراسة الكلمة",
       "family": "أسرة الكتاب المقدس",
-      "attendees": []
+      "attendees": [],
+      "week": 21,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-LIT-21",
@@ -6354,7 +6648,10 @@
       "typeLabel": "⛪ القداس الإلهي",
       "title": "صلاة القداس الإلهي وسر التناول",
       "family": "الآباء الكهنة والشمامسة",
-      "attendees": []
+      "attendees": [],
+      "week": 21,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-PRY-21",
@@ -6365,7 +6662,10 @@
       "typeLabel": "🕊️ اجتماع الصلاة",
       "title": "اجتماع الصلاة وساعة السهمية والطلبات",
       "family": "أسرة الصلاة والشفاعة",
-      "attendees": []
+      "attendees": [],
+      "week": 21,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-22",
@@ -6376,7 +6676,10 @@
       "day": "الثلاثاء",
       "time": "07:00 م",
       "meetingType": "youth",
-      "typeLabel": "👥 اجتماع الشباب"
+      "typeLabel": "👥 اجتماع الشباب",
+      "week": 22,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-TAS-22",
@@ -6387,7 +6690,10 @@
       "typeLabel": "🎶 التسبحة الكنسية",
       "title": "التسبحة الكنسية والتماجيد",
       "family": "لجنة الألحان والتسبحة",
-      "attendees": []
+      "attendees": [],
+      "week": 22,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-BIB-22",
@@ -6398,7 +6704,10 @@
       "typeLabel": "📖 محبي الكتاب المقدس",
       "title": "اجتماع محبي الكتاب ودراسة الكلمة",
       "family": "أسرة الكتاب المقدس",
-      "attendees": []
+      "attendees": [],
+      "week": 22,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-LIT-22",
@@ -6409,7 +6718,10 @@
       "typeLabel": "⛪ القداس الإلهي",
       "title": "صلاة القداس الإلهي وسر التناول",
       "family": "الآباء الكهنة والشمامسة",
-      "attendees": []
+      "attendees": [],
+      "week": 22,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-PRY-22",
@@ -6420,7 +6732,10 @@
       "typeLabel": "🕊️ اجتماع الصلاة",
       "title": "اجتماع الصلاة وساعة السهمية والطلبات",
       "family": "أسرة الصلاة والشفاعة",
-      "attendees": []
+      "attendees": [],
+      "week": 22,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-23",
@@ -6431,7 +6746,10 @@
       "day": "الثلاثاء",
       "time": "07:00 م",
       "meetingType": "youth",
-      "typeLabel": "👥 اجتماع الشباب"
+      "typeLabel": "👥 اجتماع الشباب",
+      "week": 23,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-TAS-23",
@@ -6442,7 +6760,10 @@
       "typeLabel": "🎶 التسبحة الكنسية",
       "title": "التسبحة الكنسية والتماجيد",
       "family": "لجنة الألحان والتسبحة",
-      "attendees": []
+      "attendees": [],
+      "week": 23,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-BIB-23",
@@ -6453,7 +6774,10 @@
       "typeLabel": "📖 محبي الكتاب المقدس",
       "title": "اجتماع محبي الكتاب ودراسة الكلمة",
       "family": "أسرة الكتاب المقدس",
-      "attendees": []
+      "attendees": [],
+      "week": 23,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-LIT-23",
@@ -6464,7 +6788,10 @@
       "typeLabel": "⛪ القداس الإلهي",
       "title": "صلاة القداس الإلهي وسر التناول",
       "family": "الآباء الكهنة والشمامسة",
-      "attendees": []
+      "attendees": [],
+      "week": 23,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-PRY-23",
@@ -6475,7 +6802,10 @@
       "typeLabel": "🕊️ اجتماع الصلاة",
       "title": "اجتماع الصلاة وساعة السهمية والطلبات",
       "family": "أسرة الصلاة والشفاعة",
-      "attendees": []
+      "attendees": [],
+      "week": 23,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-24",
@@ -6486,7 +6816,10 @@
       "day": "الثلاثاء",
       "time": "07:00 م",
       "meetingType": "youth",
-      "typeLabel": "👥 اجتماع الشباب"
+      "typeLabel": "👥 اجتماع الشباب",
+      "week": 24,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-TAS-24",
@@ -6497,7 +6830,10 @@
       "typeLabel": "🎶 التسبحة الكنسية",
       "title": "التسبحة الكنسية والتماجيد",
       "family": "لجنة الألحان والتسبحة",
-      "attendees": []
+      "attendees": [],
+      "week": 24,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-BIB-24",
@@ -6508,7 +6844,10 @@
       "typeLabel": "📖 محبي الكتاب المقدس",
       "title": "اجتماع محبي الكتاب ودراسة الكلمة",
       "family": "أسرة الكتاب المقدس",
-      "attendees": []
+      "attendees": [],
+      "week": 24,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-LIT-24",
@@ -6519,7 +6858,10 @@
       "typeLabel": "⛪ القداس الإلهي",
       "title": "صلاة القداس الإلهي وسر التناول",
       "family": "الآباء الكهنة والشمامسة",
-      "attendees": []
+      "attendees": [],
+      "week": 24,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-PRY-24",
@@ -6530,7 +6872,10 @@
       "typeLabel": "🕊️ اجتماع الصلاة",
       "title": "اجتماع الصلاة وساعة السهمية والطلبات",
       "family": "أسرة الصلاة والشفاعة",
-      "attendees": []
+      "attendees": [],
+      "week": 24,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-25",
@@ -6541,7 +6886,10 @@
       "day": "الثلاثاء",
       "time": "07:00 م",
       "meetingType": "youth",
-      "typeLabel": "👥 اجتماع الشباب"
+      "typeLabel": "👥 اجتماع الشباب",
+      "week": 25,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-TAS-25",
@@ -6552,7 +6900,10 @@
       "typeLabel": "🎶 التسبحة الكنسية",
       "title": "التسبحة الكنسية والتماجيد",
       "family": "لجنة الألحان والتسبحة",
-      "attendees": []
+      "attendees": [],
+      "week": 25,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-BIB-25",
@@ -6563,7 +6914,10 @@
       "typeLabel": "📖 محبي الكتاب المقدس",
       "title": "اجتماع محبي الكتاب ودراسة الكلمة",
       "family": "أسرة الكتاب المقدس",
-      "attendees": []
+      "attendees": [],
+      "week": 25,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-LIT-25",
@@ -6574,7 +6928,10 @@
       "typeLabel": "⛪ القداس الإلهي",
       "title": "صلاة القداس الإلهي وسر التناول",
       "family": "الآباء الكهنة والشمامسة",
-      "attendees": []
+      "attendees": [],
+      "week": 25,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-PRY-25",
@@ -6585,7 +6942,10 @@
       "typeLabel": "🕊️ اجتماع الصلاة",
       "title": "اجتماع الصلاة وساعة السهمية والطلبات",
       "family": "أسرة الصلاة والشفاعة",
-      "attendees": []
+      "attendees": [],
+      "week": 25,
+      "isSubMeeting": false,
+      "hasPoints": true
     },
     {
       "id": "SES-SUB-FAM-01",
