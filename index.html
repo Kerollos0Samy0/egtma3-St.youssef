@@ -3174,6 +3174,553 @@
       background: rgba(16, 185, 129, 0.1);
     }
 
+
+    /* ======================================================== */
+    /* ULTRA-EASY MOBILE & HIGH-USABILITY STYLES               */
+    /* ======================================================== */
+    .mobile-bottom-nav {
+      display: none;
+    }
+    .mobile-more-backdrop {
+      display: none;
+    }
+
+    /* General usability improvements (Desktop + Mobile) */
+    .btn, .pill-btn, .tab-btn {
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn:active, .pill-btn:active {
+      transform: scale(0.97);
+    }
+    .session-select-clean:focus, .form-control:focus {
+      outline: none;
+      border-color: var(--accent-gold) !important;
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2) !important;
+    }
+
+    @media (max-width: 768px) {
+      /* Prevent iOS Safari 16px auto-zoom */
+      input, select, textarea {
+        font-size: 16px !important;
+      }
+
+      /* Body padding to make room for floating bottom bar */
+      body {
+        padding-bottom: calc(75px + env(safe-area-inset-bottom, 0px)) !important;
+        overflow-x: hidden !important;
+      }
+      
+      main.app-content {
+        padding: 0.65rem 0.5rem calc(20px + env(safe-area-inset-bottom, 0px)) 0.5rem !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+      }
+
+      /* Compact, Elegant Header on Mobile */
+      header.app-header {
+        padding: 0.45rem 0.85rem !important;
+        min-height: 52px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+      }
+      header.app-header .brand {
+        gap: 0.5rem !important;
+      }
+      header.app-header .brand img {
+        width: 34px !important;
+        height: 34px !important;
+        border-radius: 8px !important;
+      }
+      header.app-header .brand-title {
+        font-size: 0.92rem !important;
+        font-weight: 800 !important;
+        line-height: 1.2 !important;
+      }
+      header.app-header .brand-sub {
+        font-size: 0.68rem !important;
+        opacity: 0.85 !important;
+        max-width: 190px !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+      }
+      .header-actions {
+        gap: 0.4rem !important;
+      }
+      .header-actions .btn {
+        padding: 0.35rem 0.65rem !important;
+        font-size: 0.78rem !important;
+        min-height: 36px !important;
+      }
+
+      /* Desktop tabs bar: hidden on mobile to give maximum room to content */
+      .nav-tabs {
+        display: none !important;
+      }
+
+      /* Tab 1: Attendance Meeting Bar */
+      .attendance-meeting-bar {
+        padding: 0.75rem 0.85rem !important;
+        gap: 0.65rem !important;
+        border-radius: var(--radius-md) !important;
+      }
+      .attendance-meeting-bar > div:first-child {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 0.6rem !important;
+      }
+      .attendance-meeting-bar > div:first-child > div:first-child {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 0.45rem !important;
+        width: 100% !important;
+      }
+      .attendance-meeting-bar > div:first-child > div:first-child span {
+        grid-column: 1 / -1 !important;
+        margin-bottom: 0.15rem !important;
+        font-size: 0.8rem !important;
+      }
+      .scanner-cat-pill {
+        width: 100% !important;
+        justify-content: center !important;
+        padding: 0.55rem 0.5rem !important;
+        font-size: 0.82rem !important;
+        font-weight: 800 !important;
+        border-radius: var(--radius-md) !important;
+        text-align: center !important;
+      }
+      .attendance-meeting-bar > div:first-child > div:last-child {
+        justify-content: space-between !important;
+        width: 100% !important;
+      }
+
+      /* Meeting and Week Selectors: full width with 44px tap target */
+      #scannerWeekSelect,
+      #scannerMeetingInWeekSelect,
+      #scannerFamilyMeetingSelect {
+        min-width: 100% !important;
+        width: 100% !important;
+        height: 44px !important;
+        font-size: 0.92rem !important;
+        border-radius: var(--radius-md) !important;
+        box-sizing: border-box !important;
+      }
+
+      /* Swipeable Horizontal Pills for Meeting Activities & Families */
+      .meeting-type-quick-filter {
+        display: flex !important;
+        align-items: center !important;
+        gap: 0.4rem !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        scrollbar-width: none !important;
+        padding: 0.25rem 0 !important;
+        flex-wrap: nowrap !important;
+        width: 100% !important;
+      }
+      .meeting-type-quick-filter::-webkit-scrollbar {
+        display: none !important;
+      }
+      .meeting-type-quick-filter .pill-btn {
+        flex-shrink: 0 !important;
+        white-space: nowrap !important;
+        font-size: 0.78rem !important;
+        padding: 0.35rem 0.65rem !important;
+      }
+
+      /* Toolbar: Search & Manual Attendance Modal Button */
+      .attendance-toolbar-row {
+        flex-direction: column !important;
+        gap: 0.6rem !important;
+      }
+      .quick-search-box {
+        width: 100% !important;
+        min-width: 100% !important;
+      }
+      .quick-search-box input {
+        height: 44px !important;
+        font-size: 0.92rem !important;
+        border-radius: var(--radius-md) !important;
+      }
+      #btnOpenManualAttendanceSheet {
+        width: 100% !important;
+        justify-content: center !important;
+        height: 44px !important;
+        font-size: 0.92rem !important;
+        border-radius: var(--radius-md) !important;
+      }
+
+      /* Scanner & QR Card */
+      .camera-card {
+        padding: 1rem 0.85rem !important;
+        border-radius: var(--radius-md) !important;
+      }
+      .camera-card h2 {
+        font-size: 1.05rem !important;
+      }
+      #reader {
+        width: 100% !important;
+        max-height: 280px !important;
+        border-radius: var(--radius-md) !important;
+        overflow: hidden !important;
+      }
+      .camera-controls {
+        flex-direction: column !important;
+        gap: 0.5rem !important;
+      }
+      .camera-controls-group {
+        width: 100% !important;
+        display: flex !important;
+        gap: 0.45rem !important;
+      }
+      .camera-controls-group .btn,
+      .camera-controls-group label.btn {
+        flex: 1 !important;
+        justify-content: center !important;
+        font-size: 0.82rem !important;
+        height: 42px !important;
+        padding: 0 0.5rem !important;
+        text-align: center !important;
+        display: flex !important;
+        align-items: center !important;
+      }
+      #cameraSelect {
+        width: 100% !important;
+        min-width: 100% !important;
+        height: 40px !important;
+        font-size: 0.85rem !important;
+      }
+
+      /* Tab 2: Youth Directory */
+      #tabMembers > div:first-child {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 0.65rem !important;
+      }
+      #tabMembers > div:first-child > div:last-child {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 0.45rem !important;
+        width: 100% !important;
+      }
+      #membersViewToggle {
+        grid-column: 1 / -1 !important;
+        justify-content: center !important;
+        display: flex !important;
+        width: 100% !important;
+        margin-bottom: 0.15rem !important;
+      }
+      #membersViewToggle .view-toggle-btn {
+        flex: 1 !important;
+        text-align: center !important;
+        padding: 0.45rem 1rem !important;
+        font-size: 0.88rem !important;
+      }
+      #openAddMemberModalBtn {
+        grid-column: 1 / -1 !important;
+        height: 44px !important;
+        font-size: 0.95rem !important;
+        font-weight: 800 !important;
+        justify-content: center !important;
+      }
+      
+      /* Filter Card & Swipeable Pill Rows in Directory */
+      .members-filter-card {
+        padding: 0.75rem 0.85rem !important;
+        border-radius: var(--radius-md) !important;
+        margin-bottom: 0.85rem !important;
+      }
+      .filter-search-wrap input {
+        height: 44px !important;
+        font-size: 0.92rem !important;
+      }
+      .filter-row {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 0.3rem !important;
+        margin-bottom: 0.55rem !important;
+      }
+      .filter-row-label {
+        font-size: 0.78rem !important;
+        font-weight: 800 !important;
+        color: var(--accent-gold) !important;
+      }
+      .filter-pills-wrap {
+        width: 100% !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        scrollbar-width: none !important;
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        gap: 0.35rem !important;
+        padding-bottom: 0.3rem !important;
+      }
+      .filter-pills-wrap::-webkit-scrollbar {
+        display: none !important;
+      }
+      .filter-pills-wrap .pill-btn {
+        flex-shrink: 0 !important;
+        white-space: nowrap !important;
+        padding: 0.35rem 0.65rem !important;
+        font-size: 0.78rem !important;
+        border-radius: var(--radius-sm) !important;
+      }
+
+      /* Member Contact Cards: native mobile card feel */
+      .members-cards-grid {
+        grid-template-columns: 1fr !important;
+        gap: 0.75rem !important;
+      }
+      .member-mobile-card {
+        padding: 0.95rem 1rem !important;
+        border-radius: var(--radius-md) !important;
+        gap: 0.65rem !important;
+      }
+      .member-card-name {
+        font-size: 1.05rem !important;
+      }
+      .member-card-actions {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 0.45rem !important;
+        margin-top: 0.4rem !important;
+      }
+      .member-card-actions .btn {
+        height: 40px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        font-size: 0.82rem !important;
+        padding: 0 0.4rem !important;
+        border-radius: var(--radius-sm) !important;
+        font-weight: 800 !important;
+      }
+
+      /* Tab 3: Points & Top 3 Podium */
+      .podium-grid {
+        grid-template-columns: 1fr !important;
+        gap: 0.75rem !important;
+      }
+      .podium-card {
+        padding: 1rem 0.85rem !important;
+      }
+      .podium-card.rank-1 {
+        border: 2px solid var(--accent-gold) !important;
+        background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, var(--bg-card) 100%) !important;
+      }
+
+      /* Tab 4: Birthdays */
+      .birthday-cards-grid {
+        grid-template-columns: 1fr !important;
+        gap: 0.75rem !important;
+      }
+
+      /* Modals on Mobile: touch-optimized bottom-sheet style */
+      .modal-backdrop {
+        padding: 0.5rem !important;
+        align-items: flex-end !important;
+      }
+      .modal-box {
+        max-height: 92vh !important;
+        max-height: 92dvh !important;
+        border-radius: 20px 20px 12px 12px !important;
+        padding: 1rem 1.15rem !important;
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+      .modal-sticky-header {
+        margin: -1rem -1.15rem 0.75rem -1.15rem !important;
+        padding: 0.75rem 1.15rem 0.6rem 1.15rem !important;
+      }
+      .modal-sticky-footer {
+        margin: 0.75rem -1.15rem -1rem -1.15rem !important;
+        padding: 0.75rem 1.15rem !important;
+      }
+
+      /* Mobile Bottom Navigation Bar */
+      .mobile-bottom-nav {
+        display: flex !important;
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        background: rgba(15, 23, 42, 0.96) !important;
+        backdrop-filter: blur(20px) !important;
+        -webkit-backdrop-filter: blur(20px) !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+        padding: 0.4rem 0.5rem max(0.4rem, env(safe-area-inset-bottom, 0px)) 0.5rem !important;
+        justify-content: space-around !important;
+        align-items: center !important;
+        z-index: 1000 !important;
+        box-shadow: 0 -4px 25px rgba(0, 0, 0, 0.45) !important;
+      }
+      body.light-theme .mobile-bottom-nav {
+        background: rgba(255, 255, 255, 0.96) !important;
+        border-top: 1px solid #e2e8f0 !important;
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08) !important;
+      }
+
+      .mobile-nav-btn {
+        background: none !important;
+        border: none !important;
+        color: var(--text-muted) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 0.15rem !important;
+        padding: 0.3rem 0.45rem !important;
+        min-width: 58px !important;
+        cursor: pointer !important;
+        border-radius: var(--radius-md) !important;
+        transition: all 0.15s ease !important;
+        user-select: none !important;
+        -webkit-tap-highlight-color: transparent !important;
+      }
+      .mobile-nav-btn:active {
+        transform: scale(0.92) !important;
+      }
+      .mobile-nav-icon {
+        font-size: 1.25rem !important;
+        line-height: 1 !important;
+        transition: transform 0.2s ease !important;
+      }
+      .mobile-nav-label {
+        font-size: 0.7rem !important;
+        font-weight: 700 !important;
+        letter-spacing: -0.2px !important;
+        white-space: nowrap !important;
+      }
+      .mobile-nav-btn.active {
+        color: var(--accent-gold) !important;
+      }
+      .mobile-nav-btn.active .mobile-nav-icon {
+        transform: scale(1.15) !important;
+        filter: drop-shadow(0 2px 6px rgba(245, 158, 11, 0.4)) !important;
+      }
+      body.light-theme .mobile-nav-btn.active {
+        color: #b45309 !important;
+      }
+
+      /* Bottom Sheet for 'More' tabs */
+      .mobile-more-backdrop {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        background: rgba(0, 0, 0, 0.65) !important;
+        backdrop-filter: blur(4px) !important;
+        z-index: 1050 !important;
+        display: flex !important;
+        align-items: flex-end !important;
+        animation: fadeIn 0.2s ease !important;
+      }
+      .mobile-more-sheet {
+        background: var(--bg-card) !important;
+        border: 1px solid var(--border) !important;
+        border-radius: 20px 20px 0 0 !important;
+        width: 100% !important;
+        max-height: 80vh !important;
+        padding: 1rem 1.15rem max(1.25rem, env(safe-area-inset-bottom, 0px)) 1.15rem !important;
+        box-shadow: var(--shadow-lg) !important;
+        animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0.85rem !important;
+      }
+      body.light-theme .mobile-more-sheet {
+        background: #ffffff !important;
+        border-color: #e2e8f0 !important;
+      }
+      .mobile-more-handle {
+        width: 44px !important;
+        height: 4px !important;
+        background: rgba(255, 255, 255, 0.2) !important;
+        border-radius: 99px !important;
+        margin: 0 auto 0.25rem auto !important;
+      }
+      body.light-theme .mobile-more-handle {
+        background: #cbd5e1 !important;
+      }
+      .mobile-more-header {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        padding-bottom: 0.5rem !important;
+        border-bottom: 1px solid var(--border) !important;
+      }
+      .mobile-more-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 0.65rem !important;
+      }
+      .mobile-more-item {
+        background: var(--bg-primary) !important;
+        border: 1px solid var(--border) !important;
+        border-radius: var(--radius-md) !important;
+        padding: 0.75rem 0.65rem !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 0.65rem !important;
+        text-align: right !important;
+        cursor: pointer !important;
+        transition: all 0.15s ease !important;
+        width: 100% !important;
+      }
+      body.light-theme .mobile-more-item {
+        background: #f8fafc !important;
+        border-color: #e2e8f0 !important;
+      }
+      .mobile-more-item:active {
+        transform: scale(0.97) !important;
+        border-color: var(--accent-gold) !important;
+      }
+      .more-item-icon {
+        width: 36px !important;
+        height: 36px !important;
+        border-radius: 10px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        font-size: 1.2rem !important;
+        flex-shrink: 0 !important;
+      }
+      .more-item-text {
+        display: flex !important;
+        flex-direction: column !important;
+        overflow: hidden !important;
+      }
+      .more-item-text strong {
+        font-size: 0.85rem !important;
+        color: var(--text-main) !important;
+        font-weight: 800 !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+      }
+      .more-item-text small {
+        font-size: 0.68rem !important;
+        color: var(--text-muted) !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+      }
+      .mobile-more-footer {
+        display: flex !important;
+        gap: 0.65rem !important;
+        padding-top: 0.65rem !important;
+        border-top: 1px solid var(--border) !important;
+      }
+
+      @keyframes slideUp {
+        from { transform: translateY(100%); }
+        to { transform: translateY(0); }
+      }
+    }
+    
 </style>
 </head>
 <body>
@@ -4312,6 +4859,86 @@
     </div>
 
   </main>
+
+  <!-- ============================================== -->
+  <!-- MOBILE BOTTOM NAVIGATION (App Bar for Mobile)   -->
+  <!-- ============================================== -->
+  <nav class="mobile-bottom-nav" id="mobileBottomNav" aria-label="شريط التنقل السفلي السريع">
+    <button type="button" class="mobile-nav-btn active" data-tab="tabScanner" onclick="switchMobileNavTab('tabScanner')" title="تسجيل الحضور">
+      <div class="mobile-nav-icon">📷</div>
+      <span class="mobile-nav-label">الحضور</span>
+    </button>
+    <button type="button" class="mobile-nav-btn" data-tab="tabMembers" onclick="switchMobileNavTab('tabMembers')" title="دليل الشباب والأسر">
+      <div class="mobile-nav-icon">👥</div>
+      <span class="mobile-nav-label">الدليل</span>
+    </button>
+    <button type="button" class="mobile-nav-btn" data-tab="tabPoints" onclick="switchMobileNavTab('tabPoints')" title="نقاط الشباب والأوائل">
+      <div class="mobile-nav-icon">⭐</div>
+      <span class="mobile-nav-label">النقاط</span>
+    </button>
+    <button type="button" class="mobile-nav-btn" data-tab="tabFamilyScores" onclick="switchMobileNavTab('tabFamilyScores')" title="تقييم ومسابقات الأسر">
+      <div class="mobile-nav-icon">🏆</div>
+      <span class="mobile-nav-label">الأسر</span>
+    </button>
+    <button type="button" class="mobile-nav-btn" id="btnMobileNavMore" onclick="toggleMobileNavMore()" title="باقي الأقسام والخدمات">
+      <div class="mobile-nav-icon">☰</div>
+      <span class="mobile-nav-label">المزيد</span>
+    </button>
+  </nav>
+
+  <!-- Mobile 'More' Drawer / Bottom Sheet -->
+  <div class="mobile-more-backdrop" id="mobileMoreSheet" onclick="closeMobileNavMore(event)" style="display:none;">
+    <div class="mobile-more-sheet" onclick="event.stopPropagation()">
+      <div class="mobile-more-handle"></div>
+      <div class="mobile-more-header">
+        <h4 style="margin:0;font-size:1.05rem;font-weight:800;color:var(--accent-gold);display:flex;align-items:center;gap:0.4rem;">
+          <span>📱</span> كافة أقسام وخدمات التطبيق
+        </h4>
+        <button type="button" class="btn btn-icon-only btn-sm" onclick="closeMobileNavMore()" style="border:none;background:none;font-size:1.3rem;color:var(--text-muted);line-height:1;" title="إغلاق">✕</button>
+      </div>
+
+      <div class="mobile-more-grid">
+        <button type="button" class="mobile-more-item" data-tab="tabBirthdays" onclick="switchMobileNavTab('tabBirthdays'); closeMobileNavMore();">
+          <div class="more-item-icon" style="background:rgba(236,72,153,0.18);color:#ec4899;">🎂</div>
+          <div class="more-item-text">
+            <strong>أعياد الميلاد</strong>
+            <small>متابعة المناسبات والتهنئة</small>
+          </div>
+        </button>
+        <button type="button" class="mobile-more-item" data-tab="tabSessions" onclick="switchMobileNavTab('tabSessions'); closeMobileNavMore();">
+          <div class="more-item-icon" style="background:rgba(59,130,246,0.18);color:#3b82f6;">📅</div>
+          <div class="more-item-text">
+            <strong>جدول اللقاءات</strong>
+            <small>مواعيد الاجتماعات والأنشطة</small>
+          </div>
+        </button>
+        <button type="button" class="mobile-more-item" data-tab="tabVisitation" onclick="switchMobileNavTab('tabVisitation'); closeMobileNavMore();">
+          <div class="more-item-icon" style="background:rgba(244,63,94,0.18);color:#f43f5e;">📞</div>
+          <div class="more-item-text">
+            <strong>الافتقاد ومتابعة الغياب</strong>
+            <small>المتابعة والتواصل الفوري</small>
+          </div>
+        </button>
+        <button type="button" class="mobile-more-item" data-tab="tabAnalytics" onclick="switchMobileNavTab('tabAnalytics'); closeMobileNavMore();">
+          <div class="more-item-icon" style="background:rgba(16,185,129,0.18);color:#10b981;">📊</div>
+          <div class="more-item-text">
+            <strong>الإحصائيات وإكسل</strong>
+            <small>نسب الحضور والتقارير</small>
+          </div>
+        </button>
+      </div>
+
+      <div class="mobile-more-footer">
+        <button type="button" class="btn btn-secondary btn-sm" onclick="document.getElementById('themeToggleBtn').click();" style="flex:1;justify-content:center;padding:0.6rem;font-weight:700;font-size:0.85rem;">
+          🌓 تبديل المظهر
+        </button>
+        <button type="button" class="btn btn-outline-danger btn-sm" onclick="document.getElementById('logoutBtn').click();" style="flex:1;justify-content:center;padding:0.6rem;font-weight:700;font-size:0.85rem;">
+          🚪 خروج
+        </button>
+      </div>
+    </div>
+  </div>
+
 
   <!-- ============================================== -->
   <!-- MODAL: ADD / EDIT MEMBER                       -->
@@ -16224,6 +16851,7 @@
         btn.classList.add('active');
         const targetPane = document.getElementById(target);
         if (targetPane) targetPane.classList.add('active');
+        if (typeof syncMobileNavActive === 'function') { syncMobileNavActive(target); }
       });
     });
 
@@ -16584,6 +17212,7 @@
       if (role.id === 'visitation') {
         renderVisitationTable();
       }
+      if (typeof syncMobileSheetPermissions === 'function') { syncMobileSheetPermissions(); }
     }
 
     function normalizeLoginStr(str) {
@@ -19657,7 +20286,92 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
     }
 
     refreshUI();
-  </script>
+  
+    // ==============================================
+    // MOBILE BOTTOM NAVIGATION & APP BAR CONTROLLER
+    // ==============================================
+    function switchMobileNavTab(tabId) {
+      const targetBtn = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
+      if (targetBtn) {
+        targetBtn.click();
+      }
+      syncMobileNavActive(tabId);
+    }
+
+    function syncMobileNavActive(activeTabId) {
+      const bottomBtns = document.querySelectorAll('.mobile-nav-btn[data-tab]');
+      const directTabs = ['tabScanner', 'tabMembers', 'tabPoints', 'tabFamilyScores'];
+      
+      bottomBtns.forEach(btn => {
+        const tab = btn.getAttribute('data-tab');
+        if (tab && tab === activeTabId) {
+          btn.classList.add('active');
+        } else if (tab) {
+          btn.classList.remove('active');
+        }
+      });
+
+      const moreBtn = document.getElementById('btnMobileNavMore');
+      if (moreBtn) {
+        if (!directTabs.includes(activeTabId)) {
+          moreBtn.classList.add('active');
+        } else {
+          moreBtn.classList.remove('active');
+        }
+      }
+
+      // Also highlight active sheet item
+      document.querySelectorAll('.mobile-more-item').forEach(item => {
+        if (item.getAttribute('data-tab') === activeTabId) {
+          item.classList.add('active');
+          item.style.borderColor = 'var(--accent-gold)';
+        } else {
+          item.classList.remove('active');
+          item.style.borderColor = '';
+        }
+      });
+    }
+
+    function toggleMobileNavMore() {
+      const sheet = document.getElementById('mobileMoreSheet');
+      if (!sheet) return;
+      if (sheet.style.display === 'flex') {
+        sheet.style.display = 'none';
+      } else {
+        sheet.style.display = 'flex';
+        syncMobileSheetPermissions();
+      }
+    }
+
+    function closeMobileNavMore(e) {
+      if (e && e.target && e.target.closest('.mobile-more-sheet') && !e.target.closest('.mobile-more-item') && !e.target.closest('button')) {
+        return;
+      }
+      const sheet = document.getElementById('mobileMoreSheet');
+      if (sheet) sheet.style.display = 'none';
+    }
+
+    function syncMobileSheetPermissions() {
+      const role = (currentServantRole && ROLES[currentServantRole]) ? ROLES[currentServantRole] : ROLES.admin;
+      document.querySelectorAll('.mobile-more-item').forEach(item => {
+        const tabName = item.getAttribute('data-tab');
+        if (tabName && role.allowedTabs && role.allowedTabs.includes(tabName)) {
+          item.style.setProperty('display', 'flex', 'important');
+        } else if (tabName) {
+          item.style.setProperty('display', 'none', 'important');
+        }
+      });
+      document.querySelectorAll('.mobile-nav-btn[data-tab]').forEach(btn => {
+        const tabName = btn.getAttribute('data-tab');
+        if (tabName && role.allowedTabs && role.allowedTabs.includes(tabName)) {
+          btn.style.setProperty('display', 'flex', 'important');
+        } else if (tabName) {
+          btn.style.setProperty('display', 'none', 'important');
+        }
+      });
+    }
+
+</script>
 
   <!-- MODAL: BIRTHDAY GREETING TEMPLATE PREVIEW -->
   <div class="modal-backdrop" id="birthdayGreetingModal">
