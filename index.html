@@ -3746,9 +3746,6 @@
             <option value="أسرة 1">أسرة 1</option>
             <option value="أسرة 2">أسرة 2</option>
             <option value="أسرة 3">أسرة 3</option>
-            <option value="أسرة 4">أسرة 4</option>
-            <option value="أسرة 5">أسرة 5</option>
-            <option value="أسرة 6">أسرة 6</option>
             <option value="أسرة الميديا">أسرة الميديا</option>
             <option value="أسرة الأنشطة">أسرة الأنشطة</option>
             <option value="أسرة الافتقاد">أسرة الافتقاد</option>
@@ -3843,9 +3840,6 @@
             <option value="أسرة 1">أسرة 1</option>
             <option value="أسرة 2">أسرة 2</option>
             <option value="أسرة 3">أسرة 3</option>
-            <option value="أسرة 4">أسرة 4</option>
-            <option value="أسرة 5">أسرة 5</option>
-            <option value="أسرة 6">أسرة 6</option>
             <option value="أسرة الميديا">أسرة الميديا</option>
             <option value="أسرة الأنشطة">أسرة الأنشطة</option>
             <option value="أسرة الافتقاد">أسرة الافتقاد</option>
@@ -4382,9 +4376,6 @@
             <option value="أسرة 1">أسرة 1</option>
             <option value="أسرة 2">أسرة 2</option>
             <option value="أسرة 3">أسرة 3</option>
-            <option value="أسرة 4">أسرة 4</option>
-            <option value="أسرة 5">أسرة 5</option>
-            <option value="أسرة 6">أسرة 6</option>
             <option value="أسرة الميديا">أسرة الميديا</option>
             <option value="أسرة الأنشطة">أسرة الأنشطة</option>
             <option value="أسرة الافتقاد">أسرة الافتقاد</option>
@@ -4453,9 +4444,6 @@
             <option value="أسرة 1">أسرة 1</option>
             <option value="أسرة 2">أسرة 2</option>
             <option value="أسرة 3">أسرة 3</option>
-            <option value="أسرة 4">أسرة 4</option>
-            <option value="أسرة 5">أسرة 5</option>
-            <option value="أسرة 6">أسرة 6</option>
             <option value="أسرة الميديا">أسرة الميديا</option>
             <option value="أسرة الأنشطة">أسرة الأنشطة</option>
             <option value="أسرة الافتقاد">أسرة الافتقاد</option>
@@ -5092,9 +5080,6 @@
             <option value="family_أسرة 1">أسرة 1 (الجميع)</option>
             <option value="family_أسرة 2">أسرة 2 (الجميع)</option>
             <option value="family_أسرة 3">أسرة 3 (الجميع)</option>
-            <option value="family_أسرة 4">أسرة 4 (الجميع)</option>
-            <option value="family_أسرة 5">أسرة 5 (الجميع)</option>
-            <option value="family_أسرة 6">أسرة 6 (الجميع)</option>
             <option value="family_أسرة الميديا">أسرة الميديا (الجميع)</option>
             <option value="family_أسرة الأنشطة">أسرة الأنشطة (الجميع)</option>
             <option value="family_أسرة الافتقاد">أسرة الافتقاد (الجميع)</option>
@@ -12302,48 +12287,6 @@
       "attendees": []
     },
     {
-      "id": "SES-SUB-FAM-04",
-      "week": 1,
-      "date": "2026-11-06",
-      "day": "الجمعة",
-      "time": "06:00 م",
-      "meetingType": "family",
-      "typeLabel": "🏠 اجتماع أسرة",
-      "title": "اجتماع أسرة 4",
-      "family": "أسرة 4",
-      "isSubMeeting": true,
-      "hasPoints": false,
-      "attendees": []
-    },
-    {
-      "id": "SES-SUB-FAM-05",
-      "week": 1,
-      "date": "2026-11-06",
-      "day": "الجمعة",
-      "time": "06:00 م",
-      "meetingType": "family",
-      "typeLabel": "🏠 اجتماع أسرة",
-      "title": "اجتماع أسرة 5",
-      "family": "أسرة 5",
-      "isSubMeeting": true,
-      "hasPoints": false,
-      "attendees": []
-    },
-    {
-      "id": "SES-SUB-FAM-06",
-      "week": 1,
-      "date": "2026-11-06",
-      "day": "الجمعة",
-      "time": "06:00 م",
-      "meetingType": "family",
-      "typeLabel": "🏠 اجتماع أسرة",
-      "title": "اجتماع أسرة 6",
-      "family": "أسرة 6",
-      "isSubMeeting": true,
-      "hasPoints": false,
-      "attendees": []
-    },
-    {
       "id": "SES-SUB-MED-01",
       "week": 1,
       "date": "2026-11-08",
@@ -13156,7 +13099,7 @@
     // Load from LocalStorage (Upgraded to v4 with foolproof fallbacks)
     function loadLocalData() {
       try {
-        const saved = localStorage.getItem('st_mariam_attendance_v14');
+        const saved = localStorage.getItem('st_mariam_attendance_v15');
         if (saved) {
           const parsed = JSON.parse(saved);
           if (parsed && parsed.members && parsed.members.length > 0) {
@@ -13168,7 +13111,7 @@
           // Initialize fresh from SEED_DATA
           appData = JSON.parse(JSON.stringify(SEED_DATA));
           // Migrate any attendee scans from previous session versions
-          ['st_mariam_attendance_v13', 'st_mariam_attendance_v11', 'st_mariam_attendance_v10', 'st_mariam_attendance_v9'].forEach(k => {
+          ['st_mariam_attendance_v14', 'st_mariam_attendance_v13', 'st_mariam_attendance_v11', 'st_mariam_attendance_v10', 'st_mariam_attendance_v9'].forEach(k => {
             const oldStr = localStorage.getItem(k);
             if (oldStr) {
               try {
@@ -13205,13 +13148,14 @@
           }
 
           // Build complete sessions list strictly from confirmed SEED_DATA with preserved attendees
+          const validSessionIds = new Set(SEED_DATA.sessions.map(s => s.id));
           appData.sessions = SEED_DATA.sessions.map(seedS => {
             const preserved = existingAttendeesMap.get(seedS.id) || (seedS.id === 'SES-01' ? (seedS.attendees || []) : []);
             return {
               ...seedS,
               attendees: preserved
             };
-          });
+          }).filter(s => validSessionIds.has(s.id));
         }
   
         // Force accurate college stages across all 157 members
@@ -13228,7 +13172,7 @@
 
     function saveLocalData() {
       try {
-        localStorage.setItem('st_mariam_attendance_v14', JSON.stringify(appData));
+        localStorage.setItem('st_mariam_attendance_v15', JSON.stringify(appData));
       } catch (e) {}
     }
 
@@ -13324,6 +13268,11 @@
         }
 
         
+        // Delete obsolete family sessions from Firestore
+        ['SES-SUB-FAM-04', 'SES-SUB-FAM-05', 'SES-SUB-FAM-06'].forEach(delId => {
+          sessionsCol.doc(delId).delete().catch(() => {});
+        });
+
         // Update session titles in Firestore if different
         SEED_DATA.sessions.forEach(sess => {
           sessionsCol.doc(sess.id).set({
@@ -13344,6 +13293,7 @@
           let hasNewChanges = false;
           querySnapshot.forEach((doc) => {
             const remoteSess = doc.data();
+            if (['SES-SUB-FAM-04', 'SES-SUB-FAM-05', 'SES-SUB-FAM-06'].includes(remoteSess.id)) return;
             let localSess = appData.sessions.find(s => s.id === remoteSess.id);
             if (localSess) {
               const remoteAttendees = remoteSess.attendees || [];
@@ -19559,9 +19509,6 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
               <option value="أسرة 1">أسرة 1</option>
               <option value="أسرة 2">أسرة 2</option>
               <option value="أسرة 3">أسرة 3</option>
-              <option value="أسرة 4">أسرة 4</option>
-              <option value="أسرة 5">أسرة 5</option>
-              <option value="أسرة 6">أسرة 6</option>
               <option value="أسرة الميديا">أسرة الميديا</option>
               <option value="أسرة الأنشطة">أسرة الأنشطة</option>
               <option value="أسرة الافتقاد">أسرة الافتقاد</option>

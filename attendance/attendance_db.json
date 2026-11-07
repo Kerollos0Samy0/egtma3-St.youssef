@@ -6990,48 +6990,6 @@
       "attendees": []
     },
     {
-      "id": "SES-SUB-FAM-04",
-      "week": 1,
-      "date": "2026-11-06",
-      "day": "الجمعة",
-      "time": "06:00 م",
-      "meetingType": "family",
-      "typeLabel": "🏠 اجتماع أسرة",
-      "title": "اجتماع أسرة 4",
-      "family": "أسرة 4",
-      "isSubMeeting": true,
-      "hasPoints": false,
-      "attendees": []
-    },
-    {
-      "id": "SES-SUB-FAM-05",
-      "week": 1,
-      "date": "2026-11-06",
-      "day": "الجمعة",
-      "time": "06:00 م",
-      "meetingType": "family",
-      "typeLabel": "🏠 اجتماع أسرة",
-      "title": "اجتماع أسرة 5",
-      "family": "أسرة 5",
-      "isSubMeeting": true,
-      "hasPoints": false,
-      "attendees": []
-    },
-    {
-      "id": "SES-SUB-FAM-06",
-      "week": 1,
-      "date": "2026-11-06",
-      "day": "الجمعة",
-      "time": "06:00 م",
-      "meetingType": "family",
-      "typeLabel": "🏠 اجتماع أسرة",
-      "title": "اجتماع أسرة 6",
-      "family": "أسرة 6",
-      "isSubMeeting": true,
-      "hasPoints": false,
-      "attendees": []
-    },
-    {
       "id": "SES-SUB-MED-01",
       "week": 1,
       "date": "2026-11-08",
