@@ -13064,132 +13064,6 @@
       "week": 25,
       "isSubMeeting": false,
       "hasPoints": true
-    },
-    {
-      "id": "SES-SUB-FAM-01",
-      "week": 1,
-      "date": "2026-11-06",
-      "day": "الجمعة",
-      "time": "06:00 م",
-      "meetingType": "family",
-      "typeLabel": "🏠 اجتماع أسرة",
-      "title": "اجتماع أسرة 1",
-      "family": "أسرة 1",
-      "isSubMeeting": true,
-      "hasPoints": false,
-      "attendees": []
-    },
-    {
-      "id": "SES-SUB-FAM-02",
-      "week": 1,
-      "date": "2026-11-06",
-      "day": "الجمعة",
-      "time": "06:00 م",
-      "meetingType": "family",
-      "typeLabel": "🏠 اجتماع أسرة",
-      "title": "اجتماع أسرة 2",
-      "family": "أسرة 2",
-      "isSubMeeting": true,
-      "hasPoints": false,
-      "attendees": []
-    },
-    {
-      "id": "SES-SUB-FAM-03",
-      "week": 1,
-      "date": "2026-11-06",
-      "day": "الجمعة",
-      "time": "06:00 م",
-      "meetingType": "family",
-      "typeLabel": "🏠 اجتماع أسرة",
-      "title": "اجتماع أسرة 3",
-      "family": "أسرة 3",
-      "isSubMeeting": true,
-      "hasPoints": false,
-      "attendees": []
-    },
-    {
-      "id": "SES-SUB-MED-01",
-      "week": 1,
-      "date": "2026-11-08",
-      "day": "الأحد",
-      "time": "07:00 م",
-      "meetingType": "family",
-      "typeLabel": "🏠 اجتماع أسرة",
-      "title": "اجتماع أسرة الميديا",
-      "family": "أسرة الميديا",
-      "isSubMeeting": true,
-      "hasPoints": false,
-      "attendees": []
-    },
-    {
-      "id": "SES-SUB-ACT-01",
-      "week": 1,
-      "date": "2026-11-09",
-      "day": "الاثنين",
-      "time": "07:00 م",
-      "meetingType": "family",
-      "typeLabel": "🏠 اجتماع أسرة",
-      "title": "اجتماع أسرة الأنشطة",
-      "family": "أسرة الأنشطة",
-      "isSubMeeting": true,
-      "hasPoints": false,
-      "attendees": []
-    },
-    {
-      "id": "SES-SUB-VIS-01",
-      "week": 1,
-      "date": "2026-11-07",
-      "day": "السبت",
-      "time": "06:30 م",
-      "meetingType": "family",
-      "typeLabel": "🏠 اجتماع أسرة",
-      "title": "اجتماع أسرة الافتقاد",
-      "family": "أسرة الافتقاد",
-      "isSubMeeting": true,
-      "hasPoints": false,
-      "attendees": []
-    },
-    {
-      "id": "SES-SUB-REV-01",
-      "week": 1,
-      "date": "2026-11-07",
-      "day": "السبت",
-      "time": "07:00 م",
-      "meetingType": "family",
-      "typeLabel": "🏠 اجتماع أسرة",
-      "title": "اجتماع أسرة Revive",
-      "family": "أسرة Revive",
-      "isSubMeeting": true,
-      "hasPoints": false,
-      "attendees": []
-    },
-    {
-      "id": "SES-SUB-ONE-01",
-      "week": 1,
-      "date": "2026-11-08",
-      "day": "الأحد",
-      "time": "06:00 م",
-      "meetingType": "family",
-      "typeLabel": "🏠 اجتماع أسرة",
-      "title": "اجتماع أسرة قلب واحد",
-      "family": "أسرة قلب واحد",
-      "isSubMeeting": true,
-      "hasPoints": false,
-      "attendees": []
-    },
-    {
-      "id": "SES-SUB-BBL-01",
-      "week": 1,
-      "date": "2026-11-09",
-      "day": "الاثنين",
-      "time": "06:30 م",
-      "meetingType": "family",
-      "typeLabel": "🏠 اجتماع أسرة",
-      "title": "اجتماع أسرة دراسة الكتاب",
-      "family": "دراسة الكتاب المقدس",
-      "isSubMeeting": true,
-      "hasPoints": false,
-      "attendees": []
     }
   ],
   "visitationNotes": [],
@@ -14530,7 +14404,25 @@
     }
 
     function renderScannerWeekControls() {
-      const currentSession = getCurrentSession();
+      
+    // One-time purge of old placeholder family sessions so user starts with a clean slate
+    try {
+      if (localStorage.getItem('st_youssef_purged_old_fam_v1') !== 'true') {
+        if (appData && Array.isArray(appData.sessions)) {
+          appData.sessions = appData.sessions.filter(s => (
+            s.meetingType !== 'family' &&
+            s.meetingType !== 'sub' &&
+            s.isSubMeeting !== true &&
+            s.hasPoints !== false &&
+            !(s.id && s.id.includes('SUB'))
+          ));
+          localStorage.setItem('st_youssef_purged_old_fam_v1', 'true');
+          saveLocalData();
+        }
+      }
+    } catch(e) {}
+
+    const currentSession = getCurrentSession();
       const isCurrentFamily = isFamilySession(currentSession);
 
       // Keep active category in sync with current session if needed
@@ -15870,6 +15762,36 @@
       }
     }
 
+    
+    function deleteSession(sessionId) {
+      if (currentServantRole !== 'admin') {
+        alert("⛔ حذف اللقاءات مقتصر على أمناء الاجتماع.");
+        return;
+      }
+      const sess = (appData.sessions || []).find(s => s.id === sessionId);
+      if (!sess) return;
+      if (!confirm(`هل أنت متأكد من حذف اللقاء "${sess.title}" (${sess.date})؟`)) return;
+
+      appData.sessions = appData.sessions.filter(s => s.id !== sessionId);
+      if (currentSessionId === sessionId) {
+        const nextS = appData.sessions.find(s => !isFamilySession(s)) || appData.sessions[0];
+        currentSessionId = nextS ? nextS.id : null;
+      }
+      saveLocalData();
+
+      // Delete from Firebase if active
+      if (isFirebaseReady && db) {
+        db.collection('sessions').doc(sessionId).delete().catch(err => console.warn(err));
+      }
+
+      // Delete from backend API if active
+      fetch(`/api/sessions/${sessionId}`, { method: 'DELETE' }).catch(() => {});
+
+      refreshUI();
+      renderSessionsTable();
+      alert("✅ تم حذف اللقاء بنجاح.");
+    }
+
     function renderSessionsTable() {
       const tbody = document.getElementById('sessionsTableBody');
       if (!tbody) return;
@@ -15926,6 +15848,9 @@
               </button>
               <button type="button" class="btn btn-secondary btn-sm" style="padding:0.25rem 0.65rem;font-size:0.75rem;font-weight:700;" onclick="openManualAttendanceModal('${s.id}')" title="تعديل كشف حضور هذا اللقاء وإضافة وحذف الشباب">
                 📝 كشف الحضور
+              </button>
+              <button type="button" class="btn btn-outline-danger btn-sm" style="padding:0.25rem 0.5rem;font-size:0.75rem;font-weight:700;" onclick="deleteSession('${s.id}')" title="حذف هذا اللقاء">
+                🗑️
               </button>
             </div>
           `;
