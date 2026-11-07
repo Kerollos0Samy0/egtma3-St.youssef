@@ -4872,6 +4872,9 @@
               <option value="أسرة الافتقاد">أسرة الافتقاد</option>
               <option value="أسرة دراسة الكتاب">أسرة دراسة الكتاب</option>
             </optgroup>
+            <optgroup label="👑 الإدارة والخدام">
+              <option value="أمناء الاجتماع">أمناء الاجتماع (اجتماع خدام)</option>
+            </optgroup>
           </select>
         </div>
 
@@ -4967,7 +4970,9 @@
               </optgroup>
               <optgroup label="👥 اجتماعات عامة ولجان">
                 <option value="عام / جميع الأسر والخدام">عام / جميع الأسر والخدام</option>
-                <option value="أمناء الاجتماع">أمناء الاجتماع</option>
+                </optgroup>
+              <optgroup label="👑 الإدارة والخدام">
+                <option value="أمناء الاجتماع">أمناء الاجتماع (اجتماع خدام)</option>
                 <option value="لجنة الألحان والتسبحة">لجنة الألحان والتسبحة</option>
                 <option value="أسرة الكتاب المقدس">أسرة الكتاب المقدس</option>
                 <option value="الآباء الكهنة والشمامسة">الآباء الكهنة والشمامسة</option>
@@ -14147,7 +14152,9 @@
       { id: 'أسرة الميديا', name: 'أسرة الميديا', label: 'الميديا', type: 'sub', icon: '🏠', seedId: 'SES-SUB-MED-01' },
       { id: 'أسرة الأنشطة', name: 'أسرة الأنشطة', label: 'الأنشطة', type: 'sub', icon: '🏠', seedId: 'SES-SUB-ACT-01' },
       { id: 'أسرة الافتقاد', name: 'أسرة الافتقاد', label: 'الافتقاد', type: 'sub', icon: '🏠', seedId: 'SES-SUB-VIS-01' },
-      { id: 'أسرة دراسة الكتاب', name: 'أسرة دراسة الكتاب', label: 'دراسة الكتاب', type: 'sub', icon: '📖', seedId: 'SES-SUB-BBL-01' }
+      { id: 'أسرة دراسة الكتاب', name: 'أسرة دراسة الكتاب', label: 'دراسة الكتاب', type: 'sub', icon: '📖', seedId: 'SES-SUB-BBL-01' },
+      // Leadership & Servants (أمناء الاجتماع)
+      { id: 'أمناء الاجتماع', name: 'أمناء الاجتماع', label: 'أمناء الاجتماع', type: 'leadership', icon: '👑', seedId: 'SES-SUB-TRUSTEES-01' }
     ];
 
     let currentSelectedFamily = 'أسرة 1';
@@ -14157,6 +14164,11 @@
       const fam = session.family || '';
       const title = session.title || '';
       const id = session.id || '';
+
+      // Check if it's for trustees / servants meeting
+      if (fam.includes('أمناء') || fam.includes('خدام') || title.includes('خدام') || title.includes('أمناء') || id.includes('TRUSTEES') || id.includes('KHODAM')) {
+        return 'أمناء الاجتماع';
+      }
 
       for (const f of FIXED_FAMILIES) {
         if (fam === f.name || fam === f.label || (f.label && fam.includes(f.label))) return f.name;
@@ -14275,6 +14287,10 @@
             const fam = s.family || 'أسرة 2';
             s.title = `اجتماع ${fam}`;
             s.family = fam;
+          }
+          // Move "اجتماع خدام" to "أمناء الاجتماع"
+          if ((s.title && s.title.includes('خدام')) || (s.family && s.family.includes('خدام'))) {
+            s.family = 'أمناء الاجتماع';
           }
         }
       });
@@ -14594,6 +14610,27 @@
           btn.className = `pill-btn mini-mtype-btn ${isActive ? 'active' : ''}`;
           btn.style.cssText = `display:inline-flex;align-items:center;gap:0.35rem;padding:0.38rem 0.75rem;font-size:0.82rem;font-weight:800;white-space:nowrap;${isActive ? 'background:var(--accent-emerald);color:#ffffff;border-color:var(--accent-emerald);box-shadow:0 2px 10px rgba(16,185,129,0.35);' : 'border-color:rgba(16,185,129,0.3);'}`;
           btn.innerHTML = `<span>${f.icon}</span> <span>${f.label}</span> ${countBadge}`;
+          btn.onclick = () => selectFamily(f.name);
+          famPillsContainer.appendChild(btn);
+        });
+
+        // Section C: Leadership & Servants (أمناء الاجتماع)
+        const leadTitle = document.createElement('span');
+        leadTitle.style.cssText = 'font-size:0.75rem;font-weight:800;color:#c084fc;margin-right:0.4rem;margin-left:0.25rem;display:inline-flex;align-items:center;gap:0.2rem;white-space:nowrap;';
+        leadTitle.innerHTML = '<span>👑</span> الإدارة والخدام:';
+        famPillsContainer.appendChild(leadTitle);
+
+        FIXED_FAMILIES.filter(f => f.type === 'leadership').forEach(f => {
+          const isActive = (f.name === currentSelectedFamily);
+          const meetingsOfFam = (appData.sessions || []).filter(s => isFamilySession(s) && getMeetingFamily(s) === f.name);
+          const totalAtt = meetingsOfFam.reduce((sum, s) => sum + ((s.attendees || []).length), 0);
+          const countBadge = meetingsOfFam.length > 1 ? `<span style="background:rgba(192,132,252,0.25);color:#c084fc;border-radius:10px;padding:0 5px;font-size:0.72rem;margin-right:3px;">${meetingsOfFam.length} لقاءات</span>` : (totalAtt > 0 ? `<span style="background:#a855f7;color:#fff;border-radius:10px;padding:0 5px;font-size:0.72rem;margin-right:3px;">${totalAtt}</span>` : '');
+
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = `pill-btn mini-mtype-btn ${isActive ? 'active' : ''}`;
+          btn.style.cssText = `display:inline-flex;align-items:center;gap:0.35rem;padding:0.38rem 0.75rem;font-size:0.82rem;font-weight:800;white-space:nowrap;${isActive ? 'background:#a855f7;color:#ffffff;border-color:#a855f7;box-shadow:0 2px 10px rgba(168,85,247,0.35);' : 'border-color:rgba(168,85,247,0.35);color:#c084fc;'}`;
+          btn.innerHTML = `<span>${f.icon}</span> <span>${f.name}</span> ${countBadge}`;
           btn.onclick = () => selectFamily(f.name);
           famPillsContainer.appendChild(btn);
         });
