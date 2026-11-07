@@ -2361,6 +2361,85 @@
       border-radius: var(--radius-full);
     }
     /* ============================================== */
+    /* ENHANCED VISITATION SYSTEM STYLES (MODERN & COMPACT) */
+    .vis-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1.15rem;
+    }
+    .vis-stat-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow-sm);
+    }
+    .vis-stat-box:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    .vis-stat-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.35rem;
+      flex-shrink: 0;
+    }
+    .vis-filter-toolbar {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 0.95rem 1.15rem;
+      margin-bottom: 1.15rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .vis-pills-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .vis-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.15rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    .vis-card:hover {
+      border-color: var(--accent-gold);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    @media (max-width: 768px) {
+      .vis-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+      }
+      .vis-stat-box {
+        padding: 0.6rem 0.75rem;
+        gap: 0.6rem;
+      }
+      .vis-stat-icon {
+        width: 34px;
+        height: 34px;
+        font-size: 1.1rem;
+      }
+    }
+
     /* ENHANCED VISITATION SYSTEM STYLES              */
     /* ============================================== */
     .vis-stat-card {
@@ -4318,207 +4397,6 @@
     </div>
 
         <!-- ============================================== -->
-    <!-- TAB: YOUTH POINTS & LEADERBOARD (نظام النقاط) -->
-    <!-- ============================================== -->
-    <div class="tab-pane" id="tabPoints">
-      <!-- Header -->
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.15rem;flex-wrap:wrap;gap:0.85rem;">
-        <div>
-          <h2 style="font-size:1.35rem;font-weight:800;color:var(--accent-gold);display:flex;align-items:center;gap:0.5rem;margin:0;">
-            <span>⭐</span> نظام النقاط ولوحة الأوائل (شباب يوسف الصديق)
-          </h2>
-          <p style="font-size:0.85rem;color:var(--text-muted);margin-top:0.25rem;">
-            متابعة نقاط الحضور والقداسات والمسابقات، تكريم الأوائل، ورصد الألقاب التشجيعية (157 شاب وشابة).
-          </p>
-        </div>
-
-        <div style="display:flex;gap:0.55rem;align-items:center;flex-wrap:wrap;">
-          <button type="button" class="btn btn-sm btn-gold" id="btnOpenAddPointModal" onclick="openSinglePointModal()" title="إضافة أو خصم نقاط لعضو">
-            ➕ رصد نقاط لعضو
-          </button>
-          <button type="button" class="btn btn-sm" id="btnOpenBatchPointModal" onclick="openBatchPointModal()" style="background:rgba(245,158,11,0.15);color:#fbbf24;border:1px solid rgba(245,158,11,0.3);" title="إضافة بونص لجميع الحاضرين في لقاء اليوم">
-            ⚡ بونص جماعي للحاضرين
-          </button>
-          <button type="button" class="btn btn-sm" id="btnOpenGeneralPointsLogModal" onclick="openPointsLogModal()" style="border:1px solid var(--border);" title="عرض سجل كل العمليات">
-            📜 سجل العمليات
-          </button>
-          <button type="button" class="btn btn-sm btn-secondary" onclick="exportPointsLeaderboardToExcel()" title="تحميل شيت إكسيل بترتيب الأوائل">
-            📊 تصدير Excel
-          </button>
-        </div>
-      </div>
-
-      <!-- Quick Stats & Podium Section -->
-      <div class="points-podium-container" id="pointsPodiumContainer">
-        <!-- Rendered dynamically: Top 1, Top 2, Top 3 -->
-      </div>
-
-      <!-- Filters & Search Toolbar -->
-      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:0.85rem 1.15rem;margin-bottom:1.15rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.85rem;box-shadow:var(--shadow-sm);">
-        
-          <div style="display:inline-flex;align-items:center;gap:0.4rem;">
-            <span style="font-size:0.85rem;font-weight:700;color:var(--text-muted);">الاجتماع:</span>
-            <select id="pointsMeetingTypeFilter" class="form-control" style="width:auto;padding:0.4rem 0.85rem;font-size:0.85rem;" onchange="renderPointsLeaderboard()">
-              <option value="all">🏆 إجمالي كل الاجتماعات (الترتيب العام)</option>
-              <option value="youth">👥 الأكثر حضوراً: اجتماع الشباب (الثلاثاء)</option>
-              <option value="tasbeha">🎶 الأكثر حضوراً: التسبحة الكنسية (الأربعاء 7م)</option>
-              <option value="bible">📖 الأكثر حضوراً: محبي الكتاب (الأربعاء 8م)</option>
-              <option value="liturgy">⛪ الأكثر حضوراً: القداس الإلهي (الخميس 7ص)</option>
-              <option value="prayer">🕊️ الأكثر حضوراً: اجتماع الصلاة (الجمعة 8م)</option>
-            </select>
-          </div>
-
-          <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;flex:1;min-width:260px;">
-          <input type="text" id="pointsSearchInput" oninput="filterPointsLeaderboard()" class="search-input" style="max-width:280px;padding:0.45rem 0.85rem;font-size:0.85rem;" placeholder="🔍 ابحث بالاسم أو الكود...">
-          <select id="pointsStageFilter" onchange="filterPointsLeaderboard()" class="session-select-clean" style="font-size:0.82rem;padding:0.45rem 0.75rem;">
-            <option value="">جميع المراحل</option>
-            <option value="ثانوي">مرحلة ثانوي</option>
-            <option value="جامعة">مرحلة جامعة</option>
-            <option value="خريجين">مرحلة خريجين</option>
-          </select>
-          <select id="pointsFamilyFilter" onchange="filterPointsLeaderboard()" class="session-select-clean" style="font-size:0.82rem;padding:0.45rem 0.75rem;">
-            <option value="">جميع الأسر والمجموعات</option>
-            <option value="أسرة 1">أسرة 1</option>
-            <option value="أسرة 2">أسرة 2</option>
-            <option value="أسرة 3">أسرة 3</option>
-            <option value="أسرة الميديا">أسرة الميديا</option>
-            <option value="أسرة الأنشطة">أسرة الأنشطة</option>
-            <option value="أسرة الافتقاد">أسرة الافتقاد</option>
-            <option value="أسرة Revive">أسرة Revive</option>
-            <option value="أسرة قلب واحد">أسرة قلب واحد</option>
-            <option value="دراسة الكتاب المقدس">دراسة الكتاب المقدس</option>
-          </select>
-          <select id="pointsRankFilter" onchange="filterPointsLeaderboard()" class="session-select-clean" style="font-size:0.82rem;padding:0.45rem 0.75rem;">
-            <option value="">جميع الرتب</option>
-            <option value="أسطورة">👑 أسطورة الاجتماع (300+)</option>
-            <option value="متميز">🏆 متميز (150-299)</option>
-            <option value="نشيط">🌟 نشيط (50-149)</option>
-            <option value="مبتدئ">🌱 مبتدئ (0-49)</option>
-          </select>
-        </div>
-
-        <div style="font-size:0.82rem;color:var(--text-muted);font-weight:700;">
-          إجمالي الشباب: <span id="pointsFilteredCount" style="color:var(--accent-gold);font-weight:900;">157</span>
-        </div>
-      </div>
-
-      <!-- Leaderboard Table -->
-      <div class="table-container" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-sm);">
-        <table class="data-table" id="pointsLeaderboardTable">
-          <thead>
-            <tr>
-              <th style="width:60px;text-align:center;">#</th>
-              <th>الشاب / الشابة</th>
-              <th>المرحلة الدراسية</th>
-              <th>الأسرة</th>
-              <th>الرتبة</th>
-              <th style="text-align:center;">مرات الحضور</th>
-              <th style="text-align:center;">إجمالي النقاط</th>
-              <th style="text-align:center;width:170px;">إجراءات</th>
-            </tr>
-          </thead>
-          <tbody id="pointsLeaderboardTbody">
-            <!-- Rendered by JS -->
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-        <!-- ============================================== -->
-    <!-- TAB: YOUTH POINTS & LEADERBOARD (نظام النقاط) -->
-    <!-- ============================================== -->
-    <div class="tab-pane" id="tabPoints">
-      <!-- Header -->
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.15rem;flex-wrap:wrap;gap:0.85rem;">
-        <div>
-          <h2 style="font-size:1.35rem;font-weight:800;color:var(--accent-gold);display:flex;align-items:center;gap:0.5rem;margin:0;">
-            <span>⭐</span> نظام النقاط ولوحة الأوائل (شباب يوسف الصديق)
-          </h2>
-          <p style="font-size:0.85rem;color:var(--text-muted);margin-top:0.25rem;">
-            متابعة نقاط الحضور والقداسات والمسابقات، تكريم الأوائل، ورصد الألقاب التشجيعية (157 شاب وشابة).
-          </p>
-        </div>
-
-        <div style="display:flex;gap:0.55rem;align-items:center;flex-wrap:wrap;">
-          <button type="button" class="btn btn-sm btn-gold" id="btnOpenAddPointModal" onclick="openSinglePointModal()" title="إضافة أو خصم نقاط لعضو">
-            ➕ رصد نقاط لعضو
-          </button>
-          <button type="button" class="btn btn-sm" id="btnOpenBatchPointModal" onclick="openBatchPointModal()" style="background:rgba(245,158,11,0.15);color:#fbbf24;border:1px solid rgba(245,158,11,0.3);" title="إضافة بونص لجميع الحاضرين في لقاء اليوم">
-            ⚡ بونص جماعي للحاضرين
-          </button>
-          <button type="button" class="btn btn-sm" id="btnOpenGeneralPointsLogModal" onclick="openPointsLogModal()" style="border:1px solid var(--border);" title="عرض سجل كل العمليات">
-            📜 سجل العمليات
-          </button>
-          <button type="button" class="btn btn-sm btn-secondary" onclick="exportPointsLeaderboardToExcel()" title="تحميل شيت إكسيل بترتيب الأوائل">
-            📊 تصدير Excel
-          </button>
-        </div>
-      </div>
-
-      <!-- Quick Stats & Podium Section -->
-      <div class="points-podium-container" id="pointsPodiumContainer">
-        <!-- Rendered dynamically: Top 1, Top 2, Top 3 -->
-      </div>
-
-      <!-- Filters & Search Toolbar -->
-      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:0.85rem 1.15rem;margin-bottom:1.15rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.85rem;box-shadow:var(--shadow-sm);">
-        <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;flex:1;min-width:260px;">
-          <input type="text" id="pointsSearchInput" oninput="filterPointsLeaderboard()" class="search-input" style="max-width:280px;padding:0.45rem 0.85rem;font-size:0.85rem;" placeholder="🔍 ابحث بالاسم أو الكود...">
-          <select id="pointsStageFilter" onchange="filterPointsLeaderboard()" class="session-select-clean" style="font-size:0.82rem;padding:0.45rem 0.75rem;">
-            <option value="">جميع المراحل</option>
-            <option value="ثانوي">مرحلة ثانوي</option>
-            <option value="جامعة">مرحلة جامعة</option>
-            <option value="خريجين">مرحلة خريجين</option>
-          </select>
-          <select id="pointsFamilyFilter" onchange="filterPointsLeaderboard()" class="session-select-clean" style="font-size:0.82rem;padding:0.45rem 0.75rem;">
-            <option value="">جميع الأسر والمجموعات</option>
-            <option value="أسرة 1">أسرة 1</option>
-            <option value="أسرة 2">أسرة 2</option>
-            <option value="أسرة 3">أسرة 3</option>
-            <option value="أسرة الميديا">أسرة الميديا</option>
-            <option value="أسرة الأنشطة">أسرة الأنشطة</option>
-            <option value="أسرة الافتقاد">أسرة الافتقاد</option>
-            <option value="أسرة Revive">أسرة Revive</option>
-            <option value="أسرة قلب واحد">أسرة قلب واحد</option>
-            <option value="دراسة الكتاب المقدس">دراسة الكتاب المقدس</option>
-          </select>
-          <select id="pointsRankFilter" onchange="filterPointsLeaderboard()" class="session-select-clean" style="font-size:0.82rem;padding:0.45rem 0.75rem;">
-            <option value="">جميع الرتب</option>
-            <option value="أسطورة">👑 أسطورة الاجتماع (300+)</option>
-            <option value="متميز">🏆 متميز (150-299)</option>
-            <option value="نشيط">🌟 نشيط (50-149)</option>
-            <option value="مبتدئ">🌱 مبتدئ (0-49)</option>
-          </select>
-        </div>
-
-        <div style="font-size:0.82rem;color:var(--text-muted);font-weight:700;">
-          إجمالي الشباب: <span id="pointsFilteredCount" style="color:var(--accent-gold);font-weight:900;">157</span>
-        </div>
-      </div>
-
-      <!-- Leaderboard Table -->
-      <div class="table-container" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-sm);">
-        <table class="data-table" id="pointsLeaderboardTable">
-          <thead>
-            <tr>
-              <th style="width:60px;text-align:center;">#</th>
-              <th>الشاب / الشابة</th>
-              <th>المرحلة الدراسية</th>
-              <th>الأسرة</th>
-              <th>الرتبة</th>
-              <th style="text-align:center;">مرات الحضور</th>
-              <th style="text-align:center;">إجمالي النقاط</th>
-              <th style="text-align:center;width:170px;">إجراءات</th>
-            </tr>
-          </thead>
-          <tbody id="pointsLeaderboardTbody">
-            <!-- Rendered by JS -->
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- ============================================== -->
     <!-- TAB: FAMILY EVALUATIONS & MONTHLY COMPETITION  -->
     <!-- ============================================== -->
     <div class="tab-pane" id="tabFamilyScores">
@@ -4689,140 +4567,157 @@
     <!-- ============================================== -->
     <div class="tab-pane" id="tabVisitation">
       <!-- Header Banner -->
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:1rem;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.15rem;flex-wrap:wrap;gap:0.75rem;">
         <div>
-          <h2 style="font-size:1.45rem;font-weight:800;color:var(--accent-gold);display:flex;align-items:center;gap:0.6rem;margin-bottom:0.25rem;">
+          <h2 style="font-size:1.35rem;font-weight:800;color:var(--accent-gold);display:flex;align-items:center;gap:0.5rem;margin:0 0 0.2rem 0;">
             <span>📞</span> لوحة الافتقاد والمتابعة الميدانية
           </h2>
-          <p style="font-size:0.88rem;color:var(--text-muted);margin:0;">
+          <p style="font-size:0.85rem;color:var(--text-muted);margin:0;">
             متابعة شاملة بالتواريخ: من عدينا عليه، توزيع الإنفتيشن الأسبوعي، افتقاد أبونا، وافتقاد الخدام.
           </p>
         </div>
 
-        <div style="display:flex;gap:0.6rem;flex-wrap:wrap;align-items:center;">
-          <button type="button" class="btn btn-gold btn-sm" id="btnOpenAddVisitationModal" style="display:inline-flex;align-items:center;gap:0.4rem;font-weight:800;">
-            <span>➕</span> تسجيل افتقاد جديد
+        <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap;">
+          <!-- View Switcher (Cards / Table) -->
+          <div class="view-mode-toggle" id="visitationViewToggle">
+            <button type="button" class="view-toggle-btn active" id="btnVisViewTable" onclick="setVisitationView('table')" title="عرض جدول منظم">
+              📋 جدول
+            </button>
+            <button type="button" class="view-toggle-btn" id="btnVisViewCards" onclick="setVisitationView('cards')" title="عرض كروت سريعة">
+              🗂️ كروت
+            </button>
+          </div>
+
+          <button type="button" class="btn btn-gold btn-sm" id="btnOpenAddVisitationModal" style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:800;">
+            <span>➕</span> تسجيل افتقاد
           </button>
-          <button type="button" class="btn btn-secondary btn-sm" id="btnOpenBatchInvitationModal" style="display:inline-flex;align-items:center;gap:0.4rem;font-weight:800;">
-            <span>💌</span> توزيع إنفتيشن جماعي
+          <button type="button" class="btn btn-secondary btn-sm" id="btnOpenBatchInvitationModal" style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:800;">
+            <span>💌</span> إنفتيشن جماعي
           </button>
-          <button type="button" class="btn btn-sm" id="btnExportVisitationCSV" style="display:inline-flex;align-items:center;gap:0.4rem;" title="تصدير بيانات الافتقاد إلى Excel">
-            <span>📥</span> كشف الافتقاد (CSV)
+          <button type="button" class="btn btn-sm" id="btnExportVisitationCSV" style="display:inline-flex;align-items:center;gap:0.35rem;border:1px solid var(--border);" title="تصدير بيانات الافتقاد إلى Excel">
+            <span>📥</span> كشف CSV
           </button>
         </div>
       </div>
 
-      <!-- KPI Stats Row -->
-      <div class="stats-row" style="margin-bottom:1.25rem;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));">
-        <div class="stat-card" style="border-right:3px solid #8b5cf6;">
-          <div class="stat-val" id="statVisWeeklyInvCount" style="color:#a78bfa;">0</div>
-          <div class="stat-title">💌 إنفتيشن هذا الأسبوع</div>
-          <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.2rem;" id="statVisWeeklyInvPercent">0% من الشباب</div>
-        </div>
-
-        <div class="stat-card" style="border-right:3px solid var(--accent-gold);">
-          <div class="stat-val" id="statVisPriestCount" style="color:var(--accent-gold);">0</div>
-          <div class="stat-title">✝️ افتقاد أبونا</div>
-          <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.2rem;">زيارات رعوية وصلوات</div>
-        </div>
-
-        <div class="stat-card" style="border-right:3px solid var(--accent-emerald);">
-          <div class="stat-val" id="statVisServantsCount" style="color:var(--accent-emerald);">0</div>
-          <div class="stat-title">🤝 افتقاد الخدام</div>
-          <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.2rem;">زيارات منزلية وميدانية</div>
-        </div>
-
-        <div class="stat-card" style="border-right:3px solid #38bdf8;">
-          <div class="stat-val" id="statVisVisitedTotalCount" style="color:#38bdf8;">0</div>
-          <div class="stat-title">👥 عدينا عليهم (تم افتقادهم)</div>
-          <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.2rem;" id="statVisVisitedTotalPercent">0% تمت زيارتهم</div>
-        </div>
-
-        <div class="stat-card" style="border-right:3px solid #fb7185;">
-          <div class="stat-val" id="statVisNeedsAttentionCount" style="color:#fb7185;">0</div>
-          <div class="stat-title">⚠️ يحتاجون افتقاد</div>
-          <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.2rem;">لم يتم افتقادهم أو غائبين</div>
-        </div>
-      </div>
-
-      <!-- Advanced Filter & Search Toolbar -->
-      <div class="streamlined-toolbar" style="margin-bottom:1rem;">
-        <div class="toolbar-top-line">
-          <div class="toolbar-search-box">
-            <input type="text" id="visSearchInput" class="form-control" style="padding-right:2.4rem;" placeholder="🔍 ابحث بالاسم، الموبايل، المنطقة، العنوان، أو كود الشاب...">
-          </div>
-
-          <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
-            <div style="display:flex;align-items:center;gap:0.35rem;">
-              <span class="pills-label">المنطقة:</span>
-              <select id="visAreaFilter" class="form-control" style="width:auto;padding:0.4rem 0.75rem;font-size:0.85rem;">
-                <option value="all">كل المناطق (A, B, C, D, E, T)</option>
-                <option value="E">منطقة E</option>
-                <option value="A">منطقة A</option>
-                <option value="B">منطقة B</option>
-                <option value="C">منطقة C</option>
-                <option value="D">منطقة D</option>
-                <option value="T">منطقة T</option>
-              </select>
-            </div>
-
-            <div style="display:flex;align-items:center;gap:0.35rem;">
-              <span class="pills-label">ترتيب حسب:</span>
-              <select id="visSortFilter" class="form-control" style="width:auto;padding:0.4rem 0.75rem;font-size:0.85rem;">
-                <option value="code">الكود الرقمي (#1 - #157)</option>
-                <option value="name">الاسم أبجدياً (أ - ي)</option>
-                <option value="latest_visit">أحدث تاريخ افتقاد ⬇️</option>
-                <option value="oldest_visit">الأولى بالزيارة (الأقدم أو لم يُفتقد) ⚠️</option>
-              </select>
-            </div>
+      <!-- KPI Stats Row (Compact Modern Stat Boxes) -->
+      <div class="vis-stats-grid">
+        <div class="vis-stat-box" style="border-right:3px solid #8b5cf6;">
+          <div class="vis-stat-icon" style="background:rgba(139,92,246,0.15);color:#a78bfa;">💌</div>
+          <div>
+            <div style="font-size:1.3rem;font-weight:900;color:#a78bfa;line-height:1.1;" id="statVisWeeklyInvCount">0</div>
+            <div style="font-size:0.78rem;font-weight:800;color:var(--text-main);">إنفتيشن الأسبوع</div>
+            <div style="font-size:0.7rem;color:var(--text-muted);" id="statVisWeeklyInvPercent">0% من الشباب</div>
           </div>
         </div>
 
-        <div class="toolbar-pills-line" style="gap:0.5rem;overflow-x:auto;">
-          <div class="pills-subgroup">
-            <span class="pills-label">الحالة:</span>
-            <button type="button" class="filter-pill active" data-vis-filter="all">الكل (<span id="visPillCountAll">157</span>)</button>
-            <button type="button" class="filter-pill" data-vis-filter="visited">✓ عدينا عليهم (<span id="visPillCountVisited">0</span>)</button>
-            <button type="button" class="filter-pill" data-vis-filter="not_visited">⏳ لم يتم افتقادهم (<span id="visPillCountNotVisited">0</span>)</button>
+        <div class="vis-stat-box" style="border-right:3px solid var(--accent-gold);">
+          <div class="vis-stat-icon" style="background:rgba(245,158,11,0.15);color:var(--accent-gold);">✝️</div>
+          <div>
+            <div style="font-size:1.3rem;font-weight:900;color:var(--accent-gold);line-height:1.1;" id="statVisPriestCount">0</div>
+            <div style="font-size:0.78rem;font-weight:800;color:var(--text-main);">افتقاد أبونا</div>
+            <div style="font-size:0.7rem;color:var(--text-muted);">زيارات رعوية</div>
           </div>
+        </div>
 
-          <div class="pills-subgroup">
-            <span class="pills-label">النوع:</span>
-            <button type="button" class="filter-pill" data-vis-filter="invitation_week">💌 إنفتيشن هذا الأسبوع</button>
-            <button type="button" class="filter-pill" data-vis-filter="needs_invitation">⚠️ محتاجين إنفتيشن</button>
-            <button type="button" class="filter-pill" data-vis-filter="priest">✝️ افتقاد أبونا</button>
-            <button type="button" class="filter-pill" data-vis-filter="servants">🤝 افتقاد الخدام</button>
+        <div class="vis-stat-box" style="border-right:3px solid var(--accent-emerald);">
+          <div class="vis-stat-icon" style="background:rgba(16,185,129,0.15);color:var(--accent-emerald);">🤝</div>
+          <div>
+            <div style="font-size:1.3rem;font-weight:900;color:var(--accent-emerald);line-height:1.1;" id="statVisServantsCount">0</div>
+            <div style="font-size:0.78rem;font-weight:800;color:var(--text-main);">افتقاد الخدام</div>
+            <div style="font-size:0.7rem;color:var(--text-muted);">زيارات ميدانية</div>
           </div>
+        </div>
 
-          <div class="pills-subgroup">
-            <span class="pills-label">الغياب:</span>
-            <button type="button" class="filter-pill" data-vis-filter="absent_today">غائب اليوم</button>
-            <button type="button" class="filter-pill" data-vis-filter="absent_multiple">غائب أسبوعين فأكثر ⚠️</button>
+        <div class="vis-stat-box" style="border-right:3px solid #38bdf8;">
+          <div class="vis-stat-icon" style="background:rgba(56,189,248,0.15);color:#38bdf8;">👥</div>
+          <div>
+            <div style="font-size:1.3rem;font-weight:900;color:#38bdf8;line-height:1.1;" id="statVisVisitedTotalCount">0</div>
+            <div style="font-size:0.78rem;font-weight:800;color:var(--text-main);">عدينا عليهم</div>
+            <div style="font-size:0.7rem;color:var(--text-muted);" id="statVisVisitedTotalPercent">0% تمت زيارتهم</div>
+          </div>
+        </div>
+
+        <div class="vis-stat-box" style="border-right:3px solid #fb7185;">
+          <div class="vis-stat-icon" style="background:rgba(251,113,133,0.15);color:#fb7185;">⚠️</div>
+          <div>
+            <div style="font-size:1.3rem;font-weight:900;color:#fb7185;line-height:1.1;" id="statVisNeedsAttentionCount">0</div>
+            <div style="font-size:0.78rem;font-weight:800;color:var(--text-main);">يحتاجون افتقاد</div>
+            <div style="font-size:0.7rem;color:var(--text-muted);">لم يتم افتقادهم أو غائبين</div>
           </div>
         </div>
       </div>
 
-      <!-- Table -->
-      <div class="data-table-container">
-        <table class="data-table">
+      <!-- Modern Toolbar & Filters -->
+      <div class="vis-filter-toolbar">
+        <!-- Top row: Search + Area + Sort -->
+        <div style="display:flex;align-items:center;gap:0.65rem;flex-wrap:wrap;margin-bottom:0.75rem;">
+          <div style="flex:1;min-width:220px;position:relative;">
+            <input type="text" id="visSearchInput" class="form-control" style="padding-right:2.4rem;border-radius:var(--radius-md);font-size:0.88rem;" placeholder="🔍 ابحث بالاسم، الموبايل، المنطقة، العنوان، أو كود الشاب...">
+          </div>
+          <div style="display:flex;align-items:center;gap:0.35rem;">
+            <span style="font-size:0.82rem;font-weight:700;color:var(--text-muted);white-space:nowrap;">المنطقة:</span>
+            <select id="visAreaFilter" class="form-control" style="width:auto;padding:0.4rem 0.75rem;font-size:0.84rem;border-radius:var(--radius-md);">
+              <option value="all">كل المناطق</option>
+              <option value="E">منطقة E</option>
+              <option value="A">منطقة A</option>
+              <option value="B">منطقة B</option>
+              <option value="C">منطقة C</option>
+              <option value="D">منطقة D</option>
+              <option value="T">منطقة T</option>
+            </select>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.35rem;">
+            <span style="font-size:0.82rem;font-weight:700;color:var(--text-muted);white-space:nowrap;">ترتيب حسب:</span>
+            <select id="visSortFilter" class="form-control" style="width:auto;padding:0.4rem 0.75rem;font-size:0.84rem;border-radius:var(--radius-md);">
+              <option value="code">الكود الرقمي (#1 - #157)</option>
+              <option value="name">الاسم أبجدياً (أ - ي)</option>
+              <option value="latest_visit">أحدث تاريخ افتقاد ⬇️</option>
+              <option value="oldest_visit">الأولى بالزيارة (الأقدم أو لم يُفتقد) ⚠️</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Bottom row: Fast Filter Pills -->
+        <div class="vis-pills-row">
+          <span style="font-size:0.8rem;font-weight:700;color:var(--text-muted);margin-left:0.25rem;">تصفية سريعة:</span>
+          <button type="button" class="filter-pill active" data-vis-filter="all">الكل (<span id="visPillCountAll">157</span>)</button>
+          <button type="button" class="filter-pill" data-vis-filter="not_visited">⏳ لم يتم افتقادهم (<span id="visPillCountNotVisited">0</span>)</button>
+          <button type="button" class="filter-pill" data-vis-filter="visited">✓ عدينا عليهم (<span id="visPillCountVisited">0</span>)</button>
+          <button type="button" class="filter-pill" data-vis-filter="absent_today">✗ غائب اليوم</button>
+          <button type="button" class="filter-pill" data-vis-filter="absent_multiple">⚠️ غائب أسبوعين فأكثر</button>
+          <button type="button" class="filter-pill" data-vis-filter="invitation_week">💌 إنفتيشن هذا الأسبوع</button>
+          <button type="button" class="filter-pill" data-vis-filter="needs_invitation">⚡ محتاجين إنفتيشن</button>
+          <button type="button" class="filter-pill" data-vis-filter="priest">✝️ افتقاد أبونا</button>
+          <button type="button" class="filter-pill" data-vis-filter="servants">🤝 افتقاد الخدام</button>
+        </div>
+      </div>
+
+      <!-- 1. TABLE VIEW CONTAINER -->
+      <div id="visitationTableView" class="data-table-container" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);overflow-x:auto;box-shadow:var(--shadow-sm);">
+        <table class="data-table" style="margin:0;width:100%;">
           <thead>
             <tr>
-              <th style="width:75px;"># والكود</th>
-              <th>الاسم والحضور</th>
+              <th style="width:75px;text-align:center;"># والكود</th>
+              <th>الشاب والبيانات</th>
               <th>المنطقة والعنوان</th>
               <th>الموبايل</th>
-              <th>أب الاعتراف</th>
-              <th style="text-align:center;">💌 إنفتيشن الأسبوع</th>
-              <th>✝️ افتقاد أبونا</th>
-              <th>🤝 افتقاد الخدام</th>
-              <th>آخر افتقاد وتاريخه</th>
-              <th style="text-align:center;min-width:180px;">الإجراءات</th>
+              <th style="text-align:center;width:150px;">💌 إنفتيشن الأسبوع</th>
+              <th>حالة وآخر افتقاد</th>
+              <th style="text-align:center;width:190px;">الإجراءات السريعة</th>
             </tr>
           </thead>
           <tbody id="visitationTableBody">
             <!-- Rendered by JS -->
           </tbody>
         </table>
+      </div>
+
+      <!-- 2. CARDS VIEW CONTAINER -->
+      <div id="visitationCardsView" style="display:none;">
+        <div class="vis-cards-grid" id="visitationCardsGrid" style="display:grid;grid-template-columns:repeat(auto-fill, minmax(310px, 1fr));gap:1rem;">
+          <!-- Rendered by JS -->
+        </div>
       </div>
     </div>
 
@@ -14389,6 +14284,11 @@
     let currentScannerCategory = 'weekly'; // 'weekly' or 'family'
     let currentScannerMeetingTypeFilter = 'all';
     let currentSessionsTableMeetingTypeFilter = 'all';
+    let currentVisFilter = 'all';
+    let currentVisArea = 'all';
+    let currentVisSort = 'code';
+    let currentVisSearch = '';
+    let currentVisView = localStorage.getItem('st_youssef_vis_view') || 'table';
 
     function isFamilySession(session) {
       if (!session) return false;
@@ -14890,6 +14790,7 @@
       renderMembersTable();
       renderBadges();
       renderSessionsTable();
+      setVisitationView(currentVisView);
       renderVisitationTable();
       renderKPIs();
       renderBirthdaysSection();
@@ -16498,18 +16399,37 @@
       });
     }
 
-    // State for visitation table
-    let currentVisFilter = 'all';
-    let currentVisArea = 'all';
-    let currentVisSort = 'code';
-    let currentVisSearch = '';
+    // State for visitation table (declared above)
 
-    // Render Visitation Table (لوحة الافتقاد)
+    function setVisitationView(viewMode) {
+      currentVisView = viewMode;
+      localStorage.setItem('st_youssef_vis_view', viewMode);
+
+      const tableView = document.getElementById('visitationTableView');
+      const cardsView = document.getElementById('visitationCardsView');
+      const btnTable = document.getElementById('btnVisViewTable');
+      const btnCards = document.getElementById('btnVisViewCards');
+
+      if (viewMode === 'cards') {
+        if (tableView) tableView.style.display = 'none';
+        if (cardsView) cardsView.style.display = 'block';
+        if (btnTable) btnTable.classList.remove('active');
+        if (btnCards) btnCards.classList.add('active');
+      } else {
+        if (tableView) tableView.style.display = 'block';
+        if (cardsView) cardsView.style.display = 'none';
+        if (btnTable) btnTable.classList.add('active');
+        if (btnCards) btnCards.classList.remove('active');
+      }
+    }
+
+    // Render Visitation Table & Cards (لوحة الافتقاد)
     function renderVisitationTable() {
       normalizeVisitationData();
       const tbody = document.getElementById('visitationTableBody');
-      if (!tbody) return;
-      tbody.innerHTML = '';
+      const cardsGrid = document.getElementById('visitationCardsGrid');
+      if (tbody) tbody.innerHTML = '';
+      if (cardsGrid) cardsGrid.innerHTML = '';
 
       const session = getCurrentSession();
       const attendees = session.attendees || [];
@@ -16629,53 +16549,37 @@
       });
 
       if (list.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="10" style="text-align:center;padding:2.5rem;color:var(--text-muted);font-size:1rem;">
-          🔍 لا توجد نتائج مطابقة لخيارات التصفية والبحث المحددة.
-        </td></tr>`;
+        if (tbody) {
+          tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:2.5rem;color:var(--text-muted);font-size:1rem;">🔍 لا توجد نتائج مطابقة لخيارات التصفية والبحث المحددة.</td></tr>';
+        }
+        if (cardsGrid) {
+          cardsGrid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:3rem 1.5rem;background:var(--bg-card);border:1px dashed var(--border);border-radius:var(--radius-lg);color:var(--text-muted);font-size:1rem;">🔍 لا توجد نتائج مطابقة لخيارات التصفية والبحث المحددة.</div>';
+        }
         return;
       }
 
       list.forEach(m => {
         const isAttended = attendees.some(a => a.memberId === m.id);
-        const tr = document.createElement('tr');
         const sessionTitle = session.title || 'اجتماع الشباب';
-        const defaultMsg = encodeURIComponent(`سلام يا ${m.name.split(' ')[0]} ❤️ وحشتنا جداً في اجتماع الشباب! بنتمنى تكون بألف خير ومستنينك في لقاء: ${sessionTitle} يوم الثلاثاء القادم 7:00 م بكنيسة العذراء مريم.`);
-
+        const defaultMsg = encodeURIComponent('سلام يا ' + (m.name ? m.name.split(' ')[0] : 'صديقي') + ' ❤️ وحشتنا جداً في اجتماع الشباب! بنتمنى تكون بألف خير ومستنينك في لقاء: ' + sessionTitle + ' يوم الثلاثاء القادم 7:00 م بكنيسة العذراء مريم.');
         const areaName = m.areaGroup || (m.groupCode ? ('منطقة ' + m.groupCode) : 'غير محدد');
         const hasWeeklyInv = isThisWeekInvitation(m.lastInvitation ? m.lastInvitation.date : null);
 
-        // Invitation cell
+        // Invitation cell & card badge
         let invCellHTML = '';
+        let invCardHTML = '';
         if (hasWeeklyInv) {
-          invCellHTML = `<span class="badge-inv-delivered" title="تم تسليم إنفتيشن الاجتماع الأسبوعي">` +
-            `✓ تم التسليم (${formatArabicDate(m.lastInvitation.date)})` +
-            `</span>`;
+          invCellHTML = '<span class="badge-inv-delivered" title="تم تسليم إنفتيشن الاجتماع">✓ تم التسليم (' + formatArabicDate(m.lastInvitation.date) + ')</span>';
+          invCardHTML = '<span class="badge-inv-delivered" style="font-size:0.72rem;">✓ تم التسليم (' + formatArabicDate(m.lastInvitation.date) + ')</span>';
         } else {
-          invCellHTML = `<button type="button" class="btn-quick-inv" onclick="quickDeliverInvitation('${m.id}')" title="تسجيل تسليم إنفتيشن هذا الأسبوع بتاريخ اليوم بنقرة واحدة">` +
-            `⚡ تسليم الآن` +
-            `</button>`;
+          invCellHTML = '<button type="button" class="btn-quick-inv" onclick="quickDeliverInvitation(\'' + m.id + '\')" title="تسجيل تسليم إنفتيشن هذا الأسبوع بنقرة واحدة">⚡ تسليم الآن</button>';
+          invCardHTML = '<button type="button" class="btn-quick-inv" onclick="quickDeliverInvitation(\'' + m.id + '\')" style="font-size:0.72rem;padding:0.2rem 0.6rem;">⚡ تسليم الآن</button>';
         }
 
-        // Priest cell
-        let priestCellHTML = '<span style="color:var(--text-muted);font-size:0.8rem;">—</span>';
-        if (m.lastPriestVisit) {
-          const fName = m.lastPriestVisit.father || m.lastPriestVisit.servant || 'قدس أبونا';
-          priestCellHTML = `<div class="vis-pill-badge badge-vis-priest" title="${fName} - ${m.lastPriestVisit.notes || ''}">` +
-            `✝️ ${formatArabicDate(m.lastPriestVisit.date)}` +
-            `</div><div style="font-size:0.72rem;color:var(--text-muted);margin-top:2px;">${fName}</div>`;
-        }
+        // Consolidated Last Visit
+        let lastVisitCellHTML = '<span style="color:var(--text-muted);font-size:0.8rem;background:rgba(255,255,255,0.04);padding:0.2rem 0.55rem;border-radius:var(--radius-full);">⏳ لم يُفتقد بعد</span>';
+        let lastVisitCardBadge = '<span style="color:var(--text-muted);font-size:0.75rem;">⏳ لم يُفتقد</span>';
 
-        // Servant cell
-        let servantCellHTML = '<span style="color:var(--text-muted);font-size:0.8rem;">—</span>';
-        if (m.lastServantVisit) {
-          const sName = m.lastServantVisit.servant || 'الخدام';
-          servantCellHTML = `<div class="vis-pill-badge badge-vis-servants" title="${sName} - ${m.lastServantVisit.notes || ''}">` +
-            `🤝 ${formatArabicDate(m.lastServantVisit.date)}` +
-            `</div><div style="font-size:0.72rem;color:var(--text-muted);margin-top:2px;">${sName}</div>`;
-        }
-
-        // Last visit overall cell
-        let lastVisitCellHTML = '<span style="color:var(--text-muted);font-size:0.8rem;">لم يُفتقد بعد</span>';
         if (m.lastVisitation) {
           let typeIcon = '📞';
           let badgeClass = 'badge-vis-call';
@@ -16683,62 +16587,108 @@
           else if (m.lastVisitation.type === 'priest') { typeIcon = '✝️'; badgeClass = 'badge-vis-priest'; }
           else if (m.lastVisitation.type === 'servants') { typeIcon = '🤝'; badgeClass = 'badge-vis-servants'; }
 
-          lastVisitCellHTML = `<div class="vis-pill-badge ${badgeClass}" title="${m.lastVisitation.notes || ''}">` +
-            `${typeIcon} ${formatArabicDate(m.lastVisitation.date)}` +
-            `</div><div style="font-size:0.72rem;color:var(--text-muted);margin-top:2px;">${m.lastVisitation.statusText || 'تمت بنجاح'}</div>`;
+          const visitor = m.lastVisitation.servant || m.lastVisitation.father || '';
+
+          lastVisitCellHTML = '<div style="display:flex;flex-direction:column;gap:3px;">' +
+            '<div class="vis-pill-badge ' + badgeClass + '" title="' + (m.lastVisitation.notes || '') + '">' +
+            typeIcon + ' ' + formatArabicDate(m.lastVisitation.date) +
+            '</div>' +
+            '<div style="font-size:0.73rem;color:var(--text-muted);">' +
+            (visitor ? visitor + ' • ' : '') + (m.lastVisitation.statusText || 'تمت الزيارة') +
+            '</div></div>';
+
+          lastVisitCardBadge = '<span class="vis-pill-badge ' + badgeClass + '" style="font-size:0.72rem;" title="' + (m.lastVisitation.notes || '') + '">' +
+            typeIcon + ' ' + formatArabicDate(m.lastVisitation.date) +
+            '</span>';
         }
 
-        tr.innerHTML = `
-          <td style="font-weight:800;color:var(--text-muted);font-size:0.85rem;">
-            ${m.num || '—'} <span style="font-size:0.75rem;opacity:0.7;">(${m.id})</span>
-          </td>
-          <td>
-            <div style="font-weight:800;font-size:0.95rem;color:var(--text-main);">${m.name}</div>
-            <div style="margin-top:0.25rem;">
-              ${isAttended 
-                ? '<span class="family-pill pill-present" style="font-size:0.7rem;padding:0.15rem 0.5rem;">✓ حاضر اليوم</span>' 
-                : '<span class="family-pill pill-absent" style="font-size:0.7rem;padding:0.15rem 0.5rem;">✗ غائب اليوم</span>'}
-            </div>
-          </td>
-          <td>
-            <div><span class="family-pill ${getFamilyClass(areaName)}" style="font-size:0.72rem;">${areaName}</span></div>
-            <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.2rem;max-width:180px;line-height:1.3;" title="${m.fullAddress || ''}">
-              ${m.fullAddress || m.area || '—'}
-            </div>
-          </td>
-          <td>
-            <div style="font-family:monospace;font-size:0.85rem;">${m.phone || '—'}</div>
-          </td>
-          <td>
-            <span style="font-size:0.84rem;font-weight:700;color:var(--text-main);">${m.father || '—'}</span>
-          </td>
-          <td style="text-align:center;">
-            ${invCellHTML}
-          </td>
-          <td>
-            ${priestCellHTML}
-          </td>
-          <td>
-            ${servantCellHTML}
-          </td>
-          <td>
-            ${lastVisitCellHTML}
-          </td>
-          <td style="text-align:center;">
-            <div style="display:inline-flex;gap:0.35rem;align-items:center;flex-wrap:wrap;justify-content:center;">
-              <button type="button" class="btn btn-gold btn-sm" onclick="openAddVisitationModal('${m.id}')" title="تسجيل افتقاد جديد لهذا الشاب" style="padding:0.25rem 0.55rem;font-size:0.75rem;font-weight:800;">
-                ➕ افتقاد
-              </button>
-              <button type="button" class="btn btn-secondary btn-sm" onclick="openVisitationHistoryModal('${m.id}')" title="عرض السجل التاريخي الكامل للافتقادات" style="padding:0.25rem 0.55rem;font-size:0.75rem;font-weight:800;">
-                📜 السجل (${m.visitationsCount || 0})
-              </button>
-              <a href="https://wa.me/2${m.phone}?text=${defaultMsg}" target="_blank" class="btn btn-success btn-sm" title="إرسال رسالة افتقاد بالواتساب" style="padding:0.25rem 0.5rem;font-size:0.8rem;">
-                💬
-              </a>
-            </div>
-          </td>
-        `;
-        tbody.appendChild(tr);
+        // 1. Table Row
+        if (tbody) {
+          const tr = document.createElement('tr');
+          tr.innerHTML = '<td style="text-align:center;vertical-align:middle;">' +
+            '<div style="font-weight:900;font-size:0.95rem;color:var(--text-main);">#' + (m.num || '—') + '</div>' +
+            '<span style="display:inline-block;margin-top:2px;font-size:0.72rem;padding:0.1rem 0.45rem;border-radius:var(--radius-full);background:rgba(255,255,255,0.06);color:var(--text-muted);font-family:monospace;">' + m.id + '</span>' +
+            '</td>' +
+            '<td style="vertical-align:middle;">' +
+            '<div style="font-weight:800;font-size:0.96rem;color:var(--text-main);margin-bottom:0.25rem;">' + m.name + '</div>' +
+            '<div style="display:flex;align-items:center;gap:0.4rem;flex-wrap:wrap;">' +
+            (isAttended ? '<span class="family-pill pill-present" style="font-size:0.7rem;padding:0.15rem 0.5rem;">✓ حاضر اليوم</span>' : '<span class="family-pill pill-absent" style="font-size:0.7rem;padding:0.15rem 0.5rem;">✗ غائب اليوم</span>') +
+            (m.father ? '<span style="font-size:0.72rem;color:var(--text-muted);display:inline-flex;align-items:center;gap:0.25rem;background:rgba(255,255,255,0.05);padding:0.12rem 0.45rem;border-radius:var(--radius-full);"><span style="color:var(--accent-gold);">✝️</span> ' + m.father + '</span>' : '') +
+            '</div>' +
+            '</td>' +
+            '<td style="vertical-align:middle;">' +
+            '<div><span class="family-pill ' + getFamilyClass(areaName) + '" style="font-size:0.72rem;padding:0.15rem 0.5rem;">' + areaName + '</span></div>' +
+            '<div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.25rem;line-height:1.3;max-width:200px;" title="' + (m.fullAddress || '') + '">' +
+            (m.fullAddress || m.area || '—') +
+            '</div>' +
+            '</td>' +
+            '<td style="vertical-align:middle;">' +
+            (m.phone ? '<a href="tel:' + m.phone + '" style="display:inline-flex;align-items:center;gap:0.35rem;font-family:monospace;font-size:0.85rem;font-weight:700;color:var(--brand-gold);text-decoration:none;direction:ltr;" title="اضغط للاتصال"><span>📞</span> ' + m.phone + '</a>' : '<span style="color:var(--text-muted);font-size:0.85rem;">—</span>') +
+            '</td>' +
+            '<td style="text-align:center;vertical-align:middle;">' +
+            invCellHTML +
+            '</td>' +
+            '<td style="vertical-align:middle;">' +
+            lastVisitCellHTML +
+            '</td>' +
+            '<td style="text-align:center;vertical-align:middle;">' +
+            '<div style="display:inline-flex;gap:0.35rem;align-items:center;justify-content:center;flex-wrap:wrap;">' +
+            '<button type="button" class="btn btn-gold btn-sm" onclick="openAddVisitationModal(\'' + m.id + '\')" title="تسجيل افتقاد جديد لهذا الشاب" style="padding:0.28rem 0.6rem;font-size:0.76rem;font-weight:800;display:inline-flex;align-items:center;gap:0.25rem;"><span>➕</span> افتقاد</button>' +
+            '<a href="https://wa.me/2' + m.phone + '?text=' + defaultMsg + '" target="_blank" class="btn btn-success btn-sm" title="إرسال رسالة افتقاد بالواتساب" style="padding:0.28rem 0.55rem;font-size:0.8rem;background:#25d366;border-color:#25d366;color:#fff;display:inline-flex;align-items:center;">💬</a>' +
+            '<button type="button" class="btn btn-secondary btn-sm" onclick="openVisitationHistoryModal(\'' + m.id + '\')" title="عرض السجل الكامل للافتقادات" style="padding:0.28rem 0.55rem;font-size:0.75rem;font-weight:700;">📜 (' + (m.visitationsCount || 0) + ')</button>' +
+            '</div>' +
+            '</td>';
+          tbody.appendChild(tr);
+        }
+
+        // 2. Card
+        if (cardsGrid) {
+          const card = document.createElement('div');
+          card.className = 'vis-card';
+          card.innerHTML = '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:0.5rem;">' +
+            '<div>' +
+            '<div style="display:flex;align-items:center;gap:0.45rem;">' +
+            '<span style="font-weight:900;font-size:1.05rem;color:var(--brand-gold);">#' + (m.num || '—') + '</span>' +
+            '<h3 style="font-size:1rem;font-weight:800;color:var(--text-main);margin:0;">' + m.name + '</h3>' +
+            '</div>' +
+            '<div style="font-size:0.74rem;color:var(--text-muted);font-family:monospace;margin-top:0.15rem;">كود: ' + m.id + '</div>' +
+            '</div>' +
+            '<div>' +
+            (isAttended ? '<span class="family-pill pill-present" style="font-size:0.7rem;padding:0.18rem 0.55rem;">✓ حاضر اليوم</span>' : '<span class="family-pill pill-absent" style="font-size:0.7rem;padding:0.18rem 0.55rem;">✗ غائب اليوم</span>') +
+            '</div>' +
+            '</div>' +
+            '<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;font-size:0.8rem;background:var(--bg-primary);padding:0.65rem 0.8rem;border-radius:var(--radius-md);border:1px solid rgba(255,255,255,0.05);">' +
+            '<div>' +
+            '<div style="color:var(--text-muted);font-size:0.7rem;margin-bottom:0.15rem;">المنطقة:</div>' +
+            '<span class="family-pill ' + getFamilyClass(areaName) + '" style="font-size:0.68rem;padding:0.12rem 0.45rem;">' + areaName + '</span>' +
+            '</div>' +
+            '<div>' +
+            '<div style="color:var(--text-muted);font-size:0.7rem;margin-bottom:0.15rem;">أب الاعتراف:</div>' +
+            '<span style="font-weight:700;color:var(--text-main);font-size:0.78rem;">' + (m.father || '—') + '</span>' +
+            '</div>' +
+            '<div style="grid-column:1/-1;">' +
+            '<div style="color:var(--text-muted);font-size:0.7rem;margin-bottom:0.15rem;">العنوان:</div>' +
+            '<div style="color:var(--text-main);font-size:0.78rem;line-height:1.3;">' + (m.fullAddress || m.area || '—') + '</div>' +
+            '</div>' +
+            '</div>' +
+            '<div style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem;flex-wrap:wrap;padding:0.25rem 0;">' +
+            '<div>' +
+            '<span style="font-size:0.72rem;color:var(--text-muted);display:block;margin-bottom:0.2rem;">الإنفتيشن الأسبوعي:</span>' +
+            invCardHTML +
+            '</div>' +
+            '<div style="text-align:left;">' +
+            '<span style="font-size:0.72rem;color:var(--text-muted);display:block;margin-bottom:0.2rem;">آخر افتقاد:</span>' +
+            lastVisitCardBadge +
+            '</div>' +
+            '</div>' +
+            '<div style="display:grid;grid-template-columns:1fr auto auto auto;gap:0.4rem;align-items:center;margin-top:auto;padding-top:0.55rem;border-top:1px solid var(--border);">' +
+            '<button type="button" class="btn btn-gold btn-sm" onclick="openAddVisitationModal(\'' + m.id + '\')" style="font-weight:800;font-size:0.8rem;padding:0.38rem 0.6rem;display:flex;align-items:center;justify-content:center;gap:0.3rem;"><span>➕</span> تسجيل افتقاد</button>' +
+            (m.phone ? '<a href="tel:' + m.phone + '" class="btn btn-secondary btn-sm" title="اتصال هاتفي" style="padding:0.38rem 0.65rem;font-size:0.85rem;">📞</a>' : '') +
+            '<a href="https://wa.me/2' + m.phone + '?text=' + defaultMsg + '" target="_blank" class="btn btn-success btn-sm" title="واتساب" style="padding:0.38rem 0.65rem;font-size:0.85rem;background:#25d366;border-color:#25d366;color:#fff;">💬</a>' +
+            '<button type="button" class="btn btn-secondary btn-sm" onclick="openVisitationHistoryModal(\'' + m.id + '\')" title="السجل" style="padding:0.38rem 0.65rem;font-size:0.78rem;">📜 ' + (m.visitationsCount || 0) + '</button>' +
+            '</div>';
+          cardsGrid.appendChild(card);
+        }
       });
     }
 
