@@ -3597,7 +3597,7 @@
               <th style="text-align:center;">أب الاعتراف</th>
               <th>العنوان السكني</th>
               <th style="text-align:center;width:120px;">الموبايل</th>
-              <th style="text-align:center;width:230px;">الإجراءات والـ QR</th>
+              <th style="text-align:center;width:190px;">الإجراءات والـ QR</th>
             </tr>
           </thead>
           <tbody id="membersTableBody">
@@ -14293,20 +14293,17 @@
       list.forEach((m) => {
         const areaName = m.areaGroup || (m.groupCode ? ('منطقة ' + m.groupCode) : 'غير محدد');
 
-        const currSession = getCurrentSession();
-        const isPresentInCurr = currSession && currSession.attendees && currSession.attendees.some(a => a.memberId === m.id);
         const isServant = m.role && (m.role.includes('أمين') || m.role.includes('أمينة') || m.role.includes('سكرتير') || m.role.includes('خادم') || m.role.includes('خادمة'));
         const roleBadge = isServant ? `<span style="background:rgba(245,158,11,0.2);color:var(--accent-gold);border:1px solid rgba(245,158,11,0.45);padding:0.12rem 0.45rem;border-radius:6px;font-size:0.72rem;font-weight:800;margin-right:0.35rem;display:inline-block;">✝️ ${m.role}</span>` : '';
-        const attBadge = isPresentInCurr ? '<span style="color:#10b981;font-weight:900;margin-left:0.35rem;" title="حاضر في هذا اللقاء">✓ </span>' : '';
 
-        // 1. Desktop Table Row (All 10 columns wide & non-wrapping)
+        // 1. Desktop Table Row (Clean directory view without attendance registration buttons)
         if (tbody) {
           const tr = document.createElement('tr');
           const familyName = (m.family && m.family !== 'غير محدد' && !m.family.includes('مجموعة') && !m.family.includes('منطقة')) ? m.family : 'لم تحدد بعد';
 
           tr.innerHTML = `
             <td style="text-align:center;"><span class="badge-id">${m.id}</span></td>
-            <td>${attBadge}<strong style="color:var(--text-main);font-size:0.95rem;font-weight:800;">${m.name}</strong> ${roleBadge}</td>
+            <td><strong style="color:var(--text-main);font-size:0.95rem;font-weight:800;">${m.name}</strong> ${roleBadge}</td>
             <td style="text-align:center;"><span class="family-pill ${getFamilyClass(areaName)}">${areaName}</span></td>
             <td style="text-align:center;"><span class="family-pill family-unassigned">${familyName}</span></td>
             <td style="text-align:center;"><span class="family-pill pill-stage">${getCollegeStage(m)}</span></td>
@@ -14317,31 +14314,28 @@
               ${m.phone ? `<a href="tel:${m.phone}" class="member-phone-badge" title="اتصال هاتفي">${m.phone}</a>` : '<span style="color:var(--text-muted);font-size:0.82rem;">—</span>'}
             </td>
             <td style="text-align:center;">
-              <div style="display:inline-flex;align-items:center;gap:0.35rem;flex-wrap:wrap;justify-content:center;">
-                <button type="button" class="btn btn-sm ${isPresentInCurr ? 'btn-outline-danger' : 'btn-success'}" onclick="${isPresentInCurr ? `removeAttendeeFromCurrentSession('${m.id}', '${escapeHtmlForJs(m.name)}')` : `processAttendance('${m.id}')`}" style="padding:0.25rem 0.55rem;font-size:0.75rem;" title="${isPresentInCurr ? 'إلغاء الحضور من اللقاء النشط' : 'تسجيل حضور في اللقاء النشط اليوم'}">
-                  ${isPresentInCurr ? '✕ إلغاء الحضور' : '✓ تسجيل حضور'}
-                </button>
-                <button type="button" class="btn btn-sm btn-gold" onclick="openEditMemberModal('${m.id}')" style="padding:0.25rem 0.55rem;font-size:0.75rem;" title="تعديل بيانات المخدوم">
+              <div style="display:inline-flex;align-items:center;gap:0.4rem;flex-wrap:wrap;justify-content:center;">
+                <button type="button" class="btn btn-sm btn-gold" onclick="openEditMemberModal('${m.id}')" style="padding:0.3rem 0.65rem;font-size:0.78rem;font-weight:700;" title="تعديل بيانات المخدوم">
                   ✏️ تعديل
                 </button>
-                <button type="button" class="btn btn-sm btn-secondary" onclick="openBrandedQrModal('${m.id}')" style="padding:0.25rem 0.55rem;font-size:0.75rem;" title="عرض وتحميل كارت الـ QR باللوجو والاسم">
+                <button type="button" class="btn btn-sm btn-secondary" onclick="openBrandedQrModal('${m.id}')" style="padding:0.3rem 0.65rem;font-size:0.78rem;font-weight:700;" title="عرض وتحميل كارت الـ QR باللوجو والاسم">
                   🪪 كارت QR
                 </button>
-                ${m.phone ? `<a href="https://wa.me/2${m.phone}" target="_blank" class="btn btn-whatsapp" style="padding:0.25rem 0.55rem;font-size:0.75rem;" title="مراسلة واتساب">💬</a>` : ''}
+                ${m.phone ? `<a href="https://wa.me/2${m.phone}" target="_blank" class="btn btn-whatsapp" style="padding:0.3rem 0.65rem;font-size:0.78rem;font-weight:700;" title="مراسلة واتساب">💬 واتساب</a>` : ''}
               </div>
             </td>
           `;
           tbody.appendChild(tr);
         }
 
-        // 2. Mobile Contact Card
+        // 2. Mobile Contact Card (Clean directory view without attendance registration buttons)
         if (cardsGrid) {
           const card = document.createElement('div');
           card.className = 'member-mobile-card';
           card.innerHTML = `
             <div class="member-card-top">
               <div class="member-card-title-wrap">
-                <div class="member-card-name">${attBadge}${m.name} ${roleBadge}</div>
+                <div class="member-card-name">${m.name} ${roleBadge}</div>
                 <div class="member-card-chips">
                   <span class="badge-id">${m.id}</span>
                   <span class="family-pill ${getFamilyClass(areaName)}">📍 ${areaName}</span>
@@ -14357,14 +14351,11 @@
               ${(m.area || m.street) ? `<div class="member-meta-line"><span class="meta-icon">🏠</span> <span>${m.area || ''} ${m.street ? '— ' + m.street : ''}</span></div>` : ''}
             </div>` : ''}
 
-            <div class="member-card-actions" style="display:grid;grid-template-columns:1fr 1fr;gap:0.45rem;">
-              <button type="button" class="btn btn-sm ${isPresentInCurr ? 'btn-outline-danger' : 'btn-success'}" onclick="${isPresentInCurr ? `removeAttendeeFromCurrentSession('${m.id}', '${escapeHtmlForJs(m.name)}')` : `processAttendance('${m.id}')`}" style="font-size:0.8rem;padding:0.45rem 0.6rem;grid-column:1/-1;">
-                ${isPresentInCurr ? '✕ إلغاء الحضور من لقاء اليوم' : '✓ تسجيل حضور في لقاء اليوم'}
-              </button>
-              <button type="button" class="btn btn-gold btn-sm" onclick="openEditMemberModal('${m.id}')" style="font-size:0.8rem;padding:0.45rem 0.6rem;">
+            <div class="member-card-actions" style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;">
+              <button type="button" class="btn btn-gold btn-sm" onclick="openEditMemberModal('${m.id}')" style="font-size:0.82rem;padding:0.5rem 0.6rem;font-weight:700;">
                 ✏️ تعديل البيانات
               </button>
-              <button type="button" class="btn btn-secondary btn-sm" onclick="openBrandedQrModal('${m.id}')" style="font-size:0.8rem;padding:0.45rem 0.6rem;">
+              <button type="button" class="btn btn-secondary btn-sm" onclick="openBrandedQrModal('${m.id}')" style="font-size:0.82rem;padding:0.5rem 0.6rem;font-weight:700;">
                 🪪 كارت الـ QR
               </button>
               ${m.phone ? `
