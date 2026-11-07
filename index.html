@@ -796,6 +796,31 @@
     .family-unassigned { background: rgba(148, 163, 184, 0.15); color: #94a3b8; border-color: rgba(148, 163, 184, 0.3); }
     .family-revive { background: rgba(14, 165, 233, 0.2); color: #38bdf8; border-color: rgba(14, 165, 233, 0.4); font-weight: 800; }
     .family-one-heart { background: rgba(239, 68, 68, 0.2); color: #f87171; border-color: rgba(239, 68, 68, 0.4); font-weight: 800; }
+    .subfam-checkbox-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.4rem 0.6rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-main);
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s ease;
+    }
+    .subfam-checkbox-label:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--accent-gold);
+    }
+    .subfam-checkbox-label input[type="checkbox"] {
+      accent-color: var(--accent-gold);
+      width: 15px;
+      height: 15px;
+      cursor: pointer;
+    }
     .family-leaders { background: rgba(168, 85, 247, 0.2); color: #c084fc; border-color: rgba(168, 85, 247, 0.4); }
 
     /* Recent Attendees List */
@@ -2972,6 +2997,15 @@
       border-color: #fca5a5 !important;
       font-weight: 800 !important;
     }
+    body.light-theme .subfam-checkbox-label {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+      color: #1e293b;
+    }
+    body.light-theme .subfam-checkbox-label:hover {
+      background: #f1f5f9;
+      border-color: #0f172a;
+    }
 
     body.light-theme .family-leaders {
       background: #f3e8ff !important;
@@ -3560,18 +3594,29 @@
           </div>
         </div>
 
-        <!-- Row 4: Family Filter (الأسر والخدمات) -->
-        <div class="filter-row" style="margin-bottom:0;">
-          <span class="filter-row-label">الأسرة:</span>
+        <!-- Row 4: Main Family Filter (الأسر الرئيسية الثلاث) -->
+        <div class="filter-row">
+          <span class="filter-row-label">الأسرة الرئيسية:</span>
           <div class="filter-pills-wrap">
-            <button class="pill-btn fam-filter-btn active" data-fam="all">الكل</button>
-            <button class="pill-btn fam-filter-btn" data-fam="Revive">🏠 أسرة Revive</button>
-            <button class="pill-btn fam-filter-btn" data-fam="قلب واحد">🏠 أسرة قلب واحد</button>
-            <button class="pill-btn fam-filter-btn" data-fam="الميديا">أسرة الميديا</button>
-            <button class="pill-btn fam-filter-btn" data-fam="الأنشطة">أسرة الأنشطة</button>
-            <button class="pill-btn fam-filter-btn" data-fam="الافتقاد">أسرة الافتقاد</button>
-            <button class="pill-btn fam-filter-btn" data-fam="دراسة الكتاب">دراسة الكتاب</button>
-            <button class="pill-btn fam-filter-btn" data-fam="أمناء">الأمناء والخُدام</button>
+            <button class="pill-btn main-fam-filter-btn active" data-mfam="all">الكل</button>
+            <button class="pill-btn main-fam-filter-btn" data-mfam="أسرة 1">أسرة 1</button>
+            <button class="pill-btn main-fam-filter-btn" data-mfam="أسرة 2">أسرة 2</button>
+            <button class="pill-btn main-fam-filter-btn" data-mfam="أسرة 3">أسرة 3</button>
+            <button class="pill-btn main-fam-filter-btn" data-mfam="لم تحدد بعد">لم تحدد بعد</button>
+          </div>
+        </div>
+
+        <!-- Row 5: Sub-Families Filter (الأسر الفرعية والأنشطة) -->
+        <div class="filter-row" style="margin-bottom:0;">
+          <span class="filter-row-label">الأسر الفرعية:</span>
+          <div class="filter-pills-wrap">
+            <button class="pill-btn sub-fam-filter-btn active" data-subfam="all">الكل</button>
+            <button class="pill-btn sub-fam-filter-btn" data-subfam="أسرة Revive">🏠 أسرة Revive</button>
+            <button class="pill-btn sub-fam-filter-btn" data-subfam="أسرة قلب واحد">🏠 أسرة قلب واحد</button>
+            <button class="pill-btn sub-fam-filter-btn" data-subfam="أسرة الميديا">أسرة الميديا</button>
+            <button class="pill-btn sub-fam-filter-btn" data-subfam="أسرة الأنشطة">أسرة الأنشطة</button>
+            <button class="pill-btn sub-fam-filter-btn" data-subfam="أسرة الافتقاد">أسرة الافتقاد</button>
+            <button class="pill-btn sub-fam-filter-btn" data-subfam="دراسة الكتاب">دراسة الكتاب</button>
           </div>
         </div>
       </div>
@@ -4371,19 +4416,24 @@
           <input type="text" id="mName" class="form-control" required placeholder="مثال: بيشوي عماد فريد">
         </div>
         <div class="form-group">
-          <label>الأسرة التابع لها:</label>
-          <select id="mFamily" class="form-control">
+          <label style="font-weight:800;color:var(--accent-gold);">الأسرة الرئيسية (واحدة فقط من الـ 3 أسر):</label>
+          <select id="mMainFamily" class="form-control" style="font-weight:700;">
+            <option value="لم تحدد بعد" selected>لم تحدد بعد (سيتم التوزيع لاحقاً)</option>
             <option value="أسرة 1">أسرة 1</option>
             <option value="أسرة 2">أسرة 2</option>
             <option value="أسرة 3">أسرة 3</option>
-            <option value="أسرة الميديا">أسرة الميديا</option>
-            <option value="أسرة الأنشطة">أسرة الأنشطة</option>
-            <option value="أسرة الافتقاد">أسرة الافتقاد</option>
-            <option value="أسرة Revive">أسرة Revive</option>
-            <option value="أسرة قلب واحد">أسرة قلب واحد</option>
-            <option value="دراسة الكتاب المقدس">دراسة الكتاب المقدس</option>
-            <option value="أمناء الاجتماع">أمناء الاجتماع</option>
           </select>
+        </div>
+        <div class="form-group">
+          <label style="font-weight:800;color:var(--text-main);margin-bottom:0.35rem;display:block;">الأسر الفرعية والأنشطة (اختياري - يمكن اختيار كذا أسرة):</label>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));gap:0.45rem;">
+            <label class="subfam-checkbox-label"><input type="checkbox" name="newSubFamily" value="أسرة Revive"> <span>🏠 أسرة Revive</span></label>
+            <label class="subfam-checkbox-label"><input type="checkbox" name="newSubFamily" value="أسرة قلب واحد"> <span>🏠 أسرة قلب واحد</span></label>
+            <label class="subfam-checkbox-label"><input type="checkbox" name="newSubFamily" value="أسرة الميديا"> <span>🏠 أسرة الميديا</span></label>
+            <label class="subfam-checkbox-label"><input type="checkbox" name="newSubFamily" value="أسرة الأنشطة"> <span>🏠 أسرة الأنشطة</span></label>
+            <label class="subfam-checkbox-label"><input type="checkbox" name="newSubFamily" value="أسرة الافتقاد"> <span>🏠 أسرة الافتقاد</span></label>
+            <label class="subfam-checkbox-label"><input type="checkbox" name="newSubFamily" value="دراسة الكتاب"> <span>📖 دراسة الكتاب</span></label>
+          </div>
         </div>
         <div class="form-group">
           <label>رقم الموبايل (واتساب):</label>
@@ -4877,9 +4927,33 @@
         </div>
 
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.85rem;margin-bottom:0.85rem;">
-          <div class="form-group">
-            <label style="font-weight:700;font-size:0.82rem;color:var(--text-main);margin-bottom:0.35rem;display:block;">الأسرة:</label>
-            <input type="text" id="editMemberFamily" class="form-control" placeholder="مثال: أسرة 1 أو لم تحدد بعد">
+          <div class="form-group" style="grid-column:1/-1;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:var(--radius-md);padding:0.75rem;">
+            <div style="display:grid;grid-template-columns:1fr;gap:0.65rem;">
+              <div>
+                <label style="font-weight:800;font-size:0.85rem;color:var(--accent-gold);margin-bottom:0.35rem;display:flex;align-items:center;gap:0.35rem;">
+                  <span>🏠</span> الأسرة الرئيسية (واحدة فقط من الـ 3 أسر):
+                </label>
+                <select id="editMemberMainFamily" class="form-control" style="font-weight:700;">
+                  <option value="لم تحدد بعد">لم تحدد بعد (سيتم التوزيع لاحقاً)</option>
+                  <option value="أسرة 1">أسرة 1</option>
+                  <option value="أسرة 2">أسرة 2</option>
+                  <option value="أسرة 3">أسرة 3</option>
+                </select>
+              </div>
+              <div>
+                <label style="font-weight:800;font-size:0.85rem;color:var(--text-main);margin-bottom:0.35rem;display:flex;align-items:center;gap:0.35rem;">
+                  <span>🌿</span> الأسر الفرعية والأنشطة (يمكن اختيار كذا أسرة فرعية):
+                </label>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));gap:0.45rem;" id="editMemberSubFamiliesWrap">
+                  <label class="subfam-checkbox-label"><input type="checkbox" name="editSubFamily" value="أسرة Revive"> <span>🏠 أسرة Revive</span></label>
+                  <label class="subfam-checkbox-label"><input type="checkbox" name="editSubFamily" value="أسرة قلب واحد"> <span>🏠 أسرة قلب واحد</span></label>
+                  <label class="subfam-checkbox-label"><input type="checkbox" name="editSubFamily" value="أسرة الميديا"> <span>🏠 أسرة الميديا</span></label>
+                  <label class="subfam-checkbox-label"><input type="checkbox" name="editSubFamily" value="أسرة الأنشطة"> <span>🏠 أسرة الأنشطة</span></label>
+                  <label class="subfam-checkbox-label"><input type="checkbox" name="editSubFamily" value="أسرة الافتقاد"> <span>🏠 أسرة الافتقاد</span></label>
+                  <label class="subfam-checkbox-label"><input type="checkbox" name="editSubFamily" value="دراسة الكتاب"> <span>📖 دراسة الكتاب</span></label>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="form-group">
             <label style="font-weight:700;font-size:0.82rem;color:var(--text-main);margin-bottom:0.35rem;display:block;">أب الاعتراف:</label>
@@ -13099,7 +13173,7 @@
     // Load from LocalStorage (Upgraded to v4 with foolproof fallbacks)
     function loadLocalData() {
       try {
-        const saved = localStorage.getItem('st_mariam_attendance_v15');
+        const saved = localStorage.getItem('st_mariam_attendance_v16');
         if (saved) {
           const parsed = JSON.parse(saved);
           if (parsed && parsed.members && parsed.members.length > 0) {
@@ -13111,7 +13185,7 @@
           // Initialize fresh from SEED_DATA
           appData = JSON.parse(JSON.stringify(SEED_DATA));
           // Migrate any attendee scans from previous session versions
-          ['st_mariam_attendance_v14', 'st_mariam_attendance_v13', 'st_mariam_attendance_v11', 'st_mariam_attendance_v10', 'st_mariam_attendance_v9'].forEach(k => {
+          ['st_mariam_attendance_v15', 'st_mariam_attendance_v14', 'st_mariam_attendance_v13', 'st_mariam_attendance_v11', 'st_mariam_attendance_v10', 'st_mariam_attendance_v9'].forEach(k => {
             const oldStr = localStorage.getItem(k);
             if (oldStr) {
               try {
@@ -13158,10 +13232,13 @@
           }).filter(s => validSessionIds.has(s.id));
         }
   
-        // Force accurate college stages across all 157 members
+        // Ensure mainFamily & subFamilies architecture across all members
         appData.members.forEach(m => {
           m.collegeStage = getCollegeStage(m);
           m.universityStage = m.collegeStage + (m.age ? ' (' + m.age + ' سنة)' : '');
+          m.mainFamily = getMemberMainFamily(m);
+          m.family = m.mainFamily;
+          m.subFamilies = getMemberSubFamilies(m);
         });
         saveLocalData();
       } catch (e) {
@@ -13172,7 +13249,7 @@
 
     function saveLocalData() {
       try {
-        localStorage.setItem('st_mariam_attendance_v15', JSON.stringify(appData));
+        localStorage.setItem('st_mariam_attendance_v16', JSON.stringify(appData));
       } catch (e) {}
     }
 
@@ -13689,20 +13766,54 @@
 
       if (famPillsContainer) {
         famPillsContainer.innerHTML = '';
-        familySessions.forEach(s => {
-          const meta = getMeetingTypeMeta(s);
-          const count = (s.attendees || []).length;
-          const isActive = (s.id === currentSessionId);
-          const btn = document.createElement('button');
-          btn.type = 'button';
-          btn.className = `pill-btn mini-mtype-btn ${isActive ? 'active' : ''}`;
-          btn.style.cssText = `display:inline-flex;align-items:center;gap:0.35rem;padding:0.4rem 0.75rem;font-size:0.82rem;font-weight:700;${isActive ? 'background:var(--accent-emerald);color:#ffffff;border-color:var(--accent-emerald);box-shadow:0 2px 10px rgba(16,185,129,0.35);' : 'border-color:rgba(16,185,129,0.3);'}`;
-          const badgeHtml = count > 0 ? `<span style="background:var(--accent-gold);color:#000;font-weight:900;border-radius:10px;padding:0 5px;font-size:0.75rem;margin-right:2px;">${count}</span>` : '';
-          const shortTitle = s.title.replace('اجتماع فرعي وتحضير — ', '').replace('اجتماع فرعي — ', '').replace('اجتماع ', '');
-          btn.innerHTML = `<span>${meta.icon}</span> <span>${shortTitle}</span> ${badgeHtml}`;
-          btn.onclick = () => selectScannerSession(s.id);
-          famPillsContainer.appendChild(btn);
-        });
+        const mainFamSessions = familySessions.filter(s => s.id.startsWith('SES-SUB-FAM-'));
+        const subFamSessions = familySessions.filter(s => !s.id.startsWith('SES-SUB-FAM-'));
+
+        // 1. Main Families Section
+        if (mainFamSessions.length > 0) {
+          const mainTitle = document.createElement('span');
+          mainTitle.style.cssText = 'font-size:0.75rem;font-weight:800;color:var(--accent-gold);margin-left:0.35rem;display:inline-flex;align-items:center;gap:0.25rem;';
+          mainTitle.innerHTML = '<span>🏠</span> الأسر الرئيسية:';
+          famPillsContainer.appendChild(mainTitle);
+
+          mainFamSessions.forEach(s => {
+            const meta = getMeetingTypeMeta(s);
+            const count = (s.attendees || []).length;
+            const isActive = (s.id === currentSessionId);
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = `pill-btn mini-mtype-btn ${isActive ? 'active' : ''}`;
+            btn.style.cssText = `display:inline-flex;align-items:center;gap:0.35rem;padding:0.4rem 0.75rem;font-size:0.82rem;font-weight:700;${isActive ? 'background:var(--accent-gold);color:#0b1329;border-color:var(--accent-gold);box-shadow:0 2px 10px rgba(245,158,11,0.35);' : 'border-color:rgba(245,158,11,0.35);'}`;
+            const badgeHtml = count > 0 ? `<span style="background:#0b1329;color:var(--accent-gold);font-weight:900;border-radius:10px;padding:0 5px;font-size:0.75rem;margin-right:2px;">${count}</span>` : '';
+            const shortTitle = s.title.replace('اجتماع فرعي وتحضير — ', '').replace('اجتماع فرعي — ', '').replace('اجتماع ', '');
+            btn.innerHTML = `<span>${meta.icon}</span> <span>${shortTitle}</span> ${badgeHtml}`;
+            btn.onclick = () => selectScannerSession(s.id);
+            famPillsContainer.appendChild(btn);
+          });
+        }
+
+        // 2. Sub-Families Section
+        if (subFamSessions.length > 0) {
+          const subTitle = document.createElement('span');
+          subTitle.style.cssText = 'font-size:0.75rem;font-weight:800;color:var(--accent-emerald);margin-right:0.5rem;margin-left:0.35rem;display:inline-flex;align-items:center;gap:0.25rem;';
+          subTitle.innerHTML = '<span>🌿</span> الأسر الفرعية:';
+          famPillsContainer.appendChild(subTitle);
+
+          subFamSessions.forEach(s => {
+            const meta = getMeetingTypeMeta(s);
+            const count = (s.attendees || []).length;
+            const isActive = (s.id === currentSessionId);
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = `pill-btn mini-mtype-btn ${isActive ? 'active' : ''}`;
+            btn.style.cssText = `display:inline-flex;align-items:center;gap:0.35rem;padding:0.4rem 0.75rem;font-size:0.82rem;font-weight:700;${isActive ? 'background:var(--accent-emerald);color:#ffffff;border-color:var(--accent-emerald);box-shadow:0 2px 10px rgba(16,185,129,0.35);' : 'border-color:rgba(16,185,129,0.3);'}`;
+            const badgeHtml = count > 0 ? `<span style="background:var(--accent-gold);color:#000;font-weight:900;border-radius:10px;padding:0 5px;font-size:0.75rem;margin-right:2px;">${count}</span>` : '';
+            const shortTitle = s.title.replace('اجتماع فرعي وتحضير — ', '').replace('اجتماع فرعي — ', '').replace('اجتماع ', '');
+            btn.innerHTML = `<span>${meta.icon}</span> <span>${shortTitle}</span> ${badgeHtml}`;
+            btn.onclick = () => selectScannerSession(s.id);
+            famPillsContainer.appendChild(btn);
+          });
+        }
       }
 
       // 3. Update legacy hidden select
@@ -14162,12 +14273,33 @@
       window.open(`https://wa.me/2${m.phone}?text=${text}`, '_blank');
     }
 
+    function getMemberMainFamily(m) {
+      if (!m) return 'لم تحدد بعد';
+      if (m.mainFamily && ['أسرة 1', 'أسرة 2', 'أسرة 3'].includes(m.mainFamily)) return m.mainFamily;
+      if (m.family && ['أسرة 1', 'أسرة 2', 'أسرة 3'].includes(m.family)) return m.family;
+      return 'لم تحدد بعد';
+    }
+
+    function getMemberSubFamilies(m) {
+      if (!m) return [];
+      const subs = new Set(Array.isArray(m.subFamilies) ? m.subFamilies : []);
+      const subNames = ['Revive', 'قلب واحد', 'الميديا', 'الأنشطة', 'الافتقاد', 'دراسة الكتاب'];
+      subNames.forEach(sn => {
+        if ((m.family && m.family.includes(sn)) || (m.role && m.role.includes(sn)) || (m.areaGroup && m.areaGroup.includes(sn))) {
+          const canonical = sn === 'Revive' ? 'أسرة Revive' : (sn === 'قلب واحد' ? 'أسرة قلب واحد' : (sn === 'دراسة الكتاب' ? 'دراسة الكتاب' : ('أسرة ' + sn)));
+          subs.add(canonical);
+        }
+      });
+      return Array.from(subs);
+    }
+
     // Render Members Table
     let selectedGroupFilter = 'all';
     let selectedGenderFilter = 'all';
     let selectedStageFilter = 'all';
     let selectedBadgeStageFilter = 'all';
-    let selectedFamilyFilter = 'all';
+    let selectedMainFamilyFilter = 'all';
+    let selectedSubFamilyFilter = 'all';
     let memberSearchQuery = '';
 
     let currentMembersView = 'table';
@@ -14211,16 +14343,17 @@
         const matchGroup = selectedGroupFilter === 'all' || m.groupCode === selectedGroupFilter;
         const matchGender = selectedGenderFilter === 'all' || m.gender === selectedGenderFilter;
         const matchStage = selectedStageFilter === 'all' || getCollegeStage(m) === selectedStageFilter;
-        const matchFamily = selectedFamilyFilter === 'all' || 
-          (m.family && m.family.includes(selectedFamilyFilter)) || 
-          (m.role && m.role.includes(selectedFamilyFilter)) || 
-          (m.areaGroup && m.areaGroup.includes(selectedFamilyFilter));
+        const mainFam = getMemberMainFamily(m);
+        const subFams = getMemberSubFamilies(m);
+        const matchMainFamily = selectedMainFamilyFilter === 'all' || mainFam === selectedMainFamilyFilter;
+        const matchSubFamily = selectedSubFamilyFilter === 'all' || subFams.some(sf => sf.includes(selectedSubFamilyFilter) || selectedSubFamilyFilter.includes(sf));
         const q = (memberSearchQuery || '').toLowerCase().trim();
         const nq = normArabic(q);
         const matchSearch = !q || (
           normArabic(m.name).includes(nq) ||
           m.id.toLowerCase().includes(q) ||
-          (m.family && normArabic(m.family).includes(nq)) ||
+          normArabic(mainFam).includes(nq) ||
+          subFams.some(sf => normArabic(sf).includes(nq)) ||
           (m.role && normArabic(m.role).includes(nq)) ||
           (m.areaGroup && normArabic(m.areaGroup).includes(nq)) ||
           (m.phone && m.phone.includes(q)) ||
@@ -14228,7 +14361,7 @@
           (m.father && m.father.toLowerCase().includes(q)) ||
           (m.collegeStage && m.collegeStage.toLowerCase().includes(q))
         );
-        return matchGroup && matchGender && matchStage && matchFamily && matchSearch;
+        return matchGroup && matchGender && matchStage && matchMainFamily && matchSubFamily && matchSearch;
       });
 
       const countEl = document.getElementById('displayedMembersCount');
@@ -14242,6 +14375,8 @@
 
       list.forEach((m) => {
         const areaName = m.areaGroup || (m.groupCode ? ('منطقة ' + m.groupCode) : 'غير محدد');
+        const memberMainFam = getMemberMainFamily(m);
+        const memberSubFams = getMemberSubFamilies(m);
 
         const isServant = m.role && (m.role.includes('أمين') || m.role.includes('أمينة') || m.role.includes('سكرتير') || m.role.includes('خادم') || m.role.includes('خادمة'));
         const roleBadge = isServant ? `<span style="background:rgba(245,158,11,0.2);color:var(--accent-gold);border:1px solid rgba(245,158,11,0.45);padding:0.12rem 0.45rem;border-radius:6px;font-size:0.72rem;font-weight:800;margin-right:0.35rem;display:inline-block;">✝️ ${m.role}</span>` : '';
@@ -14249,13 +14384,18 @@
         // 1. Desktop Table Row (Clean directory view without attendance registration buttons)
         if (tbody) {
           const tr = document.createElement('tr');
-          const familyName = (m.family && m.family !== 'غير محدد' && !m.family.includes('مجموعة') && !m.family.includes('منطقة')) ? m.family : 'لم تحدد بعد';
+          const subFamsHtml = memberSubFams.length > 0 
+            ? `<div style="display:flex;gap:3px;flex-wrap:wrap;justify-content:center;margin-top:3px;">${memberSubFams.map(sf => `<span class="family-pill ${getFamilyClass(sf)}" style="font-size:0.68rem;padding:0.1rem 0.4rem;">${sf.replace('أسرة ', '')}</span>`).join('')}</div>`
+            : '';
 
           tr.innerHTML = `
             <td style="text-align:center;"><span class="badge-id">${m.id}</span></td>
             <td><strong style="color:var(--text-main);font-size:0.95rem;font-weight:800;">${m.name}</strong> ${roleBadge}</td>
             <td style="text-align:center;"><span class="family-pill ${getFamilyClass(areaName)}">${areaName}</span></td>
-            <td style="text-align:center;"><span class="family-pill family-unassigned">${familyName}</span></td>
+            <td style="text-align:center;">
+              <span class="family-pill ${getFamilyClass(memberMainFam)}">${memberMainFam}</span>
+              ${subFamsHtml}
+            </td>
             <td style="text-align:center;"><span class="family-pill pill-stage">${getCollegeStage(m)}</span></td>
             <td style="text-align:center;"><span class="family-pill pill-gender">${m.gender === 'شابة' ? '👧 شابة' : '👦 شاب'}</span></td>
             <td class="member-father-cell">${m.father || '—'}</td>
@@ -14289,6 +14429,8 @@
                 <div class="member-card-chips">
                   <span class="badge-id">${m.id}</span>
                   <span class="family-pill ${getFamilyClass(areaName)}">📍 ${areaName}</span>
+                  <span class="family-pill ${getFamilyClass(memberMainFam)}">🏠 ${memberMainFam}</span>
+                  ${memberSubFams.map(sf => `<span class="family-pill ${getFamilyClass(sf)}" style="font-size:0.7rem;">🌿 ${sf}</span>`).join('')}
                   <span class="family-pill pill-stage">🎓 ${getCollegeStage(m)}</span>
                   <span class="family-pill pill-gender">${m.gender === 'شابة' ? '👧 شابة' : '👦 شاب'}</span>
                 </div>
@@ -14342,7 +14484,14 @@
       document.getElementById('editMemberStage').value = m.collegeStage || getCollegeStage(m) || 'أولى كلية';
       document.getElementById('editMemberGender').value = m.gender || 'شاب';
       document.getElementById('editMemberAreaGroup').value = m.areaGroup || (m.groupCode ? ('منطقة ' + m.groupCode) : 'غير محدد');
-      document.getElementById('editMemberFamily').value = (m.family && m.family !== 'غير محدد') ? m.family : '';
+      const memberMainFam = getMemberMainFamily(m);
+      if (document.getElementById('editMemberMainFamily')) {
+        document.getElementById('editMemberMainFamily').value = memberMainFam;
+      }
+      const memberSubs = getMemberSubFamilies(m);
+      document.querySelectorAll('input[name="editSubFamily"]').forEach(cb => {
+        cb.checked = memberSubs.some(s => s.includes(cb.value) || cb.value.includes(s));
+      });
       document.getElementById('editMemberFather').value = m.father || '';
       document.getElementById('editMemberAddress').value = m.fullAddress || (m.area ? (m.area + (m.street ? ' — ' + m.street : '')) : '');
       document.getElementById('editMemberBirthdate').value = m.birthDateText || '';
@@ -14368,7 +14517,8 @@
       const collegeStage = document.getElementById('editMemberStage').value;
       const gender = document.getElementById('editMemberGender').value;
       const areaGroup = document.getElementById('editMemberAreaGroup').value;
-      const family = document.getElementById('editMemberFamily').value.trim() || 'لم تحدد بعد';
+      const mainFamily = document.getElementById('editMemberMainFamily')?.value || 'لم تحدد بعد';
+      const subFamilies = Array.from(document.querySelectorAll('input[name="editSubFamily"]:checked')).map(cb => cb.value);
       const father = document.getElementById('editMemberFather').value.trim();
       const fullAddress = document.getElementById('editMemberAddress').value.trim();
       const birthDateText = document.getElementById('editMemberBirthdate').value.trim();
@@ -14387,7 +14537,9 @@
         gender,
         areaGroup,
         groupCode,
-        family,
+        family: mainFamily,
+        mainFamily: mainFamily,
+        subFamilies: subFamilies,
         father,
         fullAddress,
         area: fullAddress,
@@ -16213,14 +16365,15 @@
         return;
       }
       const name = document.getElementById('mName').value.trim();
-      const family = document.getElementById('mFamily').value;
+      const mainFamily = document.getElementById('mMainFamily')?.value || 'لم تحدد بعد';
+      const subFamilies = Array.from(document.querySelectorAll('input[name="newSubFamily"]:checked')).map(cb => cb.value);
       const phone = document.getElementById('mPhone').value.trim();
       const role = document.getElementById('mRole').value.trim();
 
       const nextNum = appData.members.length + 1;
       const id = `SM-${String(nextNum).padStart(2, '0')}`;
 
-      const newM = { id, name, family, phone, role, active: true };
+      const newM = { id, name, mainFamily, family: mainFamily, subFamilies, phone, role, active: true };
       appData.members.push(newM);
       saveLocalData();
 
@@ -17810,10 +17963,17 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
         renderMembersTable();
       }
 
-      if (e.target.classList.contains('fam-filter-btn')) {
-        document.querySelectorAll('.fam-filter-btn').forEach(b => b.classList.remove('btn-gold', 'active'));
+      if (e.target.classList.contains('main-fam-filter-btn')) {
+        document.querySelectorAll('.main-fam-filter-btn').forEach(b => b.classList.remove('btn-gold', 'active'));
         e.target.classList.add('btn-gold', 'active');
-        selectedFamilyFilter = e.target.getAttribute('data-fam');
+        selectedMainFamilyFilter = e.target.getAttribute('data-mfam');
+        renderMembersTable();
+      }
+
+      if (e.target.classList.contains('sub-fam-filter-btn')) {
+        document.querySelectorAll('.sub-fam-filter-btn').forEach(b => b.classList.remove('btn-gold', 'active'));
+        e.target.classList.add('btn-gold', 'active');
+        selectedSubFamilyFilter = e.target.getAttribute('data-subfam');
         renderMembersTable();
       }
     });

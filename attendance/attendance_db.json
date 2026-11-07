@@ -35,7 +35,9 @@
       "active": true,
       "collegeStage": "رابعة كلية",
       "areaGroup": "منطقة E",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "YS-002",
@@ -63,7 +65,9 @@
       "active": true,
       "collegeStage": "رابعة كلية",
       "areaGroup": "غير محدد",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "YS-003",
@@ -91,7 +95,9 @@
       "active": true,
       "collegeStage": "رابعة كلية",
       "areaGroup": "غير محدد",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "YS-004",
@@ -119,7 +125,9 @@
       "active": true,
       "collegeStage": "أولى كلية",
       "areaGroup": "منطقة E",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "E21",
@@ -147,7 +155,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة E",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "YS-006",
@@ -175,7 +185,9 @@
       "active": true,
       "collegeStage": "تانية كلية",
       "areaGroup": "غير محدد",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "C17",
@@ -203,7 +215,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة C",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "T01",
@@ -231,7 +245,9 @@
       "active": true,
       "collegeStage": "خامسة كلية",
       "areaGroup": "منطقة T (خارج القناطر)",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "YS-009",
@@ -259,7 +275,9 @@
       "active": true,
       "collegeStage": "أولى كلية",
       "areaGroup": "منطقة E",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "YS-010",
@@ -287,7 +305,9 @@
       "active": true,
       "collegeStage": "أولى كلية",
       "areaGroup": "غير محدد",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "D07",
@@ -315,7 +335,9 @@
       "active": true,
       "collegeStage": "تانية كلية",
       "areaGroup": "منطقة D",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "E07",
@@ -343,7 +365,9 @@
       "active": true,
       "collegeStage": "تانية كلية",
       "areaGroup": "منطقة E",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "B17",
@@ -371,7 +395,9 @@
       "active": true,
       "collegeStage": "خامسة كلية",
       "areaGroup": "منطقة B",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "YS-014",
@@ -385,7 +411,7 @@
       "birthDateText": "17 أبريل 2006",
       "birthDateIso": "2006-04-17",
       "college": "",
-      "family": "أسرة الميديا",
+      "family": "لم تحدد بعد",
       "groupCode": "خدام",
       "phone": "01210943516",
       "phone2": "",
@@ -399,7 +425,11 @@
       "active": true,
       "collegeStage": "خادم",
       "areaGroup": "خدام الاجتماع (الميديا)",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": [
+        "أسرة الميديا"
+      ]
     },
     {
       "id": "YS-015",
@@ -427,7 +457,9 @@
       "active": true,
       "collegeStage": "أولى كلية",
       "areaGroup": "منطقة C",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "YS-016",
@@ -455,7 +487,9 @@
       "active": true,
       "collegeStage": "أولى كلية",
       "areaGroup": "غير محدد",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "T02",
@@ -483,7 +517,9 @@
       "active": true,
       "collegeStage": "خامسة كلية",
       "areaGroup": "منطقة T (خارج القناطر)",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "D11",
@@ -497,7 +533,7 @@
       "birthDateText": "12 مايو 2005",
       "birthDateIso": "2005-05-12",
       "college": "",
-      "family": "أمناء الأسر",
+      "family": "لم تحدد بعد",
       "groupCode": "خدام",
       "phone": "01223757761",
       "phone2": "",
@@ -511,7 +547,9 @@
       "active": true,
       "collegeStage": "خادم",
       "areaGroup": "خدام الاجتماع (أمناء الأسر)",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "YS-019",
@@ -539,7 +577,9 @@
       "active": true,
       "collegeStage": "رابعة كلية",
       "areaGroup": "غير محدد",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "A25",
@@ -553,7 +593,7 @@
       "birthDateText": "مواليد 2006",
       "birthDateIso": null,
       "college": "",
-      "family": "أسرة الأنشطة",
+      "family": "لم تحدد بعد",
       "groupCode": "خدام",
       "phone": "01207205034",
       "phone2": "",
@@ -567,7 +607,11 @@
       "active": true,
       "collegeStage": "خادم",
       "areaGroup": "خدام الاجتماع (الأنشطة)",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": [
+        "أسرة الأنشطة"
+      ]
     },
     {
       "id": "D17",
@@ -595,7 +639,9 @@
       "active": true,
       "collegeStage": "تانية كلية",
       "areaGroup": "منطقة D",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "A21",
@@ -623,7 +669,9 @@
       "active": true,
       "collegeStage": "تانية كلية",
       "areaGroup": "منطقة A",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "YS-023",
@@ -651,7 +699,9 @@
       "active": true,
       "collegeStage": "أولى كلية",
       "areaGroup": "غير محدد",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "T03",
@@ -679,7 +729,9 @@
       "active": true,
       "collegeStage": "تانية كلية",
       "areaGroup": "منطقة T (خارج القناطر)",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "D05",
@@ -707,7 +759,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة D",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "E09",
@@ -735,7 +789,9 @@
       "active": true,
       "collegeStage": "تانية كلية",
       "areaGroup": "منطقة E",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "D04",
@@ -763,7 +819,9 @@
       "active": true,
       "collegeStage": "رابعة كلية",
       "areaGroup": "منطقة D",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "C20",
@@ -791,7 +849,9 @@
       "active": true,
       "collegeStage": "تانية كلية",
       "areaGroup": "منطقة C",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "T04",
@@ -819,7 +879,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة T (خارج القناطر)",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "A40",
@@ -833,7 +895,7 @@
       "birthDateText": "21 يوليو 2006",
       "birthDateIso": "2006-07-21",
       "college": "",
-      "family": "دراسة الكتاب المقدس",
+      "family": "لم تحدد بعد",
       "groupCode": "خدام",
       "phone": "01287284098",
       "phone2": "",
@@ -847,7 +909,11 @@
       "active": true,
       "collegeStage": "خادم",
       "areaGroup": "خدام الاجتماع (دراسة الكتاب)",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": [
+        "دراسة الكتاب"
+      ]
     },
     {
       "id": "B20",
@@ -875,7 +941,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة B",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "C14",
@@ -903,7 +971,9 @@
       "active": true,
       "collegeStage": "خامسة كلية",
       "areaGroup": "منطقة C",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "C18",
@@ -931,7 +1001,9 @@
       "active": true,
       "collegeStage": "تانية كلية",
       "areaGroup": "منطقة C",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "T05",
@@ -959,7 +1031,9 @@
       "active": true,
       "collegeStage": "خامسة كلية",
       "areaGroup": "منطقة T (خارج القناطر)",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "B13",
@@ -987,7 +1061,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة B",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "A27",
@@ -1015,7 +1091,9 @@
       "active": true,
       "collegeStage": "تانية كلية",
       "areaGroup": "منطقة A",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "T06",
@@ -1043,7 +1121,9 @@
       "active": true,
       "collegeStage": "أولى كلية",
       "areaGroup": "منطقة T (خارج القناطر)",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "T07",
@@ -1071,7 +1151,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة T (خارج القناطر)",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "YS-039",
@@ -1099,7 +1181,9 @@
       "active": true,
       "collegeStage": "تانية كلية",
       "areaGroup": "غير محدد",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "E06",
@@ -1127,7 +1211,9 @@
       "active": true,
       "collegeStage": "خامسة كلية",
       "areaGroup": "منطقة E",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "T08",
@@ -1155,7 +1241,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة T (خارج القناطر)",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "D16",
@@ -1183,7 +1271,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة D",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "T09",
@@ -1211,7 +1301,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة T (خارج القناطر)",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "YS-044",
@@ -1239,7 +1331,9 @@
       "active": true,
       "collegeStage": "أولى كلية",
       "areaGroup": "غير محدد",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "T13",
@@ -1267,7 +1361,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة T (خارج القناطر)",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "T10",
@@ -1295,7 +1391,9 @@
       "active": true,
       "collegeStage": "تانية كلية",
       "areaGroup": "منطقة T (خارج القناطر)",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "C11",
@@ -1323,7 +1421,9 @@
       "active": true,
       "collegeStage": "رابعة كلية",
       "areaGroup": "منطقة C",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "YS-048",
@@ -1351,7 +1451,9 @@
       "active": true,
       "collegeStage": "أولى كلية",
       "areaGroup": "غير محدد",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "YS-049",
@@ -1379,7 +1481,9 @@
       "active": true,
       "collegeStage": "أولى كلية",
       "areaGroup": "غير محدد",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "E17",
@@ -1407,7 +1511,9 @@
       "active": true,
       "collegeStage": "تانية كلية",
       "areaGroup": "منطقة E",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "E28",
@@ -1435,7 +1541,9 @@
       "active": true,
       "collegeStage": "خامسة كلية",
       "areaGroup": "منطقة E",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "B10",
@@ -1463,7 +1571,9 @@
       "active": true,
       "collegeStage": "رابعة كلية",
       "areaGroup": "منطقة B",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "C02",
@@ -1491,7 +1601,9 @@
       "active": true,
       "collegeStage": "تانية كلية",
       "areaGroup": "منطقة C",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "YS-054",
@@ -1519,7 +1631,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "غير محدد",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "YS-055",
@@ -1547,7 +1661,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "غير محدد",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "B18",
@@ -1575,7 +1691,9 @@
       "active": true,
       "collegeStage": "رابعة كلية",
       "areaGroup": "منطقة B",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "C03",
@@ -1603,7 +1721,9 @@
       "active": true,
       "collegeStage": "تانية كلية",
       "areaGroup": "منطقة C",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "D06",
@@ -1631,7 +1751,9 @@
       "active": true,
       "collegeStage": "خامسة كلية",
       "areaGroup": "منطقة D",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "B07",
@@ -1659,7 +1781,9 @@
       "active": true,
       "collegeStage": "تانية كلية",
       "areaGroup": "منطقة B",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "C08",
@@ -1687,7 +1811,9 @@
       "active": true,
       "collegeStage": "رابعة كلية",
       "areaGroup": "منطقة C",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "C22",
@@ -1715,7 +1841,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة C",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "E30",
@@ -1729,7 +1857,7 @@
       "birthDateText": "مواليد 2006",
       "birthDateIso": null,
       "college": "",
-      "family": "أمناء الأسر",
+      "family": "لم تحدد بعد",
       "groupCode": "خدام",
       "phone": "01228754558",
       "phone2": "",
@@ -1743,7 +1871,9 @@
       "active": true,
       "collegeStage": "خادم",
       "areaGroup": "خدام الاجتماع (أمناء الأسر)",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "E04",
@@ -1771,7 +1901,9 @@
       "active": true,
       "collegeStage": "خامسة كلية",
       "areaGroup": "منطقة E",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "YS-064",
@@ -1799,7 +1931,9 @@
       "active": true,
       "collegeStage": "أولى كلية",
       "areaGroup": "غير محدد",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "E29",
@@ -1827,7 +1961,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة E",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "YS-066",
@@ -1855,7 +1991,9 @@
       "active": true,
       "collegeStage": "أولى كلية",
       "areaGroup": "غير محدد",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "C12",
@@ -1869,7 +2007,7 @@
       "birthDateText": "28 أكتوبر 2005",
       "birthDateIso": "2005-10-28",
       "college": "",
-      "family": "أمناء الأسر",
+      "family": "لم تحدد بعد",
       "groupCode": "خدام",
       "phone": "01221934211",
       "phone2": "",
@@ -1883,7 +2021,9 @@
       "active": true,
       "collegeStage": "خادمة",
       "areaGroup": "خدام الاجتماع (أمناء الأسر)",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "T11",
@@ -1911,7 +2051,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة T (خارج القناطر)",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "D15",
@@ -1925,7 +2067,7 @@
       "birthDateText": "22 ديسمبر 2006",
       "birthDateIso": "2006-12-22",
       "college": "",
-      "family": "أسرة Revive",
+      "family": "لم تحدد بعد",
       "groupCode": "خدام",
       "phone": "01276680787",
       "phone2": "",
@@ -1939,7 +2081,11 @@
       "active": true,
       "collegeStage": "خادم",
       "areaGroup": "خدام الاجتماع (Revive)",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": [
+        "أسرة Revive"
+      ]
     },
     {
       "id": "YS-070",
@@ -1967,7 +2113,9 @@
       "active": true,
       "collegeStage": "أولى كلية",
       "areaGroup": "غير محدد",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "B05",
@@ -1995,7 +2143,9 @@
       "active": true,
       "collegeStage": "رابعة كلية",
       "areaGroup": "منطقة B",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "A17",
@@ -2009,7 +2159,7 @@
       "birthDateText": "26 أبريل 2005",
       "birthDateIso": "2005-04-26",
       "college": "",
-      "family": "أمناء الأسر",
+      "family": "لم تحدد بعد",
       "groupCode": "خدام",
       "phone": "01282076103",
       "phone2": "",
@@ -2023,7 +2173,9 @@
       "active": true,
       "collegeStage": "خادم",
       "areaGroup": "خدام الاجتماع (أمناء الأسر)",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "YS-073",
@@ -2051,7 +2203,9 @@
       "active": true,
       "collegeStage": "أولى كلية",
       "areaGroup": "غير محدد",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "T12",
@@ -2065,7 +2219,7 @@
       "birthDateText": "مواليد 2004",
       "birthDateIso": null,
       "college": "",
-      "family": "أمناء الاجتماع",
+      "family": "لم تحدد بعد",
       "groupCode": "خدام",
       "phone": "01223708282",
       "phone2": "",
@@ -2079,7 +2233,9 @@
       "active": true,
       "collegeStage": "خادم",
       "areaGroup": "أمناء الاجتماع",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "E26",
@@ -2107,7 +2263,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة E",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "T13",
@@ -2135,7 +2293,9 @@
       "active": true,
       "collegeStage": "تانية كلية",
       "areaGroup": "منطقة T (خارج القناطر)",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "B06",
@@ -2163,7 +2323,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة B",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "B16",
@@ -2191,7 +2353,9 @@
       "active": true,
       "collegeStage": "خامسة كلية",
       "areaGroup": "منطقة B",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "T14",
@@ -2219,7 +2383,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة T (خارج القناطر)",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "A14",
@@ -2247,7 +2413,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة A",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "A16",
@@ -2275,7 +2443,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة A",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "T15",
@@ -2303,7 +2473,9 @@
       "active": true,
       "collegeStage": "تانية كلية",
       "areaGroup": "منطقة T (خارج القناطر)",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "A04",
@@ -2331,7 +2503,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة A",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "A08",
@@ -2345,7 +2519,7 @@
       "birthDateText": "23 مايو 2006",
       "birthDateIso": "2006-05-23",
       "college": "",
-      "family": "السكرتارية العامة",
+      "family": "لم تحدد بعد",
       "groupCode": "خدام",
       "phone": "01222716609",
       "phone2": "",
@@ -2359,7 +2533,9 @@
       "active": true,
       "collegeStage": "خادم",
       "areaGroup": "السكرتارية العامة",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "C24",
@@ -2387,7 +2563,9 @@
       "active": true,
       "collegeStage": "رابعة كلية",
       "areaGroup": "منطقة C",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "E31",
@@ -2415,7 +2593,9 @@
       "active": true,
       "collegeStage": "خامسة كلية",
       "areaGroup": "منطقة E",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "B14",
@@ -2443,7 +2623,9 @@
       "active": true,
       "collegeStage": "تانية كلية",
       "areaGroup": "منطقة B",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "A29",
@@ -2471,7 +2653,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة A",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "C06",
@@ -2499,7 +2683,9 @@
       "active": true,
       "collegeStage": "تانية كلية",
       "areaGroup": "منطقة C",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "T16",
@@ -2527,7 +2713,9 @@
       "active": true,
       "collegeStage": "أولى كلية",
       "areaGroup": "منطقة T (خارج القناطر)",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "T17",
@@ -2555,7 +2743,9 @@
       "active": true,
       "collegeStage": "تانية كلية",
       "areaGroup": "منطقة T (خارج القناطر)",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "YS-092",
@@ -2583,7 +2773,9 @@
       "active": true,
       "collegeStage": "أولى كلية",
       "areaGroup": "غير محدد",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "D01",
@@ -2611,7 +2803,9 @@
       "active": true,
       "collegeStage": "تانية كلية",
       "areaGroup": "منطقة D",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "YS-094",
@@ -2639,7 +2833,9 @@
       "active": true,
       "collegeStage": "أولى كلية",
       "areaGroup": "غير محدد",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "A22",
@@ -2667,7 +2863,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة A",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "E23",
@@ -2695,7 +2893,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة E",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "A23",
@@ -2723,7 +2923,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة A",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "E32",
@@ -2751,7 +2953,9 @@
       "active": true,
       "collegeStage": "رابعة كلية",
       "areaGroup": "منطقة E",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "T18",
@@ -2779,7 +2983,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة T (خارج القناطر)",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "C05",
@@ -2807,7 +3013,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة C",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "YS-101",
@@ -2835,7 +3043,9 @@
       "active": true,
       "collegeStage": "أولى كلية",
       "areaGroup": "منطقة C",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "YS-102",
@@ -2863,7 +3073,9 @@
       "active": true,
       "collegeStage": "أولى كلية",
       "areaGroup": "منطقة C",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "A15",
@@ -2891,7 +3103,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة A",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "YS-104",
@@ -2919,7 +3133,9 @@
       "active": true,
       "collegeStage": "أولى كلية",
       "areaGroup": "غير محدد",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "YS-105",
@@ -2947,7 +3163,9 @@
       "active": true,
       "collegeStage": "أولى كلية",
       "areaGroup": "منطقة E",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "B09",
@@ -2975,7 +3193,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة B",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "T19",
@@ -3003,7 +3223,9 @@
       "active": true,
       "collegeStage": "رابعة كلية",
       "areaGroup": "منطقة T (خارج القناطر)",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "T20",
@@ -3031,7 +3253,9 @@
       "active": true,
       "collegeStage": "خامسة كلية",
       "areaGroup": "منطقة T (خارج القناطر)",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "T21",
@@ -3059,7 +3283,9 @@
       "active": true,
       "collegeStage": "رابعة كلية",
       "areaGroup": "منطقة T (خارج القناطر)",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "C25",
@@ -3087,7 +3313,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة C",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "D10",
@@ -3115,7 +3343,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة D",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "T22",
@@ -3143,7 +3373,9 @@
       "active": true,
       "collegeStage": "خامسة كلية",
       "areaGroup": "منطقة T (خارج القناطر)",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "YS-113",
@@ -3171,7 +3403,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "غير محدد",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "T23",
@@ -3199,7 +3433,9 @@
       "active": true,
       "collegeStage": "خامسة كلية",
       "areaGroup": "منطقة T (خارج القناطر)",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "YS-115",
@@ -3227,7 +3463,9 @@
       "active": true,
       "collegeStage": "أولى كلية",
       "areaGroup": "غير محدد",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "YS-116",
@@ -3255,7 +3493,9 @@
       "active": true,
       "collegeStage": "أولى كلية",
       "areaGroup": "غير محدد",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "T24",
@@ -3283,7 +3523,9 @@
       "active": true,
       "collegeStage": "تانية كلية",
       "areaGroup": "منطقة T (خارج القناطر)",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "T25",
@@ -3311,7 +3553,9 @@
       "active": true,
       "collegeStage": "رابعة كلية",
       "areaGroup": "منطقة T (خارج القناطر)",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "E33",
@@ -3339,7 +3583,9 @@
       "active": true,
       "collegeStage": "خامسة كلية",
       "areaGroup": "منطقة E",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "T26",
@@ -3367,7 +3613,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة T (خارج القناطر)",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "A35",
@@ -3395,7 +3643,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة A",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "T27",
@@ -3423,7 +3673,9 @@
       "active": true,
       "collegeStage": "أولى كلية",
       "areaGroup": "منطقة T (خارج القناطر)",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "A39",
@@ -3451,7 +3703,9 @@
       "active": true,
       "collegeStage": "خامسة كلية",
       "areaGroup": "منطقة A",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "D08",
@@ -3479,7 +3733,9 @@
       "active": true,
       "collegeStage": "تانية كلية",
       "areaGroup": "منطقة D",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "A34",
@@ -3507,7 +3763,9 @@
       "active": true,
       "collegeStage": "رابعة كلية",
       "areaGroup": "منطقة A",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "B11",
@@ -3535,7 +3793,9 @@
       "active": true,
       "collegeStage": "رابعة كلية",
       "areaGroup": "منطقة B",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "T28",
@@ -3563,7 +3823,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة T (خارج القناطر)",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "T29",
@@ -3591,7 +3853,9 @@
       "active": true,
       "collegeStage": "تانية كلية",
       "areaGroup": "منطقة T (خارج القناطر)",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "D19",
@@ -3605,7 +3869,7 @@
       "birthDateText": "11 ديسمبر 2006",
       "birthDateIso": "2006-12-11",
       "college": "",
-      "family": "أسرة الميديا",
+      "family": "لم تحدد بعد",
       "groupCode": "خدام",
       "phone": "01287142498",
       "phone2": "",
@@ -3619,7 +3883,11 @@
       "active": true,
       "collegeStage": "خادم",
       "areaGroup": "خدام الاجتماع (الميديا)",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": [
+        "أسرة الميديا"
+      ]
     },
     {
       "id": "A02",
@@ -3633,7 +3901,7 @@
       "birthDateText": "9 سبتمبر 2005",
       "birthDateIso": "2005-09-09",
       "college": "",
-      "family": "أسرة قلب واحد",
+      "family": "لم تحدد بعد",
       "groupCode": "خدام",
       "phone": "01278865619",
       "phone2": "",
@@ -3647,7 +3915,11 @@
       "active": true,
       "collegeStage": "خادم",
       "areaGroup": "خدام الاجتماع (قلب واحد)",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": [
+        "أسرة قلب واحد"
+      ]
     },
     {
       "id": "YS-131",
@@ -3675,7 +3947,9 @@
       "active": true,
       "collegeStage": "أولى كلية",
       "areaGroup": "غير محدد",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "YS-132",
@@ -3703,7 +3977,9 @@
       "active": true,
       "collegeStage": "أولى كلية",
       "areaGroup": "غير محدد",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "E01",
@@ -3731,7 +4007,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة E",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "YS-134",
@@ -3759,7 +4037,9 @@
       "active": true,
       "collegeStage": "أولى كلية",
       "areaGroup": "غير محدد",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "YS-135",
@@ -3787,7 +4067,9 @@
       "active": true,
       "collegeStage": "رابعة كلية",
       "areaGroup": "غير محدد",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "B12",
@@ -3815,7 +4097,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة B",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "A19",
@@ -3843,7 +4127,9 @@
       "active": true,
       "collegeStage": "خامسة كلية",
       "areaGroup": "منطقة A",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "YS-138",
@@ -3871,7 +4157,9 @@
       "active": true,
       "collegeStage": "أولى كلية",
       "areaGroup": "منطقة D",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "E15",
@@ -3899,7 +4187,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة E",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "E11",
@@ -3927,7 +4217,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة E",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "YS-141",
@@ -3955,7 +4247,9 @@
       "active": true,
       "collegeStage": "أولى كلية",
       "areaGroup": "غير محدد",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "C15",
@@ -3983,7 +4277,9 @@
       "active": true,
       "collegeStage": "تانية كلية",
       "areaGroup": "منطقة C",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "T30",
@@ -4011,7 +4307,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة T (خارج القناطر)",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "YS-144",
@@ -4039,7 +4337,9 @@
       "active": true,
       "collegeStage": "أولى كلية",
       "areaGroup": "غير محدد",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "A01",
@@ -4067,7 +4367,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة A",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "B15",
@@ -4095,7 +4397,9 @@
       "active": true,
       "collegeStage": "تانية كلية",
       "areaGroup": "منطقة B",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "C01",
@@ -4109,7 +4413,7 @@
       "birthDateText": "28 ديسمبر 2003",
       "birthDateIso": "2003-12-28",
       "college": "",
-      "family": "أمناء الأسر",
+      "family": "لم تحدد بعد",
       "groupCode": "خدام",
       "phone": "01288808642",
       "phone2": "",
@@ -4123,7 +4427,9 @@
       "active": true,
       "collegeStage": "خادمة",
       "areaGroup": "خدام الاجتماع (أمناء الأسر)",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "T31",
@@ -4151,7 +4457,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة T (خارج القناطر)",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "YS-149",
@@ -4179,7 +4487,9 @@
       "active": true,
       "collegeStage": "أولى كلية",
       "areaGroup": "غير محدد",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "T32",
@@ -4207,7 +4517,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة T (خارج القناطر)",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "E27",
@@ -4235,7 +4547,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة E",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "T33",
@@ -4263,7 +4577,9 @@
       "active": true,
       "collegeStage": "تانية كلية",
       "areaGroup": "منطقة T (خارج القناطر)",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "A31",
@@ -4291,7 +4607,9 @@
       "active": true,
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة A",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "T34",
@@ -4319,7 +4637,9 @@
       "active": true,
       "collegeStage": "خامسة كلية",
       "areaGroup": "منطقة T (خارج القناطر)",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "YS-155",
@@ -4347,7 +4667,9 @@
       "active": true,
       "collegeStage": "أولى كلية",
       "areaGroup": "غير محدد",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "D18",
@@ -4375,7 +4697,9 @@
       "active": true,
       "collegeStage": "تانية كلية",
       "areaGroup": "منطقة D",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "YS-157",
@@ -4403,7 +4727,9 @@
       "active": true,
       "collegeStage": "أولى كلية",
       "areaGroup": "غير محدد",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "SM-04",
@@ -4414,7 +4740,7 @@
       "role": "✝️ أمين أسرة الافتقاد",
       "groupCode": "خدام",
       "areaGroup": "خدام الاجتماع (الافتقاد)",
-      "family": "أسرة الافتقاد",
+      "family": "لم تحدد بعد",
       "collegeStage": "خادم",
       "active": true,
       "phone": "",
@@ -4430,7 +4756,11 @@
       "college": "",
       "age": 24,
       "batch": "2002",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": [
+        "أسرة الافتقاد"
+      ]
     },
     {
       "id": "SM-10",
@@ -4441,7 +4771,7 @@
       "role": "✝️ أمين أسرة Revive",
       "groupCode": "خدام",
       "areaGroup": "خدام الاجتماع (Revive)",
-      "family": "أسرة Revive",
+      "family": "لم تحدد بعد",
       "collegeStage": "خادم",
       "active": true,
       "phone": "",
@@ -4457,7 +4787,11 @@
       "college": "",
       "age": 24,
       "batch": "2002",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": [
+        "أسرة Revive"
+      ]
     },
     {
       "id": "SM-01",
@@ -4468,7 +4802,7 @@
       "role": "✝️ أمينة أسرة قلب واحد",
       "groupCode": "خدام",
       "areaGroup": "خدام الاجتماع (قلب واحد)",
-      "family": "أسرة قلب واحد",
+      "family": "لم تحدد بعد",
       "collegeStage": "خادمة",
       "active": true,
       "phone": "",
@@ -4484,7 +4818,11 @@
       "college": "",
       "age": 24,
       "batch": "2002",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": [
+        "أسرة قلب واحد"
+      ]
     },
     {
       "id": "SM-03",
@@ -4511,7 +4849,9 @@
       "college": "",
       "age": 24,
       "batch": "2002",
-      "points": 0
+      "points": 0,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "KH-01",
@@ -4522,7 +4862,7 @@
       "role": "أمينة الاجتماع",
       "groupCode": "خدام",
       "areaGroup": "أمناء الاجتماع",
-      "family": "أمناء الاجتماع",
+      "family": "لم تحدد بعد",
       "collegeStage": "خادمة",
       "active": true,
       "phone": "",
@@ -4538,7 +4878,9 @@
       "college": "",
       "age": 23,
       "batch": "2003",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "KH-02",
@@ -4549,7 +4891,7 @@
       "role": "أمين الاجتماع",
       "groupCode": "خدام",
       "areaGroup": "أمناء الاجتماع",
-      "family": "أمناء الاجتماع",
+      "family": "لم تحدد بعد",
       "collegeStage": "خادم",
       "active": true,
       "phone": "",
@@ -4565,7 +4907,9 @@
       "college": "",
       "age": 23,
       "batch": "2003",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "KH-03",
@@ -4576,7 +4920,7 @@
       "role": "أمينة الاجتماع",
       "groupCode": "خدام",
       "areaGroup": "أمناء الاجتماع",
-      "family": "أمناء الاجتماع",
+      "family": "لم تحدد بعد",
       "collegeStage": "خادمة",
       "active": true,
       "phone": "",
@@ -4592,7 +4936,9 @@
       "college": "",
       "age": 23,
       "batch": "2003",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "KH-04",
@@ -4603,7 +4949,7 @@
       "role": "أمين أسرة",
       "groupCode": "خدام",
       "areaGroup": "خدام الاجتماع (أمناء الأسر)",
-      "family": "أمناء الأسر",
+      "family": "لم تحدد بعد",
       "collegeStage": "خادم",
       "active": true,
       "phone": "",
@@ -4619,7 +4965,9 @@
       "college": "",
       "age": 23,
       "batch": "2003",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "KH-05",
@@ -4630,7 +4978,7 @@
       "role": "أمينة الاجتماع",
       "groupCode": "خدام",
       "areaGroup": "أمناء الاجتماع",
-      "family": "أمناء الاجتماع",
+      "family": "لم تحدد بعد",
       "collegeStage": "خادمة",
       "active": true,
       "phone": "",
@@ -4646,7 +4994,9 @@
       "college": "",
       "age": 23,
       "batch": "2003",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "YS-158",
@@ -4673,7 +5023,9 @@
       "college": "",
       "age": 18,
       "batch": "2008",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "YS-159",
@@ -4700,7 +5052,9 @@
       "college": "",
       "age": 18,
       "batch": "2008",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "YS-160",
@@ -4727,7 +5081,9 @@
       "college": "",
       "age": 18,
       "batch": "2008",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "YS-161",
@@ -4755,7 +5111,9 @@
       "age": 23,
       "batch": "2003",
       "universityStage": "خريج (23 سنة)",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "YS-162",
@@ -4782,7 +5140,9 @@
       "college": "",
       "age": 18,
       "batch": "2008",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     },
     {
       "id": "YS-163",
@@ -4809,7 +5169,9 @@
       "college": "",
       "age": 18,
       "batch": "2008",
-      "points": 10
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     }
   ],
   "sessions": [
