@@ -3882,29 +3882,33 @@
 
         <!-- Section B: Dedicated Family Meetings Controls (Only visible when category is 'family') -->
         <div id="scannerFamilyControls" style="display:none;flex-direction:column;gap:0.75rem;">
-          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;">
-            <div style="display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap;">
-              <span style="font-weight:800;color:var(--accent-emerald);font-size:0.92rem;display:flex;align-items:center;gap:0.35rem;">
-                <span>🏠</span> اختر اجتماع الأسرة:
-              </span>
-              <select id="scannerFamilyMeetingSelect" class="session-select-clean" onchange="onScannerMeetingChange(this.value)" style="min-width:320px;font-weight:700;font-size:0.9rem;padding:0.4rem 0.75rem;border-color:rgba(16,185,129,0.4);" title="اختر اجتماع الأسرة المطلوب تسجيل حضوره"></select>
-            </div>
-
-            <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
-              <span style="font-size:0.82rem;color:var(--accent-emerald);background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);padding:0.35rem 0.75rem;border-radius:var(--radius-sm);font-weight:700;">
-                🌿 حضور وغياب للأسر فقط (بدون إضافة نقاط للمسابقة)
-              </span>
-              <button type="button" class="btn btn-secondary btn-sm" onclick="openCreateFamilyMeetingModal()" style="font-size:0.82rem;padding:0.35rem 0.75rem;font-weight:700;display:inline-flex;align-items:center;gap:0.3rem;">
-                <span>➕</span> إنشاء اجتماع أسرة جديد
-              </button>
+          
+          <!-- Step 1: The 9 Fixed Family Shortcut Pills -->
+          <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;padding-bottom:0.5rem;border-bottom:1px solid rgba(255,255,255,0.08);">
+            <div style="display:flex;align-items:center;gap:0.4rem;flex-wrap:wrap;width:100%;">
+              <span style="font-size:0.82rem;font-weight:800;color:var(--accent-emerald);white-space:nowrap;">🏠 اختر الأسرة:</span>
+              <div id="scannerFamilyActivityPills" class="meeting-type-quick-filter" style="display:flex;align-items:center;gap:0.35rem;flex-wrap:wrap;flex:1;">
+                <!-- Populated strictly with ONLY the 9 fixed families -->
+              </div>
             </div>
           </div>
 
-          <!-- Quick Family Shortcut Pills -->
-          <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;padding-top:0.5rem;border-top:1px solid rgba(255,255,255,0.06);">
-            <span style="font-size:0.82rem;font-weight:700;color:var(--text-muted);">الأسر السريعة:</span>
-            <div id="scannerFamilyActivityPills" class="meeting-type-quick-filter" style="display:flex;align-items:center;gap:0.35rem;flex-wrap:wrap;">
-              <!-- Populated dynamically with family meetings -->
+          <!-- Step 2: The meetings of the chosen family & Add meeting button -->
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;">
+            <div style="display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap;flex:1;min-width:280px;">
+              <span style="font-weight:800;color:var(--text-main);font-size:0.9rem;display:flex;align-items:center;gap:0.35rem;white-space:nowrap;">
+                <span>🎯</span> <span id="scannerSelectedFamilyTitle">لقاءات الأسرة:</span>
+              </span>
+              <select id="scannerFamilyMeetingSelect" class="session-select-clean" onchange="onScannerMeetingChange(this.value)" style="flex:1;min-width:260px;font-weight:700;font-size:0.9rem;padding:0.4rem 0.75rem;border-color:rgba(16,185,129,0.4);" title="اختر موعد الاجتماع المطلوب تسجيل حضوره للأسرة"></select>
+            </div>
+
+            <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
+              <span style="font-size:0.8rem;color:var(--accent-emerald);background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);padding:0.35rem 0.65rem;border-radius:var(--radius-sm);font-weight:700;">
+                🌿 حضور وغياب للأسر فقط (بدون نقاط)
+              </span>
+              <button type="button" class="btn btn-emerald btn-sm" id="btnAddNewFamilyMeeting" onclick="openCreateFamilyMeetingModal()" style="font-size:0.82rem;padding:0.4rem 0.85rem;font-weight:800;display:inline-flex;align-items:center;gap:0.35rem;background:#10b981;color:#fff;border-radius:var(--radius-sm);box-shadow:0 2px 8px rgba(16,185,129,0.3);" title="إضافة موعد اجتماع جديد لهذه الأسرة">
+                <span>➕</span> إضافة اجتماع جديد للأسرة
+              </button>
             </div>
           </div>
         </div>
@@ -4941,6 +4945,79 @@
 
 
   <!-- ============================================== -->
+  
+  <!-- ============================================== -->
+  <!-- MODAL: ADD NEW MEETING FOR A FAMILY           -->
+  <!-- ============================================== -->
+  <div class="modal-backdrop" id="createFamilyMeetingModal" style="display:none;">
+    <div class="modal-box" style="max-width:520px;max-height:90vh;max-height:90dvh;overflow-y:auto;">
+      <div class="modal-sticky-header">
+        <h3 style="font-size:1.18rem;font-weight:800;color:var(--accent-emerald);margin:0;display:flex;align-items:center;gap:0.45rem;">
+          <span>➕</span> إضافة ميعاد اجتماع جديد لأسرة
+        </h3>
+        <button type="button" class="btn btn-icon-only btn-sm" onclick="closeCreateFamilyMeetingModal()" style="border:none;background:none;font-size:1.3rem;color:var(--text-muted);cursor:pointer;line-height:1;" title="إغلاق">✕</button>
+      </div>
+
+      <form id="createFamilyMeetingForm" onsubmit="handleSaveFamilyMeetingSession(event)">
+        
+        <!-- Target Family -->
+        <div class="form-group" style="margin-bottom:0.85rem;">
+          <label style="font-weight:800;font-size:0.85rem;color:var(--text-main);margin-bottom:0.35rem;display:block;">الأسرة التابع لها الاجتماع:</label>
+          <select id="cfmFamilySelect" class="form-control" required style="font-weight:700;font-size:0.92rem;border-color:rgba(16,185,129,0.5);">
+            <optgroup label="🏠 الأسر الرئيسية الثلاث">
+              <option value="أسرة 1">أسرة 1</option>
+              <option value="أسرة 2">أسرة 2</option>
+              <option value="أسرة 3">أسرة 3</option>
+            </optgroup>
+            <optgroup label="🌿 الأسر الفرعية">
+              <option value="أسرة Revive">أسرة Revive</option>
+              <option value="أسرة قلب واحد">أسرة قلب واحد</option>
+              <option value="أسرة الميديا">أسرة الميديا</option>
+              <option value="أسرة الأنشطة">أسرة الأنشطة</option>
+              <option value="أسرة الافتقاد">أسرة الافتقاد</option>
+              <option value="أسرة دراسة الكتاب">أسرة دراسة الكتاب</option>
+            </optgroup>
+          </select>
+        </div>
+
+        <!-- Date & Time -->
+        <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:0.75rem;margin-bottom:0.85rem;">
+          <div class="form-group" style="margin:0;">
+            <label style="font-weight:700;font-size:0.82rem;color:var(--text-main);margin-bottom:0.25rem;display:block;">تاريخ الاجتماع:</label>
+            <input type="date" id="cfmDate" class="form-control" required style="font-weight:700;font-size:0.9rem;">
+          </div>
+          <div class="form-group" style="margin:0;">
+            <label style="font-weight:700;font-size:0.82rem;color:var(--text-main);margin-bottom:0.25rem;display:block;">وقت الاجتماع:</label>
+            <input type="text" id="cfmTime" class="form-control" value="07:00 م" placeholder="07:00 م" style="font-weight:700;font-size:0.9rem;">
+          </div>
+        </div>
+
+        <!-- Week Number & Meeting Title / Topic -->
+        <div style="display:grid;grid-template-columns:1fr 2fr;gap:0.75rem;margin-bottom:0.85rem;">
+          <div class="form-group" style="margin:0;">
+            <label style="font-weight:700;font-size:0.82rem;color:var(--text-main);margin-bottom:0.25rem;display:block;">رقم الأسبوع:</label>
+            <input type="number" id="cfmWeek" class="form-control" min="1" max="25" value="1" style="font-weight:700;font-size:0.9rem;">
+          </div>
+          <div class="form-group" style="margin:0;">
+            <label style="font-weight:700;font-size:0.82rem;color:var(--text-main);margin-bottom:0.25rem;display:block;">عنوان / مناسبة اللقاء (اختياري):</label>
+            <input type="text" id="cfmTitle" class="form-control" placeholder="مثال: اجتماع تحضير وخدمة" style="font-size:0.9rem;">
+          </div>
+        </div>
+
+        <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.25);border-radius:var(--radius-sm);padding:0.65rem 0.85rem;margin-bottom:1rem;font-size:0.8rem;color:var(--text-muted);line-height:1.4;">
+          💡 <strong>ملاحظة:</strong> سيتم إضافة هذا الموعد داخل جدول لقاءات الأسرة المختارة مباشرة، ولن يتم إنشاء أسرة جديدة. يمكنك إضافة أي عدد من الاجتماعات لأي أسرة.
+        </div>
+
+        <div class="modal-sticky-footer">
+          <button type="button" class="btn btn-outline-danger btn-sm" onclick="closeCreateFamilyMeetingModal()">إلغاء</button>
+          <button type="submit" class="btn btn-emerald btn-sm" style="min-width:160px;font-weight:800;background:#10b981;color:#fff;border-color:#10b981;">
+            💾 حفظ وإضافة اللقاء للأسرة
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- MODAL: ADD / EDIT MEMBER                       -->
   <!-- ============================================== -->
   
@@ -14207,6 +14284,153 @@
     // ==============================================
     // 2-STEP WEEKLY & MULTI-ACTIVITY SCANNER ENGINE
     // ==============================================
+    // FIXED 9 FAMILIES ARCHITECTURE & MULTI-MEETING LOGIC
+    // ========================================================
+    const FIXED_FAMILIES = [
+      // 3 Main Families
+      { id: 'أسرة 1', name: 'أسرة 1', label: 'أسرة 1', type: 'main', icon: '🏠', seedId: 'SES-SUB-FAM-01' },
+      { id: 'أسرة 2', name: 'أسرة 2', label: 'أسرة 2', type: 'main', icon: '🏠', seedId: 'SES-SUB-FAM-02' },
+      { id: 'أسرة 3', name: 'أسرة 3', label: 'أسرة 3', type: 'main', icon: '🏠', seedId: 'SES-SUB-FAM-03' },
+      // 6 Sub-Families
+      { id: 'أسرة Revive', name: 'أسرة Revive', label: 'Revive', type: 'sub', icon: '🏠', seedId: 'SES-SUB-REV-01' },
+      { id: 'أسرة قلب واحد', name: 'أسرة قلب واحد', label: 'قلب واحد', type: 'sub', icon: '🏠', seedId: 'SES-SUB-ONE-01' },
+      { id: 'أسرة الميديا', name: 'أسرة الميديا', label: 'الميديا', type: 'sub', icon: '🏠', seedId: 'SES-SUB-MED-01' },
+      { id: 'أسرة الأنشطة', name: 'أسرة الأنشطة', label: 'الأنشطة', type: 'sub', icon: '🏠', seedId: 'SES-SUB-ACT-01' },
+      { id: 'أسرة الافتقاد', name: 'أسرة الافتقاد', label: 'الافتقاد', type: 'sub', icon: '🏠', seedId: 'SES-SUB-VIS-01' },
+      { id: 'أسرة دراسة الكتاب', name: 'أسرة دراسة الكتاب', label: 'دراسة الكتاب', type: 'sub', icon: '📖', seedId: 'SES-SUB-BBL-01' }
+    ];
+
+    let currentSelectedFamily = 'أسرة 1';
+
+    function getMeetingFamily(session) {
+      if (!session) return 'أسرة 1';
+      const fam = session.family || '';
+      const title = session.title || '';
+      const id = session.id || '';
+
+      for (const f of FIXED_FAMILIES) {
+        if (fam === f.name || fam === f.label || (f.label && fam.includes(f.label))) return f.name;
+        if (title.includes(f.name) || (f.label && title.includes(f.label))) return f.name;
+      }
+      if (id.includes('FAM-01') || id.includes('FAM-1')) return 'أسرة 1';
+      if (id.includes('FAM-02') || id.includes('FAM-2')) return 'أسرة 2';
+      if (id.includes('FAM-03') || id.includes('FAM-3')) return 'أسرة 3';
+      if (id.includes('REV')) return 'أسرة Revive';
+      if (id.includes('ONE')) return 'أسرة قلب واحد';
+      if (id.includes('MED')) return 'أسرة الميديا';
+      if (id.includes('ACT')) return 'أسرة الأنشطة';
+      if (id.includes('VIS')) return 'أسرة الافتقاد';
+      if (id.includes('BBL')) return 'أسرة دراسة الكتاب';
+
+      if (fam.includes('2') || title.includes('2')) return 'أسرة 2';
+      if (fam.includes('3') || title.includes('3')) return 'أسرة 3';
+      if (fam.includes('1') || title.includes('1')) return 'أسرة 1';
+
+      return 'أسرة 1';
+    }
+
+    function selectFamily(familyName) {
+      currentSelectedFamily = familyName;
+      const famMeetings = (appData.sessions || []).filter(s => isFamilySession(s) && getMeetingFamily(s) === familyName);
+      if (famMeetings.length > 0) {
+        currentSessionId = famMeetings[0].id;
+      }
+      refreshUI();
+    }
+
+    function openCreateFamilyMeetingModal(targetFamily = null) {
+      const modal = document.getElementById('createFamilyMeetingModal');
+      if (!modal) return;
+      const famSelect = document.getElementById('cfmFamilySelect');
+      const dateInput = document.getElementById('cfmDate');
+      const timeInput = document.getElementById('cfmTime');
+      const weekInput = document.getElementById('cfmWeek');
+      const titleInput = document.getElementById('cfmTitle');
+
+      const chosenFamily = targetFamily || currentSelectedFamily || 'أسرة 1';
+      if (famSelect) famSelect.value = chosenFamily;
+      if (dateInput) dateInput.value = new Date().toISOString().split('T')[0];
+      if (timeInput) timeInput.value = '07:00 م';
+      if (weekInput) weekInput.value = '1';
+      if (titleInput) titleInput.value = `اجتماع ${chosenFamily}`;
+
+      modal.style.display = 'flex';
+    }
+
+    function closeCreateFamilyMeetingModal() {
+      const modal = document.getElementById('createFamilyMeetingModal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function handleSaveFamilyMeetingSession(e) {
+      if (e) e.preventDefault();
+      const famSelect = document.getElementById('cfmFamilySelect');
+      const dateInput = document.getElementById('cfmDate');
+      const timeInput = document.getElementById('cfmTime');
+      const weekInput = document.getElementById('cfmWeek');
+      const titleInput = document.getElementById('cfmTitle');
+
+      const family = famSelect.value;
+      const date = dateInput.value || new Date().toISOString().split('T')[0];
+      const time = timeInput.value || '07:00 م';
+      const weekVal = parseInt(weekInput.value || '1', 10);
+      const title = (titleInput.value || '').trim() || `اجتماع ${family}`;
+
+      const familyCode = family.replace(/\s+/g, '-').replace(/[^\w\u0621-\u064A-]/g, '');
+      const id = `SES-SUB-${familyCode}-${Date.now().toString().slice(-5)}`;
+
+      const newSession = {
+        id,
+        date,
+        time,
+        week: weekVal,
+        title,
+        family,
+        meetingType: 'family',
+        isSubMeeting: true,
+        hasPoints: false,
+        typeLabel: '🏠 اجتماع أسرة',
+        attendees: []
+      };
+
+      appData.sessions.push(newSession);
+      currentSessionId = id;
+      currentSelectedFamily = family;
+      currentScannerCategory = 'family';
+      saveLocalData();
+
+      // Sync Firebase
+      if (isFirebaseReady && db) {
+        db.collection('sessions').doc(newSession.id).set(newSession).catch(err => console.warn("Firebase sync fallback:", err));
+      }
+
+      // Sync server API if available
+      fetch('/api/sessions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newSession)
+      }).catch(() => {});
+
+      closeCreateFamilyMeetingModal();
+      refreshUI();
+      alert(`✅ تم إضافة موعد اجتماع جديد بنجاح داخل (${family})!`);
+    }
+
+    // Sanitize any malformed sessions on load
+    function sanitizeFamilySessions() {
+      if (!appData || !appData.sessions) return;
+      appData.sessions.forEach(s => {
+        if (isFamilySession(s)) {
+          if (s.title === 'اجتماع أسرة' || s.title === 'اجتماع أسرة ') {
+            const fam = s.family || 'أسرة 2';
+            s.title = `اجتماع ${fam}`;
+            s.family = fam;
+          }
+        }
+      });
+    }
+
+
     let currentScannerCategory = 'weekly'; // 'weekly' or 'family'
     let currentScannerMeetingTypeFilter = 'all';
     let currentSessionsTableMeetingTypeFilter = 'all';
@@ -14412,77 +14636,108 @@
         }
       }
 
-      // 2. POPULATE FAMILY CONTROLS (Only family meetings!)
+      // 2. POPULATE FAMILY CONTROLS (Only 9 Fixed Families & their meetings!)
       const famSelect = document.getElementById('scannerFamilyMeetingSelect');
       const famPillsContainer = document.getElementById('scannerFamilyActivityPills');
-      const familySessions = (appData.sessions || []).filter(s => isFamilySession(s));
+      const famTitleEl = document.getElementById('scannerSelectedFamilyTitle');
+      const btnAddFamMeeting = document.getElementById('btnAddNewFamilyMeeting');
 
-      if (famSelect) {
-        famSelect.innerHTML = '';
-        familySessions.forEach(s => {
-          const meta = getMeetingTypeMeta(s);
-          const count = (s.attendees || []).length;
-          const countTxt = count > 0 ? ` [حاضر: ${count}]` : '';
-          const opt = document.createElement('option');
-          opt.value = s.id;
-          opt.textContent = `${meta.icon} ${s.title || meta.label} (${s.family || 'أسرة'})${countTxt}`;
-          if (s.id === currentSessionId) opt.selected = true;
-          famSelect.appendChild(opt);
-        });
-        if (isCurrentFamily && currentSessionId) {
-          famSelect.value = currentSessionId;
-        }
+      if (typeof sanitizeFamilySessions === 'function') {
+        sanitizeFamilySessions();
       }
 
+      // Make sure currentSelectedFamily is valid
+      if (!currentSelectedFamily) {
+        currentSelectedFamily = 'أسرة 1';
+      }
+
+      // If current session is a family session, keep currentSelectedFamily in sync
+      const currentSessObj = getCurrentSession();
+      if (currentSessObj && isFamilySession(currentSessObj)) {
+        currentSelectedFamily = getMeetingFamily(currentSessObj);
+      }
+
+      // Update section title & button text
+      if (famTitleEl) {
+        famTitleEl.textContent = `اجتماعات (${currentSelectedFamily}):`;
+      }
+      if (btnAddFamMeeting) {
+        btnAddFamMeeting.innerHTML = `<span>➕</span> إضافة اجتماع لـ ${currentSelectedFamily}`;
+      }
+
+      // 1. Populate Family Shortcut Pills (ALWAYS and ONLY the 9 Fixed Families)
       if (famPillsContainer) {
         famPillsContainer.innerHTML = '';
-        const mainFamSessions = familySessions.filter(s => s.id.startsWith('SES-SUB-FAM-'));
-        const subFamSessions = familySessions.filter(s => !s.id.startsWith('SES-SUB-FAM-'));
 
-        // 1. Main Families Section
-        if (mainFamSessions.length > 0) {
-          const mainTitle = document.createElement('span');
-          mainTitle.style.cssText = 'font-size:0.75rem;font-weight:800;color:var(--accent-gold);margin-left:0.35rem;display:inline-flex;align-items:center;gap:0.25rem;';
-          mainTitle.innerHTML = '<span>🏠</span> الأسر الرئيسية:';
-          famPillsContainer.appendChild(mainTitle);
+        // Section A: Main Families
+        const mainTitle = document.createElement('span');
+        mainTitle.style.cssText = 'font-size:0.75rem;font-weight:800;color:var(--accent-gold);margin-left:0.25rem;display:inline-flex;align-items:center;gap:0.2rem;white-space:nowrap;';
+        mainTitle.innerHTML = '<span>🏠</span> الأسر الرئيسية:';
+        famPillsContainer.appendChild(mainTitle);
 
-          mainFamSessions.forEach(s => {
-            const meta = getMeetingTypeMeta(s);
+        FIXED_FAMILIES.filter(f => f.type === 'main').forEach(f => {
+          const isActive = (f.name === currentSelectedFamily);
+          const meetingsOfFam = (appData.sessions || []).filter(s => isFamilySession(s) && getMeetingFamily(s) === f.name);
+          const totalAtt = meetingsOfFam.reduce((sum, s) => sum + ((s.attendees || []).length), 0);
+          const countBadge = meetingsOfFam.length > 1 ? `<span style="background:rgba(245,158,11,0.25);color:var(--accent-gold);border-radius:10px;padding:0 5px;font-size:0.72rem;margin-right:3px;">${meetingsOfFam.length} لقاءات</span>` : (totalAtt > 0 ? `<span style="background:var(--accent-gold);color:#000;border-radius:10px;padding:0 5px;font-size:0.72rem;margin-right:3px;">${totalAtt}</span>` : '');
+
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = `pill-btn mini-mtype-btn ${isActive ? 'active' : ''}`;
+          btn.style.cssText = `display:inline-flex;align-items:center;gap:0.35rem;padding:0.38rem 0.75rem;font-size:0.82rem;font-weight:800;white-space:nowrap;${isActive ? 'background:var(--accent-gold);color:#0b1329;border-color:var(--accent-gold);box-shadow:0 2px 10px rgba(245,158,11,0.35);' : 'border-color:rgba(245,158,11,0.35);'}`;
+          btn.innerHTML = `<span>${f.icon}</span> <span>${f.name}</span> ${countBadge}`;
+          btn.onclick = () => selectFamily(f.name);
+          famPillsContainer.appendChild(btn);
+        });
+
+        // Section B: Sub-Families
+        const subTitle = document.createElement('span');
+        subTitle.style.cssText = 'font-size:0.75rem;font-weight:800;color:var(--accent-emerald);margin-right:0.4rem;margin-left:0.25rem;display:inline-flex;align-items:center;gap:0.2rem;white-space:nowrap;';
+        subTitle.innerHTML = '<span>🌿</span> الأسر الفرعية:';
+        famPillsContainer.appendChild(subTitle);
+
+        FIXED_FAMILIES.filter(f => f.type === 'sub').forEach(f => {
+          const isActive = (f.name === currentSelectedFamily);
+          const meetingsOfFam = (appData.sessions || []).filter(s => isFamilySession(s) && getMeetingFamily(s) === f.name);
+          const totalAtt = meetingsOfFam.reduce((sum, s) => sum + ((s.attendees || []).length), 0);
+          const countBadge = meetingsOfFam.length > 1 ? `<span style="background:rgba(16,185,129,0.25);color:var(--accent-emerald);border-radius:10px;padding:0 5px;font-size:0.72rem;margin-right:3px;">${meetingsOfFam.length} لقاءات</span>` : (totalAtt > 0 ? `<span style="background:var(--accent-emerald);color:#fff;border-radius:10px;padding:0 5px;font-size:0.72rem;margin-right:3px;">${totalAtt}</span>` : '');
+
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = `pill-btn mini-mtype-btn ${isActive ? 'active' : ''}`;
+          btn.style.cssText = `display:inline-flex;align-items:center;gap:0.35rem;padding:0.38rem 0.75rem;font-size:0.82rem;font-weight:800;white-space:nowrap;${isActive ? 'background:var(--accent-emerald);color:#ffffff;border-color:var(--accent-emerald);box-shadow:0 2px 10px rgba(16,185,129,0.35);' : 'border-color:rgba(16,185,129,0.3);'}`;
+          btn.innerHTML = `<span>${f.icon}</span> <span>${f.label}</span> ${countBadge}`;
+          btn.onclick = () => selectFamily(f.name);
+          famPillsContainer.appendChild(btn);
+        });
+      }
+
+      // 2. Populate Dropdown with meetings of the selected family
+      if (famSelect) {
+        famSelect.innerHTML = '';
+        const currentFamMeetings = (appData.sessions || []).filter(s => isFamilySession(s) && getMeetingFamily(s) === currentSelectedFamily);
+
+        if (currentFamMeetings.length === 0) {
+          const opt = document.createElement('option');
+          opt.value = '';
+          opt.textContent = `لا توجد لقاءات مسجلة لـ ${currentSelectedFamily} بعد — اضغط زر (+ إضافة اجتماع)`;
+          famSelect.appendChild(opt);
+        } else {
+          currentFamMeetings.forEach((s, idx) => {
             const count = (s.attendees || []).length;
-            const isActive = (s.id === currentSessionId);
-            const btn = document.createElement('button');
-            btn.type = 'button';
-            btn.className = `pill-btn mini-mtype-btn ${isActive ? 'active' : ''}`;
-            btn.style.cssText = `display:inline-flex;align-items:center;gap:0.35rem;padding:0.4rem 0.75rem;font-size:0.82rem;font-weight:700;${isActive ? 'background:var(--accent-gold);color:#0b1329;border-color:var(--accent-gold);box-shadow:0 2px 10px rgba(245,158,11,0.35);' : 'border-color:rgba(245,158,11,0.35);'}`;
-            const badgeHtml = count > 0 ? `<span style="background:#0b1329;color:var(--accent-gold);font-weight:900;border-radius:10px;padding:0 5px;font-size:0.75rem;margin-right:2px;">${count}</span>` : '';
-            const shortTitle = s.title.replace('اجتماع فرعي وتحضير — ', '').replace('اجتماع فرعي — ', '').replace('اجتماع ', '');
-            btn.innerHTML = `<span>${meta.icon}</span> <span>${shortTitle}</span> ${badgeHtml}`;
-            btn.onclick = () => selectScannerSession(s.id);
-            famPillsContainer.appendChild(btn);
+            const countTxt = count > 0 ? ` [حاضر: ${count}]` : ' [0 حاضر]';
+            const opt = document.createElement('option');
+            opt.value = s.id;
+            const weekTxt = s.week ? ` (أسبوع ${s.week})` : '';
+            opt.textContent = `🗓️ ${s.date || 'بدون تاريخ'} — ${s.title}${weekTxt}${countTxt}`;
+            if (s.id === currentSessionId) opt.selected = true;
+            famSelect.appendChild(opt);
           });
-        }
-
-        // 2. Sub-Families Section
-        if (subFamSessions.length > 0) {
-          const subTitle = document.createElement('span');
-          subTitle.style.cssText = 'font-size:0.75rem;font-weight:800;color:var(--accent-emerald);margin-right:0.5rem;margin-left:0.35rem;display:inline-flex;align-items:center;gap:0.25rem;';
-          subTitle.innerHTML = '<span>🌿</span> الأسر الفرعية:';
-          famPillsContainer.appendChild(subTitle);
-
-          subFamSessions.forEach(s => {
-            const meta = getMeetingTypeMeta(s);
-            const count = (s.attendees || []).length;
-            const isActive = (s.id === currentSessionId);
-            const btn = document.createElement('button');
-            btn.type = 'button';
-            btn.className = `pill-btn mini-mtype-btn ${isActive ? 'active' : ''}`;
-            btn.style.cssText = `display:inline-flex;align-items:center;gap:0.35rem;padding:0.4rem 0.75rem;font-size:0.82rem;font-weight:700;${isActive ? 'background:var(--accent-emerald);color:#ffffff;border-color:var(--accent-emerald);box-shadow:0 2px 10px rgba(16,185,129,0.35);' : 'border-color:rgba(16,185,129,0.3);'}`;
-            const badgeHtml = count > 0 ? `<span style="background:var(--accent-gold);color:#000;font-weight:900;border-radius:10px;padding:0 5px;font-size:0.75rem;margin-right:2px;">${count}</span>` : '';
-            const shortTitle = s.title.replace('اجتماع فرعي وتحضير — ', '').replace('اجتماع فرعي — ', '').replace('اجتماع ', '');
-            btn.innerHTML = `<span>${meta.icon}</span> <span>${shortTitle}</span> ${badgeHtml}`;
-            btn.onclick = () => selectScannerSession(s.id);
-            famPillsContainer.appendChild(btn);
-          });
+          // If currentSessionId is not in this family, select the first meeting of this family
+          if (!currentFamMeetings.some(m => m.id === currentSessionId)) {
+            currentSessionId = currentFamMeetings[0].id;
+            famSelect.value = currentSessionId;
+          }
         }
       }
 
@@ -20371,7 +20626,8 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
       });
     }
 
-</script>
+
+    // =====================================================</script>
 
   <!-- MODAL: BIRTHDAY GREETING TEMPLATE PREVIEW -->
   <div class="modal-backdrop" id="birthdayGreetingModal">
