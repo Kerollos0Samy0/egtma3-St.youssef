@@ -13831,26 +13831,22 @@
         }
 
         
-        // Synchronize confirmed session titles & preserve existing attendee records
-        if (SEED_DATA && Array.isArray(SEED_DATA.sessions) && SEED_DATA.sessions.length > 0) {
-          const existingAttendeesMap = new Map();
-          if (Array.isArray(appData.sessions)) {
-            appData.sessions.forEach(s => {
-              if (s && s.id && Array.isArray(s.attendees) && s.attendees.length > 0) {
-                existingAttendeesMap.set(s.id, s.attendees);
-              }
-            });
-          }
+        // 1. Maintain persistent deleted sessions across page reloads
+        let deletedSessionIds = new Set();
+        try {
+          const delSaved = localStorage.getItem('st_youssef_deleted_sessions');
+          if (delSaved) JSON.parse(delSaved).forEach(id => deletedSessionIds.add(id));
+        } catch(e) {}
+        if (Array.isArray(appData.deletedSessionIds)) {
+          appData.deletedSessionIds.forEach(id => deletedSessionIds.add(id));
+        }
+        appData.deletedSessionIds = Array.from(deletedSessionIds);
 
-          // Build complete sessions list strictly from confirmed SEED_DATA with preserved attendees
-          const validSessionIds = new Set(SEED_DATA.sessions.map(s => s.id));
-          appData.sessions = SEED_DATA.sessions.map(seedS => {
-            const preserved = existingAttendeesMap.get(seedS.id) || (seedS.id === 'SES-01' ? (seedS.attendees || []) : []);
-            return {
-              ...seedS,
-              attendees: preserved
-            };
-          }).filter(s => validSessionIds.has(s.id));
+        // 2. Respect saved sessions and ensure deleted sessions NEVER resurrect on reload
+        if (Array.isArray(appData.sessions) && appData.sessions.length > 0) {
+          appData.sessions = appData.sessions.filter(s => s && s.id && !deletedSessionIds.has(s.id));
+        } else {
+          appData.sessions = JSON.parse(JSON.stringify(SEED_DATA.sessions || [])).filter(s => s && s.id && !deletedSessionIds.has(s.id));
         }
   
         // Ensure mainFamily & subFamilies architecture across all members
@@ -14407,18 +14403,32 @@
       
     // One-time purge of old placeholder family sessions so user starts with a clean slate
     try {
-      if (localStorage.getItem('st_youssef_purged_old_fam_v1') !== 'true') {
-        if (appData && Array.isArray(appData.sessions)) {
+      if (localStorage.getItem('st_youssef_purged_old_fam_v2') !== 'true') {
+        const oldPlaceholderIds = [
+          'SES-SUB-FAM-01', 'SES-SUB-FAM-02', 'SES-SUB-FAM-03',
+          'SES-SUB-MED-01', 'SES-SUB-ACT-01', 'SES-SUB-VIS-01',
+          'SES-SUB-REV-01', 'SES-SUB-ONE-01', 'SES-SUB-BBL-01',
+          'SES-SUB-131-1', 'SES-SUB-132-1'
+        ];
+        if (!appData.deletedSessionIds) appData.deletedSessionIds = [];
+        oldPlaceholderIds.forEach(id => {
+          if (!appData.deletedSessionIds.includes(id)) appData.deletedSessionIds.push(id);
+        });
+        localStorage.setItem('st_youssef_deleted_sessions', JSON.stringify(appData.deletedSessionIds));
+
+        if (Array.isArray(appData.sessions)) {
           appData.sessions = appData.sessions.filter(s => (
+            s && s.id &&
+            !oldPlaceholderIds.includes(s.id) &&
             s.meetingType !== 'family' &&
             s.meetingType !== 'sub' &&
             s.isSubMeeting !== true &&
             s.hasPoints !== false &&
-            !(s.id && s.id.includes('SUB'))
+            !s.id.includes('SUB')
           ));
-          localStorage.setItem('st_youssef_purged_old_fam_v1', 'true');
-          saveLocalData();
         }
+        localStorage.setItem('st_youssef_purged_old_fam_v2', 'true');
+        saveLocalData();
       }
     } catch(e) {}
 
@@ -15772,6 +15782,16 @@
       if (!sess) return;
       if (!confirm(`هل أنت متأكد من حذف اللقاء "${sess.title}" (${sess.date})؟`)) return;
 
+      // Track as permanently deleted in memory and localStorage
+      if (!appData.deletedSessionIds) appData.deletedSessionIds = [];
+      if (!appData.deletedSessionIds.includes(sessionId)) {
+        appData.deletedSessionIds.push(sessionId);
+      }
+      try {
+        localStorage.setItem('st_youssef_deleted_sessions', JSON.stringify(appData.deletedSessionIds));
+      } catch(e) {}
+
+      // Remove from live sessions list
       appData.sessions = appData.sessions.filter(s => s.id !== sessionId);
       if (currentSessionId === sessionId) {
         const nextS = appData.sessions.find(s => !isFamilySession(s)) || appData.sessions[0];
@@ -15789,7 +15809,7 @@
 
       refreshUI();
       renderSessionsTable();
-      alert("✅ تم حذف اللقاء بنجاح.");
+      alert("✅ تم حذف اللقاء نهائياً ولن يعود عند التحديث.");
     }
 
     function renderSessionsTable() {
