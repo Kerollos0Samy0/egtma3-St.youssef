@@ -5018,6 +5018,91 @@
     </div>
   </div>
 
+  
+  <!-- ============================================== -->
+  <!-- MODAL: EDIT SESSION DATA & DATE               -->
+  <!-- ============================================== -->
+  <div class="modal-backdrop" id="editSessionModal" style="display:none;">
+    <div class="modal-box" style="max-width:540px;max-height:90vh;max-height:90dvh;overflow-y:auto;">
+      <div class="modal-sticky-header">
+        <h3 style="font-size:1.18rem;font-weight:800;color:var(--accent-gold);margin:0;display:flex;align-items:center;gap:0.45rem;">
+          <span>✏️</span> تعديل بيانات وتاريخ اللقاء: <span id="editSessionBadge" class="badge-id" style="font-size:0.85rem;"></span>
+        </h3>
+        <button type="button" class="btn btn-icon-only btn-sm" onclick="closeEditSessionModal()" style="border:none;background:none;font-size:1.3rem;color:var(--text-muted);cursor:pointer;line-height:1;" title="إغلاق">✕</button>
+      </div>
+
+      <form id="editSessionForm" onsubmit="handleSaveEditedSession(event)">
+        <input type="hidden" id="editSessionId">
+
+        <!-- Date & Time -->
+        <div style="display:grid;grid-template-columns:1.3fr 1fr;gap:0.75rem;margin-bottom:0.85rem;">
+          <div class="form-group" style="margin:0;">
+            <label style="font-weight:800;font-size:0.85rem;color:var(--accent-gold);margin-bottom:0.3rem;display:block;">📅 تاريخ اللقاء:</label>
+            <input type="date" id="editSessionDate" class="form-control" required style="font-weight:800;font-size:0.95rem;padding:0.45rem 0.75rem;">
+          </div>
+          <div class="form-group" style="margin:0;">
+            <label style="font-weight:800;font-size:0.85rem;color:var(--text-main);margin-bottom:0.3rem;display:block;">⏰ وقت اللقاء:</label>
+            <input type="text" id="editSessionTime" class="form-control" placeholder="07:00 م" style="font-weight:700;font-size:0.9rem;padding:0.45rem 0.75rem;">
+          </div>
+        </div>
+
+        <!-- Title -->
+        <div class="form-group" style="margin-bottom:0.85rem;">
+          <label style="font-weight:800;font-size:0.85rem;color:var(--text-main);margin-bottom:0.3rem;display:block;">عنوان الموضوع / اللقاء:</label>
+          <input type="text" id="editSessionTitle" class="form-control" required style="font-weight:700;font-size:0.92rem;padding:0.45rem 0.75rem;">
+        </div>
+
+        <!-- Family & Week -->
+        <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:0.75rem;margin-bottom:0.85rem;">
+          <div class="form-group" style="margin:0;">
+            <label style="font-weight:800;font-size:0.85rem;color:var(--text-main);margin-bottom:0.3rem;display:block;">الأسرة التابع لها / المسؤولة:</label>
+            <select id="editSessionFamily" class="form-control" style="font-weight:700;font-size:0.9rem;padding:0.45rem 0.75rem;">
+              <optgroup label="🏠 الأسر الرئيسية الثلاث">
+                <option value="أسرة 1">أسرة 1</option>
+                <option value="أسرة 2">أسرة 2</option>
+                <option value="أسرة 3">أسرة 3</option>
+              </optgroup>
+              <optgroup label="🌿 الأسر الفرعية">
+                <option value="أسرة Revive">أسرة Revive</option>
+                <option value="أسرة قلب واحد">أسرة قلب واحد</option>
+                <option value="أسرة الميديا">أسرة الميديا</option>
+                <option value="أسرة الأنشطة">أسرة الأنشطة</option>
+                <option value="أسرة الافتقاد">أسرة الافتقاد</option>
+                <option value="أسرة دراسة الكتاب">أسرة دراسة الكتاب</option>
+              </optgroup>
+              <optgroup label="👥 اجتماعات عامة ولجان">
+                <option value="عام / جميع الأسر والخدام">عام / جميع الأسر والخدام</option>
+                <option value="أمناء الاجتماع">أمناء الاجتماع</option>
+                <option value="لجنة الألحان والتسبحة">لجنة الألحان والتسبحة</option>
+                <option value="أسرة الكتاب المقدس">أسرة الكتاب المقدس</option>
+                <option value="الآباء الكهنة والشمامسة">الآباء الكهنة والشمامسة</option>
+                <option value="أسرة الصلاة والشفاعة">أسرة الصلاة والشفاعة</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <div class="form-group" style="margin:0;">
+            <label style="font-weight:800;font-size:0.85rem;color:var(--text-main);margin-bottom:0.3rem;display:block;">رقم الأسبوع:</label>
+            <input type="number" id="editSessionWeek" class="form-control" min="1" max="25" style="font-weight:700;font-size:0.9rem;padding:0.45rem 0.75rem;">
+          </div>
+        </div>
+
+        <!-- Meeting Type info badge -->
+        <div id="editSessionTypeBadge" style="background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.6rem 0.85rem;margin-bottom:1rem;font-size:0.82rem;color:var(--text-muted);display:flex;align-items:center;justify-content:space-between;">
+          <span id="editSessionTypeDesc">نوع اللقاء</span>
+          <span id="editSessionAttendeesCount" style="color:var(--accent-gold);font-weight:800;">0 حاضر</span>
+        </div>
+
+        <div class="modal-sticky-footer">
+          <button type="button" class="btn btn-outline-danger btn-sm" onclick="closeEditSessionModal()">إلغاء</button>
+          <button type="submit" class="btn btn-gold btn-sm" style="min-width:140px;font-weight:800;">
+            💾 حفظ التعديلات
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- MODAL: ADD / EDIT MEMBER                       -->
   <!-- ============================================== -->
   
@@ -15773,6 +15858,124 @@
     }
 
     
+    
+    // ==============================================
+    // EDIT SESSION & DATE CONTROLLER
+    // ==============================================
+    function openEditSessionModal(sessionId) {
+      if (currentServantRole !== 'admin') {
+        alert("⛔ تعديل بيانات ومواعيد اللقاءات مقتصر على أمناء الاجتماع.");
+        return;
+      }
+      const modal = document.getElementById('editSessionModal');
+      if (!modal) return;
+
+      const sess = (appData.sessions || []).find(s => s.id === sessionId);
+      if (!sess) return;
+
+      document.getElementById('editSessionId').value = sess.id;
+      const badgeEl = document.getElementById('editSessionBadge');
+      if (badgeEl) badgeEl.textContent = sess.id;
+
+      const dateInput = document.getElementById('editSessionDate');
+      if (dateInput) dateInput.value = sess.date || '';
+
+      const timeInput = document.getElementById('editSessionTime');
+      if (timeInput) timeInput.value = sess.time || '07:00 م';
+
+      const titleInput = document.getElementById('editSessionTitle');
+      if (titleInput) titleInput.value = sess.title || '';
+
+      const famSelect = document.getElementById('editSessionFamily');
+      if (famSelect) {
+        famSelect.value = sess.family || 'أسرة 1';
+        if (sess.family && famSelect.value !== sess.family) {
+          const opt = document.createElement('option');
+          opt.value = sess.family;
+          opt.textContent = sess.family;
+          famSelect.appendChild(opt);
+          famSelect.value = sess.family;
+        }
+      }
+
+      const weekInput = document.getElementById('editSessionWeek');
+      if (weekInput) weekInput.value = sess.week || 1;
+
+      const typeDescEl = document.getElementById('editSessionTypeDesc');
+      const countEl = document.getElementById('editSessionAttendeesCount');
+      if (typeDescEl) {
+        typeDescEl.textContent = isFamilySession(sess) ? '🏠 اجتماع أسرة (حضور وغياب بدون نقاط)' : '👥 اجتماع عام أسبوعي (+10 نقاط حضور)';
+      }
+      if (countEl) {
+        const c = (sess.attendees || []).length;
+        countEl.textContent = `${c} حاضر مسجل`;
+      }
+
+      modal.style.display = 'flex';
+    }
+
+    function closeEditSessionModal() {
+      const modal = document.getElementById('editSessionModal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function handleSaveEditedSession(e) {
+      if (e) e.preventDefault();
+      const id = document.getElementById('editSessionId').value;
+      const sess = (appData.sessions || []).find(s => s.id === id);
+      if (!sess) return;
+
+      const newDate = document.getElementById('editSessionDate').value;
+      const newTime = document.getElementById('editSessionTime').value.trim() || '07:00 م';
+      const newTitle = document.getElementById('editSessionTitle').value.trim();
+      const newFamily = document.getElementById('editSessionFamily').value;
+      const newWeek = parseInt(document.getElementById('editSessionWeek').value || '1', 10);
+
+      if (!newDate) {
+        alert("⚠️ يرجى تحديد تاريخ اللقاء.");
+        return;
+      }
+      if (!newTitle) {
+        alert("⚠️ يرجى كتابة عنوان اللقاء.");
+        return;
+      }
+
+      // Update session object
+      sess.date = newDate;
+      sess.time = newTime;
+      sess.title = newTitle;
+      sess.family = newFamily;
+      sess.week = newWeek;
+
+      // Update points log records associated with this session if date changed
+      if (Array.isArray(appData.pointsLog)) {
+        appData.pointsLog.forEach(p => {
+          if (p.reason && (p.reason.includes(sess.id) || p.reason.includes(id))) {
+            p.date = newDate;
+          }
+        });
+      }
+
+      saveLocalData();
+
+      // Sync Firebase if active
+      if (isFirebaseReady && db) {
+        db.collection('sessions').doc(sess.id).set(sess).catch(err => console.warn("Firebase edit session fallback:", err));
+      }
+
+      // Sync backend if active
+      fetch(`/api/sessions/${sess.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(sess)
+      }).catch(() => {});
+
+      closeEditSessionModal();
+      refreshUI();
+      renderSessionsTable();
+      alert(`✅ تم تعديل بيانات وتاريخ اللقاء "${sess.title}" (${sess.date}) بنجاح!`);
+    }
+
     function deleteSession(sessionId) {
       if (currentServantRole !== 'admin') {
         alert("⛔ حذف اللقاءات مقتصر على أمناء الاجتماع.");
@@ -15865,6 +16068,9 @@
             <div style="display:inline-flex;align-items:center;gap:0.35rem;flex-wrap:wrap;">
               <button class="btn btn-gold" style="padding:0.25rem 0.65rem;font-size:0.75rem;" onclick="setCurrentSession('${s.id}')">
                 ${s.id === currentSessionId ? '● النشط حالياً' : 'تفعيل هذا اللقاء'}
+              </button>
+              <button type="button" class="btn btn-sm btn-gold" style="padding:0.25rem 0.65rem;font-size:0.75rem;font-weight:700;" onclick="openEditSessionModal('${s.id}')" title="تعديل تاريخ وعنوان وموعد اللقاء">
+                ✏️ تعديل
               </button>
               <button type="button" class="btn btn-secondary btn-sm" style="padding:0.25rem 0.65rem;font-size:0.75rem;font-weight:700;" onclick="openManualAttendanceModal('${s.id}')" title="تعديل كشف حضور هذا اللقاء وإضافة وحذف الشباب">
                 📝 كشف الحضور
