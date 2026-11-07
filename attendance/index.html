@@ -1154,7 +1154,9 @@
       display: none;
       align-items: center;
       justify-content: center;
-      padding: 1rem;
+      padding: 0.75rem;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
     }
 
     .modal-backdrop.open {
@@ -1167,9 +1169,46 @@
       border-radius: var(--radius-lg);
       width: 100%;
       max-width: 520px;
-      padding: 2rem;
+      max-height: 90vh;
+      max-height: 90dvh;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 1.25rem 1.5rem;
       box-shadow: var(--shadow-lg);
       animation: popIn 0.3s ease;
+      position: relative;
+    }
+
+    .modal-sticky-header {
+      position: sticky;
+      top: -1.25rem;
+      background: var(--bg-secondary);
+      margin: -1.25rem -1.5rem 0.85rem -1.5rem;
+      padding: 0.85rem 1.5rem 0.65rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 20;
+    }
+
+    .modal-sticky-footer {
+      position: sticky;
+      bottom: -1.25rem;
+      background: var(--bg-secondary);
+      margin: 0.85rem -1.5rem -1.25rem -1.5rem;
+      padding: 0.75rem 1.5rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.65rem;
+      z-index: 20;
+    }
+
+    body.light-theme .modal-sticky-header,
+    body.light-theme .modal-sticky-footer {
+      background: #ffffff !important;
+      border-color: #e2e8f0 !important;
     }
 
     /* Servant RBAC & Authentication */
@@ -4871,32 +4910,38 @@
   <!-- MODAL: EDIT MEMBER DATA (دليل الشباب والأسر)  -->
   <!-- ============================================== -->
   <div class="modal-backdrop" id="editMemberModal" style="display:none;">
-    <div class="modal-box" style="max-width:620px;">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;border-bottom:1px solid var(--border);padding-bottom:0.75rem;">
-        <h3 style="font-size:1.25rem;font-weight:800;color:var(--accent-gold);margin:0;display:flex;align-items:center;gap:0.5rem;">
+    <div class="modal-box" style="max-width:640px;max-height:88vh;max-height:88dvh;overflow-y:auto;overflow-x:hidden;">
+      <div class="modal-sticky-header">
+        <h3 style="font-size:1.2rem;font-weight:800;color:var(--accent-gold);margin:0;display:flex;align-items:center;gap:0.45rem;">
           <span>✏️</span> تعديل بيانات المخدوم
         </h3>
-        <button type="button" class="btn btn-icon-only btn-sm" onclick="closeEditMemberModal()" style="border:none;background:none;font-size:1.2rem;color:var(--text-muted);cursor:pointer;">✕</button>
+        <button type="button" class="btn btn-icon-only btn-sm" onclick="closeEditMemberModal()" style="border:none;background:none;font-size:1.3rem;color:var(--text-muted);cursor:pointer;line-height:1;" title="إغلاق">✕</button>
       </div>
 
       <form id="editMemberForm" onsubmit="event.preventDefault(); saveEditedMember();">
         <input type="hidden" id="editMemberId">
 
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.85rem;margin-bottom:0.85rem;">
-          <div class="form-group">
-            <label style="font-weight:700;font-size:0.82rem;color:var(--text-main);margin-bottom:0.35rem;display:block;">الاسم بالكامل:</label>
-            <input type="text" id="editMemberName" class="form-control" required style="font-weight:700;">
+        <!-- Row 1: Name & Phone & Extra Phone -->
+        <div style="display:grid;grid-template-columns:2fr 1.2fr 1fr;gap:0.65rem;margin-bottom:0.65rem;">
+          <div class="form-group" style="margin:0;">
+            <label style="font-weight:700;font-size:0.8rem;color:var(--text-main);margin-bottom:0.25rem;display:block;">الاسم بالكامل:</label>
+            <input type="text" id="editMemberName" class="form-control" required style="font-weight:700;padding:0.45rem 0.65rem;font-size:0.88rem;">
           </div>
-          <div class="form-group">
-            <label style="font-weight:700;font-size:0.82rem;color:var(--text-main);margin-bottom:0.35rem;display:block;">رقم الموبايل:</label>
-            <input type="tel" id="editMemberPhone" class="form-control" dir="ltr" style="font-weight:700;font-family:monospace;">
+          <div class="form-group" style="margin:0;">
+            <label style="font-weight:700;font-size:0.8rem;color:var(--text-main);margin-bottom:0.25rem;display:block;">رقم الموبايل:</label>
+            <input type="tel" id="editMemberPhone" class="form-control" dir="ltr" style="font-weight:700;font-family:monospace;padding:0.45rem 0.65rem;font-size:0.88rem;">
+          </div>
+          <div class="form-group" style="margin:0;">
+            <label style="font-weight:700;font-size:0.8rem;color:var(--text-main);margin-bottom:0.25rem;display:block;">هاتف إضافي:</label>
+            <input type="tel" id="editMemberPhone2" class="form-control" dir="ltr" style="padding:0.45rem 0.65rem;font-size:0.88rem;">
           </div>
         </div>
 
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.85rem;margin-bottom:0.85rem;">
-          <div class="form-group">
-            <label style="font-weight:700;font-size:0.82rem;color:var(--text-main);margin-bottom:0.35rem;display:block;">المرحلة الجامعية:</label>
-            <select id="editMemberStage" class="form-control" style="font-weight:700;">
+        <!-- Row 2: Stage & Gender & Area -->
+        <div style="display:grid;grid-template-columns:1fr 1fr 1.2fr;gap:0.65rem;margin-bottom:0.65rem;">
+          <div class="form-group" style="margin:0;">
+            <label style="font-weight:700;font-size:0.8rem;color:var(--text-main);margin-bottom:0.25rem;display:block;">المرحلة الجامعية:</label>
+            <select id="editMemberStage" class="form-control" style="font-weight:700;padding:0.45rem 0.65rem;font-size:0.85rem;">
               <option value="أولى كلية">أولى كلية</option>
               <option value="تانية كلية">تانية كلية</option>
               <option value="تالتة كلية">تالتة كلية</option>
@@ -4905,16 +4950,16 @@
               <option value="خريج">خريج</option>
             </select>
           </div>
-          <div class="form-group">
-            <label style="font-weight:700;font-size:0.82rem;color:var(--text-main);margin-bottom:0.35rem;display:block;">النوع:</label>
-            <select id="editMemberGender" class="form-control" style="font-weight:700;">
+          <div class="form-group" style="margin:0;">
+            <label style="font-weight:700;font-size:0.8rem;color:var(--text-main);margin-bottom:0.25rem;display:block;">النوع:</label>
+            <select id="editMemberGender" class="form-control" style="font-weight:700;padding:0.45rem 0.65rem;font-size:0.85rem;">
               <option value="شاب">👦 شاب</option>
               <option value="شابة">👧 شابة</option>
             </select>
           </div>
-          <div class="form-group">
-            <label style="font-weight:700;font-size:0.82rem;color:var(--text-main);margin-bottom:0.35rem;display:block;">المنطقة السكنية:</label>
-            <select id="editMemberAreaGroup" class="form-control" style="font-weight:700;">
+          <div class="form-group" style="margin:0;">
+            <label style="font-weight:700;font-size:0.8rem;color:var(--text-main);margin-bottom:0.25rem;display:block;">المنطقة السكنية:</label>
+            <select id="editMemberAreaGroup" class="form-control" style="font-weight:700;padding:0.45rem 0.65rem;font-size:0.85rem;">
               <option value="منطقة A">منطقة A</option>
               <option value="منطقة B">منطقة B</option>
               <option value="منطقة C">منطقة C</option>
@@ -4926,60 +4971,58 @@
           </div>
         </div>
 
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.85rem;margin-bottom:0.85rem;">
-          <div class="form-group" style="grid-column:1/-1;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:var(--radius-md);padding:0.75rem;">
-            <div style="display:grid;grid-template-columns:1fr;gap:0.65rem;">
-              <div>
-                <label style="font-weight:800;font-size:0.85rem;color:var(--accent-gold);margin-bottom:0.35rem;display:flex;align-items:center;gap:0.35rem;">
-                  <span>🏠</span> الأسرة الرئيسية (واحدة فقط من الـ 3 أسر):
-                </label>
-                <select id="editMemberMainFamily" class="form-control" style="font-weight:700;">
-                  <option value="لم تحدد بعد">لم تحدد بعد (سيتم التوزيع لاحقاً)</option>
-                  <option value="أسرة 1">أسرة 1</option>
-                  <option value="أسرة 2">أسرة 2</option>
-                  <option value="أسرة 3">أسرة 3</option>
-                </select>
-              </div>
-              <div>
-                <label style="font-weight:800;font-size:0.85rem;color:var(--text-main);margin-bottom:0.35rem;display:flex;align-items:center;gap:0.35rem;">
-                  <span>🌿</span> الأسر الفرعية والأنشطة (يمكن اختيار كذا أسرة فرعية):
-                </label>
-                <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));gap:0.45rem;" id="editMemberSubFamiliesWrap">
-                  <label class="subfam-checkbox-label"><input type="checkbox" name="editSubFamily" value="أسرة Revive"> <span>🏠 أسرة Revive</span></label>
-                  <label class="subfam-checkbox-label"><input type="checkbox" name="editSubFamily" value="أسرة قلب واحد"> <span>🏠 أسرة قلب واحد</span></label>
-                  <label class="subfam-checkbox-label"><input type="checkbox" name="editSubFamily" value="أسرة الميديا"> <span>🏠 أسرة الميديا</span></label>
-                  <label class="subfam-checkbox-label"><input type="checkbox" name="editSubFamily" value="أسرة الأنشطة"> <span>🏠 أسرة الأنشطة</span></label>
-                  <label class="subfam-checkbox-label"><input type="checkbox" name="editSubFamily" value="أسرة الافتقاد"> <span>🏠 أسرة الافتقاد</span></label>
-                  <label class="subfam-checkbox-label"><input type="checkbox" name="editSubFamily" value="دراسة الكتاب"> <span>📖 دراسة الكتاب</span></label>
-                </div>
+        <!-- Row 3: Families Section (Main Family & Sub-Families) -->
+        <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:var(--radius-md);padding:0.65rem 0.85rem;margin-bottom:0.65rem;">
+          <div style="display:grid;grid-template-columns:1fr;gap:0.5rem;">
+            <div>
+              <label style="font-weight:800;font-size:0.82rem;color:var(--accent-gold);margin-bottom:0.25rem;display:flex;align-items:center;gap:0.35rem;">
+                <span>🏠</span> الأسرة الرئيسية (واحدة فقط من الـ 3 أسر):
+              </label>
+              <select id="editMemberMainFamily" class="form-control" style="font-weight:700;padding:0.45rem 0.65rem;font-size:0.85rem;">
+                <option value="لم تحدد بعد">لم تحدد بعد (سيتم التوزيع لاحقاً)</option>
+                <option value="أسرة 1">أسرة 1</option>
+                <option value="أسرة 2">أسرة 2</option>
+                <option value="أسرة 3">أسرة 3</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-weight:800;font-size:0.82rem;color:var(--text-main);margin-bottom:0.3rem;display:flex;align-items:center;gap:0.35rem;">
+                <span>🌿</span> الأسر الفرعية والأنشطة (يمكن اختيار كذا أسرة فرعية):
+              </label>
+              <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:0.35rem;" id="editMemberSubFamiliesWrap">
+                <label class="subfam-checkbox-label" style="padding:0.3rem 0.5rem;font-size:0.75rem;"><input type="checkbox" name="editSubFamily" value="أسرة Revive"> <span>🏠 Revive</span></label>
+                <label class="subfam-checkbox-label" style="padding:0.3rem 0.5rem;font-size:0.75rem;"><input type="checkbox" name="editSubFamily" value="أسرة قلب واحد"> <span>🏠 قلب واحد</span></label>
+                <label class="subfam-checkbox-label" style="padding:0.3rem 0.5rem;font-size:0.75rem;"><input type="checkbox" name="editSubFamily" value="أسرة الميديا"> <span>🏠 الميديا</span></label>
+                <label class="subfam-checkbox-label" style="padding:0.3rem 0.5rem;font-size:0.75rem;"><input type="checkbox" name="editSubFamily" value="أسرة الأنشطة"> <span>🏠 الأنشطة</span></label>
+                <label class="subfam-checkbox-label" style="padding:0.3rem 0.5rem;font-size:0.75rem;"><input type="checkbox" name="editSubFamily" value="أسرة الافتقاد"> <span>🏠 الافتقاد</span></label>
+                <label class="subfam-checkbox-label" style="padding:0.3rem 0.5rem;font-size:0.75rem;"><input type="checkbox" name="editSubFamily" value="دراسة الكتاب"> <span>📖 دراسة الكتاب</span></label>
               </div>
             </div>
           </div>
-          <div class="form-group">
-            <label style="font-weight:700;font-size:0.82rem;color:var(--text-main);margin-bottom:0.35rem;display:block;">أب الاعتراف:</label>
-            <input type="text" id="editMemberFather" class="form-control" placeholder="مثال: ابونا إيساك">
+        </div>
+
+        <!-- Row 4: Confession Father & Birth Date -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.65rem;margin-bottom:0.65rem;">
+          <div class="form-group" style="margin:0;">
+            <label style="font-weight:700;font-size:0.8rem;color:var(--text-main);margin-bottom:0.25rem;display:block;">أب الاعتراف:</label>
+            <input type="text" id="editMemberFather" class="form-control" placeholder="مثال: ابونا إيساك" style="padding:0.45rem 0.65rem;font-size:0.85rem;">
+          </div>
+          <div class="form-group" style="margin:0;">
+            <label style="font-weight:700;font-size:0.8rem;color:var(--text-main);margin-bottom:0.25rem;display:block;">تاريخ الميلاد:</label>
+            <input type="text" id="editMemberBirthdate" class="form-control" placeholder="مثال: 15 أكتوبر 2005" style="padding:0.45rem 0.65rem;font-size:0.85rem;">
           </div>
         </div>
 
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.85rem;margin-bottom:0.85rem;">
-          <div class="form-group">
-            <label style="font-weight:700;font-size:0.82rem;color:var(--text-main);margin-bottom:0.35rem;display:block;">تاريخ الميلاد:</label>
-            <input type="text" id="editMemberBirthdate" class="form-control" placeholder="مثال: 15 أكتوبر 2005">
-          </div>
-          <div class="form-group">
-            <label style="font-weight:700;font-size:0.82rem;color:var(--text-main);margin-bottom:0.35rem;display:block;">هاتف إضافي:</label>
-            <input type="tel" id="editMemberPhone2" class="form-control" dir="ltr">
-          </div>
+        <!-- Row 5: Detailed Address -->
+        <div class="form-group" style="margin-bottom:0.5rem;">
+          <label style="font-weight:700;font-size:0.8rem;color:var(--text-main);margin-bottom:0.25rem;display:block;">العنوان بالتفصيل:</label>
+          <input type="text" id="editMemberAddress" class="form-control" placeholder="المنطقة والشارع ورقم العمارة..." style="padding:0.45rem 0.65rem;font-size:0.85rem;">
         </div>
 
-        <div class="form-group" style="margin-bottom:1.25rem;">
-          <label style="font-weight:700;font-size:0.82rem;color:var(--text-main);margin-bottom:0.35rem;display:block;">العنوان بالتفصيل:</label>
-          <input type="text" id="editMemberAddress" class="form-control" placeholder="المنطقة والشارع ورقم العمارة...">
-        </div>
-
-        <div style="display:flex;justify-content:flex-end;gap:0.75rem;">
-          <button type="button" class="btn btn-outline-danger" onclick="closeEditMemberModal()">إلغاء</button>
-          <button type="submit" class="btn btn-gold" style="min-width:140px;">💾 حفظ التعديلات</button>
+        <!-- Sticky Footer -->
+        <div class="modal-sticky-footer">
+          <button type="button" class="btn btn-outline-danger btn-sm" onclick="closeEditMemberModal()" style="padding:0.45rem 1rem;">إلغاء</button>
+          <button type="submit" class="btn btn-gold btn-sm" style="min-width:140px;font-weight:800;padding:0.45rem 1.25rem;">💾 حفظ التعديلات</button>
         </div>
       </form>
     </div>
