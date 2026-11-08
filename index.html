@@ -16673,6 +16673,10 @@
           cardsGrid.appendChild(card);
         }
       });
+
+      if (typeof currentVisView !== 'undefined' && currentVisView === 'map' && typeof renderInvitationMap === 'function') {
+        renderInvitationMap();
+      }
     }
 
     // ==============================================
