@@ -20495,6 +20495,12 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
     initCameras();
     initAuth();
     checkAndInitYouthLocationCollector();
+    try {
+      const p = new URLSearchParams(window.location.search);
+      if (p.has('survey') || p.get('form') === 'survey') {
+        window.location.replace('/survey' + window.location.search);
+      }
+    } catch (e) {}
     
     // ========================================================
     // BACKUP & RESTORE CLIENT LOGIC

@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>استمارة رغبات واقتراحات الشباب — اجتماع يوسف الصديق</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@500;700;800&display=swap" rel="stylesheet">
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <style>
+    :root {
+      --bg-dark: #070c18;
+      --bg-card: rgba(16, 24, 40, 0.92);
+      --bg-card-hover: rgba(26, 38, 64, 0.95);
+      --border: rgba(212, 175, 55, 0.22);
+      --border-focus: #d4af37;
+      --accent-gold: #d4af37;
+      --accent-gold-gradient: linear-gradient(135deg, #c59b27 0%, #f4d068 50%, #c59b27 100%);
+      --accent-emerald: #10b981;
+      --accent-blue: #3b82f6;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --radius: 14px;
+      --shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.6);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Cairo', system-ui, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(212, 175, 55, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 85%, rgba(59, 130, 246, 0.08) 0%, transparent 40%),
+        linear-gradient(180deg, #070c18 0%, #0b1326 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5rem 1rem 4rem 1rem;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 680px;
+    }
+
+    /* Header */
+    .survey-header {
+      text-align: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    }
+
+    .church-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(212, 175, 55, 0.12);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      color: var(--accent-gold);
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .survey-title {
+      font-size: 1.65rem;
+      font-weight: 900;
+      background: var(--accent-gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+
+    .survey-subtitle {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* Card Section */
+    .form-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .section-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .section-desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+    }
+
+    /* Inputs */
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 0.45rem;
+    }
+
+    .form-control {
+      width: 100%;
+      background: rgba(11, 19, 38, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      color: var(--text-main);
+      font-size: 0.92rem;
+      transition: all 0.2s ease;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+    }
+
+    textarea.form-control {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    /* Autocomplete List */
+    .autocomplete-wrap {
+      position: relative;
+    }
+
+    .autocomplete-items {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #0f192d;
+      border: 1px solid var(--border);
+      border-top: none;
+      border-radius: 0 0 10px 10px;
+      max-height: 220px;
+      overflow-y: auto;
+      z-index: 100;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+    }
+
+    .autocomplete-item {
+      padding: 0.65rem 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+    }
+
+    .autocomplete-item:hover, .autocomplete-item.active {
+      background: rgba(212, 175, 55, 0.15);
+      color: var(--accent-gold);
+    }
+
+    /* Selection Grid / Options */
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .options-col-1 {
+      grid-template-columns: 1fr;
+    }
+
+    .option-card {
+      position: relative;
+      background: rgba(11, 19, 38, 0.7);
+      border: 1.5px solid rgba(148, 163, 184, 0.2);
+      border-radius: 12px;
+      padding: 0.9rem 1rem;
+      cursor: pointer;
+      transition: all 0.22s ease;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      user-select: none;
+    }
+
+    .option-card:hover {
+      background: var(--bg-card-hover);
+      border-color: rgba(212, 175, 55, 0.45);
+      transform: translateY(-2px);
+    }
+
+    .option-card.selected {
+      background: rgba(212, 175, 55, 0.14);
+      border-color: var(--accent-gold);
+      box-shadow: 0 4px 14px rgba(212, 175, 55, 0.2);
+    }
+
+    .option-card input[type="radio"],
+    .option-card input[type="checkbox"] {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .option-indicator {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid rgba(148, 163, 184, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+      transition: all 0.2s ease;
+    }
+
+    .option-card input[type="checkbox"] + .option-indicator {
+      border-radius: 6px;
+    }
+
+    .option-card.selected .option-indicator {
+      background: var(--accent-gold);
+      border-color: var(--accent-gold);
+      color: #070c18;
+    }
+
+    .option-indicator::after {
+      content: '';
+      display: none;
+    }
+
+    .option-card.selected input[type="radio"] + .option-indicator::after {
+      display: block;
+      width: 8px;
+      height: 8px;
+      background: #070c18;
+      border-radius: 50%;
+    }
+
+    .option-card.selected input[type="checkbox"] + .option-indicator::after {
+      display: block;
+      content: '✓';
+      font-size: 13px;
+      font-weight: 900;
+      color: #070c18;
+    }
+
+    .option-content {
+      flex: 1;
+    }
+
+    .option-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 0.2rem;
+    }
+
+    .option-desc {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* Submit Button */
+    .btn-submit {
+      width: 100%;
+      background: var(--accent-gold-gradient);
+      color: #070c18;
+      font-size: 1.15rem;
+      font-weight: 900;
+      padding: 1rem;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35);
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 26px rgba(212, 175, 55, 0.5);
+    }
+
+    .btn-submit:active {
+      transform: translateY(0);
+    }
+
+    .btn-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Success Screen */
+    .success-card {
+      display: none;
+      text-align: center;
+      background: var(--bg-card);
+      border: 1px solid var(--accent-emerald);
+      border-radius: var(--radius);
+      padding: 3rem 1.5rem;
+      box-shadow: 0 12px 35px rgba(16, 185, 129, 0.2);
+      animation: popIn 0.4s ease;
+    }
+
+    @keyframes popIn {
+      0% { opacity: 0; transform: scale(0.92); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .success-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--accent-emerald);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      margin-bottom: 1.25rem;
+      border: 2px solid var(--accent-emerald);
+    }
+
+    .success-title {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--accent-emerald);
+      margin-bottom: 0.5rem;
+    }
+
+    .success-msg {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 1.75rem;
+    }
+
+    /* Footer */
+    .survey-footer {
+      margin-top: 2rem;
+      text-align: center;
+      color: #64748b;
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 600px) {
+      .survey-title { font-size: 1.35rem; }
+      .form-section { padding: 1.15rem; }
+      .options-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- Survey Header -->
+    <header class="survey-header">
+      <div class="church-badge">
+        <span>⛪</span>
+        <span>كنيسة السيدة العذراء مريم بالقناطر الخيرية</span>
+      </div>
+      <h1 class="survey-title">استمارة رغبات واقتراحات الشباب 🤍✨</h1>
+      <p class="survey-subtitle">اجتماع يوسف الصديق — عام 2026 / 2027<br>رأيك واختيارك هيصنع شكل يومنا وخروجاتنا الجاية!</p>
+    </header>
+
+    <!-- Success Screen (Shown on submit) -->
+    <div id="surveySuccessCard" class="success-card">
+      <div class="success-icon">✓</div>
+      <h2 class="success-title">عاش جداً يا بطل! تم تسجيل رغباتك 🤍</h2>
+      <p class="success-msg" id="successCustomMsg">
+        تم حفظ اختيارك للأسرة ورأيك في الخروجات والمؤتمر بنجاح.<br>
+        صوتك هيساعدنا ننظم أحلى أوقات تفرّح قلوبنا كلنا مع بعض!
+      </p>
+      <button type="button" class="btn-submit" onclick="location.reload()" style="max-width:260px;margin:0 auto;font-size:0.95rem;padding:0.75rem;">
+        🔄 تعديل الإجابة أو تسجيل آخر
+      </button>
+    </div>
+
+    <!-- Main Form -->
+    <form id="youthSurveyForm" onsubmit="handleSurveySubmit(event)">
+
+      <!-- SECTION 1: Member Info -->
+      <section class="form-section">
+        <h2 class="section-title"><span>👤</span> بياناتك الأساسية</h2>
+        <p class="section-desc">اكتب اسمك أو ابحث عنه عشان نسجل رغباتك باسمك في سجلات الاجتماع.</p>
+
+        <div class="form-group autocomplete-wrap">
+          <label class="form-label" for="memberSearchInput">ابحث عن اسمك في دليل شباب الاجتماع:</label>
+          <input type="text" id="memberSearchInput" class="form-control" placeholder="اكتب اسمك أو رقم تليفونك..." autocomplete="off">
+          <div id="autocompleteDropdown" class="autocomplete-items" style="display:none;"></div>
+        </div>
+
+        <div id="manualInfoFields" style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+          <div class="form-group" style="margin-bottom:0;">
+            <label class="form-label" for="inputName">الاسم بالكامل: *</label>
+            <input type="text" id="inputName" class="form-control" placeholder="مثال: يوسف ماجد فؤاد" required>
+          </div>
+          <div class="form-group" style="margin-bottom:0;">
+            <label class="form-label" for="inputPhone">رقم الموبايل (واتساب):</label>
+            <input type="tel" id="inputPhone" class="form-control" placeholder="01xxxxxxxxx">
+          </div>
+        </div>
+        <input type="hidden" id="inputMemberId" value="">
+        <input type="hidden" id="inputMemberCode" value="">
+      </section>
+
+      <!-- SECTION 2: Main Family (Single Choice) -->
+      <section class="form-section">
+        <h2 class="section-title"><span>🏛️</span> اختيار الأسرة الرئيسية (إجباري)</h2>
+        <p class="section-desc">الأسر الرئيسية تخدم بروح المنافسة الإيجابية وتنظيم الاجتماع. اختر أسرتك الأساسية:</p>
+
+        <div class="options-grid">
+          
+          <label class="option-card" onclick="selectRadioCard(this, 'mainFamily')">
+            <input type="radio" name="mainFamily" value="أسرة 1" required>
+            <div class="option-indicator"></div>
+            <div class="option-content">
+              <div class="option-title">🌟 أسرة 1</div>
+              <div class="option-desc">تنظيم، منافسات الأسر، والتفاعل الجماعي</div>
+            </div>
+          </label>
+
+          <label class="option-card" onclick="selectRadioCard(this, 'mainFamily')">
+            <input type="radio" name="mainFamily" value="أسرة 2" required>
+            <div class="option-indicator"></div>
+            <div class="option-content">
+              <div class="option-title">🌟 أسرة 2</div>
+              <div class="option-desc">حماس، مشاركة فعالة، وروح الفريق الواحد</div>
+            </div>
+          </label>
+
+          <label class="option-card" onclick="selectRadioCard(this, 'mainFamily')">
+            <input type="radio" name="mainFamily" value="أسرة 3" required>
+            <div class="option-indicator"></div>
+            <div class="option-content">
+              <div class="option-title">🌟 أسرة 3</div>
+              <div class="option-desc">إبداع، تحديات، وتقديم الاجتماع بروح المحبة</div>
+            </div>
+          </label>
+
+        </div>
+      </section>
+
+      <!-- SECTION 3: Sub-Families (Multiple Choice) -->
+      <section class="form-section">
+        <h2 class="section-title"><span>🌿</span> الأسر الفرعية ومجالات الخدمة</h2>
+        <p class="section-desc">ينفع تختار أكتر من أسرة فرعية حابب تخدم وتشارك فيها حسب موهبتك وشغفك:</p>
+
+        <div class="options-grid">
+
+          <label class="option-card" onclick="toggleCheckboxCard(this)">
+            <input type="checkbox" name="subFamilies" value="أسرة Revive">
+            <div class="option-indicator"></div>
+            <div class="option-content">
+              <div class="option-title">🎵 أسرة Revive</div>
+              <div class="option-desc">التسبيح، الكورال، سهرات الصلاة والترانيم</div>
+            </div>
+          </label>
+
+          <label class="option-card" onclick="toggleCheckboxCard(this)">
+            <input type="checkbox" name="subFamilies" value="أسرة الأنشطة">
+            <div class="option-indicator"></div>
+            <div class="option-content">
+              <div class="option-title">⚽ أسرة الأنشطة</div>
+              <div class="option-desc">الدورات الرياضية، تنظيم الرحلات، والمسابقات</div>
+            </div>
+          </label>
+
+          <label class="option-card" onclick="toggleCheckboxCard(this)">
+            <input type="checkbox" name="subFamilies" value="أسرة الميديا">
+            <div class="option-indicator"></div>
+            <div class="option-content">
+              <div class="option-title">📸 أسرة الميديا والتصميم</div>
+              <div class="option-desc">التصوير، المونتاج، الجرافيك ديزاين، والسوشيال ميديا</div>
+            </div>
+          </label>
+
+          <label class="option-card" onclick="toggleCheckboxCard(this)">
+            <input type="checkbox" name="subFamilies" value="دراسة الكتاب">
+            <div class="option-indicator"></div>
+            <div class="option-content">
+              <div class="option-title">📖 دراسة الكتاب المقدس</div>
+              <div class="option-desc">البحث الكنسي، المسابقات الإنجيلية، وورش الكلمة</div>
+            </div>
+          </label>
+
+          <label class="option-card" onclick="toggleCheckboxCard(this)">
+            <input type="checkbox" name="subFamilies" value="أسرة الافتقاد">
+            <div class="option-indicator"></div>
+            <div class="option-content">
+              <div class="option-title">🤝 أسرة الافتقاد والتواصل</div>
+              <div class="option-desc">السؤال عن الغائبين، الزيارات، وعلاقات المحبة الأخوية</div>
+            </div>
+          </label>
+
+          <label class="option-card" onclick="toggleCheckboxCard(this)">
+            <input type="checkbox" name="subFamilies" value="أسرة قلب واحد">
+            <div class="option-indicator"></div>
+            <div class="option-content">
+              <div class="option-title">❤️ أسرة قلب واحد</div>
+              <div class="option-desc">أعمال الرحمة، زيارات المسنين، الأيتام، والخدمات المجتمعية</div>
+            </div>
+          </label>
+
+        </div>
+
+        <div class="form-group" style="margin-top:1rem;margin-bottom:0;">
+          <label class="form-label" for="inputOtherSubFamily">💡 عندك موهبة أو فكرة خدمة تانية حابب تضيفها؟</label>
+          <input type="text" id="inputOtherSubFamily" class="form-control" placeholder="اكتب اقتراحك هنا...">
+        </div>
+      </section>
+
+      <!-- SECTION 4: Outings & Trips Vibe -->
+      <section class="form-section">
+        <h2 class="section-title"><span>🏖️</span> دماغك في الخروجات والرحلات</h2>
+        <p class="section-desc">عايزين نعمل خروجات تليق بيكم وتفرّغ طاقتكم بجد. جاوبنا بصراحة:</p>
+
+        <!-- Q1: Outing Style -->
+        <div class="form-group">
+          <label class="form-label">1. إيه نوع الخروجة اللي بتفرّغ طاقتك وتبسطك بجد؟</label>
+          <div class="options-grid options-col-1">
+            <label class="option-card" onclick="selectRadioCard(this, 'tripStyle')">
+              <input type="radio" name="tripStyle" value="مغامرة وأكشن (Paintball / ملاهي / Escape Room / كورة)">
+              <div class="option-indicator"></div>
+              <div class="option-content">
+                <div class="option-title">🎯 مغامرة وأكشن وألعاب حركية</div>
+                <div class="option-desc">ألعاب تحديات، Paintball، Escape Room، كورة، ومسابقات حماسية</div>
+              </div>
+            </label>
+
+            <label class="option-card" onclick="selectRadioCard(this, 'tripStyle')">
+              <input type="radio" name="tripStyle" value="بحر ومصيف داي يوز (العين السخنة أو فايد)">
+              <div class="option-indicator"></div>
+              <div class="option-content">
+                <div class="option-title">🌊 بحر ومياه وشمس وداي يوز مصيف</div>
+                <div class="option-desc">نزول مياه، قعدة على الشاطئ، مسابقات رملية، وغداء رايق</div>
+              </div>
+            </label>
+
+            <label class="option-card" onclick="selectRadioCard(this, 'tripStyle')">
+              <input type="radio" name="tripStyle" value="طبيعة وتخييم وهايكنج وقعدة سمر (محمية وادي دجلة)">
+              <div class="option-indicator"></div>
+              <div class="option-content">
+                <div class="option-title">🏕️ طبيعة وهدوء وتخييم وشوي</div>
+                <div class="option-desc">هايكنج خفيف، شواء على الفحم، وقعدة سمر وتأمل تحت النجوم</div>
+              </div>
+            </label>
+
+            <label class="option-card" onclick="selectRadioCard(this, 'tripStyle')">
+              <input type="radio" name="tripStyle" value="قعدة كافيه رايق وبورد جيمز وبلايستيشن">
+              <div class="option-indicator"></div>
+              <div class="option-content">
+                <div class="option-title">☕ قعدة كافيه رايق وبورد جيمز (Board Games)</div>
+                <div class="option-desc">كلام عميق، ضحك، بلايستيشن، وألعاب ذكاء جماعية</div>
+              </div>
+            </label>
+
+            <label class="option-card" onclick="selectRadioCard(this, 'tripStyle')">
+              <input type="radio" name="tripStyle" value="لف وسينما وتجربة مطاعم وأكلات جديدة">
+              <div class="option-indicator"></div>
+              <div class="option-content">
+                <div class="option-title">🍔 لف وسينما وأكل جديد وتجربة أماكن جديدة</div>
+                <div class="option-desc">خروجة شبابية ممتعة في وسط البلد أو التجمع أو زايد</div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Q2: Preferred Time -->
+        <div class="form-group">
+          <label class="form-label">2. أنسب ميعاد وتوقيت للخروجات معاك؟</label>
+          <div class="options-grid">
+            <label class="option-card" onclick="selectRadioCard(this, 'preferredTime')">
+              <input type="radio" name="preferredTime" value="الجمعة الصبح بدري">
+              <div class="option-indicator"></div>
+              <div class="option-content">
+                <div class="option-title">🌅 الجمعة الصبح بدري</div>
+                <div class="option-desc">نبدأ اليوم من أوله ونستفيد بكل ساعة</div>
+              </div>
+            </label>
+
+            <label class="option-card" onclick="selectRadioCard(this, 'preferredTime')">
+              <input type="radio" name="preferredTime" value="الجمعة بعد الظهر أو المسا">
+              <div class="option-indicator"></div>
+              <div class="option-content">
+                <div class="option-title">🌇 الجمعة بعد الظهر / المسا</div>
+                <div class="option-desc">بعد القداس والراحة سهرة خفيفة ولذيذة</div>
+              </div>
+            </label>
+
+            <label class="option-card" onclick="selectRadioCard(this, 'preferredTime')">
+              <input type="radio" name="preferredTime" value="يوم في نص الأسبوع بعد الكليات">
+              <div class="option-indicator"></div>
+              <div class="option-content">
+                <div class="option-title">📅 وسط الأسبوع</div>
+                <div class="option-desc">بعد مواعيد محاضرات الكلية ترويقة سريعة</div>
+              </div>
+            </label>
+
+            <label class="option-card" onclick="selectRadioCard(this, 'preferredTime')">
+              <input type="radio" name="preferredTime" value="متاح في أي وقت لو الخروجة حلوة">
+              <div class="option-indicator"></div>
+              <div class="option-content">
+                <div class="option-title">🚀 في أي وقت!</div>
+                <div class="option-desc">المهم لمتنا والخروجة الحلوة</div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Q3: Budget -->
+        <div class="form-group">
+          <label class="form-label">3. متوسط الميزانية الأنسب ليك في الخروجات؟</label>
+          <div class="options-grid">
+            <label class="option-card" onclick="selectRadioCard(this, 'budget')">
+              <input type="radio" name="budget" value="اقتصادية ولذيذة (50 - 100 ج)">
+              <div class="option-indicator"></div>
+              <div class="option-content">
+                <div class="option-title">💵 خفيفة واقتصادية</div>
+                <div class="option-desc">في حدود 50 إلى 100 ج</div>
+              </div>
+            </label>
+
+            <label class="option-card" onclick="selectRadioCard(this, 'budget')">
+              <input type="radio" name="budget" value="متوسطة ومريحة (150 - 300 ج)">
+              <div class="option-indicator"></div>
+              <div class="option-content">
+                <div class="option-title">💳 متوسطة ومريحة</div>
+                <div class="option-desc">في حدود 150 إلى 300 ج</div>
+              </div>
+            </label>
+
+            <label class="option-card" onclick="selectRadioCard(this, 'budget')">
+              <input type="radio" name="budget" value="داي يوز مصيف أو رحلة كاملة (400 - 600+ ج)">
+              <div class="option-indicator"></div>
+              <div class="option-content">
+                <div class="option-title">🏖️ داي يوز ومصيف</div>
+                <div class="option-desc">في حدود 400 إلى 600+ ج</div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Q4: Suggested Location -->
+        <div class="form-group" style="margin-bottom:0;">
+          <label class="form-label" for="suggestedTripLocation">4. لو هترشح مكان أو خروجة في خيالك نفسك نروحها سوا، تختار إيه؟</label>
+          <input type="text" id="suggestedTripLocation" class="form-control" placeholder="اكتب اسم مكان أو فكرة معينة...">
+        </div>
+      </section>
+
+      <!-- SECTION 5: Upcoming Conference -->
+      <section class="form-section">
+        <h2 class="section-title"><span>⛺</span> كبسولة المؤتمر القادم</h2>
+        <p class="section-desc">المؤتمر هو أحلى محطة روحية وإنسانية بنعيشها سوا في السنة:</p>
+
+        <!-- Conference Duration -->
+        <div class="form-group">
+          <label class="form-label">5. تفضل مدة المؤتمر تكون إيه؟</label>
+          <div class="options-grid">
+            <label class="option-card" onclick="selectRadioCard(this, 'confDuration')">
+              <input type="radio" name="confDuration" value="يومين بليلة واحدة">
+              <div class="option-indicator"></div>
+              <div class="option-content">
+                <div class="option-title">⏱️ يومين بليلة واحدة</div>
+                <div class="option-desc">خفيف وسريع ومش بيعطل الكليات</div>
+              </div>
+            </label>
+
+            <label class="option-card" onclick="selectRadioCard(this, 'confDuration')">
+              <input type="radio" name="confDuration" value="3 أيام بليلتين">
+              <div class="option-indicator"></div>
+              <div class="option-content">
+                <div class="option-title">🏕️ 3 أيام بليلتين</div>
+                <div class="option-desc">نلحق نعيش الجو ونستفيد من الروحانيات والأنشطة</div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Conference Topic -->
+        <div class="form-group">
+          <label class="form-label" for="confTopicSuggestion">6. إيه أكتر موضوع أو سؤال شاغل بالك ونفسك نناقشه بصراحة وبدون حرج في المؤتمر؟</label>
+          <textarea id="confTopicSuggestion" class="form-control" placeholder="مثلاً: الهوية والقرارات، العلاقات، ضغوط السوشيال ميديا، الشكوك الفكرية، النجاح العملي..."></textarea>
+        </div>
+
+        <!-- Free Message -->
+        <div class="form-group" style="margin-bottom:0;">
+          <label class="form-label" for="confGeneralNotes">7. كلمة أو فكرة أو نقد بنّاء نفسك تقوله لخدام الاجتماع:</label>
+          <textarea id="confGeneralNotes" class="form-control" placeholder="اكتب اللي في قلبك بصراحة، رأيك أمانة وهيهمنا جداً..."></textarea>
+        </div>
+      </section>
+
+      <!-- Submit Section -->
+      <div style="margin-top:1.5rem;text-align:center;">
+        <button type="submit" id="btnSubmitSurvey" class="btn-submit">
+          <span>🚀</span>
+          <span>إرسال رغباتي واقتراحاتي</span>
+        </button>
+      </div>
+
+    </form>
+
+    <footer class="survey-footer">
+      اجتماع يوسف الصديق للشباب — كنيسة السيدة العذراء بالقناطر الخيرية © 2026
+    </footer>
+
+  </div>
+
+  <script>
+    // Firebase Config (Matches Main App)
+    const firebaseConfig = {
+      apiKey: "AIzaSyCNAQmm5DBroA5rLMda-E85UFo3-7srg8s",
+      authDomain: "st-youssef.firebaseapp.com",
+      projectId: "st-youssef",
+      storageBucket: "st-youssef.firebasestorage.app",
+      messagingSenderId: "229943481848",
+      appId: "1:229943481848:web:d2f24b1b596481197b720d",
+      measurementId: "G-CN8E6CZM2E"
+    };
+
+    let db = null;
+    try {
+      firebase.initializeApp(firebaseConfig);
+      db = firebase.firestore();
+    } catch (e) {
+      console.warn("Firebase init:", e);
+    }
+
+    // Compact Members List for Search Autocomplete
+    const MEMBERS_LIST = [{"id": "E19", "name": "ابادير (سمير) ايمن", "code": "E19", "phone": "01288474508"}, {"id": "YS-002", "name": "ابانوب هاني حشمت", "code": "", "phone": "01270262719"}, {"id": "YS-003", "name": "ارساني البير", "code": "", "phone": "01229680052"}, {"id": "YS-004", "name": "ارساني سمير", "code": "", "phone": "01229495458"}, {"id": "E21", "name": "اسحق نبيل", "code": "E21", "phone": "01221474285"}, {"id": "YS-006", "name": "امير اشرف", "code": "", "phone": "01060537225"}, {"id": "C17", "name": "انجيل هاني", "code": "C17", "phone": "01208368919"}, {"id": "T01", "name": "اندرو فهيم", "code": "T01", "phone": "01278430910"}, {"id": "YS-009", "name": "ايريني ايهاب", "code": "", "phone": "01011955007"}, {"id": "YS-010", "name": "ايريني تامر", "code": "", "phone": "01203483478"}, {"id": "D07", "name": "ايريني جورج", "code": "D07", "phone": "01271721319"}, {"id": "E07", "name": "ايمي ايمن", "code": "E07", "phone": "01145473490"}, {"id": "B17", "name": "ايهاب ماهر", "code": "B17", "phone": "01273860435"}, {"id": "YS-014", "name": "بافلي داود", "code": "", "phone": "01210943516"}, {"id": "YS-015", "name": "بتول البير", "code": "", "phone": "01153095147"}, {"id": "YS-016", "name": "بولا اشرف", "code": "", "phone": "01211340616"}, {"id": "T02", "name": "بولا اكرم", "code": "T02", "phone": "01200799193"}, {"id": "D11", "name": "بولا ايساك", "code": "D11", "phone": "01223757761"}, {"id": "YS-019", "name": "بولا ميشيل", "code": "", "phone": "01204982339"}, {"id": "A25", "name": "بولا هشام", "code": "A25", "phone": "01207205034"}, {"id": "D17", "name": "بيتر مجدي عزيز", "code": "D17", "phone": "01097894518"}, {"id": "A21", "name": "بيشوي اشرف مندي", "code": "A21", "phone": "01208751074"}, {"id": "YS-023", "name": "بيشوي ايمن كمال", "code": "", "phone": "01271865533"}, {"id": "T03", "name": "بيشوي عاطف", "code": "T03", "phone": "01226077974"}, {"id": "D05", "name": "بيشوي عماد سمير", "code": "D05", "phone": "01289088488"}, {"id": "E09", "name": "بيشوي ماهر", "code": "E09", "phone": "01204086189"}, {"id": "D04", "name": "بيشوي مرقس إدوارد", "code": "D04", "phone": "01211027467"}, {"id": "C20", "name": "توماس اكرامي سمير", "code": "C20", "phone": "01277847021"}, {"id": "T04", "name": "توماس ماركو", "code": "T04", "phone": "01286763406"}, {"id": "A40", "name": "توماس ملاك", "code": "A40", "phone": "01287284098"}, {"id": "B20", "name": "توني عادل", "code": "B20", "phone": "01203419941"}, {"id": "C14", "name": "جني اشرف", "code": "C14", "phone": "01200733842"}, {"id": "C18", "name": "جورج كرم", "code": "C18", "phone": "01270711288"}, {"id": "T05", "name": "جورج ماجد", "code": "T05", "phone": "01555952693"}, {"id": "B13", "name": "جوليا جميل", "code": "B13", "phone": "01228395147"}, {"id": "A27", "name": "جومانا عاطف", "code": "A27", "phone": "01112929912"}, {"id": "T06", "name": "جويس شريف", "code": "T06", "phone": "01206933090"}, {"id": "T07", "name": "جويس ميشيل", "code": "T07", "phone": "01204726009"}, {"id": "YS-039", "name": "جينيفر جوزيف", "code": "", "phone": "01210720096"}, {"id": "E06", "name": "خليل جمال", "code": "E06", "phone": "01202656756"}, {"id": "T08", "name": "خيري نبيل خيري", "code": "T08", "phone": "01288477418"}, {"id": "D16", "name": "دافيد ايهاب", "code": "D16", "phone": "01220201642"}, {"id": "T09", "name": "دميانة نسيم", "code": "T09", "phone": "01279885494"}, {"id": "YS-044", "name": "رامز روماني", "code": "", "phone": "01555925994"}, {"id": "T13", "name": "روزالين رضا", "code": "T13", "phone": "01557514054"}, {"id": "T10", "name": "ريمون هدايه", "code": "T10", "phone": "01277868115"}, {"id": "C11", "name": "سارة يحي", "code": "C11", "phone": "01278083378"}, {"id": "YS-048", "name": "سامح مينا", "code": "", "phone": "01208562360"}, {"id": "YS-049", "name": "ساندي باسم", "code": "", "phone": "01277424799"}, {"id": "E17", "name": "شنودة سامي", "code": "E17", "phone": "01271616721"}, {"id": "E28", "name": "شيري شنودة", "code": "E28", "phone": "01271121731"}, {"id": "B10", "name": "شيري عماد", "code": "B10", "phone": "01275545315"}, {"id": "C02", "name": "شيري فادي", "code": "C02", "phone": "01220938936"}, {"id": "YS-054", "name": "فادي سمير", "code": "", "phone": "01228454332"}, {"id": "YS-055", "name": "فادي ملاك", "code": "", "phone": "01152677447"}, {"id": "B18", "name": "فادي ميلاد", "code": "B18", "phone": "01202843016"}, {"id": "C03", "name": "فادي نادر نبيل", "code": "C03", "phone": "01276412023"}, {"id": "D06", "name": "فام القمص اباكير", "code": "D06", "phone": "01554822273"}, {"id": "B07", "name": "فليمون لبيب", "code": "B07", "phone": "01228552895"}, {"id": "C08", "name": "فيرونيا عزمي", "code": "C08", "phone": "01200856558"}, {"id": "C22", "name": "فيلوباتير رأفت", "code": "C22", "phone": "01206164529"}, {"id": "E30", "name": "فيلوباتير مدحت", "code": "E30", "phone": "01228754558"}, {"id": "E04", "name": "فيلوباتير منير", "code": "E04", "phone": "01279428863"}, {"id": "YS-064", "name": "فيلوباتير وائل", "code": "", "phone": "01278438977"}, {"id": "E29", "name": "فيولا شنودة", "code": "E29", "phone": "01274013893"}, {"id": "YS-066", "name": "كارين اسامة", "code": "", "phone": "01225327713"}, {"id": "C12", "name": "كارين فيكتور", "code": "C12", "phone": "01221934211"}, {"id": "T11", "name": "كرستين جميل", "code": "T11", "phone": "01154399320"}, {"id": "D15", "name": "كريم شريف", "code": "D15", "phone": "01276680787"}, {"id": "YS-070", "name": "كمال اشرف", "code": "", "phone": "01124016454"}, {"id": "B05", "name": "كمال اشرف لوندي", "code": "B05", "phone": "01284205756"}, {"id": "A17", "name": "كيرلس امير إبراهيم", "code": "A17", "phone": "01282076103"}, {"id": "YS-073", "name": "كيرلس جورج ابراهيم", "code": "", "phone": "01279962619"}, {"id": "T12", "name": "كيرلس سامي", "code": "T12", "phone": "01223708282"}, {"id": "E26", "name": "كيرلس عادل عزيز", "code": "E26", "phone": "01277125305"}, {"id": "T13", "name": "كيرلس عماد", "code": "T13", "phone": "01229351548"}, {"id": "B06", "name": "كيرلس عماد فرج", "code": "B06", "phone": "01207466447"}, {"id": "B16", "name": "كيرلس عماد فوزي", "code": "B16", "phone": "01201602431"}, {"id": "T14", "name": "كيرلس كرم", "code": "T14", "phone": "01202569591"}, {"id": "A14", "name": "كيرلس مجدي ماهر", "code": "A14", "phone": "01278397082"}, {"id": "A16", "name": "كيرلس هاني", "code": "A16", "phone": "01060002268"}, {"id": "T15", "name": "كيرمينا سامح", "code": "T15", "phone": "01201816176"}, {"id": "A04", "name": "كيريا عماد", "code": "A04", "phone": "01552112615"}, {"id": "A08", "name": "ماثيو ادوارد", "code": "A08", "phone": "01222716609"}, {"id": "C24", "name": "مادونا فرج الله", "code": "C24", "phone": "01228688715"}, {"id": "E31", "name": "مارتينا مدحت", "code": "E31", "phone": "01277089408"}, {"id": "B14", "name": "مارسلينو مايكل جمال", "code": "B14", "phone": "01128650766"}, {"id": "A29", "name": "مارسلينو مرقس لويس", "code": "A29", "phone": "01277887909"}, {"id": "C06", "name": "مارفن سعد", "code": "C06", "phone": "01275991255"}, {"id": "T16", "name": "مارك ريمون", "code": "T16", "phone": ""}, {"id": "T17", "name": "مارك عاطف", "code": "T17", "phone": "01286956838"}, {"id": "YS-092", "name": "مارلي هاني", "code": "", "phone": "01286725997"}, {"id": "D01", "name": "ماريا ايليا", "code": "D01", "phone": "01226833911"}, {"id": "YS-094", "name": "ماريا جان", "code": "", "phone": "01207633807"}, {"id": "A22", "name": "ماريا ريمون", "code": "A22", "phone": "01282313266"}, {"id": "E23", "name": "ماريا عادل", "code": "E23", "phone": "01282443239"}, {"id": "A23", "name": "ماريا وحيد", "code": "A23", "phone": "01211662429"}, {"id": "E32", "name": "ماريان أسامة", "code": "E32", "phone": "01285215611"}, {"id": "T18", "name": "ماريان اكرم", "code": "T18", "phone": "01066028309"}, {"id": "C05", "name": "ماريت سعد", "code": "C05", "phone": "01275067097"}, {"id": "YS-101", "name": "ماريز رأفت", "code": "", "phone": "01210210719"}, {"id": "YS-102", "name": "مارينا عاطف", "code": "", "phone": "01551865325"}, {"id": "A15", "name": "ماهر مجدي ماهر", "code": "A15", "phone": "01270038496"}, {"id": "YS-104", "name": "مايا نادر", "code": "", "phone": "01277497973"}, {"id": "YS-105", "name": "مايكل زكريا", "code": "", "phone": "01200969572"}, {"id": "B09", "name": "مايكل نبيل ملاك", "code": "B09", "phone": "01279961721"}, {"id": "T19", "name": "مريم جرجس", "code": "T19", "phone": "01281879028"}, {"id": "T20", "name": "مريم حليم", "code": "T20", "phone": "01270700548"}, {"id": "T21", "name": "مريم رزق", "code": "T21", "phone": ""}, {"id": "C25", "name": "مريم سعيد انور", "code": "C25", "phone": "01204403539"}, {"id": "D10", "name": "مريم سعيد رياض", "code": "D10", "phone": "01275486757"}, {"id": "T22", "name": "مريم عادل", "code": "T22", "phone": "01226191387"}, {"id": "YS-113", "name": "مريم عماد", "code": "", "phone": "01201978361"}, {"id": "T23", "name": "مريم عماد يسى", "code": "T23", "phone": "01211411708"}, {"id": "YS-115", "name": "مريم نبيل ملاك", "code": "", "phone": "01202844383"}, {"id": "YS-116", "name": "ملاك ميخائيل", "code": "", "phone": "01024113812"}, {"id": "T24", "name": "ملاك ميخائيل سامي", "code": "T24", "phone": "01272814728"}, {"id": "T25", "name": "ملك عاطف", "code": "T25", "phone": "01288940060"}, {"id": "E33", "name": "مهرائيل اسامة", "code": "E33", "phone": "01200279165"}, {"id": "T26", "name": "ميرا الهامي", "code": "T26", "phone": "01206606129"}, {"id": "A35", "name": "ميراي محب", "code": "A35", "phone": "01550793010"}, {"id": "T27", "name": "ميرنا رضا", "code": "T27", "phone": "01270538526"}, {"id": "A39", "name": "ميرولا ملاك", "code": "A39", "phone": "01200413453"}, {"id": "D08", "name": "ميريام جورج", "code": "D08", "phone": "01278166583"}, {"id": "A34", "name": "ميريام سامي عزيز", "code": "A34", "phone": "01289955837"}, {"id": "B11", "name": "ميشيل عادل ميشيل", "code": "B11", "phone": "01281191367"}, {"id": "T28", "name": "ميشيل مدحت", "code": "T28", "phone": ""}, {"id": "T29", "name": "مينا اكرم", "code": "T29", "phone": "01280556608"}, {"id": "D19", "name": "مينا ايهاب", "code": "D19", "phone": "01287142498"}, {"id": "A02", "name": "مينا عادل شفيق", "code": "A02", "phone": "01278865619"}, {"id": "YS-131", "name": "مينا عماد", "code": "", "phone": "01224409830"}, {"id": "YS-132", "name": "مينا ماجد منصور", "code": "", "phone": "01202297056"}, {"id": "E01", "name": "مينا مهاود", "code": "E01", "phone": "01211781132"}, {"id": "YS-134", "name": "مينا نبيل", "code": "", "phone": "01212295618"}, {"id": "YS-135", "name": "ناديين عماد", "code": "", "phone": "01206286595"}, {"id": "B12", "name": "ناردين عادل", "code": "B12", "phone": "01200733974"}, {"id": "A19", "name": "ناردين محب", "code": "A19", "phone": "01229278330"}, {"id": "YS-138", "name": "نيرفانا طارق", "code": "", "phone": "01227518767"}, {"id": "E15", "name": "هيلانة اشرف", "code": "E15", "phone": "01550920680"}, {"id": "E11", "name": "هيلانة جميل", "code": "E11", "phone": "01271103673"}, {"id": "YS-141", "name": "يؤانا ميلاد", "code": "", "phone": "01273056393"}, {"id": "C15", "name": "يوحنا باسم", "code": "C15", "phone": "01226544029"}, {"id": "T30", "name": "يوساب حربي", "code": "T30", "phone": "01503770481"}, {"id": "YS-144", "name": "يوساب ماركو غالي", "code": "", "phone": "01280522562"}, {"id": "A01", "name": "يوستينا جورج", "code": "A01", "phone": "01210555392"}, {"id": "B15", "name": "يوستينا عماد", "code": "B15", "phone": "01278666753"}, {"id": "C01", "name": "يوستينا فادي", "code": "C01", "phone": "01288808642"}, {"id": "T31", "name": "يوستينا هاني", "code": "T31", "phone": "01275655126"}, {"id": "YS-149", "name": "يوستينا هاني", "code": "", "phone": "01273222898"}, {"id": "T32", "name": "يوسف اشرف", "code": "T32", "phone": "01271050361"}, {"id": "E27", "name": "يوسف ايهاب", "code": "E27", "phone": "01203727644"}, {"id": "T33", "name": "يوسف جرجس عياد", "code": "T33", "phone": "01551769856"}, {"id": "A31", "name": "يوسف سمير منصور", "code": "A31", "phone": "01227900407"}, {"id": "T34", "name": "يوسف شريف مكرم", "code": "T34", "phone": "01229303434"}, {"id": "YS-155", "name": "يوسف شوقي", "code": "", "phone": "01553757604"}, {"id": "D18", "name": "يوسف مكرم", "code": "D18", "phone": "01279147237"}, {"id": "YS-157", "name": "يوسف وحيد", "code": "", "phone": "01272834382"}, {"id": "SM-04", "name": "كيرلس بطرس", "code": "SM-04", "phone": ""}, {"id": "SM-10", "name": "بولا ايليا", "code": "SM-10", "phone": ""}, {"id": "SM-01", "name": "ريموندا عزمي", "code": "SM-01", "phone": ""}, {"id": "SM-03", "name": "ساندي ميلاد", "code": "SM-03", "phone": ""}, {"id": "KH-01", "name": "فيرونيا كامل", "code": "KH-01", "phone": ""}, {"id": "KH-02", "name": "مينا هشام", "code": "KH-02", "phone": ""}, {"id": "KH-03", "name": "يوستينا بطرس", "code": "KH-03", "phone": ""}, {"id": "KH-04", "name": "ايلي عماد", "code": "KH-04", "phone": ""}, {"id": "KH-05", "name": "دميانة نبيل", "code": "KH-05", "phone": ""}, {"id": "YS-158", "name": "توماس ايمن سعد", "code": "YS-158", "phone": ""}, {"id": "YS-159", "name": "لوقا باسم", "code": "YS-159", "phone": ""}, {"id": "YS-160", "name": "اشرف هاني", "code": "YS-160", "phone": ""}, {"id": "YS-161", "name": "ناروز", "code": "YS-161", "phone": ""}, {"id": "YS-162", "name": "تيكا", "code": "YS-162", "phone": ""}, {"id": "YS-163", "name": "بيشوي اشرف (زائر)", "code": "YS-163", "phone": ""}];
+
+    // Card Selection Helpers
+    function selectRadioCard(cardEl, radioName) {
+      const form = cardEl.closest('form');
+      const allCards = form.querySelectorAll(`input[name="${radioName}"]`);
+      allCards.forEach(inp => {
+        const parentCard = inp.closest('.option-card');
+        if (parentCard) parentCard.classList.remove('selected');
+      });
+
+      const radio = cardEl.querySelector(`input[name="${radioName}"]`);
+      if (radio) {
+        radio.checked = true;
+        cardEl.classList.add('selected');
+      }
+    }
+
+    function toggleCheckboxCard(cardEl) {
+      const chk = cardEl.querySelector('input[type="checkbox"]');
+      if (chk) {
+        chk.checked = !chk.checked;
+        if (chk.checked) {
+          cardEl.classList.add('selected');
+        } else {
+          cardEl.classList.remove('selected');
+        }
+      }
+    }
+
+    // Autocomplete Logic
+    const searchInput = document.getElementById('memberSearchInput');
+    const dropdown = document.getElementById('autocompleteDropdown');
+    const inputName = document.getElementById('inputName');
+    const inputPhone = document.getElementById('inputPhone');
+    const inputMemberId = document.getElementById('inputMemberId');
+    const inputMemberCode = document.getElementById('inputMemberCode');
+
+    function normStr(str) {
+      if (!str) return '';
+      return str.trim().toLowerCase()
+        .replace(/[أإآ]/g, 'ا')
+        .replace(/ى/g, 'ي')
+        .replace(/ة/g, 'ه')
+        .replace(/[ً-ٟ]/g, '');
+    }
+
+    if (searchInput) {
+      searchInput.addEventListener('input', function() {
+        const val = normStr(this.value);
+        dropdown.innerHTML = '';
+        if (!val || val.length < 2) {
+          dropdown.style.display = 'none';
+          return;
+        }
+
+        const matches = MEMBERS_LIST.filter(m => {
+          const n = normStr(m.name);
+          const p = (m.phone || '').trim();
+          const c = (m.code || '').toLowerCase();
+          return n.includes(val) || p.includes(val) || c.includes(val);
+        }).slice(0, 8);
+
+        if (matches.length === 0) {
+          dropdown.innerHTML = `<div class="autocomplete-item" style="color:var(--text-muted);cursor:default;">لم يتم العثور على اسم مطابق — يمكنك كتابة اسمك مباشرة بالأسفل</div>`;
+          dropdown.style.display = 'block';
+          return;
+        }
+
+        matches.forEach(m => {
+          const item = document.createElement('div');
+          item.className = 'autocomplete-item';
+          item.innerHTML = `
+            <div>
+              <strong style="color:#fff;">${m.name}</strong>
+              <small style="display:block;color:var(--text-muted);font-size:0.75rem;">كود: ${m.code || m.id} ${m.phone ? '• ' + m.phone : ''}</small>
+            </div>
+            <span style="font-size:0.8rem;color:var(--accent-gold);font-weight:700;">اختيار 👈</span>
+          `;
+          item.onclick = function() {
+            inputName.value = m.name;
+            inputPhone.value = m.phone || '';
+            inputMemberId.value = m.id;
+            inputMemberCode.value = m.code || '';
+            searchInput.value = m.name;
+            dropdown.style.display = 'none';
+            searchInput.style.borderColor = 'var(--accent-emerald)';
+          };
+          dropdown.appendChild(item);
+        });
+        dropdown.style.display = 'block';
+      });
+
+      document.addEventListener('click', function(e) {
+        if (!searchInput.contains(e.target) && !dropdown.contains(e.target)) {
+          dropdown.style.display = 'none';
+        }
+      });
+    }
+
+    // Check URL parameters for Pre-fill (e.g. ?id=E19 or ?code=E19 or ?name=...)
+    window.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const preId = params.get('id') || params.get('code') || params.get('loc');
+      const preName = params.get('name');
+
+      if (preId) {
+        const found = MEMBERS_LIST.find(m => m.id === preId || m.code === preId || (m.phone && m.phone.includes(preId)));
+        if (found) {
+          inputName.value = found.name;
+          inputPhone.value = found.phone || '';
+          inputMemberId.value = found.id;
+          inputMemberCode.value = found.code || '';
+          if (searchInput) searchInput.value = found.name;
+        }
+      } else if (preName) {
+        inputName.value = preName;
+        if (searchInput) searchInput.value = preName;
+      }
+    });
+
+    // Form Submit Handler
+    async function handleSurveySubmit(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btnSubmitSurvey');
+      btn.disabled = true;
+      btn.innerHTML = '<span>⏳</span> جاري حفظ رغباتك...';
+
+      try {
+        const name = inputName.value.trim();
+        const phone = inputPhone.value.trim();
+        const memberId = inputMemberId.value.trim();
+        const memberCode = inputMemberCode.value.trim();
+
+        // Main Family
+        const mainFamilyRadio = document.querySelector('input[name="mainFamily"]:checked');
+        const mainFamily = mainFamilyRadio ? mainFamilyRadio.value : '';
+
+        // Sub Families
+        const subFamilies = [];
+        document.querySelectorAll('input[name="subFamilies"]:checked').forEach(c => {
+          subFamilies.push(c.value);
+        });
+        const otherSub = document.getElementById('inputOtherSubFamily').value.trim();
+        if (otherSub) subFamilies.push('أخرى: ' + otherSub);
+
+        // Trips Vibe
+        const tripStyleRadio = document.querySelector('input[name="tripStyle"]:checked');
+        const tripStyle = tripStyleRadio ? tripStyleRadio.value : '';
+
+        const timeRadio = document.querySelector('input[name="preferredTime"]:checked');
+        const preferredTime = timeRadio ? timeRadio.value : '';
+
+        const budgetRadio = document.querySelector('input[name="budget"]:checked');
+        const budget = budgetRadio ? budgetRadio.value : '';
+
+        const suggestedLocation = document.getElementById('suggestedTripLocation').value.trim();
+
+        // Conference
+        const confDurRadio = document.querySelector('input[name="confDuration"]:checked');
+        const confDuration = confDurRadio ? confDurRadio.value : '';
+
+        const confTopic = document.getElementById('confTopicSuggestion').value.trim();
+        const notes = document.getElementById('confGeneralNotes').value.trim();
+
+        const submissionId = 'SURV-' + Date.now();
+        const submissionData = {
+          id: submissionId,
+          name,
+          phone,
+          memberId,
+          memberCode,
+          mainFamily,
+          subFamilies,
+          tripStyle,
+          preferredTime,
+          budget,
+          suggestedLocation,
+          confDuration,
+          confTopic,
+          notes,
+          submittedAt: new Date().toISOString()
+        };
+
+        // 1. Save Locally
+        const localSurveys = JSON.parse(localStorage.getItem('st_youssef_youth_surveys') || '[]');
+        localSurveys.unshift(submissionData);
+        localStorage.setItem('st_youssef_youth_surveys', JSON.stringify(localSurveys));
+
+        // 2. Save to Firestore
+        if (db) {
+          await db.collection('survey_responses').doc(submissionId).set(submissionData);
+
+          // If member matched, update member's mainFamily and subFamilies in Firestore members_data
+          if (memberId && mainFamily) {
+            try {
+              const docSnap = await db.collection('app_config').doc('members_data').get();
+              if (docSnap.exists) {
+                const d = docSnap.data();
+                if (d && Array.isArray(d.members)) {
+                  let updated = false;
+                  const newMembers = d.members.map(m => {
+                    if (m.id === memberId || m.code === memberCode) {
+                      updated = true;
+                      return { ...m, family: mainFamily, mainFamily: mainFamily, subFamilies: subFamilies };
+                    }
+                    return m;
+                  });
+                  if (updated) {
+                    await db.collection('app_config').doc('members_data').update({ members: newMembers });
+                  }
+                }
+              }
+            } catch (errMem) {
+              console.warn("Auto update member family in firestore:", errMem);
+            }
+          }
+        }
+
+        // Show Success
+        document.getElementById('youthSurveyForm').style.display = 'none';
+        const successMsg = document.getElementById('successCustomMsg');
+        if (successMsg) {
+          successMsg.innerHTML = `
+            أهلاً بك يا <strong>${name}</strong> 🌸<br>
+            تم تسجيلك بنجاح في <strong>${mainFamily}</strong><br>
+            ${subFamilies.length > 0 ? 'وفي مجالات الخدمة: <br><span style="color:var(--accent-gold);">' + subFamilies.join(' • ') + '</span><br>' : ''}
+            صوتك واقتراحاتك للخروجات والمؤتمر وصلت لخدامك بأمانة! 🤍
+          `;
+        }
+        document.getElementById('surveySuccessCard').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      } catch (err) {
+        console.error("Survey submission error:", err);
+        alert("حدث خطأ أثناء الإرسال. يرجى التأكد من اتصال الإنترنت والمحاولة مرة أخرى.");
+        btn.disabled = false;
+        btn.innerHTML = '<span>🚀</span> <span>إعادة المحاولة</span>';
+      }
+    }
+  </script>
+</body>
+</html>
