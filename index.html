@@ -6138,7 +6138,8 @@
     "active": true,
     "collegeStage": "رابعة كلية",
     "areaGroup": "منطقة E",
-    "points": 10
+    "points": 10,
+    "mainFamily": "أسرة 2"
   },
   {
     "id": "YS-002",
@@ -6306,7 +6307,8 @@
     "active": true,
     "collegeStage": "تالتة كلية",
     "areaGroup": "منطقة C",
-    "points": 10
+    "points": 10,
+    "mainFamily": "أسرة 2"
   },
   {
     "id": "T01",
@@ -6614,7 +6616,8 @@
     "active": true,
     "collegeStage": "خادم",
     "areaGroup": "خدام الاجتماع (أمناء الأسر)",
-    "points": 0
+    "points": 0,
+    "mainFamily": "أسرة 2"
   },
   {
     "id": "YS-019",
@@ -6922,7 +6925,8 @@
     "active": true,
     "collegeStage": "تالتة كلية",
     "areaGroup": "منطقة T (خارج القناطر)",
-    "points": 0
+    "points": 0,
+    "mainFamily": "أسرة 2"
   },
   {
     "id": "A40",
@@ -6950,7 +6954,8 @@
     "active": true,
     "collegeStage": "خادم",
     "areaGroup": "خدام الاجتماع (دراسة الكتاب)",
-    "points": 10
+    "points": 10,
+    "mainFamily": "أسرة 2"
   },
   {
     "id": "B20",
@@ -7426,7 +7431,8 @@
     "active": true,
     "collegeStage": "رابعة كلية",
     "areaGroup": "منطقة C",
-    "points": 0
+    "points": 0,
+    "mainFamily": "أسرة 2"
   },
   {
     "id": "YS-048",
@@ -7986,7 +7992,8 @@
     "active": true,
     "collegeStage": "خادمة",
     "areaGroup": "خدام الاجتماع (أمناء الأسر)",
-    "points": 0
+    "points": 0,
+    "mainFamily": "أسرة 2"
   },
   {
     "id": "T11",
@@ -8154,7 +8161,8 @@
     "active": true,
     "collegeStage": "أولى كلية",
     "areaGroup": "غير محدد",
-    "points": 0
+    "points": 0,
+    "mainFamily": "أسرة 2"
   },
   {
     "id": "T12",
@@ -8238,7 +8246,8 @@
     "active": true,
     "collegeStage": "تانية كلية",
     "areaGroup": "منطقة T (خارج القناطر)",
-    "points": 0
+    "points": 0,
+    "mainFamily": "أسرة 2"
   },
   {
     "id": "B06",
@@ -8462,7 +8471,8 @@
     "active": true,
     "collegeStage": "خادم",
     "areaGroup": "السكرتارية العامة",
-    "points": 10
+    "points": 10,
+    "mainFamily": "أسرة 2"
   },
   {
     "id": "C24",
@@ -8686,7 +8696,8 @@
     "active": true,
     "collegeStage": "أولى كلية",
     "areaGroup": "غير محدد",
-    "points": 10
+    "points": 10,
+    "mainFamily": "أسرة 2"
   },
   {
     "id": "D01",
@@ -8742,7 +8753,8 @@
     "active": true,
     "collegeStage": "أولى كلية",
     "areaGroup": "غير محدد",
-    "points": 10
+    "points": 10,
+    "mainFamily": "أسرة 2"
   },
   {
     "id": "A22",
@@ -8770,7 +8782,8 @@
     "active": true,
     "collegeStage": "تالتة كلية",
     "areaGroup": "منطقة A",
-    "points": 0
+    "points": 0,
+    "mainFamily": "أسرة 2"
   },
   {
     "id": "E23",
@@ -8826,7 +8839,8 @@
     "active": true,
     "collegeStage": "تالتة كلية",
     "areaGroup": "منطقة A",
-    "points": 10
+    "points": 10,
+    "mainFamily": "أسرة 2"
   },
   {
     "id": "E32",
@@ -8938,7 +8952,8 @@
     "active": true,
     "collegeStage": "أولى كلية",
     "areaGroup": "منطقة C",
-    "points": 10
+    "points": 10,
+    "mainFamily": "أسرة 2"
   },
   {
     "id": "YS-102",
@@ -9722,7 +9737,8 @@
     "active": true,
     "collegeStage": "خادم",
     "areaGroup": "خدام الاجتماع (الميديا)",
-    "points": 10
+    "points": 10,
+    "mainFamily": "أسرة 2"
   },
   {
     "id": "A02",
@@ -9806,7 +9822,8 @@
     "active": true,
     "collegeStage": "أولى كلية",
     "areaGroup": "غير محدد",
-    "points": 10
+    "points": 10,
+    "mainFamily": "أسرة 2"
   },
   {
     "id": "E01",
@@ -10142,7 +10159,8 @@
     "active": true,
     "collegeStage": "أولى كلية",
     "areaGroup": "غير محدد",
-    "points": 0
+    "points": 0,
+    "mainFamily": "أسرة 2"
   },
   {
     "id": "A01",
@@ -13779,7 +13797,7 @@
     // Load from LocalStorage (Upgraded to v4 with foolproof fallbacks)
     function loadLocalData() {
       try {
-        const saved = localStorage.getItem('st_mariam_attendance_v16');
+        const saved = localStorage.getItem('st_mariam_attendance_v17');
         if (saved) {
           const parsed = JSON.parse(saved);
           if (parsed && parsed.members && parsed.members.length > 0) {
@@ -13791,7 +13809,7 @@
           // Initialize fresh from SEED_DATA
           appData = JSON.parse(JSON.stringify(SEED_DATA));
           // Migrate any attendee scans from previous session versions
-          ['st_mariam_attendance_v15', 'st_mariam_attendance_v14', 'st_mariam_attendance_v13', 'st_mariam_attendance_v11', 'st_mariam_attendance_v10', 'st_mariam_attendance_v9'].forEach(k => {
+          ['st_mariam_attendance_v16', 'st_mariam_attendance_v15', 'st_mariam_attendance_v14', 'st_mariam_attendance_v13', 'st_mariam_attendance_v11', 'st_mariam_attendance_v10', 'st_mariam_attendance_v9'].forEach(k => {
             const oldStr = localStorage.getItem(k);
             if (oldStr) {
               try {
@@ -13834,8 +13852,18 @@
           appData.sessions = JSON.parse(JSON.stringify(SEED_DATA.sessions || [])).filter(s => s && s.id && !deletedSessionIds.has(s.id));
         }
   
-        // Ensure mainFamily & subFamilies architecture across all members
+        // Ensure cloud/seed assigned families take precedence over unassigned cached data
+        const seedFamilyMap = new Map((SEED_DATA.members || []).map(sm => [sm.id, sm]));
         appData.members.forEach(m => {
+          const sm = seedFamilyMap.get(m.id);
+          if (sm) {
+            if (sm.mainFamily && sm.mainFamily !== 'لم تحدد بعد' && (!m.mainFamily || m.mainFamily === 'لم تحدد بعد')) {
+              m.mainFamily = sm.mainFamily;
+            }
+            if (sm.family && sm.family !== 'لم تحدد بعد' && (!m.family || m.family === 'لم تحدد بعد')) {
+              m.family = sm.family;
+            }
+          }
           m.collegeStage = getCollegeStage(m);
           m.universityStage = m.collegeStage + (m.age ? ' (' + m.age + ' سنة)' : '');
           m.mainFamily = getMemberMainFamily(m);
@@ -13851,7 +13879,7 @@
 
     function saveLocalData() {
       try {
-        localStorage.setItem('st_mariam_attendance_v16', JSON.stringify(appData));
+        localStorage.setItem('st_mariam_attendance_v17', JSON.stringify(appData));
       } catch (e) {}
     }
 
@@ -14064,7 +14092,8 @@
                 }, { merge: true }).catch(err => {});
               }
 
-              if (mergedMembers.length !== appData.members.length || !appData.members[0].collegeStage) {
+              const membersDiffer = JSON.stringify(mergedMembers) !== JSON.stringify(appData.members);
+              if (membersDiffer || !appData.members[0] || !appData.members[0].collegeStage) {
                 appData.members = mergedMembers;
                 saveLocalData();
                 refreshUI();
@@ -15125,8 +15154,12 @@
 
     function getMemberMainFamily(m) {
       if (!m) return 'لم تحدد بعد';
-      if (m.mainFamily && ['أسرة 1', 'أسرة 2', 'أسرة 3'].includes(m.mainFamily)) return m.mainFamily;
-      if (m.family && ['أسرة 1', 'أسرة 2', 'أسرة 3'].includes(m.family)) return m.family;
+      const f = ((m.mainFamily || '') + ' ' + (m.family || '')).trim();
+      if (f.includes('2') || f.includes('٢')) return 'أسرة 2';
+      if (f.includes('1') || f.includes('١')) return 'أسرة 1';
+      if (f.includes('3') || f.includes('٣')) return 'أسرة 3';
+      if (['أسرة 1', 'أسرة 2', 'أسرة 3'].includes(m.mainFamily)) return m.mainFamily;
+      if (['أسرة 1', 'أسرة 2', 'أسرة 3'].includes(m.family)) return m.family;
       return 'لم تحدد بعد';
     }
 
