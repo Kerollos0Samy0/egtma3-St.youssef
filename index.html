@@ -4273,8 +4273,11 @@
         background: rgba(0, 0, 0, 0.65) !important;
         backdrop-filter: blur(4px) !important;
         z-index: 1050 !important;
-        display: flex !important;
+        display: none !important;
         align-items: flex-end !important;
+      }
+      .mobile-more-backdrop.active {
+        display: flex !important;
         animation: fadeIn 0.2s ease !important;
       }
       .mobile-more-sheet {
@@ -21499,9 +21502,11 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
     function toggleMobileNavMore() {
       const sheet = document.getElementById('mobileMoreSheet');
       if (!sheet) return;
-      if (sheet.style.display === 'flex') {
+      if (sheet.classList.contains('active')) {
+        sheet.classList.remove('active');
         sheet.style.display = 'none';
       } else {
+        sheet.classList.add('active');
         sheet.style.display = 'flex';
         syncMobileSheetPermissions();
       }
@@ -21512,7 +21517,10 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
         return;
       }
       const sheet = document.getElementById('mobileMoreSheet');
-      if (sheet) sheet.style.display = 'none';
+      if (sheet) {
+        sheet.classList.remove('active');
+        sheet.style.display = 'none';
+      }
     }
 
     function syncMobileSheetPermissions() {
