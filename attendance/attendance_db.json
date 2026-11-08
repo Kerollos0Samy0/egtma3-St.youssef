@@ -21,7 +21,7 @@
       "birthDateText": "13 يونيو 2005",
       "birthDateIso": "2005-06-13",
       "college": "",
-      "family": "لم تحدد بعد",
+      "family": "أسرة 2",
       "groupCode": "E",
       "phone": "01288474508",
       "phone2": "",
@@ -36,7 +36,7 @@
       "collegeStage": "رابعة كلية",
       "areaGroup": "منطقة E",
       "points": 10,
-      "mainFamily": "لم تحدد بعد",
+      "mainFamily": "أسرة 2",
       "subFamilies": []
     },
     {
@@ -201,7 +201,7 @@
       "birthDateText": "8 يونيو 2006",
       "birthDateIso": "2006-06-08",
       "college": "",
-      "family": "لم تحدد بعد",
+      "family": "أسرة 2",
       "groupCode": "C",
       "phone": "01208368919",
       "phone2": "",
@@ -216,7 +216,7 @@
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة C",
       "points": 10,
-      "mainFamily": "لم تحدد بعد",
+      "mainFamily": "أسرة 2",
       "subFamilies": []
     },
     {
@@ -533,7 +533,7 @@
       "birthDateText": "12 مايو 2005",
       "birthDateIso": "2005-05-12",
       "college": "",
-      "family": "لم تحدد بعد",
+      "family": "أسرة 2",
       "groupCode": "خدام",
       "phone": "01223757761",
       "phone2": "",
@@ -548,7 +548,7 @@
       "collegeStage": "خادم",
       "areaGroup": "خدام الاجتماع (أمناء الأسر)",
       "points": 0,
-      "mainFamily": "لم تحدد بعد",
+      "mainFamily": "أسرة 2",
       "subFamilies": []
     },
     {
@@ -865,7 +865,7 @@
       "birthDateText": "20 يوليو 2005",
       "birthDateIso": "2005-07-20",
       "college": "",
-      "family": "لم تحدد بعد",
+      "family": "أسرة 2",
       "groupCode": "T",
       "phone": "01286763406",
       "phone2": "",
@@ -880,7 +880,7 @@
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة T (خارج القناطر)",
       "points": 0,
-      "mainFamily": "لم تحدد بعد",
+      "mainFamily": "أسرة 2",
       "subFamilies": []
     },
     {
@@ -895,7 +895,7 @@
       "birthDateText": "21 يوليو 2006",
       "birthDateIso": "2006-07-21",
       "college": "",
-      "family": "لم تحدد بعد",
+      "family": "أسرة 2",
       "groupCode": "خدام",
       "phone": "01287284098",
       "phone2": "",
@@ -910,7 +910,7 @@
       "collegeStage": "خادم",
       "areaGroup": "خدام الاجتماع (دراسة الكتاب)",
       "points": 10,
-      "mainFamily": "لم تحدد بعد",
+      "mainFamily": "أسرة 2",
       "subFamilies": [
         "دراسة الكتاب"
       ]
@@ -1407,7 +1407,7 @@
       "birthDateText": "مواليد 2005",
       "birthDateIso": null,
       "college": "",
-      "family": "لم تحدد بعد",
+      "family": "أسرة 2",
       "groupCode": "C",
       "phone": "01278083378",
       "phone2": "",
@@ -1422,7 +1422,7 @@
       "collegeStage": "رابعة كلية",
       "areaGroup": "منطقة C",
       "points": 0,
-      "mainFamily": "لم تحدد بعد",
+      "mainFamily": "أسرة 2",
       "subFamilies": []
     },
     {
@@ -2007,7 +2007,7 @@
       "birthDateText": "28 أكتوبر 2005",
       "birthDateIso": "2005-10-28",
       "college": "",
-      "family": "لم تحدد بعد",
+      "family": "أسرة 2",
       "groupCode": "خدام",
       "phone": "01221934211",
       "phone2": "",
@@ -2022,7 +2022,7 @@
       "collegeStage": "خادمة",
       "areaGroup": "خدام الاجتماع (أمناء الأسر)",
       "points": 0,
-      "mainFamily": "لم تحدد بعد",
+      "mainFamily": "أسرة 2",
       "subFamilies": []
     },
     {
@@ -2189,7 +2189,7 @@
       "birthDateText": "مواليد 2008",
       "birthDateIso": null,
       "college": "",
-      "family": "لم تحدد بعد",
+      "family": "أسرة 2",
       "groupCode": "Missing",
       "phone": "01279962619",
       "phone2": "",
@@ -2204,7 +2204,7 @@
       "collegeStage": "أولى كلية",
       "areaGroup": "غير محدد",
       "points": 0,
-      "mainFamily": "لم تحدد بعد",
+      "mainFamily": "أسرة 2",
       "subFamilies": []
     },
     {
@@ -2279,7 +2279,7 @@
       "birthDateText": "18 أغسطس 2007",
       "birthDateIso": "2007-08-18",
       "college": "",
-      "family": "لم تحدد بعد",
+      "family": "أسرة 2",
       "groupCode": "T",
       "phone": "01229351548",
       "phone2": "",
@@ -2294,7 +2294,7 @@
       "collegeStage": "تانية كلية",
       "areaGroup": "منطقة T (خارج القناطر)",
       "points": 0,
-      "mainFamily": "لم تحدد بعد",
+      "mainFamily": "أسرة 2",
       "subFamilies": []
     },
     {
@@ -2519,7 +2519,7 @@
       "birthDateText": "23 مايو 2006",
       "birthDateIso": "2006-05-23",
       "college": "",
-      "family": "لم تحدد بعد",
+      "family": "أسرة 2",
       "groupCode": "خدام",
       "phone": "01222716609",
       "phone2": "",
@@ -2534,7 +2534,7 @@
       "collegeStage": "خادم",
       "areaGroup": "السكرتارية العامة",
       "points": 10,
-      "mainFamily": "لم تحدد بعد",
+      "mainFamily": "أسرة 2",
       "subFamilies": []
     },
     {
@@ -2759,7 +2759,7 @@
       "birthDateText": "7 أبريل 2008",
       "birthDateIso": "2008-04-07",
       "college": "",
-      "family": "لم تحدد بعد",
+      "family": "أسرة 2",
       "groupCode": "Missing",
       "phone": "01286725997",
       "phone2": "",
@@ -2774,7 +2774,7 @@
       "collegeStage": "أولى كلية",
       "areaGroup": "غير محدد",
       "points": 10,
-      "mainFamily": "لم تحدد بعد",
+      "mainFamily": "أسرة 2",
       "subFamilies": []
     },
     {
@@ -2819,7 +2819,7 @@
       "birthDateText": "16 فبراير 2008",
       "birthDateIso": "2008-02-16",
       "college": "",
-      "family": "لم تحدد بعد",
+      "family": "أسرة 2",
       "groupCode": "Missing",
       "phone": "01207633807",
       "phone2": "",
@@ -2834,7 +2834,7 @@
       "collegeStage": "أولى كلية",
       "areaGroup": "غير محدد",
       "points": 10,
-      "mainFamily": "لم تحدد بعد",
+      "mainFamily": "أسرة 2",
       "subFamilies": []
     },
     {
@@ -2849,7 +2849,7 @@
       "birthDateText": "12 مايو 2006",
       "birthDateIso": "2006-05-12",
       "college": "",
-      "family": "لم تحدد بعد",
+      "family": "أسرة 2",
       "groupCode": "A",
       "phone": "01282313266",
       "phone2": "",
@@ -2864,7 +2864,7 @@
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة A",
       "points": 0,
-      "mainFamily": "لم تحدد بعد",
+      "mainFamily": "أسرة 2",
       "subFamilies": []
     },
     {
@@ -2909,7 +2909,7 @@
       "birthDateText": "11 مايو 2006",
       "birthDateIso": "2006-05-11",
       "college": "",
-      "family": "لم تحدد بعد",
+      "family": "أسرة 2",
       "groupCode": "A",
       "phone": "01211662429",
       "phone2": "",
@@ -2924,7 +2924,7 @@
       "collegeStage": "تالتة كلية",
       "areaGroup": "منطقة A",
       "points": 10,
-      "mainFamily": "لم تحدد بعد",
+      "mainFamily": "أسرة 2",
       "subFamilies": []
     },
     {
@@ -3029,7 +3029,7 @@
       "birthDateText": "24 أغسطس 2008",
       "birthDateIso": "2008-08-24",
       "college": "",
-      "family": "لم تحدد بعد",
+      "family": "أسرة 2",
       "groupCode": "C",
       "phone": "01210210719",
       "phone2": "",
@@ -3044,7 +3044,7 @@
       "collegeStage": "أولى كلية",
       "areaGroup": "منطقة C",
       "points": 10,
-      "mainFamily": "لم تحدد بعد",
+      "mainFamily": "أسرة 2",
       "subFamilies": []
     },
     {
@@ -3869,7 +3869,7 @@
       "birthDateText": "11 ديسمبر 2006",
       "birthDateIso": "2006-12-11",
       "college": "",
-      "family": "لم تحدد بعد",
+      "family": "أسرة 2",
       "groupCode": "خدام",
       "phone": "01287142498",
       "phone2": "",
@@ -3884,7 +3884,7 @@
       "collegeStage": "خادم",
       "areaGroup": "خدام الاجتماع (الميديا)",
       "points": 10,
-      "mainFamily": "لم تحدد بعد",
+      "mainFamily": "أسرة 2",
       "subFamilies": [
         "أسرة الميديا"
       ]
@@ -3963,7 +3963,7 @@
       "birthDateText": "مواليد 2008",
       "birthDateIso": null,
       "college": "",
-      "family": "لم تحدد بعد",
+      "family": "أسرة 2",
       "groupCode": "Missing",
       "phone": "01202297056",
       "phone2": "",
@@ -3978,7 +3978,7 @@
       "collegeStage": "أولى كلية",
       "areaGroup": "غير محدد",
       "points": 10,
-      "mainFamily": "لم تحدد بعد",
+      "mainFamily": "أسرة 2",
       "subFamilies": []
     },
     {
@@ -4323,7 +4323,7 @@
       "birthDateText": "مواليد 2008",
       "birthDateIso": null,
       "college": "",
-      "family": "لم تحدد بعد",
+      "family": "أسرة 2",
       "groupCode": "Missing",
       "phone": "01280522562",
       "phone2": "",
@@ -4338,7 +4338,7 @@
       "collegeStage": "أولى كلية",
       "areaGroup": "غير محدد",
       "points": 0,
-      "mainFamily": "لم تحدد بعد",
+      "mainFamily": "أسرة 2",
       "subFamilies": []
     },
     {
