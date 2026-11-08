@@ -20500,6 +20500,9 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
       if (p.has('survey') || p.get('form') === 'survey') {
         window.location.replace('/survey' + window.location.search);
       }
+      if (p.has('loc') || p.has('location') || p.has('geo')) {
+        window.location.replace('/location' + window.location.search);
+      }
     } catch (e) {}
     
     // ========================================================

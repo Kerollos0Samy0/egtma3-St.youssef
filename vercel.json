@@ -8,6 +8,14 @@
     {
       "source": "/survey",
       "destination": "/survey.html"
+    },
+    {
+      "source": "/location",
+      "destination": "/location.html"
+    },
+    {
+      "source": "/loc",
+      "destination": "/location.html"
     }
   ]
 }

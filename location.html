@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>تحديد موقع المنزل — اجتماع يوسف الصديق</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <style>
+    :root {
+      --bg-dark: #070c18;
+      --bg-card: rgba(16, 24, 40, 0.94);
+      --border: rgba(212, 175, 55, 0.25);
+      --accent-gold: #d4af37;
+      --accent-gold-gradient: linear-gradient(135deg, #c59b27 0%, #f4d068 50%, #c59b27 100%);
+      --accent-emerald: #10b981;
+      --accent-blue: #3b82f6;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --radius: 16px;
+      --shadow: 0 12px 35px -8px rgba(0, 0, 0, 0.65);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Cairo', system-ui, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(212, 175, 55, 0.09) 0%, transparent 40%),
+        radial-gradient(circle at 85% 85%, rgba(16, 185, 129, 0.08) 0%, transparent 40%),
+        linear-gradient(180deg, #070c18 0%, #0b1326 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5rem 1rem 3rem 1rem;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 540px;
+    }
+
+    .header-card {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .church-icon-badge {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 0.75rem auto;
+      background: rgba(212, 175, 55, 0.15);
+      border: 2px solid var(--accent-gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      box-shadow: 0 0 24px rgba(212, 175, 55, 0.25);
+    }
+
+    .app-title {
+      font-size: 1.35rem;
+      font-weight: 900;
+      background: var(--accent-gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.25rem;
+    }
+
+    .app-subtitle {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    .main-card {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      margin-bottom: 1.25rem;
+    }
+
+    /* Form & Autocomplete */
+    .form-group {
+      margin-bottom: 1.2rem;
+      position: relative;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 0.45rem;
+    }
+
+    .form-control {
+      width: 100%;
+      background: rgba(11, 19, 38, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      color: var(--text-main);
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+    }
+
+    .autocomplete-list {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #0f192d;
+      border: 1px solid var(--border);
+      border-radius: 0 0 10px 10px;
+      max-height: 210px;
+      overflow-y: auto;
+      z-index: 100;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.75);
+    }
+
+    .autocomplete-item {
+      padding: 0.65rem 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.92rem;
+    }
+
+    .autocomplete-item:hover {
+      background: rgba(212, 175, 55, 0.15);
+      color: var(--accent-gold);
+    }
+
+    /* Selected Member Info Box */
+    .member-box {
+      background: rgba(11, 19, 38, 0.7);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      border-radius: 12px;
+      padding: 1rem;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .member-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(212, 175, 55, 0.15);
+      color: var(--accent-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+      border: 1px solid rgba(212, 175, 55, 0.4);
+    }
+
+    .member-info {
+      flex: 1;
+    }
+
+    .member-name {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .member-sub {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 0.15rem;
+    }
+
+    .instruction-text {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: var(--text-main);
+      background: rgba(59, 130, 246, 0.08);
+      border-right: 3px solid var(--accent-blue);
+      padding: 0.75rem 1rem;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Big Action Button */
+    .btn-gps {
+      width: 100%;
+      background: var(--accent-gold-gradient);
+      color: #070c18;
+      font-size: 1.08rem;
+      font-weight: 900;
+      padding: 1rem;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35);
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+    }
+
+    .btn-gps:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 26px rgba(212, 175, 55, 0.5);
+    }
+
+    .btn-gps:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Feedback & Map Container */
+    .status-box {
+      display: none;
+      margin-top: 1.25rem;
+      padding: 0.85rem 1rem;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+
+    .status-success {
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid var(--accent-emerald);
+      color: #34d399;
+    }
+
+    .status-error {
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid #ef4444;
+      color: #f87171;
+    }
+
+    .map-preview-wrap {
+      display: none;
+      margin-top: 1.25rem;
+      border: 1.5px solid var(--accent-emerald);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5);
+    }
+
+    #confirmationMap {
+      width: 100%;
+      height: 240px;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 0.78rem;
+      color: #64748b;
+      margin-top: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <div class="header-card">
+      <div class="church-icon-badge">⛪</div>
+      <h1 class="app-title">اجتماع يوسف الصديق للشباب</h1>
+      <p class="app-subtitle">كنيسة السيدة العذراء مريم بالقناطر الخيرية</p>
+    </div>
+
+    <div class="main-card">
+      
+      <!-- Member Search (Visible if not pre-selected or to change) -->
+      <div class="form-group" id="searchGroup">
+        <label class="form-label" for="youthSearchInput">ابحث عن اسمك في شباب الاجتماع:</label>
+        <input type="text" id="youthSearchInput" class="form-control" placeholder="اكتب اسمك أو رقم تليفونك..." autocomplete="off">
+        <div id="youthAutocomplete" class="autocomplete-list" style="display:none;"></div>
+      </div>
+
+      <!-- Member Info Box -->
+      <div id="memberCard" class="member-box" style="display:none;">
+        <div class="member-avatar">🏡</div>
+        <div class="member-info">
+          <div class="member-name" id="selectedMemberName">—</div>
+          <div class="member-sub" id="selectedMemberArea">المنطقة: القناطر الخيرية</div>
+        </div>
+        <button type="button" onclick="resetSelectedMember()" style="background:transparent;border:none;color:var(--text-muted);cursor:pointer;font-size:0.8rem;text-decoration:underline;">
+          تغيير
+        </button>
+      </div>
+
+      <div class="instruction-text">
+        📍 عشان الخدام يوصلوا لبيتك بسهولة لتسليم <strong>إنفتيشن وافتقاد الاجتماع</strong> الأسبوعي، يرجى فتح هذا الرابط وأنت <strong>داخل منزلك الآن</strong> والضغط على الزر بالأسفل.
+      </div>
+
+      <button type="button" id="btnCaptureGps" class="btn-gps" onclick="captureCurrentLocation()">
+        <span style="font-size:1.3rem;">📍</span>
+        <span id="btnGpsText">تحديد وحفظ موقع بيتي الحالي بدقة (GPS)</span>
+      </button>
+
+      <!-- Status Message -->
+      <div id="statusBox" class="status-box"></div>
+
+      <!-- Confirmation Mini Map -->
+      <div id="mapPreviewWrap" class="map-preview-wrap">
+        <div id="confirmationMap"></div>
+        <div style="background:#0f192d;padding:0.6rem 0.85rem;font-size:0.8rem;color:#34d399;display:flex;align-items:center;justify-content:space-between;">
+          <span>✓ تم تثبيت الإحداثيات على الخريطة بنجاح</span>
+          <span id="accuracyBadge" style="color:var(--text-muted);"></span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer">
+      خدمة افتقاد شباب القناطر الخيرية © 2026
+    </div>
+
+  </div>
+
+  <script>
+    // Firebase Config
+    const firebaseConfig = {
+      apiKey: "AIzaSyCNAQmm5DBroA5rLMda-E85UFo3-7srg8s",
+      authDomain: "st-youssef.firebaseapp.com",
+      projectId: "st-youssef",
+      storageBucket: "st-youssef.firebasestorage.app",
+      messagingSenderId: "229943481848",
+      appId: "1:229943481848:web:d2f24b1b596481197b720d",
+      measurementId: "G-CN8E6CZM2E"
+    };
+
+    let db = null;
+    try {
+      firebase.initializeApp(firebaseConfig);
+      db = firebase.firestore();
+    } catch (e) {
+      console.warn("Firebase error:", e);
+    }
+
+    const ALL_MEMBERS = [{"id": "E19", "code": "E19", "name": "ابادير (سمير) ايمن", "phone": "01288474508", "areaGroup": "منطقة E", "street": "", "fullAddress": "ش ام النور", "lat": 30.1948, "lng": 31.1362}, {"id": "YS-002", "code": "", "name": "ابانوب هاني حشمت", "phone": "01270262719", "areaGroup": "غير محدد", "street": "", "fullAddress": "القناطر الخيرية", "lat": null, "lng": null}, {"id": "YS-003", "code": "", "name": "ارساني البير", "phone": "01229680052", "areaGroup": "غير محدد", "street": "جمب ابانوب اشرف", "fullAddress": "ش ام النور — جمب ابانوب اشرف", "lat": null, "lng": null}, {"id": "YS-004", "code": "", "name": "ارساني سمير", "phone": "01229495458", "areaGroup": "منطقة E", "street": "", "fullAddress": "القناطر الخيرية", "lat": 30.1958, "lng": 31.1375}, {"id": "E21", "code": "E21", "name": "اسحق نبيل", "phone": "01221474285", "areaGroup": "منطقة E", "street": "", "fullAddress": "ش ام النور", "lat": 30.197, "lng": 31.1388}, {"id": "YS-006", "code": "", "name": "امير اشرف", "phone": "01060537225", "areaGroup": "غير محدد", "street": "", "fullAddress": "القناطر الخيرية", "lat": null, "lng": null}, {"id": "C17", "code": "C17", "name": "انجيل هاني", "phone": "01208368919", "areaGroup": "منطقة C", "street": "", "fullAddress": "ارض الحريف", "lat": 30.1958, "lng": 31.1335}, {"id": "T01", "code": "T01", "name": "اندرو فهيم", "phone": "01278430910", "areaGroup": "منطقة T (خارج القناطر)", "street": "", "fullAddress": "خارج القناطر", "lat": null, "lng": null}, {"id": "YS-009", "code": "", "name": "ايريني ايهاب", "phone": "01011955007", "areaGroup": "منطقة E", "street": "", "fullAddress": "العزبة", "lat": 30.1982, "lng": 31.1395}, {"id": "YS-010", "code": "", "name": "ايريني تامر", "phone": "01203483478", "areaGroup": "غير محدد", "street": "", "fullAddress": "ش14", "lat": null, "lng": null}, {"id": "D07", "code": "D07", "name": "ايريني جورج", "phone": "01271721319", "areaGroup": "منطقة D", "street": "", "fullAddress": "التقسييم", "lat": 30.1882, "lng": 31.1405}, {"id": "E07", "code": "E07", "name": "ايمي ايمن", "phone": "01145473490", "areaGroup": "منطقة E", "street": "", "fullAddress": "العزبة", "lat": 30.199, "lng": 31.1402}, {"id": "B17", "code": "B17", "name": "ايهاب ماهر", "phone": "01273860435", "areaGroup": "منطقة B", "street": "", "fullAddress": "رقم1_الدور3 — اية علي باب المنزل", "lat": 30.1925, "lng": 31.1395}, {"id": "YS-014", "code": "", "name": "بافلي داود", "phone": "01210943516", "areaGroup": "خدام الاجتماع (الميديا)", "street": "", "fullAddress": "القناطر الخيرية", "lat": null, "lng": null}, {"id": "YS-015", "code": "", "name": "بتول البير", "phone": "01153095147", "areaGroup": "منطقة C", "street": "", "fullAddress": "ش سوق التلات", "lat": 30.1968, "lng": 31.1322}, {"id": "YS-016", "code": "", "name": "بولا اشرف", "phone": "01211340616", "areaGroup": "غير محدد", "street": "", "fullAddress": "القناطر الخيرية", "lat": null, "lng": null}, {"id": "T02", "code": "T02", "name": "بولا اكرم", "phone": "01200799193", "areaGroup": "منطقة T (خارج القناطر)", "street": "الهرم ش زكريا بن الخطاب", "fullAddress": "خارج القناطر — الهرم ش زكريا بن الخطاب — منزل رقم 16/8 — فكهاني الباشا", "lat": null, "lng": null}, {"id": "D11", "code": "D11", "name": "بولا ايساك", "phone": "01223757761", "areaGroup": "خدام الاجتماع (أمناء الأسر)", "street": "", "fullAddress": "التقسيم السياحي", "lat": null, "lng": null}, {"id": "YS-019", "code": "", "name": "بولا ميشيل", "phone": "01204982339", "areaGroup": "غير محدد", "street": "", "fullAddress": "القناطر الخيرية", "lat": null, "lng": null}, {"id": "A25", "code": "A25", "name": "بولا هشام", "phone": "01207205034", "areaGroup": "خدام الاجتماع (الأنشطة)", "street": "", "fullAddress": "ش 14", "lat": null, "lng": null}, {"id": "D17", "code": "D17", "name": "بيتر مجدي عزيز", "phone": "01097894518", "areaGroup": "منطقة D", "street": "", "fullAddress": "التقسييم", "lat": 30.187, "lng": 31.1418}, {"id": "A21", "code": "A21", "name": "بيشوي اشرف مندي", "phone": "01208751074", "areaGroup": "منطقة A", "street": "", "fullAddress": "ش 14", "lat": 30.1908, "lng": 31.1348}, {"id": "YS-023", "code": "", "name": "بيشوي ايمن كمال", "phone": "01271865533", "areaGroup": "غير محدد", "street": "", "fullAddress": "القناطر الخيرية", "lat": null, "lng": null}, {"id": "T03", "code": "T03", "name": "بيشوي عاطف", "phone": "01226077974", "areaGroup": "منطقة T (خارج القناطر)", "street": "بهادة", "fullAddress": "خارج القناطر — بهادة", "lat": null, "lng": null}, {"id": "D05", "code": "D05", "name": "بيشوي عماد سمير", "phone": "01289088488", "areaGroup": "منطقة D", "street": "", "fullAddress": "مصنع الورق", "lat": 30.1855, "lng": 31.143}, {"id": "E09", "code": "E09", "name": "بيشوي ماهر", "phone": "01204086189", "areaGroup": "منطقة E", "street": "", "fullAddress": "عزبة احمد فوزي", "lat": null, "lng": null}, {"id": "D04", "code": "D04", "name": "بيشوي مرقس إدوارد", "phone": "01211027467", "areaGroup": "منطقة D", "street": "", "fullAddress": "مصنع الورق", "lat": 30.1842, "lng": 31.1445}, {"id": "C20", "code": "C20", "name": "توماس اكرامي سمير", "phone": "01277847021", "areaGroup": "منطقة C", "street": "", "fullAddress": "التأمينات القديمة", "lat": 30.1978, "lng": 31.131}, {"id": "T04", "code": "T04", "name": "توماس ماركو", "phone": "01286763406", "areaGroup": "منطقة T (خارج القناطر)", "street": "ش شبرا", "fullAddress": "خارج القناطر — ش شبرا", "lat": null, "lng": null}, {"id": "A40", "code": "A40", "name": "توماس ملاك", "phone": "01287284098", "areaGroup": "خدام الاجتماع (دراسة الكتاب)", "street": "", "fullAddress": "ش 14", "lat": null, "lng": null}, {"id": "B20", "code": "B20", "name": "توني عادل", "phone": "01203419941", "areaGroup": "منطقة B", "street": "", "fullAddress": "ص. عزمي", "lat": 30.193, "lng": 31.141}, {"id": "C14", "code": "C14", "name": "جني اشرف", "phone": "01200733842", "areaGroup": "منطقة C", "street": "", "fullAddress": "سوق الثلاثاء", "lat": 30.1985, "lng": 31.13}, {"id": "C18", "code": "C18", "name": "جورج كرم", "phone": "01270711288", "areaGroup": "منطقة C", "street": "", "fullAddress": "التأمينات القديمة", "lat": 30.1992, "lng": 31.1292}, {"id": "T05", "code": "T05", "name": "جورج ماجد", "phone": "01555952693", "areaGroup": "منطقة T (خارج القناطر)", "street": "خارج القناطر", "fullAddress": "خارج القناطر", "lat": null, "lng": null}, {"id": "B13", "code": "B13", "name": "جوليا جميل", "phone": "01228395147", "areaGroup": "منطقة B", "street": "", "fullAddress": "ص. عزمي", "lat": 30.1918, "lng": 31.1422}, {"id": "A27", "code": "A27", "name": "جومانا عاطف", "phone": "01112929912", "areaGroup": "منطقة A", "street": "", "fullAddress": "اول 14", "lat": 30.1915, "lng": 31.1352}, {"id": "T06", "code": "T06", "name": "جويس شريف", "phone": "01206933090", "areaGroup": "منطقة T (خارج القناطر)", "street": "", "fullAddress": "خارج القناطر", "lat": null, "lng": null}, {"id": "T07", "code": "T07", "name": "جويس ميشيل", "phone": "01204726009", "areaGroup": "منطقة T (خارج القناطر)", "street": "اكتوبر", "fullAddress": "خارج القناطر — اكتوبر", "lat": null, "lng": null}, {"id": "YS-039", "code": "", "name": "جينيفر جوزيف", "phone": "01210720096", "areaGroup": "غير محدد", "street": "", "fullAddress": "القناطر الخيرية", "lat": null, "lng": null}, {"id": "E06", "code": "E06", "name": "خليل جمال", "phone": "01202656756", "areaGroup": "منطقة E", "street": "ش المعلم جمال", "fullAddress": "عزبة احمد فوزي — ش المعلم جمال — الدور الثاني", "lat": null, "lng": null}, {"id": "T08", "code": "T08", "name": "خيري نبيل خيري", "phone": "01288477418", "areaGroup": "منطقة T (خارج القناطر)", "street": "دروة", "fullAddress": "خارج القناطر — دروة", "lat": null, "lng": null}, {"id": "D16", "code": "D16", "name": "دافيد ايهاب", "phone": "01220201642", "areaGroup": "منطقة D", "street": "", "fullAddress": "النقسيم السياحي", "lat": 30.183, "lng": 31.146}, {"id": "T09", "code": "T09", "name": "دميانة نسيم", "phone": "01279885494", "areaGroup": "منطقة T (خارج القناطر)", "street": "خارج القناطر", "fullAddress": "خارج القناطر", "lat": null, "lng": null}, {"id": "YS-044", "code": "", "name": "رامز روماني", "phone": "01555925994", "areaGroup": "غير محدد", "street": "", "fullAddress": "القناطر الخيرية", "lat": null, "lng": null}, {"id": "T13", "code": "T13", "name": "روزالين رضا", "phone": "01557514054", "areaGroup": "منطقة T (خارج القناطر)", "street": "ش شبرا", "fullAddress": "خارج القناطر — ش شبرا", "lat": null, "lng": null}, {"id": "T10", "code": "T10", "name": "ريمون هدايه", "phone": "01277868115", "areaGroup": "منطقة T (خارج القناطر)", "street": "ارض ابو جمعة", "fullAddress": "خارج القناطر — ارض ابو جمعة", "lat": null, "lng": null}, {"id": "C11", "code": "C11", "name": "سارة يحي", "phone": "01278083378", "areaGroup": "منطقة C", "street": "", "fullAddress": "ق.ليالي الحلمية", "lat": null, "lng": null}, {"id": "YS-048", "code": "", "name": "سامح مينا", "phone": "01208562360", "areaGroup": "غير محدد", "street": "", "fullAddress": "القناطر الخيرية", "lat": null, "lng": null}, {"id": "YS-049", "code": "", "name": "ساندي باسم", "phone": "01277424799", "areaGroup": "غير محدد", "street": "", "fullAddress": "بجوار الكنيسة", "lat": null, "lng": null}, {"id": "E17", "code": "E17", "name": "شنودة سامي", "phone": "01271616721", "areaGroup": "منطقة E", "street": "", "fullAddress": "ش ام النور", "lat": null, "lng": null}, {"id": "E28", "code": "E28", "name": "شيري شنودة", "phone": "01271121731", "areaGroup": "منطقة E", "street": "", "fullAddress": "عزبة الناموس", "lat": null, "lng": null}, {"id": "B10", "code": "B10", "name": "شيري عماد", "phone": "01275545315", "areaGroup": "منطقة B", "street": "", "fullAddress": "نور السلام", "lat": 30.1908, "lng": 31.1435}, {"id": "C02", "code": "C02", "name": "شيري فادي", "phone": "01220938936", "areaGroup": "منطقة C", "street": "", "fullAddress": "ش 14", "lat": null, "lng": null}, {"id": "YS-054", "code": "", "name": "فادي سمير", "phone": "01228454332", "areaGroup": "غير محدد", "street": "", "fullAddress": "القناطر الخيرية", "lat": null, "lng": null}, {"id": "YS-055", "code": "", "name": "فادي ملاك", "phone": "01152677447", "areaGroup": "غير محدد", "street": "", "fullAddress": "القناطر الخيرية", "lat": null, "lng": null}, {"id": "B18", "code": "B18", "name": "فادي ميلاد", "phone": "01202843016", "areaGroup": "منطقة B", "street": "", "fullAddress": "ص. عزمي", "lat": 30.1898, "lng": 31.1448}, {"id": "C03", "code": "C03", "name": "فادي نادر نبيل", "phone": "01276412023", "areaGroup": "منطقة C", "street": "", "fullAddress": "ش 14", "lat": null, "lng": null}, {"id": "D06", "code": "D06", "name": "فام القمص اباكير", "phone": "01554822273", "areaGroup": "منطقة D", "street": "ش الحرية", "fullAddress": "التقسيم السياحي — ش الحرية — الدور الرابع — بجوار كافيه Hello Kitty", "lat": null, "lng": null}, {"id": "B07", "code": "B07", "name": "فليمون لبيب", "phone": "01228552895", "areaGroup": "منطقة B", "street": "", "fullAddress": "حوش النخل", "lat": null, "lng": null}, {"id": "C08", "code": "C08", "name": "فيرونيا عزمي", "phone": "01200856558", "areaGroup": "منطقة C", "street": "", "fullAddress": "ق.ليالي الحلمية", "lat": null, "lng": null}, {"id": "C22", "code": "C22", "name": "فيلوباتير رأفت", "phone": "01206164529", "areaGroup": "منطقة C", "street": "", "fullAddress": "ش.سوق التلات", "lat": null, "lng": null}, {"id": "E30", "code": "E30", "name": "فيلوباتير مدحت", "phone": "01228754558", "areaGroup": "خدام الاجتماع (أمناء الأسر)", "street": "", "fullAddress": "عزبة احمد فوزي", "lat": null, "lng": null}, {"id": "E04", "code": "E04", "name": "فيلوباتير منير", "phone": "01279428863", "areaGroup": "منطقة E", "street": "ش ياسر صلاح", "fullAddress": "عزبة احمد فوزي — ش ياسر صلاح — الدور الاول — بجوار مكوجي صلاح بكر", "lat": null, "lng": null}, {"id": "YS-064", "code": "", "name": "فيلوباتير وائل", "phone": "01278438977", "areaGroup": "غير محدد", "street": "", "fullAddress": "القناطر الخيرية", "lat": null, "lng": null}, {"id": "E29", "code": "E29", "name": "فيولا شنودة", "phone": "01274013893", "areaGroup": "منطقة E", "street": "", "fullAddress": "عزبة احمد فوزي", "lat": null, "lng": null}, {"id": "YS-066", "code": "", "name": "كارين اسامة", "phone": "01225327713", "areaGroup": "غير محدد", "street": "", "fullAddress": "بجوار الكنيسة", "lat": null, "lng": null}, {"id": "C12", "code": "C12", "name": "كارين فيكتور", "phone": "01221934211", "areaGroup": "خدام الاجتماع (أمناء الأسر)", "street": "", "fullAddress": "ش.سوق التلات", "lat": null, "lng": null}, {"id": "T11", "code": "T11", "name": "كرستين جميل", "phone": "01154399320", "areaGroup": "منطقة T (خارج القناطر)", "street": "اجهور", "fullAddress": "خارج القناطر — اجهور", "lat": null, "lng": null}, {"id": "D15", "code": "D15", "name": "كريم شريف", "phone": "01276680787", "areaGroup": "خدام الاجتماع (Revive)", "street": "", "fullAddress": "التقسيم السياحي", "lat": null, "lng": null}, {"id": "YS-070", "code": "", "name": "كمال اشرف", "phone": "01124016454", "areaGroup": "غير محدد", "street": "", "fullAddress": "القناطر الخيرية", "lat": null, "lng": null}, {"id": "B05", "code": "B05", "name": "كمال اشرف لوندي", "phone": "01284205756", "areaGroup": "منطقة B", "street": "", "fullAddress": "ميدان الازهار", "lat": null, "lng": null}, {"id": "A17", "code": "A17", "name": "كيرلس امير إبراهيم", "phone": "01282076103", "areaGroup": "خدام الاجتماع (أمناء الأسر)", "street": "", "fullAddress": "ش 14", "lat": null, "lng": null}, {"id": "YS-073", "code": "", "name": "كيرلس جورج ابراهيم", "phone": "01279962619", "areaGroup": "غير محدد", "street": "", "fullAddress": "القناطر الخيرية", "lat": null, "lng": null}, {"id": "T12", "code": "T12", "name": "كيرلس سامي", "phone": "01223708282", "areaGroup": "أمناء الاجتماع", "street": "قليوب", "fullAddress": "خارج القناطر — قليوب", "lat": null, "lng": null}, {"id": "E26", "code": "E26", "name": "كيرلس عادل عزيز", "phone": "01277125305", "areaGroup": "منطقة E", "street": "", "fullAddress": "عزبة احمد فوزي", "lat": null, "lng": null}, {"id": "T13", "code": "T13", "name": "كيرلس عماد", "phone": "01229351548", "areaGroup": "منطقة T (خارج القناطر)", "street": "مدينة نصر", "fullAddress": "خارج القناطر — مدينة نصر", "lat": null, "lng": null}, {"id": "B06", "code": "B06", "name": "كيرلس عماد فرج", "phone": "01207466447", "areaGroup": "منطقة B", "street": "", "fullAddress": "حوش النخل", "lat": null, "lng": null}, {"id": "B16", "code": "B16", "name": "كيرلس عماد فوزي", "phone": "01201602431", "areaGroup": "منطقة B", "street": "ش فاضل", "fullAddress": "معمل فوزي — ش فاضل — منزل رقم 27_الدور 3 — عيادة دكتور حسن رجب في نفس الشارع", "lat": null, "lng": null}, {"id": "T14", "code": "T14", "name": "كيرلس كرم", "phone": "01202569591", "areaGroup": "منطقة T (خارج القناطر)", "street": "", "fullAddress": "خارج القناطر", "lat": null, "lng": null}, {"id": "A14", "code": "A14", "name": "كيرلس مجدي ماهر", "phone": "01278397082", "areaGroup": "منطقة A", "street": "", "fullAddress": "ش 14", "lat": 30.1895, "lng": 31.134}, {"id": "A16", "code": "A16", "name": "كيرلس هاني", "phone": "01060002268", "areaGroup": "منطقة A", "street": "", "fullAddress": "ش 14", "lat": 30.1888, "lng": 31.1335}, {"id": "T15", "code": "T15", "name": "كيرمينا سامح", "phone": "01201816176", "areaGroup": "منطقة T (خارج القناطر)", "street": "", "fullAddress": "خارج القناطر", "lat": null, "lng": null}, {"id": "A04", "code": "A04", "name": "كيريا عماد", "phone": "01552112615", "areaGroup": "منطقة A", "street": "", "fullAddress": "ش 14", "lat": 30.188, "lng": 31.133}, {"id": "A08", "code": "A08", "name": "ماثيو ادوارد", "phone": "01222716609", "areaGroup": "السكرتارية العامة", "street": "", "fullAddress": "ش 14", "lat": null, "lng": null}, {"id": "C24", "code": "C24", "name": "مادونا فرج الله", "phone": "01228688715", "areaGroup": "منطقة C", "street": "", "fullAddress": "ش.سوق التلات", "lat": null, "lng": null}, {"id": "E31", "code": "E31", "name": "مارتينا مدحت", "phone": "01277089408", "areaGroup": "منطقة E", "street": "", "fullAddress": "عزبة الناموس", "lat": null, "lng": null}, {"id": "B14", "code": "B14", "name": "مارسلينو مايكل جمال", "phone": "01128650766", "areaGroup": "منطقة B", "street": "", "fullAddress": "ص. عزمي", "lat": null, "lng": null}, {"id": "A29", "code": "A29", "name": "مارسلينو مرقس لويس", "phone": "01277887909", "areaGroup": "منطقة A", "street": "", "fullAddress": "ش 14", "lat": null, "lng": null}, {"id": "C06", "code": "C06", "name": "مارفن سعد", "phone": "01275991255", "areaGroup": "منطقة C", "street": "", "fullAddress": "العزبة", "lat": null, "lng": null}, {"id": "T16", "code": "T16", "name": "مارك ريمون", "phone": "", "areaGroup": "منطقة T (خارج القناطر)", "street": "", "fullAddress": "خارج القناطر", "lat": null, "lng": null}, {"id": "T17", "code": "T17", "name": "مارك عاطف", "phone": "01286956838", "areaGroup": "منطقة T (خارج القناطر)", "street": "", "fullAddress": "خارج القناطر", "lat": null, "lng": null}, {"id": "YS-092", "code": "", "name": "مارلي هاني", "phone": "01286725997", "areaGroup": "غير محدد", "street": "", "fullAddress": "بجوار الكنيسة", "lat": null, "lng": null}, {"id": "D01", "code": "D01", "name": "ماريا ايليا", "phone": "01226833911", "areaGroup": "منطقة D", "street": "", "fullAddress": "سور النادي", "lat": null, "lng": null}, {"id": "YS-094", "code": "", "name": "ماريا جان", "phone": "01207633807", "areaGroup": "غير محدد", "street": "", "fullAddress": "ش14", "lat": null, "lng": null}, {"id": "A22", "code": "A22", "name": "ماريا ريمون", "phone": "01282313266", "areaGroup": "منطقة A", "street": "", "fullAddress": "ش 14", "lat": null, "lng": null}, {"id": "E23", "code": "E23", "name": "ماريا عادل", "phone": "01282443239", "areaGroup": "منطقة E", "street": "", "fullAddress": "عزبة احمد فوزي", "lat": null, "lng": null}, {"id": "A23", "code": "A23", "name": "ماريا وحيد", "phone": "01211662429", "areaGroup": "منطقة A", "street": "", "fullAddress": "ش 14", "lat": null, "lng": null}, {"id": "E32", "code": "E32", "name": "ماريان أسامة", "phone": "01285215611", "areaGroup": "منطقة E", "street": "", "fullAddress": "عزبة احمد فوزي", "lat": null, "lng": null}, {"id": "T18", "code": "T18", "name": "ماريان اكرم", "phone": "01066028309", "areaGroup": "منطقة T (خارج القناطر)", "street": "الجيزة", "fullAddress": "خارج القناطر — الجيزة", "lat": null, "lng": null}, {"id": "C05", "code": "C05", "name": "ماريت سعد", "phone": "01275067097", "areaGroup": "منطقة C", "street": "", "fullAddress": "ق.ليالي الحلمية", "lat": null, "lng": null}, {"id": "YS-101", "code": "", "name": "ماريز رأفت", "phone": "01210210719", "areaGroup": "منطقة C", "street": "", "fullAddress": "ش سوق التلات", "lat": null, "lng": null}, {"id": "YS-102", "code": "", "name": "مارينا عاطف", "phone": "01551865325", "areaGroup": "منطقة C", "street": "", "fullAddress": "المطحن", "lat": null, "lng": null}, {"id": "A15", "code": "A15", "name": "ماهر مجدي ماهر", "phone": "01270038496", "areaGroup": "منطقة A", "street": "", "fullAddress": "ش 14", "lat": null, "lng": null}, {"id": "YS-104", "code": "", "name": "مايا نادر", "phone": "01277497973", "areaGroup": "غير محدد", "street": "", "fullAddress": "ش14", "lat": null, "lng": null}, {"id": "YS-105", "code": "", "name": "مايكل زكريا", "phone": "01200969572", "areaGroup": "منطقة E", "street": "", "fullAddress": "القناطر الخيرية", "lat": null, "lng": null}, {"id": "B09", "code": "B09", "name": "مايكل نبيل ملاك", "phone": "01279961721", "areaGroup": "منطقة B", "street": "", "fullAddress": "نور السلام", "lat": null, "lng": null}, {"id": "T19", "code": "T19", "name": "مريم جرجس", "phone": "01281879028", "areaGroup": "منطقة T (خارج القناطر)", "street": "", "fullAddress": "خارج القناطر", "lat": null, "lng": null}, {"id": "T20", "code": "T20", "name": "مريم حليم", "phone": "01270700548", "areaGroup": "منطقة T (خارج القناطر)", "street": "", "fullAddress": "خارج القناطر", "lat": null, "lng": null}, {"id": "T21", "code": "T21", "name": "مريم رزق", "phone": "", "areaGroup": "منطقة T (خارج القناطر)", "street": "", "fullAddress": "خارج القناطر", "lat": null, "lng": null}, {"id": "C25", "code": "C25", "name": "مريم سعيد انور", "phone": "01204403539", "areaGroup": "منطقة C", "street": "", "fullAddress": "ش.سوق التلات", "lat": null, "lng": null}, {"id": "D10", "code": "D10", "name": "مريم سعيد رياض", "phone": "01275486757", "areaGroup": "منطقة D", "street": "", "fullAddress": "التقسيم السياحي", "lat": null, "lng": null}, {"id": "T22", "code": "T22", "name": "مريم عادل", "phone": "01226191387", "areaGroup": "منطقة T (خارج القناطر)", "street": "", "fullAddress": "عزبة الناموس", "lat": null, "lng": null}, {"id": "YS-113", "code": "", "name": "مريم عماد", "phone": "01201978361", "areaGroup": "غير محدد", "street": "", "fullAddress": "القناطر الخيرية", "lat": null, "lng": null}, {"id": "T23", "code": "T23", "name": "مريم عماد يسى", "phone": "01211411708", "areaGroup": "منطقة T (خارج القناطر)", "street": "", "fullAddress": "خارج القناطر", "lat": null, "lng": null}, {"id": "YS-115", "code": "", "name": "مريم نبيل ملاك", "phone": "01202844383", "areaGroup": "غير محدد", "street": "", "fullAddress": "ش نور السلام", "lat": null, "lng": null}, {"id": "YS-116", "code": "", "name": "ملاك ميخائيل", "phone": "01024113812", "areaGroup": "غير محدد", "street": "", "fullAddress": "القناطر الخيرية", "lat": null, "lng": null}, {"id": "T24", "code": "T24", "name": "ملاك ميخائيل سامي", "phone": "01272814728", "areaGroup": "منطقة T (خارج القناطر)", "street": "شرارة", "fullAddress": "خارج القناطر — شرارة", "lat": null, "lng": null}, {"id": "T25", "code": "T25", "name": "ملك عاطف", "phone": "01288940060", "areaGroup": "منطقة T (خارج القناطر)", "street": "ش شبرا", "fullAddress": "خارج القناطر — ش شبرا", "lat": null, "lng": null}, {"id": "E33", "code": "E33", "name": "مهرائيل اسامة", "phone": "01200279165", "areaGroup": "منطقة E", "street": "", "fullAddress": "المساكن", "lat": null, "lng": null}, {"id": "T26", "code": "T26", "name": "ميرا الهامي", "phone": "01206606129", "areaGroup": "منطقة T (خارج القناطر)", "street": "التجمع", "fullAddress": "خارج القناطر — التجمع", "lat": null, "lng": null}, {"id": "A35", "code": "A35", "name": "ميراي محب", "phone": "01550793010", "areaGroup": "منطقة A", "street": "", "fullAddress": "ش 14", "lat": null, "lng": null}, {"id": "T27", "code": "T27", "name": "ميرنا رضا", "phone": "01270538526", "areaGroup": "منطقة T (خارج القناطر)", "street": "", "fullAddress": "خارج القناطر", "lat": null, "lng": null}, {"id": "A39", "code": "A39", "name": "ميرولا ملاك", "phone": "01200413453", "areaGroup": "منطقة A", "street": "عمارة اولاد لحظي", "fullAddress": "ش14 — عمارة اولاد لحظي", "lat": null, "lng": null}, {"id": "D08", "code": "D08", "name": "ميريام جورج", "phone": "01278166583", "areaGroup": "منطقة D", "street": "", "fullAddress": "التقسييم", "lat": null, "lng": null}, {"id": "A34", "code": "A34", "name": "ميريام سامي عزيز", "phone": "01289955837", "areaGroup": "منطقة A", "street": "", "fullAddress": "ش 14", "lat": null, "lng": null}, {"id": "B11", "code": "B11", "name": "ميشيل عادل ميشيل", "phone": "01281191367", "areaGroup": "منطقة B", "street": "", "fullAddress": "ارض الكامب", "lat": null, "lng": null}, {"id": "T28", "code": "T28", "name": "ميشيل مدحت", "phone": "", "areaGroup": "منطقة T (خارج القناطر)", "street": "", "fullAddress": "خارج القناطر", "lat": null, "lng": null}, {"id": "T29", "code": "T29", "name": "مينا اكرم", "phone": "01280556608", "areaGroup": "منطقة T (خارج القناطر)", "street": "", "fullAddress": "خارج القناطر", "lat": null, "lng": null}, {"id": "D19", "code": "D19", "name": "مينا ايهاب", "phone": "01287142498", "areaGroup": "خدام الاجتماع (الميديا)", "street": "", "fullAddress": "التقسيم السياحي", "lat": null, "lng": null}, {"id": "A02", "code": "A02", "name": "مينا عادل شفيق", "phone": "01278865619", "areaGroup": "خدام الاجتماع (قلب واحد)", "street": "", "fullAddress": "خلف الكنيسة", "lat": null, "lng": null}, {"id": "YS-131", "code": "", "name": "مينا عماد", "phone": "01224409830", "areaGroup": "غير محدد", "street": "", "fullAddress": "القناطر الخيرية", "lat": null, "lng": null}, {"id": "YS-132", "code": "", "name": "مينا ماجد منصور", "phone": "01202297056", "areaGroup": "غير محدد", "street": "", "fullAddress": "القناطر الخيرية", "lat": null, "lng": null}, {"id": "E01", "code": "E01", "name": "مينا مهاود", "phone": "01211781132", "areaGroup": "منطقة E", "street": "", "fullAddress": "اول العزبة", "lat": null, "lng": null}, {"id": "YS-134", "code": "", "name": "مينا نبيل", "phone": "01212295618", "areaGroup": "غير محدد", "street": "", "fullAddress": "القناطر الخيرية", "lat": null, "lng": null}, {"id": "YS-135", "code": "", "name": "ناديين عماد", "phone": "01206286595", "areaGroup": "غير محدد", "street": "", "fullAddress": "القناطر الخيرية", "lat": null, "lng": null}, {"id": "B12", "code": "B12", "name": "ناردين عادل", "phone": "01200733974", "areaGroup": "منطقة B", "street": "", "fullAddress": "ارض الكامب", "lat": null, "lng": null}, {"id": "A19", "code": "A19", "name": "ناردين محب", "phone": "01229278330", "areaGroup": "منطقة A", "street": "", "fullAddress": "ش14", "lat": null, "lng": null}, {"id": "YS-138", "code": "", "name": "نيرفانا طارق", "phone": "01227518767", "areaGroup": "منطقة D", "street": "ايجي فرانس", "fullAddress": "التقسيم — ايجي فرانس", "lat": null, "lng": null}, {"id": "E15", "code": "E15", "name": "هيلانة اشرف", "phone": "01550920680", "areaGroup": "منطقة E", "street": "", "fullAddress": "ش ام النور", "lat": null, "lng": null}, {"id": "E11", "code": "E11", "name": "هيلانة جميل", "phone": "01271103673", "areaGroup": "منطقة E", "street": "", "fullAddress": "الزراعة", "lat": null, "lng": null}, {"id": "YS-141", "code": "", "name": "يؤانا ميلاد", "phone": "01273056393", "areaGroup": "غير محدد", "street": "", "fullAddress": "ش نور السلام", "lat": null, "lng": null}, {"id": "C15", "code": "C15", "name": "يوحنا باسم", "phone": "01226544029", "areaGroup": "منطقة C", "street": "", "fullAddress": "ارض الحريف", "lat": null, "lng": null}, {"id": "T30", "code": "T30", "name": "يوساب حربي", "phone": "01503770481", "areaGroup": "منطقة T (خارج القناطر)", "street": "", "fullAddress": "خارج القناطر", "lat": null, "lng": null}, {"id": "YS-144", "code": "", "name": "يوساب ماركو غالي", "phone": "01280522562", "areaGroup": "غير محدد", "street": "", "fullAddress": "القناطر الخيرية", "lat": null, "lng": null}, {"id": "A01", "code": "A01", "name": "يوستينا جورج", "phone": "01210555392", "areaGroup": "منطقة A", "street": "", "fullAddress": "خلف الكنيسة", "lat": null, "lng": null}, {"id": "B15", "code": "B15", "name": "يوستينا عماد", "phone": "01278666753", "areaGroup": "منطقة B", "street": "", "fullAddress": "معمل فوزي", "lat": null, "lng": null}, {"id": "C01", "code": "C01", "name": "يوستينا فادي", "phone": "01288808642", "areaGroup": "خدام الاجتماع (أمناء الأسر)", "street": "", "fullAddress": "عمارة مكتبة عبقرينو", "lat": null, "lng": null}, {"id": "T31", "code": "T31", "name": "يوستينا هاني", "phone": "01275655126", "areaGroup": "منطقة T (خارج القناطر)", "street": "", "fullAddress": "خارج القناطر", "lat": null, "lng": null}, {"id": "YS-149", "code": "", "name": "يوستينا هاني", "phone": "01273222898", "areaGroup": "غير محدد", "street": "", "fullAddress": "ش14", "lat": null, "lng": null}, {"id": "T32", "code": "T32", "name": "يوسف اشرف", "phone": "01271050361", "areaGroup": "منطقة T (خارج القناطر)", "street": "", "fullAddress": "خارج القناطر", "lat": null, "lng": null}, {"id": "E27", "code": "E27", "name": "يوسف ايهاب", "phone": "01203727644", "areaGroup": "منطقة E", "street": "", "fullAddress": "عزبة احمد فوزي", "lat": null, "lng": null}, {"id": "T33", "code": "T33", "name": "يوسف جرجس عياد", "phone": "01551769856", "areaGroup": "منطقة T (خارج القناطر)", "street": "باسوس", "fullAddress": "خارج القناطر — باسوس", "lat": null, "lng": null}, {"id": "A31", "code": "A31", "name": "يوسف سمير منصور", "phone": "01227900407", "areaGroup": "منطقة A", "street": "", "fullAddress": "ش 14", "lat": null, "lng": null}, {"id": "T34", "code": "T34", "name": "يوسف شريف مكرم", "phone": "01229303434", "areaGroup": "منطقة T (خارج القناطر)", "street": "6اكتوبر_مدينة الفردوس عمارات الجيش", "fullAddress": "خارج القناطر — 6اكتوبر_مدينة الفردوس عمارات الجيش — منزل رقم 625_الدور1 — سوبر ماركت شريف", "lat": null, "lng": null}, {"id": "YS-155", "code": "", "name": "يوسف شوقي", "phone": "01553757604", "areaGroup": "غير محدد", "street": "", "fullAddress": "القناطر الخيرية", "lat": null, "lng": null}, {"id": "D18", "code": "D18", "name": "يوسف مكرم", "phone": "01279147237", "areaGroup": "منطقة D", "street": "", "fullAddress": "التقسيم", "lat": null, "lng": null}, {"id": "YS-157", "code": "", "name": "يوسف وحيد", "phone": "01272834382", "areaGroup": "غير محدد", "street": "", "fullAddress": "القناطر الخيرية", "lat": null, "lng": null}, {"id": "SM-04", "code": "SM-04", "name": "كيرلس بطرس", "phone": "", "areaGroup": "خدام الاجتماع (الافتقاد)", "street": "", "fullAddress": "القناطر الخيرية", "lat": null, "lng": null}, {"id": "SM-10", "code": "SM-10", "name": "بولا ايليا", "phone": "", "areaGroup": "خدام الاجتماع (Revive)", "street": "", "fullAddress": "القناطر الخيرية", "lat": null, "lng": null}, {"id": "SM-01", "code": "SM-01", "name": "ريموندا عزمي", "phone": "", "areaGroup": "خدام الاجتماع (قلب واحد)", "street": "", "fullAddress": "القناطر الخيرية", "lat": null, "lng": null}, {"id": "SM-03", "code": "SM-03", "name": "ساندي ميلاد", "phone": "", "areaGroup": "غير محدد", "street": "", "fullAddress": "القناطر الخيرية", "lat": null, "lng": null}, {"id": "KH-01", "code": "KH-01", "name": "فيرونيا كامل", "phone": "", "areaGroup": "أمناء الاجتماع", "street": "", "fullAddress": "القناطر الخيرية", "lat": null, "lng": null}, {"id": "KH-02", "code": "KH-02", "name": "مينا هشام", "phone": "", "areaGroup": "أمناء الاجتماع", "street": "", "fullAddress": "القناطر الخيرية", "lat": null, "lng": null}, {"id": "KH-03", "code": "KH-03", "name": "يوستينا بطرس", "phone": "", "areaGroup": "أمناء الاجتماع", "street": "", "fullAddress": "القناطر الخيرية", "lat": null, "lng": null}, {"id": "KH-04", "code": "KH-04", "name": "ايلي عماد", "phone": "", "areaGroup": "خدام الاجتماع (أمناء الأسر)", "street": "", "fullAddress": "القناطر الخيرية", "lat": null, "lng": null}, {"id": "KH-05", "code": "KH-05", "name": "دميانة نبيل", "phone": "", "areaGroup": "أمناء الاجتماع", "street": "", "fullAddress": "القناطر الخيرية", "lat": null, "lng": null}, {"id": "YS-158", "code": "YS-158", "name": "توماس ايمن سعد", "phone": "", "areaGroup": "منطقة A", "street": "عماره الاخوه شارع ابو كريم", "fullAddress": "ش 14 — عماره الاخوه شارع ابو كريم", "lat": null, "lng": null}, {"id": "YS-159", "code": "YS-159", "name": "لوقا باسم", "phone": "", "areaGroup": "منطقة C", "street": "", "fullAddress": "القناطر الخيرية", "lat": null, "lng": null}, {"id": "YS-160", "code": "YS-160", "name": "اشرف هاني", "phone": "", "areaGroup": "منطقة C", "street": "", "fullAddress": "القناطر الخيرية", "lat": null, "lng": null}, {"id": "YS-161", "code": "YS-161", "name": "ناروز", "phone": "", "areaGroup": "منطقة T (خارج القناطر)", "street": "شرارة", "fullAddress": "شرارة — خارج القناطر", "lat": null, "lng": null}, {"id": "YS-162", "code": "YS-162", "name": "تيكا", "phone": "", "areaGroup": "غير محدد", "street": "", "fullAddress": "القناطر الخيرية", "lat": null, "lng": null}, {"id": "YS-163", "code": "YS-163", "name": "بيشوي اشرف (زائر)", "phone": "", "areaGroup": "غير محدد", "street": "", "fullAddress": "القناطر الخيرية", "lat": null, "lng": null}];
+    let activeMember = null;
+    let leafletMiniMap = null;
+    let miniMapMarker = null;
+
+    function norm(str) {
+      if (!str) return '';
+      return str.trim().toLowerCase()
+        .replace(/[أإآ]/g, 'ا')
+        .replace(/ى/g, 'ي')
+        .replace(/ة/g, 'ه')
+        .replace(/[ً-ٟ]/g, '');
+    }
+
+    // Setup Search Autocomplete
+    const searchInp = document.getElementById('youthSearchInput');
+    const autoList = document.getElementById('youthAutocomplete');
+
+    if (searchInp) {
+      searchInp.addEventListener('input', function() {
+        const val = norm(this.value);
+        autoList.innerHTML = '';
+        if (!val || val.length < 2) {
+          autoList.style.display = 'none';
+          return;
+        }
+
+        const matches = ALL_MEMBERS.filter(m => {
+          return norm(m.name).includes(val) || (m.phone && m.phone.includes(val)) || (m.code && m.code.toLowerCase().includes(val));
+        }).slice(0, 8);
+
+        if (matches.length === 0) {
+          autoList.innerHTML = `<div class="autocomplete-item" style="color:var(--text-muted);cursor:default;">لم يتم العثور على اسم مطابق</div>`;
+          autoList.style.display = 'block';
+          return;
+        }
+
+        matches.forEach(m => {
+          const item = document.createElement('div');
+          item.className = 'autocomplete-item';
+          item.innerHTML = `
+            <div>
+              <strong>${m.name}</strong>
+              <small style="display:block;color:var(--text-muted);font-size:0.75rem;">${m.areaGroup || 'القناطر'} ${m.phone ? '• ' + m.phone : ''}</small>
+            </div>
+            <span style="color:var(--accent-gold);font-weight:700;font-size:0.8rem;">اختيار 👈</span>
+          `;
+          item.onclick = () => selectMember(m);
+          autoList.appendChild(item);
+        });
+        autoList.style.display = 'block';
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!searchInp.contains(e.target) && !autoList.contains(e.target)) {
+          autoList.style.display = 'none';
+        }
+      });
+    }
+
+    function selectMember(member) {
+      activeMember = member;
+      autoList.style.display = 'none';
+      searchInp.value = '';
+      document.getElementById('searchGroup').style.display = 'none';
+
+      document.getElementById('selectedMemberName').textContent = member.name;
+      document.getElementById('selectedMemberArea').textContent = `المنطقة المسجلة: ${member.areaGroup || 'القناطر الخيرية'} ${member.street ? '— ' + member.street : ''}`;
+      document.getElementById('memberCard').style.display = 'flex';
+
+      // If already has location
+      if (member.lat && member.lng) {
+        showStatus(`📍 موقع بيتك مسجل حالياً. يمكنك الضغط على الزر لتحديثه أو تأكيده إذا كنت في بيتك الآن.`, 'success');
+        renderConfirmationMiniMap(member.lat, member.lng, member.name, 'موقع بيتك المسجل سابقاً');
+      } else {
+        hideStatus();
+      }
+    }
+
+    function resetSelectedMember() {
+      activeMember = null;
+      document.getElementById('memberCard').style.display = 'none';
+      document.getElementById('searchGroup').style.display = 'block';
+      searchInp.focus();
+      hideStatus();
+      document.getElementById('mapPreviewWrap').style.display = 'none';
+    }
+
+    function showStatus(msg, type) {
+      const box = document.getElementById('statusBox');
+      box.className = `status-box status-${type}`;
+      box.innerHTML = msg;
+      box.style.display = 'block';
+    }
+
+    function hideStatus() {
+      document.getElementById('statusBox').style.display = 'none';
+    }
+
+    // Check URL parameter (e.g. ?id=E19 or ?code=E19 or ?loc=E19)
+    window.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const queryId = params.get('id') || params.get('loc') || params.get('code') || params.get('geo');
+      if (queryId) {
+        const found = ALL_MEMBERS.find(m => m.id === queryId || m.code === queryId || (m.phone && m.phone.includes(queryId)));
+        if (found) {
+          selectMember(found);
+        }
+      }
+    });
+
+    // Capture GPS
+    function captureCurrentLocation() {
+      if (!activeMember) {
+        alert("يرجى البحث عن اسمك واختياره أولاً قبل تحديد اللوكيشن.");
+        searchInp.focus();
+        return;
+      }
+
+      if (!navigator.geolocation) {
+        showStatus("عذراً، متصفحك لا يدعم خاصية تحديد الموقع (GPS). يرجى فتح الرابط من متصفح مثل Chrome أو Safari.", "error");
+        return;
+      }
+
+      const btn = document.getElementById('btnCaptureGps');
+      const btnText = document.getElementById('btnGpsText');
+      btn.disabled = true;
+      btnText.textContent = "جاري التقاط إحداثيات GPS بدقة...";
+
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const lat = position.coords.latitude;
+          const lng = position.coords.longitude;
+          const accuracy = Math.round(position.coords.accuracy || 0);
+
+          try {
+            // 1. Update activeMember
+            activeMember.lat = lat;
+            activeMember.lng = lng;
+            activeMember.locationAccuracy = accuracy;
+            activeMember.locationUpdatedAt = new Date().toISOString();
+
+            // 2. Save locally
+            const savedUpdates = JSON.parse(localStorage.getItem('st_youssef_loc_updates') || '[]');
+            savedUpdates.unshift({
+              memberId: activeMember.id,
+              name: activeMember.name,
+              lat,
+              lng,
+              accuracy,
+              updatedAt: new Date().toISOString()
+            });
+            localStorage.setItem('st_youssef_loc_updates', JSON.stringify(savedUpdates));
+
+            // 3. Update Firebase Firestore
+            if (db) {
+              // Save to location_submissions
+              await db.collection('location_submissions').doc(activeMember.id).set({
+                memberId: activeMember.id,
+                memberName: activeMember.name,
+                memberPhone: activeMember.phone || '',
+                lat,
+                lng,
+                accuracy,
+                updatedAt: new Date().toISOString()
+              });
+
+              // Update in app_config/members_data
+              try {
+                const docSnap = await db.collection('app_config').doc('members_data').get();
+                if (docSnap.exists) {
+                  const d = docSnap.data();
+                  if (d && Array.isArray(d.members)) {
+                    const newMembers = d.members.map(m => {
+                      if (m.id === activeMember.id || m.code === activeMember.code) {
+                        return { ...m, lat, lng, locationAccuracy: accuracy, locationUpdatedAt: new Date().toISOString() };
+                      }
+                      return m;
+                    });
+                    await db.collection('app_config').doc('members_data').update({ members: newMembers });
+                  }
+                }
+              } catch (errMem) {
+                console.warn("Firestore member update:", errMem);
+              }
+            }
+
+            // Success feedback
+            showStatus(`🎉 <strong>عاش جداً يا ${activeMember.name}!</strong> تم حفظ موقع بيتك بنجاح بدقة (±${accuracy} متر). ستصلك إنفتيشن الاجتماع بسهولة 🤍`, 'success');
+            renderConfirmationMiniMap(lat, lng, activeMember.name, 'بيت ' + activeMember.name);
+            document.getElementById('accuracyBadge').textContent = `دقة الـ GPS: ±${accuracy} متر`;
+
+            btn.disabled = false;
+            btnText.textContent = "✓ تم حفظ الموقع (اضغط للتحديث ثانية)";
+
+          } catch (err) {
+            console.error("Save error:", err);
+            showStatus("تم التقاط الإحداثيات ولكن حدث خطأ أثناء الحفظ على السيرفر. يرجى إعادة المحاولة.", "error");
+            btn.disabled = false;
+            btnText.textContent = "إعادة المحاولة";
+          }
+        },
+        (error) => {
+          btn.disabled = false;
+          btnText.textContent = "إعادة المحاولة لتحديد الموقع";
+          let msg = "لم نتمكن من التقاط الموقع.";
+          if (error.code === error.PERMISSION_DENIED) {
+            msg = "⚠️ <strong>تم رفض إذن تحديد الموقع (Location Permission).</strong><br>يرجى السماح للمتصفح بالوصول للموقع عبر إعدادات الهاتف والمحاولة مجدداً.";
+          } else if (error.code === error.POSITION_UNAVAILABLE) {
+            msg = "إشارة الـ GPS غير متوفرة حالياً، يرجى تشغيل الـ Location من إعدادات الموبايل.";
+          } else if (error.code === error.TIMEOUT) {
+            msg = "انتهى وقت محاولة التقاط الـ GPS. تأكد من تفعيل خدمة الموقع وأعد المحاولة.";
+          }
+          showStatus(msg, "error");
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 15000,
+          maximumAge: 0
+        }
+      );
+    }
+
+    function renderConfirmationMiniMap(lat, lng, name, label) {
+      const wrap = document.getElementById('mapPreviewWrap');
+      wrap.style.display = 'block';
+
+      if (!leafletMiniMap) {
+        leafletMiniMap = L.map('confirmationMap', {
+          center: [lat, lng],
+          zoom: 16,
+          zoomControl: false
+        });
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 19
+        }).addTo(leafletMiniMap);
+      } else {
+        leafletMiniMap.setView([lat, lng], 16);
+      }
+
+      if (miniMapMarker) leafletMiniMap.removeLayer(miniMapMarker);
+
+      const icon = L.divIcon({
+        className: 'custom-house-pin',
+        html: `<div style="background:#10b981;color:#fff;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;box-shadow:0 0 12px rgba(16,185,129,0.7);border:2px solid #fff;">🏡</div>`,
+        iconSize: [34, 34],
+        iconAnchor: [17, 17]
+      });
+
+      miniMapMarker = L.marker([lat, lng], { icon: icon }).addTo(leafletMiniMap);
+      miniMapMarker.bindPopup(`<strong style="font-family:'Cairo';">${label}</strong>`).openPopup();
+
+      setTimeout(() => {
+        if (leafletMiniMap) leafletMiniMap.invalidateSize();
+      }, 250);
+    }
+  </script>
+</body>
+</html>
