@@ -4548,6 +4548,9 @@
       .map-desktop-counters {
         display: none !important;
       }
+      .map-mobile-chips {
+        display: flex !important;
+      }
 
       /* 3. Hide awkward 10-column table view toggle on phones */
       #btnVisViewTable {
@@ -5624,6 +5627,14 @@
             <div id="invitationMapZonePills" style="display:flex;align-items:center;gap:0.35rem;flex-wrap:wrap;">
               <!-- Rendered by JS -->
             </div>
+          </div>
+
+          <!-- Compact Mobile Counters Bar -->
+          <div class="map-mobile-chips" style="display:none;align-items:center;justify-content:space-around;background:rgba(15,23,42,0.7);border:1px solid var(--border);border-radius:var(--radius-md);padding:0.45rem 0.65rem;margin-bottom:0.65rem;font-size:0.76rem;font-weight:800;">
+            <span>🏠 <strong id="mobStatTotal" style="color:var(--text-main);">0</strong> بيت</span>
+            <span>📍 <strong id="mobStatLocated" style="color:var(--accent-emerald);">0</strong> مسجل</span>
+            <span>💌 <strong id="mobStatPending" style="color:var(--accent-gold);">0</strong> مطلوب</span>
+            <span>📏 <strong id="mobStatDist" style="color:#60a5fa;">0 كم</strong></span>
           </div>
 
           <!-- Filters & Real-time Zone Counters Bar -->
@@ -15230,7 +15241,7 @@
     // Load from LocalStorage (Upgraded to v4 with foolproof fallbacks)
     function loadLocalData() {
       try {
-        const saved = localStorage.getItem('st_mariam_attendance_v18');
+        const saved = localStorage.getItem('st_mariam_attendance_v19');
         if (saved) {
           const parsed = JSON.parse(saved);
           if (parsed && parsed.members && parsed.members.length > 0) {
@@ -15242,7 +15253,7 @@
           // Initialize fresh from SEED_DATA
           appData = JSON.parse(JSON.stringify(SEED_DATA));
           // Migrate any attendee scans from previous session versions
-          ['st_mariam_attendance_v16', 'st_mariam_attendance_v15', 'st_mariam_attendance_v14', 'st_mariam_attendance_v13', 'st_mariam_attendance_v11', 'st_mariam_attendance_v10', 'st_mariam_attendance_v9'].forEach(k => {
+          ['st_mariam_attendance_v18', 'st_mariam_attendance_v16', 'st_mariam_attendance_v15', 'st_mariam_attendance_v14', 'st_mariam_attendance_v13', 'st_mariam_attendance_v11', 'st_mariam_attendance_v10', 'st_mariam_attendance_v9'].forEach(k => {
             const oldStr = localStorage.getItem(k);
             if (oldStr) {
               try {
@@ -15299,22 +15310,45 @@
           appData.sessions = JSON.parse(JSON.stringify(SEED_DATA.sessions || [])).filter(s => s && s.id && !deletedSessionIds.has(s.id));
         }
   
-        // Ensure cloud/seed assigned families and coordinates take precedence over unassigned cached data
+        // Authoritative sync: Demote T12 to regular youth and register KH-06 as meeting secretary
+        const m_t12 = (appData.members || []).find(m => m.id === 'T12');
+        if (m_t12) {
+          m_t12.role = 'شاب';
+          m_t12.areaGroup = 'منطقة T (خارج القناطر)';
+          m_t12.groupCode = 'T';
+          m_t12.collegeStage = 'خامسة كلية';
+          m_t12.phone = '01223708282';
+        }
+        if (!appData.members.some(m => m.id === 'KH-06')) {
+          const kh06Item = (SEED_DATA.members || []).find(m => m.id === 'KH-06');
+          if (kh06Item) appData.members.push(JSON.parse(JSON.stringify(kh06Item)));
+        }
+
+        // Ensure cloud/seed assigned families, geography, and coordinates take precedence over unassigned cached data
         const seedFamilyMap = new Map((SEED_DATA.members || []).map(sm => [sm.id, sm]));
         appData.members.forEach(m => {
           const sm = seedFamilyMap.get(m.id);
           if (sm) {
-            if (sm.mainFamily && sm.mainFamily !== 'لم تحدد بعد' && (!m.mainFamily || m.mainFamily === 'لم تحدد بعد')) {
-              m.mainFamily = sm.mainFamily;
+            if (sm.areaGroup && (!m.areaGroup || m.areaGroup === 'غير محدد')) {
+              m.areaGroup = sm.areaGroup;
             }
-            if (sm.family && sm.family !== 'لم تحدد بعد' && (!m.family || m.family === 'لم تحدد بعد')) {
-              m.family = sm.family;
+            if (sm.groupCode && !m.groupCode) {
+              m.groupCode = sm.groupCode;
             }
             if (sm.lat && sm.lng && (!m.lat || !m.lng)) {
               m.lat = sm.lat;
               m.lng = sm.lng;
               m.locationUpdatedAt = sm.locationUpdatedAt || new Date().toISOString();
             }
+            if (sm.street && !m.street) m.street = sm.street;
+            if (sm.fullAddress && !m.fullAddress) m.fullAddress = sm.fullAddress;
+            if (sm.mainFamily && sm.mainFamily !== 'لم تحدد بعد' && (!m.mainFamily || m.mainFamily === 'لم تحدد بعد')) {
+              m.mainFamily = sm.mainFamily;
+            }
+            if (sm.family && sm.family !== 'لم تحدد بعد' && (!m.family || m.family === 'لم تحدد بعد')) {
+              m.family = sm.family;
+            }
+            if (sm.role && !m.role) m.role = sm.role;
           }
           m.collegeStage = getCollegeStage(m);
           m.universityStage = m.collegeStage + (m.age ? ' (' + m.age + ' سنة)' : '');
@@ -15331,7 +15365,7 @@
 
     function saveLocalData() {
       try {
-        localStorage.setItem('st_mariam_attendance_v18', JSON.stringify(appData));
+        localStorage.setItem('st_mariam_attendance_v19', JSON.stringify(appData));
       } catch (e) {}
     }
 
@@ -15533,8 +15567,22 @@
               const membersMap = new Map();
               (SEED_DATA.members || []).forEach(m => membersMap.set(m.id, { ...m }));
               (appData.members || []).forEach(m => membersMap.set(m.id, Object.assign({}, membersMap.get(m.id) || {}, m)));
-              data.members.forEach(m => membersMap.set(m.id, Object.assign({}, membersMap.get(m.id) || {}, m)));
-                            // Authoritative sync for T12 (شاب) and KH-06 (أمين الاجتماع)
+              data.members.forEach(m => {
+                const existing = membersMap.get(m.id) || {};
+                const merged = Object.assign({}, existing, m);
+                if ((!merged.areaGroup || merged.areaGroup === 'غير محدد') && existing.areaGroup) {
+                  merged.areaGroup = existing.areaGroup;
+                }
+                if (!merged.groupCode && existing.groupCode) {
+                  merged.groupCode = existing.groupCode;
+                }
+                if ((!merged.lat || !merged.lng) && existing.lat && existing.lng) {
+                  merged.lat = existing.lat;
+                  merged.lng = existing.lng;
+                }
+                membersMap.set(m.id, merged);
+              });
+              // Authoritative sync for T12 (شاب) and KH-06 (أمين الاجتماع)
               const t12m = membersMap.get('T12');
               if (t12m) {
                 t12m.role = 'شاب';
@@ -18048,10 +18096,12 @@
         if (btnTable) btnTable.classList.remove('active');
         if (btnCards) btnCards.classList.remove('active');
         if (btnMap) btnMap.classList.add('active');
-        renderInvitationMap();
-        setTimeout(() => {
-          if (leafletMapInstance) leafletMapInstance.invalidateSize();
-        }, 150);
+        requestAnimationFrame(() => {
+          renderInvitationMap();
+          setTimeout(() => { if (leafletMapInstance) leafletMapInstance.invalidateSize(); }, 80);
+          setTimeout(() => { if (leafletMapInstance) leafletMapInstance.invalidateSize(); }, 300);
+          setTimeout(() => { if (leafletMapInstance) leafletMapInstance.invalidateSize(); }, 800);
+        });
       } else if (viewMode === 'cards') {
         if (tableView) tableView.style.display = 'none';
         if (cardsView) cardsView.style.display = 'block';
@@ -22335,6 +22385,17 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
         targetBtn.click();
       }
       syncMobileNavActive(tabId);
+      if (tabId === 'tabVisitation') {
+        setTimeout(() => {
+          if (currentVisView === 'map') {
+            renderInvitationMap();
+            if (leafletMapInstance) leafletMapInstance.invalidateSize();
+          }
+        }, 120);
+        setTimeout(() => {
+          if (currentVisView === 'map' && leafletMapInstance) leafletMapInstance.invalidateSize();
+        }, 450);
+      }
     }
 
     function syncMobileNavActive(activeTabId) {
@@ -22727,10 +22788,21 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
       renderInvitationMapZonePills();
 
       if (typeof L === 'undefined') {
-        container.innerHTML = `<div style="text-align:center;padding:3rem;color:var(--text-muted);">
+        container.innerHTML = `<div style="text-align:center;padding:3rem;color:var(--text-muted);font-weight:700;">
           جاري تحميل مكتبة الخرائط Leaflet... يرجى الانتظار ثوانٍ أو إعادة تحميل الصفحة.
         </div>`;
         return;
+      }
+
+      // Attach ResizeObserver to auto-invalidate map when container becomes visible
+      if (window.ResizeObserver && !container._resizeObserverAttached) {
+        container._resizeObserverAttached = true;
+        const ro = new ResizeObserver(() => {
+          if (leafletMapInstance && container.clientHeight > 0) {
+            leafletMapInstance.invalidateSize();
+          }
+        });
+        ro.observe(container);
       }
 
       try {
@@ -22741,12 +22813,14 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
           leafletMapInstance = L.map('invitationMapContainer', {
             center: [ST_MARY_CHURCH_LOCATION.lat, ST_MARY_CHURCH_LOCATION.lng],
             zoom: 15,
-            zoomControl: true
+            zoomControl: true,
+            attributionControl: false
           });
 
-          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          // Fast, reliable CartoDB Voyager tiles with Arabic street names & zero throttling in Egypt
+          L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
             maxZoom: 19,
-            attribution: '&copy; OpenStreetMap contributors'
+            subdomains: 'abcd'
           }).addTo(leafletMapInstance);
 
           leafletMarkersGroup = L.layerGroup().addTo(leafletMapInstance);
@@ -22759,21 +22833,18 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
           leafletMapInstance = L.map('invitationMapContainer', {
             center: [ST_MARY_CHURCH_LOCATION.lat, ST_MARY_CHURCH_LOCATION.lng],
             zoom: 15,
-            zoomControl: true
+            zoomControl: true,
+            attributionControl: false
           });
-          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(leafletMapInstance);
+          L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+            maxZoom: 19,
+            subdomains: 'abcd'
+          }).addTo(leafletMapInstance);
           leafletMarkersGroup = L.layerGroup().addTo(leafletMapInstance);
         } catch (e2) {
           console.error("Leaflet critical init error:", e2);
         }
       }
-
-      setTimeout(() => {
-        if (leafletMapInstance) leafletMapInstance.invalidateSize();
-      }, 100);
-      setTimeout(() => {
-        if (leafletMapInstance) leafletMapInstance.invalidateSize();
-      }, 400);
 
       if (leafletMarkersGroup) leafletMarkersGroup.clearLayers();
       if (leafletRoutePolyline) {
@@ -22801,26 +22872,24 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
 
       // 2. Filter Members by Zone & Status
       normalizeVisitationData();
-      const allZoneMembers = (appData.members || []).filter(m => {
+      let allZoneMembers = (appData.members || []).filter(m => {
         if (currentMapZone === 'all') return true;
         const ag = m.areaGroup || '';
         return ag.includes(currentMapZone) || currentMapZone.includes(ag);
       });
+
+      // Graceful fallback: If currentMapZone has 0 members or 0 located, revert to 'all' so map is NEVER empty
+      if (allZoneMembers.length === 0 && currentMapZone !== 'all') {
+        currentMapZone = 'all';
+        allZoneMembers = (appData.members || []);
+        renderInvitationMapZonePills();
+      }
 
       const locatedMembers = allZoneMembers.filter(m => m.lat && m.lng);
       const pendingInvMembers = locatedMembers.filter(m => {
         const hasInv = m.visitations && m.visitations.some(v => v.type === 'invitation' && isVisitationThisWeek(v));
         return !hasInv;
       });
-
-      // Update Zone Counters Bar
-      const elTot = document.getElementById('mapStatTotalHouses');
-      const elLoc = document.getElementById('mapStatLocatedHouses');
-      const elPend = document.getElementById('mapStatPendingInv');
-      const elDist = document.getElementById('mapStatRouteDistance');
-      if (elTot) elTot.textContent = allZoneMembers.length;
-      if (elLoc) elLoc.textContent = locatedMembers.length;
-      if (elPend) elPend.textContent = pendingInvMembers.length;
 
       let candidateList = locatedMembers;
       if (currentMapFilter === 'needs_invitation') {
@@ -22840,7 +22909,12 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
       let totalMeters = 0;
       orderedRoute.forEach(s => totalMeters += (s.routeDistance || 0));
       const distKm = (totalMeters / 1000).toFixed(2);
-      if (elDist) elDist.textContent = `${distKm} كم`;
+
+      // Update Desktop Counters AND Mobile Chips
+      ['mapStatTotalHouses', 'mobStatTotal'].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = allZoneMembers.length; });
+      ['mapStatLocatedHouses', 'mobStatLocated'].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = locatedMembers.length; });
+      ['mapStatPendingInv', 'mobStatPending'].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = pendingInvMembers.length; });
+      ['mapStatRouteDistance', 'mobStatDist'].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = `${distKm} كم`; });
 
       const manifestBadge = document.getElementById('manifestRouteSummaryBadge');
       if (manifestBadge) {
@@ -22906,10 +22980,24 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
           lineCap: 'round'
         }).addTo(leafletMapInstance);
 
-        leafletMapInstance.fitBounds(L.latLngBounds(latlngs).pad(0.15));
+        leafletMapInstance.fitBounds(L.latLngBounds(latlngs).pad(0.12));
       } else {
         leafletMapInstance.setView([ST_MARY_CHURCH_LOCATION.lat, ST_MARY_CHURCH_LOCATION.lng], 15);
       }
+
+      // Responsive redraw insurance
+      requestAnimationFrame(() => {
+        if (leafletMapInstance) leafletMapInstance.invalidateSize();
+      });
+      setTimeout(() => {
+        if (leafletMapInstance) leafletMapInstance.invalidateSize();
+      }, 150);
+      setTimeout(() => {
+        if (leafletMapInstance) leafletMapInstance.invalidateSize();
+      }, 500);
+      setTimeout(() => {
+        if (leafletMapInstance) leafletMapInstance.invalidateSize();
+      }, 1200);
 
       renderInvitationRouteManifest(orderedRoute);
     }
