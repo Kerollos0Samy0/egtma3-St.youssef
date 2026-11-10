@@ -22818,9 +22818,9 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
           });
 
           // Fast, reliable CartoDB Voyager tiles with Arabic street names & zero throttling in Egypt
-          L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+          L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
             maxZoom: 19,
-            subdomains: 'abcd'
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3'], maxZoom: 20
           }).addTo(leafletMapInstance);
 
           leafletMarkersGroup = L.layerGroup().addTo(leafletMapInstance);
@@ -22836,9 +22836,9 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
             zoomControl: true,
             attributionControl: false
           });
-          L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+          L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
             maxZoom: 19,
-            subdomains: 'abcd'
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3'], maxZoom: 20
           }).addTo(leafletMapInstance);
           leafletMarkersGroup = L.layerGroup().addTo(leafletMapInstance);
         } catch (e2) {
