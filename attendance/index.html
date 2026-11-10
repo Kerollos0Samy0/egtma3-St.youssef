@@ -4523,7 +4523,15 @@
       background: #0f172a !important;
     }
 
-</style>
+
+    /* Live GPS pulse animation for mobile in street */
+    @keyframes liveGpsPulse {
+      0% { transform: scale(0.8); opacity: 0.9; }
+      50% { transform: scale(1.6); opacity: 0.35; }
+      100% { transform: scale(2.2); opacity: 0; }
+    }
+
+  </style>
 </head>
 <body>
 
@@ -5523,6 +5531,9 @@
 
             <!-- Quick Action Buttons -->
             <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
+              <button type="button" class="btn btn-sm" id="btnToggleLiveGpsTracker" onclick="toggleLiveServantTracking()" style="background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.4);color:#60a5fa;display:inline-flex;align-items:center;gap:0.4rem;font-weight:800;" title="تتبع موقع الموبايل المباشر وأنت تتحرك في الشارع لتسليم الإنفتيشن">
+                <span>📱</span> تتبع موقعي الحي وأنا بتحرك
+              </button>
               <button type="button" class="btn btn-gold btn-sm" id="btnOpenGoogleMapsRoute" onclick="openCurrentRouteInGoogleMaps()" style="display:inline-flex;align-items:center;gap:0.4rem;font-weight:800;box-shadow:0 3px 12px rgba(245,158,11,0.25);">
                 <span>🚗</span> بدء الملاحة في Google Maps
               </button>
@@ -17964,6 +17975,9 @@
         if (btnCards) btnCards.classList.remove('active');
         if (btnMap) btnMap.classList.add('active');
         renderInvitationMap();
+        setTimeout(() => {
+          if (leafletMapInstance) leafletMapInstance.invalidateSize();
+        }, 150);
       } else if (viewMode === 'cards') {
         if (tableView) tableView.style.display = 'none';
         if (cardsView) cardsView.style.display = 'block';
@@ -18785,6 +18799,14 @@
         const targetPane = document.getElementById(target);
         if (targetPane) targetPane.classList.add('active');
         if (typeof syncMobileNavActive === 'function') { syncMobileNavActive(target); }
+        if (target === 'tabVisitation') {
+          setTimeout(() => {
+            if (currentVisView === 'map') {
+              renderInvitationMap();
+              if (leafletMapInstance) leafletMapInstance.invalidateSize();
+            }
+          }, 120);
+        }
       });
     });
 
@@ -22483,9 +22505,152 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
     }
 
     // Render Invitation Map Engine
+    
+    // ==============================================
+    // LIVE SERVANT GPS TRACKING ON MAP (متحرك في الشارع)
+    // ==============================================
+    let servantLiveMarker = null;
+    let servantLiveCircle = null;
+    let servantWatchId = null;
+    let isTrackingServantLive = false;
+
+    function toggleLiveServantTracking() {
+      const btn = document.getElementById('btnToggleLiveGpsTracker');
+      if (isTrackingServantLive) {
+        if (servantWatchId !== null) {
+          navigator.geolocation.clearWatch(servantWatchId);
+          servantWatchId = null;
+        }
+        if (servantLiveMarker && leafletMapInstance) {
+          leafletMapInstance.removeLayer(servantLiveMarker);
+          servantLiveMarker = null;
+        }
+        if (servantLiveCircle && leafletMapInstance) {
+          leafletMapInstance.removeLayer(servantLiveCircle);
+          servantLiveCircle = null;
+        }
+        isTrackingServantLive = false;
+        if (btn) {
+          btn.style.background = 'rgba(59,130,246,0.15)';
+          btn.style.borderColor = 'rgba(59,130,246,0.4)';
+          btn.style.color = '#60a5fa';
+          btn.innerHTML = '<span>📱</span> تتبع موقعي الحي وأنا بتحرك';
+        }
+        return;
+      }
+
+      if (!navigator.geolocation) {
+        alert("خاصية تحديد الموقع الجغرافي (GPS) غير مدعومة في متصفح هذا الموبايل.");
+        return;
+      }
+
+      if (btn) {
+        btn.innerHTML = '<span>⏳</span> جاري التقاط إشارة GPS للموبايل...';
+      }
+
+      servantWatchId = navigator.geolocation.watchPosition(
+        (pos) => {
+          const lat = pos.coords.latitude;
+          const lng = pos.coords.longitude;
+          const accuracy = Math.round(pos.coords.accuracy || 0);
+
+          isTrackingServantLive = true;
+          if (btn) {
+            btn.style.background = 'rgba(16,185,129,0.2)';
+            btn.style.borderColor = '#10b981';
+            btn.style.color = '#34d399';
+            btn.innerHTML = `<span>🟢</span> موقع الموبايل متحرك لايف (±${accuracy}م)`;
+          }
+
+          if (!leafletMapInstance) return;
+
+          const phoneIcon = L.divIcon({
+            className: 'custom-live-phone-pin',
+            html: `
+              <div style="position:relative;width:44px;height:44px;display:flex;align-items:center;justify-content:center;">
+                <div style="position:absolute;width:100%;height:100%;border-radius:50%;background:rgba(37,99,235,0.4);animation:liveGpsPulse 1.8s infinite;"></div>
+                <div style="width:36px;height:36px;border-radius:50%;background:#2563eb;color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.2rem;border:2.5px solid #fff;box-shadow:0 0 16px rgba(37,99,235,0.85);z-index:2;">
+                  📱
+                </div>
+              </div>
+            `,
+            iconSize: [44, 44],
+            iconAnchor: [22, 22]
+          });
+
+          if (!servantLiveMarker) {
+            servantLiveMarker = L.marker([lat, lng], { icon: phoneIcon, zIndexOffset: 1000 }).addTo(leafletMapInstance);
+            servantLiveMarker.bindPopup(`
+              <div style="font-family:'Cairo',sans-serif;text-align:right;direction:rtl;color:#0f172a;padding:4px;">
+                <strong style="color:#2563eb;font-size:0.95rem;">📱 موقع موبايلك المباشر في الشارع</strong>
+                <div style="font-size:0.75rem;color:#64748b;margin-top:2px;">دقة الـ GPS: ±${accuracy} متر</div>
+                <div style="font-size:0.75rem;color:#059669;margin-top:2px;font-weight:700;">يتم تحديث حركتك لايف وأنت بتوزع 🚶‍♂️✨</div>
+              </div>
+            `).openPopup();
+            leafletMapInstance.setView([lat, lng], 17);
+          } else {
+            servantLiveMarker.setLatLng([lat, lng]);
+          }
+
+          if (!servantLiveCircle) {
+            servantLiveCircle = L.circle([lat, lng], {
+              radius: accuracy,
+              color: '#3b82f6',
+              weight: 1,
+              fillColor: '#3b82f6',
+              fillOpacity: 0.12
+            }).addTo(leafletMapInstance);
+          } else {
+            servantLiveCircle.setLatLng([lat, lng]);
+            servantLiveCircle.setRadius(accuracy);
+          }
+        },
+        (err) => {
+          console.warn("Live GPS watch error:", err);
+          if (btn) {
+            btn.innerHTML = '<span>⚠️</span> تعذر التقاط GPS الموبايل';
+            setTimeout(() => {
+              btn.innerHTML = '<span>📱</span> تتبع موقعي الحي وأنا بتحرك';
+              btn.style.background = 'rgba(59,130,246,0.15)';
+              btn.style.borderColor = 'rgba(59,130,246,0.4)';
+              btn.style.color = '#60a5fa';
+            }, 3000);
+          }
+        },
+        {
+          enableHighAccuracy: true,
+          maximumAge: 2000,
+          timeout: 10000
+        }
+      );
+    }
+
+    function switchTab(tabId) {
+      const btn = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
+      if (btn) {
+        btn.click();
+      } else {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+        const targetPane = document.getElementById(tabId);
+        if (targetPane) targetPane.classList.add('active');
+      }
+      if (tabId === 'tabVisitation') {
+        setTimeout(() => {
+          if (currentVisView === 'map') {
+            renderInvitationMap();
+            if (leafletMapInstance) leafletMapInstance.invalidateSize();
+          }
+        }, 150);
+      }
+    }
+
     function renderInvitationMap() {
       const container = document.getElementById('invitationMapContainer');
       if (!container) return;
+
+      // Always populate zone selector pills first so controls never look empty
+      renderInvitationMapZonePills();
 
       if (typeof L === 'undefined') {
         container.innerHTML = `<div style="text-align:center;padding:3rem;color:var(--text-muted);">
@@ -22494,26 +22659,47 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
         return;
       }
 
-      if (!leafletMapInstance) {
-        leafletMapInstance = L.map('invitationMapContainer', {
-          center: [ST_MARY_CHURCH_LOCATION.lat, ST_MARY_CHURCH_LOCATION.lng],
-          zoom: 15,
-          zoomControl: true
-        });
+      try {
+        if (!leafletMapInstance) {
+          if (container._leaflet_id) {
+            container._leaflet_id = null;
+          }
+          leafletMapInstance = L.map('invitationMapContainer', {
+            center: [ST_MARY_CHURCH_LOCATION.lat, ST_MARY_CHURCH_LOCATION.lng],
+            zoom: 15,
+            zoomControl: true
+          });
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          maxZoom: 19,
-          attribution: '&copy; OpenStreetMap contributors'
-        }).addTo(leafletMapInstance);
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; OpenStreetMap contributors'
+          }).addTo(leafletMapInstance);
 
-        leafletMarkersGroup = L.layerGroup().addTo(leafletMapInstance);
+          leafletMarkersGroup = L.layerGroup().addTo(leafletMapInstance);
+        }
+      } catch (err) {
+        console.warn("Leaflet map init fallback:", err);
+        try {
+          container._leaflet_id = null;
+          container.innerHTML = '';
+          leafletMapInstance = L.map('invitationMapContainer', {
+            center: [ST_MARY_CHURCH_LOCATION.lat, ST_MARY_CHURCH_LOCATION.lng],
+            zoom: 15,
+            zoomControl: true
+          });
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(leafletMapInstance);
+          leafletMarkersGroup = L.layerGroup().addTo(leafletMapInstance);
+        } catch (e2) {
+          console.error("Leaflet critical init error:", e2);
+        }
       }
 
       setTimeout(() => {
         if (leafletMapInstance) leafletMapInstance.invalidateSize();
-      }, 200);
-
-      renderInvitationMapZonePills();
+      }, 100);
+      setTimeout(() => {
+        if (leafletMapInstance) leafletMapInstance.invalidateSize();
+      }, 400);
 
       if (leafletMarkersGroup) leafletMarkersGroup.clearLayers();
       if (leafletRoutePolyline) {
