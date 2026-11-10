@@ -4531,6 +4531,79 @@
       100% { transform: scale(2.2); opacity: 0; }
     }
 
+  
+    /* ======================================================== */
+    /* RESPONSIVE OPTIMIZATION: DESKTOP vs MOBILE SIMPLIFICATION */
+    /* ======================================================== */
+    @media (max-width: 768px) {
+      /* 1. Hide the 5 bulky KPI statistic cards on mobile */
+      .vis-stats-grid {
+        display: none !important;
+      }
+
+      /* 2. Hide administrative and export buttons on mobile */
+      #btnExportVisitationCSV,
+      #btnOpenBatchInvitationModal,
+      .vis-desktop-header-desc,
+      .map-desktop-counters {
+        display: none !important;
+      }
+
+      /* 3. Hide awkward 10-column table view toggle on phones */
+      #btnVisViewTable {
+        display: none !important;
+      }
+      #visitationViewToggle {
+        width: 100% !important;
+        display: flex !important;
+        margin-top: 0.35rem;
+      }
+      #visitationViewToggle button {
+        flex: 1 !important;
+        justify-content: center !important;
+        padding: 0.45rem 0.65rem !important;
+        font-size: 0.85rem !important;
+        font-weight: 800 !important;
+      }
+
+      /* 4. Smooth, single-row swipe for filter pills */
+      .vis-pills-row {
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        padding-bottom: 6px !important;
+        scrollbar-width: none !important;
+      }
+      .vis-pills-row::-webkit-scrollbar {
+        display: none !important;
+      }
+
+      /* 5. Clean map controls on mobile */
+      .map-controls-card {
+        padding: 0.85rem 0.85rem !important;
+        margin-bottom: 0.75rem !important;
+      }
+      .map-controls-card p {
+        display: none !important;
+      }
+      #invitationMapZonePills {
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        padding-bottom: 5px !important;
+        scrollbar-width: none !important;
+      }
+      #invitationMapZonePills::-webkit-scrollbar {
+        display: none !important;
+      }
+
+      /* 6. Mobile Map Height */
+      #invitationMapContainer {
+        height: 60vh !important;
+        min-height: 380px !important;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -5319,7 +5392,7 @@
             <span class="vis-header-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg></span>
             <span>لوحة الافتقاد والمتابعة الميدانية</span>
           </h2>
-          <p style="font-size:0.85rem;color:var(--text-muted);margin:0;">
+          <p class="vis-desktop-header-desc" style="font-size:0.85rem;color:var(--text-muted);margin:0;">
             متابعة شاملة بالتواريخ: من عدينا عليه، توزيع الإنفتيشن الأسبوعي، افتقاد أبونا، وافتقاد الخدام.
           </p>
         </div>
@@ -5554,7 +5627,7 @@
           </div>
 
           <!-- Filters & Real-time Zone Counters Bar -->
-          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.6rem;background:rgba(255,255,255,0.02);padding:0.6rem 0.85rem;border-radius:var(--radius-md);border:1px solid rgba(255,255,255,0.05);">
+          <div class="map-desktop-counters" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.6rem;background:rgba(255,255,255,0.02);padding:0.6rem 0.85rem;border-radius:var(--radius-md);border:1px solid rgba(255,255,255,0.05);">
             <div style="display:flex;align-items:center;gap:0.4rem;flex-wrap:wrap;">
               <span style="font-size:0.78rem;color:var(--text-muted);font-weight:700;">عرض البيوت:</span>
               <button type="button" class="pill-btn active map-filter-btn" data-mfilter="all" onclick="filterInvitationMapStatus('all', this)" style="font-size:0.75rem;padding:0.22rem 0.6rem;">الكل</button>
@@ -17957,6 +18030,7 @@
     // State for visitation table (declared above)
 
     function setVisitationView(viewMode) {
+      if (window.innerWidth <= 768 && viewMode === 'table') { viewMode = 'cards'; }
       currentVisView = viewMode;
       localStorage.setItem('st_youssef_vis_view', viewMode);
 
