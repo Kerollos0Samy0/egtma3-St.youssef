@@ -22653,116 +22653,170 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
     let servantLiveCircle = null;
     let servantWatchId = null;
     let isTrackingServantLive = false;
+    let hasCenteredOnServant = false;
 
-    function toggleLiveServantTracking() {
-      const btn = document.getElementById('btnToggleLiveGpsTracker');
-      if (isTrackingServantLive) {
-        if (servantWatchId !== null) {
-          navigator.geolocation.clearWatch(servantWatchId);
-          servantWatchId = null;
-        }
-        if (servantLiveMarker && leafletMapInstance) {
-          leafletMapInstance.removeLayer(servantLiveMarker);
-          servantLiveMarker = null;
-        }
-        if (servantLiveCircle && leafletMapInstance) {
-          leafletMapInstance.removeLayer(servantLiveCircle);
-          servantLiveCircle = null;
-        }
-        isTrackingServantLive = false;
-        if (btn) {
-          btn.style.background = 'rgba(59,130,246,0.15)';
-          btn.style.borderColor = 'rgba(59,130,246,0.4)';
-          btn.style.color = '#60a5fa';
-          btn.innerHTML = '<span>📱</span> تتبع موقعي الحي وأنا بتحرك';
-        }
-        return;
-      }
-
+    // Start live servant GPS tracking (Requests browser permission immediately)
+    function startLiveServantTracking(shouldRecenter = true) {
+      if (isTrackingServantLive) return;
       if (!navigator.geolocation) {
-        alert("خاصية تحديد الموقع الجغرافي (GPS) غير مدعومة في متصفح هذا الموبايل.");
+        console.warn("Geolocation not supported by browser.");
         return;
       }
 
+      const btn = document.getElementById('btnToggleLiveGpsTracker');
       if (btn) {
-        btn.innerHTML = '<span>⏳</span> جاري التقاط إشارة GPS للموبايل...';
+        btn.innerHTML = '<span>⏳</span> جاري طلب وتفعيل GPS الموبايل...';
+        btn.style.background = 'rgba(59,130,246,0.25)';
+        btn.style.borderColor = '#3b82f6';
+        btn.style.color = '#60a5fa';
       }
 
-      servantWatchId = navigator.geolocation.watchPosition(
+      const geoOptions = {
+        enableHighAccuracy: true,
+        maximumAge: 2000,
+        timeout: 12000
+      };
+
+      // 1. Immediate position capture for instant prompt & quick view
+      navigator.geolocation.getCurrentPosition(
         (pos) => {
-          const lat = pos.coords.latitude;
-          const lng = pos.coords.longitude;
-          const accuracy = Math.round(pos.coords.accuracy || 0);
-
-          isTrackingServantLive = true;
-          if (btn) {
-            btn.style.background = 'rgba(16,185,129,0.2)';
-            btn.style.borderColor = '#10b981';
-            btn.style.color = '#34d399';
-            btn.innerHTML = `<span>🟢</span> موقع الموبايل متحرك لايف (±${accuracy}م)`;
-          }
-
-          if (!leafletMapInstance) return;
-
-          const phoneIcon = L.divIcon({
-            className: 'custom-live-phone-pin',
-            html: `
-              <div style="position:relative;width:44px;height:44px;display:flex;align-items:center;justify-content:center;">
-                <div style="position:absolute;width:100%;height:100%;border-radius:50%;background:rgba(37,99,235,0.4);animation:liveGpsPulse 1.8s infinite;"></div>
-                <div style="width:36px;height:36px;border-radius:50%;background:#2563eb;color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.2rem;border:2.5px solid #fff;box-shadow:0 0 16px rgba(37,99,235,0.85);z-index:2;">
-                  📱
-                </div>
-              </div>
-            `,
-            iconSize: [44, 44],
-            iconAnchor: [22, 22]
-          });
-
-          if (!servantLiveMarker) {
-            servantLiveMarker = L.marker([lat, lng], { icon: phoneIcon, zIndexOffset: 1000 }).addTo(leafletMapInstance);
-            servantLiveMarker.bindPopup(`
-              <div style="font-family:'Cairo',sans-serif;text-align:right;direction:rtl;color:#0f172a;padding:4px;">
-                <strong style="color:#2563eb;font-size:0.95rem;">📱 موقع موبايلك المباشر في الشارع</strong>
-                <div style="font-size:0.75rem;color:#64748b;margin-top:2px;">دقة الـ GPS: ±${accuracy} متر</div>
-                <div style="font-size:0.75rem;color:#059669;margin-top:2px;font-weight:700;">يتم تحديث حركتك لايف وأنت بتوزع 🚶‍♂️✨</div>
-              </div>
-            `).openPopup();
-            leafletMapInstance.setView([lat, lng], 17);
-          } else {
-            servantLiveMarker.setLatLng([lat, lng]);
-          }
-
-          if (!servantLiveCircle) {
-            servantLiveCircle = L.circle([lat, lng], {
-              radius: accuracy,
-              color: '#3b82f6',
-              weight: 1,
-              fillColor: '#3b82f6',
-              fillOpacity: 0.12
-            }).addTo(leafletMapInstance);
-          } else {
-            servantLiveCircle.setLatLng([lat, lng]);
-            servantLiveCircle.setRadius(accuracy);
-          }
+          handleLiveServantPosition(pos, shouldRecenter);
         },
         (err) => {
-          console.warn("Live GPS watch error:", err);
-          if (btn) {
-            btn.innerHTML = '<span>⚠️</span> تعذر التقاط GPS الموبايل';
-            setTimeout(() => {
-              btn.innerHTML = '<span>📱</span> تتبع موقعي الحي وأنا بتحرك';
-              btn.style.background = 'rgba(59,130,246,0.15)';
-              btn.style.borderColor = 'rgba(59,130,246,0.4)';
-              btn.style.color = '#60a5fa';
-            }, 3000);
-          }
+          console.warn("Initial GPS request error:", err);
+          handleLiveServantGpsError(err);
         },
-        {
-          enableHighAccuracy: true,
-          maximumAge: 2000,
-          timeout: 10000
-        }
+        geoOptions
       );
+
+      // 2. Continuous watch for real-time movement in the streets
+      if (servantWatchId !== null) {
+        navigator.geolocation.clearWatch(servantWatchId);
+      }
+      servantWatchId = navigator.geolocation.watchPosition(
+        (pos) => {
+          handleLiveServantPosition(pos, false);
+        },
+        (err) => {
+          console.warn("Continuous GPS error:", err);
+          handleLiveServantGpsError(err);
+        },
+        geoOptions
+      );
+    }
+
+    // Handle incoming live GPS coordinates
+    function handleLiveServantPosition(pos, shouldRecenter = false) {
+      const lat = pos.coords.latitude;
+      const lng = pos.coords.longitude;
+      const accuracy = Math.round(pos.coords.accuracy || 0);
+
+      isTrackingServantLive = true;
+      const btn = document.getElementById('btnToggleLiveGpsTracker');
+      if (btn) {
+        btn.style.background = 'rgba(16,185,129,0.2)';
+        btn.style.borderColor = '#10b981';
+        btn.style.color = '#34d399';
+        btn.innerHTML = `<span>🟢</span> موقعك مباشر في الشارع (±${accuracy}م)`;
+      }
+
+      if (!leafletMapInstance) return;
+
+      const phoneIcon = L.divIcon({
+        className: 'custom-live-phone-pin',
+        html: `
+          <div style="position:relative;width:44px;height:44px;display:flex;align-items:center;justify-content:center;">
+            <div style="position:absolute;width:100%;height:100%;border-radius:50%;background:rgba(37,99,235,0.4);animation:liveGpsPulse 1.8s infinite;"></div>
+            <div style="width:36px;height:36px;border-radius:50%;background:#2563eb;color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.2rem;border:2.5px solid #fff;box-shadow:0 0 16px rgba(37,99,235,0.85);z-index:2;">
+              📱
+            </div>
+          </div>
+        `,
+        iconSize: [44, 44],
+        iconAnchor: [22, 22]
+      });
+
+      if (!servantLiveMarker) {
+        servantLiveMarker = L.marker([lat, lng], { icon: phoneIcon, zIndexOffset: 1000 }).addTo(leafletMapInstance);
+        servantLiveMarker.bindPopup(`
+          <div style="font-family:'Cairo',sans-serif;text-align:right;direction:rtl;color:#0f172a;padding:4px;">
+            <strong style="color:#2563eb;font-size:0.95rem;">📱 موقع موبايلك المباشر في الشارع</strong>
+            <div style="font-size:0.75rem;color:#64748b;margin-top:2px;">دقة الـ GPS: ±${accuracy} متر</div>
+            <div style="font-size:0.75rem;color:#059669;margin-top:2px;font-weight:700;">يتم تحديث حركتك لايف وأنت بتوزع 🚶‍♂️✨</div>
+          </div>
+        `);
+      } else {
+        servantLiveMarker.setLatLng([lat, lng]);
+      }
+
+      if (!servantLiveCircle) {
+        servantLiveCircle = L.circle([lat, lng], {
+          radius: accuracy,
+          color: '#3b82f6',
+          weight: 1,
+          fillColor: '#3b82f6',
+          fillOpacity: 0.12
+        }).addTo(leafletMapInstance);
+      } else {
+        servantLiveCircle.setLatLng([lat, lng]);
+        servantLiveCircle.setRadius(accuracy);
+      }
+
+      if (shouldRecenter && !hasCenteredOnServant) {
+        hasCenteredOnServant = true;
+        leafletMapInstance.setView([lat, lng], 17);
+      }
+    }
+
+    // Handle GPS errors (e.g. permission denied or location turned off)
+    function handleLiveServantGpsError(err) {
+      const btn = document.getElementById('btnToggleLiveGpsTracker');
+      if (btn && !isTrackingServantLive) {
+        let msg = 'فعّل الـ GPS لتتبع موقعك';
+        if (err && err.code === 1) {
+          msg = 'اضغط هنا للسماح بإذن الـ GPS 📍';
+        } else if (err && err.code === 2) {
+          msg = 'شغّل الموقع (GPS) في جهازك 📍';
+        }
+        btn.innerHTML = `<span>⚠️</span> ${msg}`;
+        btn.style.background = 'rgba(245,158,11,0.18)';
+        btn.style.borderColor = 'rgba(245,158,11,0.5)';
+        btn.style.color = '#fbbf24';
+      }
+    }
+
+    // Stop live tracking
+    function stopLiveServantTracking() {
+      if (servantWatchId !== null) {
+        navigator.geolocation.clearWatch(servantWatchId);
+        servantWatchId = null;
+      }
+      if (servantLiveMarker && leafletMapInstance) {
+        leafletMapInstance.removeLayer(servantLiveMarker);
+        servantLiveMarker = null;
+      }
+      if (servantLiveCircle && leafletMapInstance) {
+        leafletMapInstance.removeLayer(servantLiveCircle);
+        servantLiveCircle = null;
+      }
+      isTrackingServantLive = false;
+      hasCenteredOnServant = false;
+      const btn = document.getElementById('btnToggleLiveGpsTracker');
+      if (btn) {
+        btn.style.background = 'rgba(59,130,246,0.15)';
+        btn.style.borderColor = 'rgba(59,130,246,0.4)';
+        btn.style.color = '#60a5fa';
+        btn.innerHTML = '<span>📱</span> تتبع موقعي الحي وأنا بتحرك';
+      }
+    }
+
+    // Toggle live tracking manually
+    function toggleLiveServantTracking() {
+      if (isTrackingServantLive) {
+        stopLiveServantTracking();
+      } else {
+        startLiveServantTracking(true);
+      }
     }
 
     function switchTab(tabId) {
@@ -23026,6 +23080,14 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
       }, 1200);
 
       renderInvitationRouteManifest(orderedRoute);
+
+      // Auto-prompt to open mobile GPS when map is opened
+      if (!isTrackingServantLive && !window._gpsAutoPrompted) {
+        window._gpsAutoPrompted = true;
+        setTimeout(() => {
+          startLiveServantTracking(true);
+        }, 400);
+      }
     }
 
     // Render Zone Selector Pills
