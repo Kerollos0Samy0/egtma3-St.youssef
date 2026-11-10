@@ -5607,6 +5607,9 @@
 
             <!-- Quick Action Buttons -->
             <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
+              <span class="badge" id="badgeOfflineMapReady" style="background:rgba(16,185,129,0.12);color:#34d399;border:1px solid rgba(16,185,129,0.3);font-size:0.75rem;padding:0.35rem 0.65rem;border-radius:var(--radius-md);display:inline-flex;align-items:center;gap:0.35rem;font-weight:700;" title="خريطة شوارع وبيوت القناطر الخيرية محملة بالكامل ومتاحة بدون نت">
+                <span>🟢</span> خريطة القناطر أوفلاين (جاهزة بدون نت)
+              </span>
               <button type="button" class="btn btn-sm" id="btnToggleLiveGpsTracker" onclick="toggleLiveServantTracking()" style="background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.4);color:#60a5fa;display:inline-flex;align-items:center;gap:0.4rem;font-weight:800;" title="تتبع موقع الموبايل المباشر وأنت تتحرك في الشارع لتسليم الإنفتيشن">
                 <span>📱</span> تتبع موقعي الحي وأنا بتحرك
               </button>
@@ -22820,9 +22823,20 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
           });
 
           // Fast, reliable CartoDB Voyager tiles with Arabic street names & zero throttling in Egypt
+          // 1. Online Google Maps Layer (Full coverage & high zoom)
           L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
-            maxZoom: 19,
-            subdomains: ['mt0', 'mt1', 'mt2', 'mt3'], maxZoom: 20
+            maxZoom: 20,
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+          }).addTo(leafletMapInstance);
+
+          // 2. Local Offline Qanater Streets & Houses Layer (Works 100% offline with 0 internet)
+          L.tileLayer('tiles/{z}/{x}/{y}.png', {
+            minZoom: 14,
+            maxZoom: 18,
+            bounds: [
+              [30.180, 31.120],
+              [30.208, 31.152]
+            ]
           }).addTo(leafletMapInstance);
 
           leafletMarkersGroup = L.layerGroup().addTo(leafletMapInstance);
@@ -22839,8 +22853,13 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
             attributionControl: false
           });
           L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
-            maxZoom: 19,
-            subdomains: ['mt0', 'mt1', 'mt2', 'mt3'], maxZoom: 20
+            maxZoom: 20,
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+          }).addTo(leafletMapInstance);
+          L.tileLayer('tiles/{z}/{x}/{y}.png', {
+            minZoom: 14,
+            maxZoom: 18,
+            bounds: [[30.180, 31.120], [30.208, 31.152]]
           }).addTo(leafletMapInstance);
           leafletMarkersGroup = L.layerGroup().addTo(leafletMapInstance);
         } catch (e2) {
@@ -23290,6 +23309,46 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
       } catch (e) {}
     }
 
+
+    // Register Service Worker for Offline PWA & Offline Qanater Map
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').then(() => {
+          console.log("Service Worker registered for offline Qanater maps.");
+        }).catch(() => {});
+      });
+    }
+
+    // Pre-cache Qanater Offline Map Tiles
+    function preloadQanaterOfflineTiles() {
+      if (!('caches' in window)) return;
+      caches.open('qanater-offline-v1').then(cache => {
+        cache.match('tiles/15/19126/13498.png').then(match => {
+          if (!match) {
+            const tileUrls = [];
+            for (let x = 19125; x <= 19128; x++) {
+              for (let y = 13497; y <= 13500; y++) {
+                tileUrls.push(`tiles/15/${x}/${y}.png`);
+              }
+            }
+            for (let x = 38251; x <= 38257; x++) {
+              for (let y = 26994; y <= 27000; y++) {
+                tileUrls.push(`tiles/16/${x}/${y}.png`);
+              }
+            }
+            tileUrls.forEach(u => {
+              fetch(u).then(r => { if (r.ok) cache.put(u, r); }).catch(() => {});
+            });
+          }
+        });
+      });
+    }
+    // Preload when idle
+    if (window.requestIdleCallback) {
+      window.requestIdleCallback(preloadQanaterOfflineTiles);
+    } else {
+      setTimeout(preloadQanaterOfflineTiles, 3000);
+    }
 
         // =====================================================</script>
 
