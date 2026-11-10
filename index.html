@@ -5607,7 +5607,7 @@
 
             <!-- Quick Action Buttons -->
             <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
-              <span class="badge" id="badgeOfflineMapReady" style="background:rgba(16,185,129,0.12);color:#34d399;border:1px solid rgba(16,185,129,0.3);font-size:0.75rem;padding:0.35rem 0.65rem;border-radius:var(--radius-md);display:inline-flex;align-items:center;gap:0.35rem;font-weight:700;" title="خريطة شوارع وبيوت القناطر الخيرية محملة بالكامل ومتاحة بدون نت">
+              <span class="badge" id="badgeOfflineMapReady" onclick="alert('🟢 خريطة القناطر الخيرية أوفلاين:\nتم تحميل وحفظ شوارع وبيوت القناطر بنجاح في جهازك، وتعمل الخريطة بالكامل حتى لو انقطع الإنترنت أثناء الافتقاد في الشارع!')" style="cursor:pointer;background:rgba(16,185,129,0.12);color:#34d399;border:1px solid rgba(16,185,129,0.3);font-size:0.75rem;padding:0.35rem 0.65rem;border-radius:var(--radius-md);display:inline-flex;align-items:center;gap:0.35rem;font-weight:700;" title="خريطة شوارع وبيوت القناطر الخيرية محملة بالكامل ومتاحة بدون نت">
                 <span>🟢</span> خريطة القناطر أوفلاين (جاهزة بدون نت)
               </span>
               <button type="button" class="btn btn-sm" id="btnToggleLiveGpsTracker" onclick="toggleLiveServantTracking()" style="background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.4);color:#60a5fa;display:inline-flex;align-items:center;gap:0.4rem;font-weight:800;" title="تتبع موقع الموبايل المباشر وأنت تتحرك في الشارع لتسليم الإنفتيشن">
@@ -6943,6 +6943,31 @@
   </div>
 
   <script>
+    // ==============================================
+    // GLOBAL INVITATION MAP, GPS ROUTING & LOCATION STATE
+    // (Declared with var to prevent any Temporal Dead Zone ReferenceError)
+    // ==============================================
+    var ST_MARY_CHURCH_LOCATION = {
+      name: 'كنيسة السيدة العذراء مريم بالقناطر الخيرية',
+      lat: 30.194388,
+      lng: 31.137859,
+      street: 'شارع 14، القناطر الخيرية (إيبارشية شبرا الخيمة وتوابعها)',
+      googleMapsUrl: 'https://maps.app.goo.gl/HoC27pF9KhZ6bP456',
+      plusCode: '54VQ+Q45 القناطر الخيرية'
+    };
+    var leafletMapInstance = null;
+    var leafletMarkersGroup = null;
+    var leafletRoutePolyline = null;
+    var currentMapZone = 'منطقة A'; // Default active zone
+    var currentMapFilter = 'all';  // 'all', 'needs_invitation', 'delivered'
+    var currentCalculatedRoute = [];
+    var ylcActiveMemberId = null;
+    var servantLiveMarker = null;
+    var servantLiveCircle = null;
+    var servantWatchId = null;
+    var isTrackingServantLive = false;
+    var hasCenteredOnServant = false;
+
   // ==============================================
   // SERVANT ROLES & ACCESS CONTROL CONFIGURATION
     // ==============================================
@@ -22484,22 +22509,7 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
     // ==============================================
     // INVITATION MAP, GPS ROUTING & LOCATION ENGINE
     // ==============================================
-    const ST_MARY_CHURCH_LOCATION = {
-      name: 'كنيسة السيدة العذراء مريم بالقناطر الخيرية',
-      lat: 30.194388,
-      lng: 31.137859,
-      street: 'شارع 14، القناطر الخيرية (إيبارشية شبرا الخيمة وتوابعها)',
-      googleMapsUrl: 'https://maps.app.goo.gl/HoC27pF9KhZ6bP456',
-      plusCode: '54VQ+Q45 القناطر الخيرية'
-    };
-
-    let leafletMapInstance = null;
-    let leafletMarkersGroup = null;
-    let leafletRoutePolyline = null;
-    let currentMapZone = 'منطقة A'; // Default active zone
-    let currentMapFilter = 'all';  // 'all', 'needs_invitation', 'delivered'
-    let currentCalculatedRoute = [];
-    let ylcActiveMemberId = null;
+    // (ST_MARY_CHURCH_LOCATION, leafletMapInstance, currentMapZone, currentMapFilter, currentCalculatedRoute are declared globally above to prevent TDZ)
 
     // Haversine Distance (meters)
     function calcDistanceMeters(lat1, lon1, lat2, lon2) {
@@ -22630,7 +22640,9 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
     // Open current route in Google Maps
     function openCurrentRouteInGoogleMaps() {
       if (!currentCalculatedRoute || currentCalculatedRoute.length === 0) {
-        alert("لا توجد بيوت مسجلة ومحددة في المسار حالياً.");
+        if (confirm("لا توجد بيوت مسجلة ومحددة في المسار حالياً.\nهل تريد فتح موقع كنيسة السيدة العذراء مريم بالقناطر في Google Maps لبدء التحرك؟")) {
+          window.open(ST_MARY_CHURCH_LOCATION.googleMapsUrl, '_blank');
+        }
         return;
       }
 
@@ -22649,11 +22661,7 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
     // ==============================================
     // LIVE SERVANT GPS TRACKING ON MAP (متحرك في الشارع)
     // ==============================================
-    let servantLiveMarker = null;
-    let servantLiveCircle = null;
-    let servantWatchId = null;
-    let isTrackingServantLive = false;
-    let hasCenteredOnServant = false;
+    // (servantLiveMarker, servantLiveCircle, servantWatchId, isTrackingServantLive, hasCenteredOnServant are declared globally above to prevent TDZ)
 
     // Start live servant GPS tracking (Requests browser permission immediately)
     function startLiveServantTracking(shouldRecenter = true) {
