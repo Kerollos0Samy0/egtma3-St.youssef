@@ -22483,9 +22483,11 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
     // ==============================================
     const ST_MARY_CHURCH_LOCATION = {
       name: 'كنيسة السيدة العذراء مريم بالقناطر الخيرية',
-      lat: 30.1932,
-      lng: 31.1370,
-      street: 'شارع الحرية، القناطر الخيرية'
+      lat: 30.194388,
+      lng: 31.137859,
+      street: 'شارع 14، القناطر الخيرية (إيبارشية شبرا الخيمة وتوابعها)',
+      googleMapsUrl: 'https://maps.app.goo.gl/HoC27pF9KhZ6bP456',
+      plusCode: '54VQ+Q45 القناطر الخيرية'
     };
 
     let leafletMapInstance = null;
@@ -22866,6 +22868,11 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
             <div style="font-weight:900;font-size:0.95rem;color:#4f46e5;margin-bottom:3px;">⛪ ${ST_MARY_CHURCH_LOCATION.name}</div>
             <div style="font-size:0.78rem;color:#475569;">📍 ${ST_MARY_CHURCH_LOCATION.street}</div>
             <div style="font-size:0.75rem;margin-top:4px;color:#059669;font-weight:700;">★ نقطة انطلاق وتجمع الخدام</div>
+            <div style="margin-top:6px;">
+              <a href="${ST_MARY_CHURCH_LOCATION.googleMapsUrl}" target="_blank" style="display:inline-flex;align-items:center;gap:3px;background:#3b82f6;color:#fff;font-size:0.74rem;font-weight:700;padding:3px 9px;border-radius:6px;text-decoration:none;">
+                <span>📍</span> فتح في Google Maps
+              </a>
+            </div>
           </div>
         `);
       leafletMarkersGroup.addLayer(churchMarker);
