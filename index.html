@@ -4932,6 +4932,12 @@
           </div>
 
           <button class="btn btn-brand-primary" id="openAddMemberModalBtn">+ إضافة مخدوم</button>
+          <a href="/location.html" target="_blank" class="btn btn-sm" style="background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.45);color:#34d399;font-weight:800;text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;" title="فتح صفحة تسجيل وتحديد لوكيشن بيوت الشباب">
+            📍 رابط تسجيل اللوكيشن ↗
+          </a>
+          <button type="button" class="btn btn-sm" onclick="setVisitationView('map'); switchTab('tabVisitation');" style="background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.45);color:#60a5fa;font-weight:800;display:inline-flex;align-items:center;gap:0.35rem;" title="فتح خريطة الإنفتيشن وأقصر خط سير">
+            🗺️ خريطة الإنفتيشن
+          </button>
           <button type="button" class="btn btn-gold btn-sm" onclick="openFastSenderModal()" title="إرسال كروت الـ QR بالواتساب لجميع الشباب بسرعة">
             🚀 إرسال كروت الـ QR بالواتساب
           </button>
@@ -15056,6 +15062,50 @@
   ]
 };
 
+    
+    // Helper function to normalize Arabic text for resilient search
+    function normArabic(s) {
+      if (!s) return "";
+      return s
+        .toLowerCase()
+        .replace(/[أإآ]/g, "ا")
+        .replace(/ة/g, "ه")
+        .replace(/ى/g, "ي")
+        .replace(/ؤ/g, "و")
+        .replace(/ئ/g, "ي")
+        .replace(/[ً-ٟ]/g, "")
+        .replace(/كارين/g, "كارن")
+        .replace(/دافيد/g, "ديفيد")
+        .trim();
+    }
+
+    // Dynamic College Stage Resolver
+    function getCollegeStage(m) {
+      if (!m) return 'أولى كلية';
+      if (m.collegeStage && m.collegeStage !== 'جامعي') return m.collegeStage;
+      const b = parseInt(m.batch);
+      if (b === 2008) return 'أولى كلية';
+      if (b === 2007) return 'تانية كلية';
+      if (b === 2006) return 'تالتة كلية';
+      if (b === 2005) return 'رابعة كلية';
+      if (b === 2004) return 'خامسة كلية';
+      if (b < 2004) return 'خريج';
+      return 'أولى كلية';
+    }
+
+    // Check if visitation/invitation is delivered this week
+    function isVisitationThisWeek(v) {
+      if (!v || !v.date) return false;
+      try {
+        const vDate = new Date(v.date);
+        const now = new Date();
+        const diffDays = Math.abs(now - vDate) / (1000 * 60 * 60 * 24);
+        return diffDays <= 7;
+      } catch (e) {
+        return false;
+      }
+    }
+
     let appData = JSON.parse(JSON.stringify(SEED_DATA));
     if (!appData.familyMeetings) appData.familyMeetings = [];
     if (!appData.adminNotifications) appData.adminNotifications = [];
@@ -22287,8 +22337,8 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
         alert(`عذراً، رقم هاتف ${m.name} غير متوفر.`);
         return;
       }
-      const baseUrl = window.location.origin + window.location.pathname;
-      const link = `${baseUrl}?loc=${encodeURIComponent(m.id)}`;
+      const baseUrl = window.location.origin;
+      const link = `${baseUrl}/location.html?id=${encodeURIComponent(m.id)}`;
       const firstName = (m.name || '').trim().split(' ')[0] || m.name;
       const msg = `سلام ومحبة يا ${firstName} 🌸\n` +
         `من كنيسة السيدة العذراء مريم بالقناطر (اجتماع يوسف الصديق).\n\n` +
