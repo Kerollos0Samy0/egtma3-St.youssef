@@ -7106,9 +7106,9 @@
   "church": "كنيسة السيدة العذراء مريم بالقناطر الخيرية",
   "year": "2026 - 2027",
   "stats": {
-    "totalMembers": 183,
-    "males": 102,
-    "females": 81,
+    "totalMembers": 185,
+    "males": 103,
+    "females": 82,
     "outsideQanater": 37
   },
   "members": [
@@ -12669,6 +12669,64 @@
       "points": 10,
       "mainFamily": "لم تحدد بعد",
       "subFamilies": []
+    },
+    {
+      "id": "YS-174",
+      "code": "YS-174",
+      "num": 184,
+      "name": "ابانوب سامح",
+      "gender": "شاب",
+      "role": "شاب",
+      "collegeStage": "أولى كلية",
+      "groupCode": "Missing",
+      "areaGroup": "غير محدد",
+      "family": "لم تحدد بعد",
+      "active": true,
+      "phone": "",
+      "phone2": "",
+      "father": "",
+      "fullAddress": "القناطر الخيرية",
+      "area": "",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "birthDateText": "",
+      "birthDateIso": null,
+      "college": "",
+      "age": 18,
+      "batch": "2008",
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
+    },
+    {
+      "id": "YS-175",
+      "code": "YS-175",
+      "num": 185,
+      "name": "مارينا جميل",
+      "gender": "شابة",
+      "role": "شابة",
+      "collegeStage": "أولى كلية",
+      "groupCode": "Missing",
+      "areaGroup": "غير محدد",
+      "family": "لم تحدد بعد",
+      "active": true,
+      "phone": "",
+      "phone2": "",
+      "father": "",
+      "fullAddress": "القناطر الخيرية",
+      "area": "",
+      "street": "",
+      "building": "",
+      "addressDesc": "",
+      "birthDateText": "",
+      "birthDateIso": null,
+      "college": "",
+      "age": 18,
+      "batch": "2008",
+      "points": 10,
+      "mainFamily": "لم تحدد بعد",
+      "subFamilies": []
     }
   ],
   "sessions": [
@@ -15354,6 +15412,8 @@
     }
 
     let appData = JSON.parse(JSON.stringify(SEED_DATA));
+    window.appData = appData;
+    window.SEED_DATA = SEED_DATA;
     if (!appData.familyMeetings) appData.familyMeetings = [];
     if (!appData.adminNotifications) appData.adminNotifications = [];
     let currentSessionId = "SES-01";
@@ -15573,6 +15633,7 @@
         if (typeof firebase !== 'undefined' && firebase.apps.length === 0) {
           firebase.initializeApp(firebaseConfig);
           db = firebase.firestore();
+          window.db = db;
 
           // Multi-tab offline persistence
           try {
