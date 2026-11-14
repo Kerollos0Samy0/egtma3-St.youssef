@@ -4892,7 +4892,6 @@
               </div>
               <div style="display:flex;gap:0.35rem;align-items:center;flex-wrap:wrap;">
                 <span style="font-size:0.75rem;color:var(--text-muted);font-weight:700;">بونص سريع:</span>
-                <button type="button" class="btn btn-xs" onclick="quickAddBonusFromScanner(10, 'mass', 'حضور قداس الخميس 7 ص')" style="background:rgba(234,179,8,0.15);color:#eab308;border:1px solid rgba(234,179,8,0.3);font-size:0.75rem;padding:0.2rem 0.5rem;" title="حضور قداس الخميس 7:00 ص">+10 قداس الخميس (7 ص) ⛪</button>
                 <button type="button" class="btn btn-xs" onclick="quickAddBonusFromScanner(10, 'bible_study', 'حضور الكتاب والتسبحة الأربعاء 7 م')" style="background:rgba(56,189,248,0.15);color:#38bdf8;border:1px solid rgba(56,189,248,0.3);font-size:0.75rem;padding:0.2rem 0.5rem;" title="حضور اجتماع الكتاب والتسبحة الأربعاء 7:00 م">+10 كتاب وتسبحة (الأربعاء 7 م) 📖</button>
                 <button type="button" class="btn btn-xs" onclick="quickAddBonusFromScanner(10, 'prayer_meeting', 'حضور اجتماع الصلاة الجمعة 8 م')" style="background:rgba(16,185,129,0.15);color:#34d399;border:1px solid rgba(16,185,129,0.3);font-size:0.75rem;padding:0.2rem 0.5rem;" title="حضور اجتماع الصلاة الجمعة 8:00 م">+10 صلاة الجمعة (8 م) 🕊️</button>
                 <button type="button" class="btn btn-xs" onclick="quickAddBonusFromScanner(5, 'early', 'حضور مبكر قبل 7 م')" style="background:rgba(245,158,11,0.15);color:#fbbf24;border:1px solid rgba(245,158,11,0.3);font-size:0.75rem;padding:0.2rem 0.5rem;" title="حضور مبكر قبل 7:00 م">+5 مبكر قبل 7 م ⏰</button>
@@ -5353,12 +5352,11 @@
       <!-- Meeting Type Filter Bar in Sessions Tab -->
       <div class="sessions-filter-toolbar" style="display:flex;align-items:center;gap:0.4rem;flex-wrap:wrap;margin-bottom:1rem;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:0.75rem 1rem;">
         <span style="font-size:0.85rem;font-weight:800;color:var(--text-main);margin-left:0.5rem;">تصفية حسب نوع اللقاء:</span>
-        <button type="button" class="pill-btn session-mtype-filter active" data-stype="all" onclick="filterSessionsTableType('all', this)">الكل (124)</button>
+        <button type="button" class="pill-btn session-mtype-filter active" data-stype="all" onclick="filterSessionsTableType('all', this)">الكل (96)</button>
         <button type="button" class="pill-btn session-mtype-filter" data-stype="youth" onclick="filterSessionsTableType('youth', this)">👥 اجتماع الشباب (25)</button>
-        <button type="button" class="pill-btn session-mtype-filter" data-stype="tasbeha" onclick="filterSessionsTableType('tasbeha', this)">🎶 التسبحة الكنسية (25)</button>
-        <button type="button" class="pill-btn session-mtype-filter" data-stype="bible" onclick="filterSessionsTableType('bible', this)">📖 محبي الكتاب (25)</button>
-        <button type="button" class="pill-btn session-mtype-filter" data-stype="liturgy" onclick="filterSessionsTableType('liturgy', this)">⛪ القداس الإلهي (25)</button>
-        <button type="button" class="pill-btn session-mtype-filter" data-stype="prayer" onclick="filterSessionsTableType('prayer', this)">🕊️ اجتماع الصلاة (24)</button>
+        <button type="button" class="pill-btn session-mtype-filter" data-stype="tasbeha" onclick="filterSessionsTableType('tasbeha', this)">🎶 التسبحة الكنسية (24)</button>
+        <button type="button" class="pill-btn session-mtype-filter" data-stype="bible" onclick="filterSessionsTableType('bible', this)">📖 محبي الكتاب (24)</button>
+        <button type="button" class="pill-btn session-mtype-filter" data-stype="prayer" onclick="filterSessionsTableType('prayer', this)">🕊️ اجتماع الصلاة (23)</button>
         <button type="button" class="pill-btn session-mtype-filter" data-stype="family" onclick="filterSessionsTableType('family', this)" style="border:1.5px solid rgba(16,185,129,0.5);color:#34d399;font-weight:800;">🏠 اجتماعات الأسر (بدون نقاط)</button>
       </div>
 
@@ -6176,7 +6174,6 @@
             <option value="youth">👥 اجتماع شباب رئيسي (+10 نقاط حضور)</option>
             <option value="tasbeha">🎶 التسبحة الكنسية والتماجيد (+10 نقاط)</option>
             <option value="bible">📖 محبي الكتاب ودراسة الكلمة (+10 نقاط)</option>
-            <option value="liturgy">⛪ صلاة القداس الإلهي (+10 نقاط)</option>
             <option value="prayer">🕊️ اجتماع الصلاة وساعة الطلبات (+10 نقاط)</option>
           </select>
         </div>
@@ -6812,7 +6809,6 @@
           <div>
             <label style="font-size:0.85rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:0.35rem;">البند السريع:</label>
             <select id="ptCategorySelect" class="session-select" style="width:100%;font-size:0.9rem;padding:0.55rem 0.85rem;" onchange="onPtCategoryChange()">
-              <option value="mass" data-pts="10">حضور قداس الخميس 7:00 ص (+10)</option>
               <option value="bible_study" data-pts="10">حضور الكتاب والتسبحة الأربعاء 7:00 م (+10)</option>
               <option value="prayer_meeting" data-pts="10">حضور اجتماع الصلاة الجمعة 8:00 م (+10)</option>
               <option value="youth_meeting" data-pts="10">حضور اجتماع الشباب الثلاثاء 7:00 م (+10)</option>
@@ -12888,20 +12884,6 @@
       "hasPoints": true
     },
     {
-      "id": "SES-LIT-01",
-      "date": "2026-11-05",
-      "day": "الخميس",
-      "time": "07:00 ص",
-      "meetingType": "liturgy",
-      "typeLabel": "⛪ القداس الإلهي",
-      "title": "صلاة القداس الإلهي وسر التناول",
-      "family": "الآباء الكهنة والشمامسة",
-      "attendees": [],
-      "week": 1,
-      "isSubMeeting": false,
-      "hasPoints": true
-    },
-    {
       "id": "SES-PRY-01",
       "date": "2026-11-06",
       "day": "الجمعة",
@@ -12952,20 +12934,6 @@
       "typeLabel": "📖 محبي الكتاب المقدس",
       "title": "اجتماع محبي الكتاب ودراسة الكلمة",
       "family": "أسرة الكتاب المقدس",
-      "attendees": [],
-      "week": 2,
-      "isSubMeeting": false,
-      "hasPoints": true
-    },
-    {
-      "id": "SES-LIT-02",
-      "date": "2026-11-12",
-      "day": "الخميس",
-      "time": "07:00 ص",
-      "meetingType": "liturgy",
-      "typeLabel": "⛪ القداس الإلهي",
-      "title": "صلاة القداس الإلهي وسر التناول",
-      "family": "الآباء الكهنة والشمامسة",
       "attendees": [],
       "week": 2,
       "isSubMeeting": false,
@@ -13028,20 +12996,6 @@
       "hasPoints": true
     },
     {
-      "id": "SES-LIT-03",
-      "date": "2026-11-19",
-      "day": "الخميس",
-      "time": "07:00 ص",
-      "meetingType": "liturgy",
-      "typeLabel": "⛪ القداس الإلهي",
-      "title": "صلاة القداس الإلهي وسر التناول",
-      "family": "الآباء الكهنة والشمامسة",
-      "attendees": [],
-      "week": 3,
-      "isSubMeeting": false,
-      "hasPoints": true
-    },
-    {
       "id": "SES-PRY-03",
       "date": "2026-11-20",
       "day": "الجمعة",
@@ -13092,20 +13046,6 @@
       "typeLabel": "📖 محبي الكتاب المقدس",
       "title": "اجتماع محبي الكتاب ودراسة الكلمة",
       "family": "أسرة الكتاب المقدس",
-      "attendees": [],
-      "week": 4,
-      "isSubMeeting": false,
-      "hasPoints": true
-    },
-    {
-      "id": "SES-LIT-04",
-      "date": "2026-11-26",
-      "day": "الخميس",
-      "time": "07:00 ص",
-      "meetingType": "liturgy",
-      "typeLabel": "⛪ القداس الإلهي",
-      "title": "صلاة القداس الإلهي وسر التناول",
-      "family": "الآباء الكهنة والشمامسة",
       "attendees": [],
       "week": 4,
       "isSubMeeting": false,
@@ -13168,20 +13108,6 @@
       "hasPoints": true
     },
     {
-      "id": "SES-LIT-05",
-      "date": "2026-12-03",
-      "day": "الخميس",
-      "time": "07:00 ص",
-      "meetingType": "liturgy",
-      "typeLabel": "⛪ القداس الإلهي",
-      "title": "صلاة القداس الإلهي وسر التناول",
-      "family": "الآباء الكهنة والشمامسة",
-      "attendees": [],
-      "week": 5,
-      "isSubMeeting": false,
-      "hasPoints": true
-    },
-    {
       "id": "SES-PRY-05",
       "date": "2026-12-04",
       "day": "الجمعة",
@@ -13232,20 +13158,6 @@
       "typeLabel": "📖 محبي الكتاب المقدس",
       "title": "اجتماع محبي الكتاب ودراسة الكلمة",
       "family": "أسرة الكتاب المقدس",
-      "attendees": [],
-      "week": 6,
-      "isSubMeeting": false,
-      "hasPoints": true
-    },
-    {
-      "id": "SES-LIT-06",
-      "date": "2026-12-10",
-      "day": "الخميس",
-      "time": "07:00 ص",
-      "meetingType": "liturgy",
-      "typeLabel": "⛪ القداس الإلهي",
-      "title": "صلاة القداس الإلهي وسر التناول",
-      "family": "الآباء الكهنة والشمامسة",
       "attendees": [],
       "week": 6,
       "isSubMeeting": false,
@@ -13308,20 +13220,6 @@
       "hasPoints": true
     },
     {
-      "id": "SES-LIT-07",
-      "date": "2026-12-17",
-      "day": "الخميس",
-      "time": "07:00 ص",
-      "meetingType": "liturgy",
-      "typeLabel": "⛪ القداس الإلهي",
-      "title": "صلاة القداس الإلهي وسر التناول",
-      "family": "الآباء الكهنة والشمامسة",
-      "attendees": [],
-      "week": 7,
-      "isSubMeeting": false,
-      "hasPoints": true
-    },
-    {
       "id": "SES-PRY-07",
       "date": "2026-12-18",
       "day": "الجمعة",
@@ -13372,20 +13270,6 @@
       "typeLabel": "📖 محبي الكتاب المقدس",
       "title": "اجتماع محبي الكتاب ودراسة الكلمة",
       "family": "أسرة الكتاب المقدس",
-      "attendees": [],
-      "week": 8,
-      "isSubMeeting": false,
-      "hasPoints": true
-    },
-    {
-      "id": "SES-LIT-08",
-      "date": "2026-12-24",
-      "day": "الخميس",
-      "time": "07:00 ص",
-      "meetingType": "liturgy",
-      "typeLabel": "⛪ القداس الإلهي",
-      "title": "صلاة القداس الإلهي وسر التناول",
-      "family": "الآباء الكهنة والشمامسة",
       "attendees": [],
       "week": 8,
       "isSubMeeting": false,
@@ -13448,20 +13332,6 @@
       "hasPoints": true
     },
     {
-      "id": "SES-LIT-10",
-      "date": "2026-12-31",
-      "day": "الخميس",
-      "time": "07:00 ص",
-      "meetingType": "liturgy",
-      "typeLabel": "⛪ القداس الإلهي",
-      "title": "صلاة القداس الإلهي وسر التناول",
-      "family": "الآباء الكهنة والشمامسة",
-      "attendees": [],
-      "week": 10,
-      "isSubMeeting": false,
-      "hasPoints": true
-    },
-    {
       "id": "SES-PRY-10",
       "date": "2027-01-01",
       "day": "الجمعة",
@@ -13512,20 +13382,6 @@
       "typeLabel": "📖 محبي الكتاب المقدس",
       "title": "اجتماع محبي الكتاب ودراسة الكلمة",
       "family": "أسرة الكتاب المقدس",
-      "attendees": [],
-      "week": 11,
-      "isSubMeeting": false,
-      "hasPoints": true
-    },
-    {
-      "id": "SES-LIT-11",
-      "date": "2027-01-14",
-      "day": "الخميس",
-      "time": "07:00 ص",
-      "meetingType": "liturgy",
-      "typeLabel": "⛪ القداس الإلهي",
-      "title": "صلاة القداس الإلهي وسر التناول",
-      "family": "الآباء الكهنة والشمامسة",
       "attendees": [],
       "week": 11,
       "isSubMeeting": false,
@@ -13588,20 +13444,6 @@
       "hasPoints": true
     },
     {
-      "id": "SES-LIT-12",
-      "date": "2027-01-21",
-      "day": "الخميس",
-      "time": "07:00 ص",
-      "meetingType": "liturgy",
-      "typeLabel": "⛪ القداس الإلهي",
-      "title": "صلاة القداس الإلهي وسر التناول",
-      "family": "الآباء الكهنة والشمامسة",
-      "attendees": [],
-      "week": 12,
-      "isSubMeeting": false,
-      "hasPoints": true
-    },
-    {
       "id": "SES-PRY-12",
       "date": "2027-01-22",
       "day": "الجمعة",
@@ -13652,20 +13494,6 @@
       "typeLabel": "📖 محبي الكتاب المقدس",
       "title": "اجتماع محبي الكتاب ودراسة الكلمة",
       "family": "أسرة الكتاب المقدس",
-      "attendees": [],
-      "week": 13,
-      "isSubMeeting": false,
-      "hasPoints": true
-    },
-    {
-      "id": "SES-LIT-13",
-      "date": "2027-01-28",
-      "day": "الخميس",
-      "time": "07:00 ص",
-      "meetingType": "liturgy",
-      "typeLabel": "⛪ القداس الإلهي",
-      "title": "صلاة القداس الإلهي وسر التناول",
-      "family": "الآباء الكهنة والشمامسة",
       "attendees": [],
       "week": 13,
       "isSubMeeting": false,
@@ -13728,20 +13556,6 @@
       "hasPoints": true
     },
     {
-      "id": "SES-LIT-14",
-      "date": "2027-02-04",
-      "day": "الخميس",
-      "time": "07:00 ص",
-      "meetingType": "liturgy",
-      "typeLabel": "⛪ القداس الإلهي",
-      "title": "صلاة القداس الإلهي وسر التناول",
-      "family": "الآباء الكهنة والشمامسة",
-      "attendees": [],
-      "week": 14,
-      "isSubMeeting": false,
-      "hasPoints": true
-    },
-    {
       "id": "SES-PRY-14",
       "date": "2027-02-05",
       "day": "الجمعة",
@@ -13792,20 +13606,6 @@
       "typeLabel": "📖 محبي الكتاب المقدس",
       "title": "اجتماع محبي الكتاب ودراسة الكلمة",
       "family": "أسرة الكتاب المقدس",
-      "attendees": [],
-      "week": 15,
-      "isSubMeeting": false,
-      "hasPoints": true
-    },
-    {
-      "id": "SES-LIT-15",
-      "date": "2027-02-11",
-      "day": "الخميس",
-      "time": "07:00 ص",
-      "meetingType": "liturgy",
-      "typeLabel": "⛪ القداس الإلهي",
-      "title": "صلاة القداس الإلهي وسر التناول",
-      "family": "الآباء الكهنة والشمامسة",
       "attendees": [],
       "week": 15,
       "isSubMeeting": false,
@@ -13868,20 +13668,6 @@
       "hasPoints": true
     },
     {
-      "id": "SES-LIT-16",
-      "date": "2027-02-18",
-      "day": "الخميس",
-      "time": "07:00 ص",
-      "meetingType": "liturgy",
-      "typeLabel": "⛪ القداس الإلهي",
-      "title": "صلاة القداس الإلهي وسر التناول",
-      "family": "الآباء الكهنة والشمامسة",
-      "attendees": [],
-      "week": 16,
-      "isSubMeeting": false,
-      "hasPoints": true
-    },
-    {
       "id": "SES-PRY-16",
       "date": "2027-02-19",
       "day": "الجمعة",
@@ -13932,20 +13718,6 @@
       "typeLabel": "📖 محبي الكتاب المقدس",
       "title": "اجتماع محبي الكتاب ودراسة الكلمة",
       "family": "أسرة الكتاب المقدس",
-      "attendees": [],
-      "week": 17,
-      "isSubMeeting": false,
-      "hasPoints": true
-    },
-    {
-      "id": "SES-LIT-17",
-      "date": "2027-02-25",
-      "day": "الخميس",
-      "time": "07:00 ص",
-      "meetingType": "liturgy",
-      "typeLabel": "⛪ القداس الإلهي",
-      "title": "صلاة القداس الإلهي وسر التناول",
-      "family": "الآباء الكهنة والشمامسة",
       "attendees": [],
       "week": 17,
       "isSubMeeting": false,
@@ -14008,20 +13780,6 @@
       "hasPoints": true
     },
     {
-      "id": "SES-LIT-18",
-      "date": "2027-03-04",
-      "day": "الخميس",
-      "time": "07:00 ص",
-      "meetingType": "liturgy",
-      "typeLabel": "⛪ القداس الإلهي",
-      "title": "صلاة القداس الإلهي وسر التناول",
-      "family": "الآباء الكهنة والشمامسة",
-      "attendees": [],
-      "week": 18,
-      "isSubMeeting": false,
-      "hasPoints": true
-    },
-    {
       "id": "SES-PRY-18",
       "date": "2027-03-05",
       "day": "الجمعة",
@@ -14072,20 +13830,6 @@
       "typeLabel": "📖 محبي الكتاب المقدس",
       "title": "اجتماع محبي الكتاب ودراسة الكلمة",
       "family": "أسرة الكتاب المقدس",
-      "attendees": [],
-      "week": 19,
-      "isSubMeeting": false,
-      "hasPoints": true
-    },
-    {
-      "id": "SES-LIT-19",
-      "date": "2027-03-11",
-      "day": "الخميس",
-      "time": "07:00 ص",
-      "meetingType": "liturgy",
-      "typeLabel": "⛪ القداس الإلهي",
-      "title": "صلاة القداس الإلهي وسر التناول",
-      "family": "الآباء الكهنة والشمامسة",
       "attendees": [],
       "week": 19,
       "isSubMeeting": false,
@@ -14148,20 +13892,6 @@
       "hasPoints": true
     },
     {
-      "id": "SES-LIT-20",
-      "date": "2027-03-18",
-      "day": "الخميس",
-      "time": "07:00 ص",
-      "meetingType": "liturgy",
-      "typeLabel": "⛪ القداس الإلهي",
-      "title": "صلاة القداس الإلهي وسر التناول",
-      "family": "الآباء الكهنة والشمامسة",
-      "attendees": [],
-      "week": 20,
-      "isSubMeeting": false,
-      "hasPoints": true
-    },
-    {
       "id": "SES-PRY-20",
       "date": "2027-03-19",
       "day": "الجمعة",
@@ -14212,20 +13942,6 @@
       "typeLabel": "📖 محبي الكتاب المقدس",
       "title": "اجتماع محبي الكتاب ودراسة الكلمة",
       "family": "أسرة الكتاب المقدس",
-      "attendees": [],
-      "week": 21,
-      "isSubMeeting": false,
-      "hasPoints": true
-    },
-    {
-      "id": "SES-LIT-21",
-      "date": "2027-03-25",
-      "day": "الخميس",
-      "time": "07:00 ص",
-      "meetingType": "liturgy",
-      "typeLabel": "⛪ القداس الإلهي",
-      "title": "صلاة القداس الإلهي وسر التناول",
-      "family": "الآباء الكهنة والشمامسة",
       "attendees": [],
       "week": 21,
       "isSubMeeting": false,
@@ -14288,20 +14004,6 @@
       "hasPoints": true
     },
     {
-      "id": "SES-LIT-22",
-      "date": "2027-04-01",
-      "day": "الخميس",
-      "time": "07:00 ص",
-      "meetingType": "liturgy",
-      "typeLabel": "⛪ القداس الإلهي",
-      "title": "صلاة القداس الإلهي وسر التناول",
-      "family": "الآباء الكهنة والشمامسة",
-      "attendees": [],
-      "week": 22,
-      "isSubMeeting": false,
-      "hasPoints": true
-    },
-    {
       "id": "SES-PRY-22",
       "date": "2027-04-02",
       "day": "الجمعة",
@@ -14352,20 +14054,6 @@
       "typeLabel": "📖 محبي الكتاب المقدس",
       "title": "اجتماع محبي الكتاب ودراسة الكلمة",
       "family": "أسرة الكتاب المقدس",
-      "attendees": [],
-      "week": 23,
-      "isSubMeeting": false,
-      "hasPoints": true
-    },
-    {
-      "id": "SES-LIT-23",
-      "date": "2027-04-08",
-      "day": "الخميس",
-      "time": "07:00 ص",
-      "meetingType": "liturgy",
-      "typeLabel": "⛪ القداس الإلهي",
-      "title": "صلاة القداس الإلهي وسر التناول",
-      "family": "الآباء الكهنة والشمامسة",
       "attendees": [],
       "week": 23,
       "isSubMeeting": false,
@@ -14428,20 +14116,6 @@
       "hasPoints": true
     },
     {
-      "id": "SES-LIT-24",
-      "date": "2027-04-15",
-      "day": "الخميس",
-      "time": "07:00 ص",
-      "meetingType": "liturgy",
-      "typeLabel": "⛪ القداس الإلهي",
-      "title": "صلاة القداس الإلهي وسر التناول",
-      "family": "الآباء الكهنة والشمامسة",
-      "attendees": [],
-      "week": 24,
-      "isSubMeeting": false,
-      "hasPoints": true
-    },
-    {
       "id": "SES-PRY-24",
       "date": "2027-04-16",
       "day": "الجمعة",
@@ -14492,20 +14166,6 @@
       "typeLabel": "📖 محبي الكتاب المقدس",
       "title": "اجتماع محبي الكتاب ودراسة الكلمة",
       "family": "أسرة الكتاب المقدس",
-      "attendees": [],
-      "week": 25,
-      "isSubMeeting": false,
-      "hasPoints": true
-    },
-    {
-      "id": "SES-LIT-25",
-      "date": "2027-04-22",
-      "day": "الخميس",
-      "time": "07:00 ص",
-      "meetingType": "liturgy",
-      "typeLabel": "⛪ القداس الإلهي",
-      "title": "صلاة القداس الإلهي وسر التناول",
-      "family": "الآباء الكهنة والشمامسة",
       "attendees": [],
       "week": 25,
       "isSubMeeting": false,
@@ -15331,6 +14991,21 @@
         }
         appData.deletedSessionIds = Array.from(deletedSessionIds);
 
+        // 1.5 Auto-purge Thursday liturgy sessions (عايز اشيل قداس الخميس)
+        try {
+          const litIds = (appData.sessions || [])
+            .filter(s => s && (s.meetingType === 'liturgy' || (s.id && s.id.startsWith('SES-LIT-')) || (s.title && s.title.includes('قداس الخميس'))))
+            .map(s => s.id);
+          if (litIds.length > 0) {
+            litIds.forEach(id => deletedSessionIds.add(id));
+            if (!appData.deletedSessionIds) appData.deletedSessionIds = [];
+            litIds.forEach(id => {
+              if (!appData.deletedSessionIds.includes(id)) appData.deletedSessionIds.push(id);
+            });
+            localStorage.setItem('st_youssef_deleted_sessions', JSON.stringify(Array.from(deletedSessionIds)));
+          }
+        } catch(e) {}
+
         // 2. Respect saved sessions and ensure deleted sessions NEVER resurrect on reload
         if (Array.isArray(appData.sessions) && appData.sessions.length > 0) {
           appData.sessions = appData.sessions.filter(s => s && s.id && !deletedSessionIds.has(s.id));
@@ -16009,6 +15684,29 @@
 
     function renderScannerWeekControls() {
       
+    // One-time purge of Thursday liturgy sessions
+    try {
+      if (localStorage.getItem('st_youssef_purged_liturgy_v3') !== 'true') {
+        const litIds = (appData.sessions || [])
+          .filter(s => s && (s.meetingType === 'liturgy' || (s.id && s.id.startsWith('SES-LIT-')) || (s.title && s.title.includes('قداس الخميس'))))
+          .map(s => s.id);
+        if (!appData.deletedSessionIds) appData.deletedSessionIds = [];
+        litIds.forEach(id => {
+          if (!appData.deletedSessionIds.includes(id)) appData.deletedSessionIds.push(id);
+        });
+        localStorage.setItem('st_youssef_deleted_sessions', JSON.stringify(appData.deletedSessionIds));
+        if (Array.isArray(appData.sessions)) {
+          appData.sessions = appData.sessions.filter(s => s && s.id && !litIds.includes(s.id) && s.meetingType !== 'liturgy' && !s.id.startsWith('SES-LIT-'));
+        }
+        if (!appData.sessions.some(s => s.id === currentSessionId)) {
+          const firstWeekly = appData.sessions.find(s => !isFamilySession(s)) || appData.sessions[0];
+          if (firstWeekly) currentSessionId = firstWeekly.id;
+        }
+        localStorage.setItem('st_youssef_purged_liturgy_v3', 'true');
+        saveLocalData();
+      }
+    } catch(e) {}
+
     // One-time purge of old placeholder family sessions so user starts with a clean slate
     try {
       if (localStorage.getItem('st_youssef_purged_old_fam_v2') !== 'true') {
@@ -16732,7 +16430,6 @@
         `دي مواعيد لمتنا كل أسبوع، متفوتهاش:\n` +
         `• 👥 *اجتماع الشباب:* الثلاثاء 7:00 م\n` +
         `• 📖 *كتاب مقدس وتسبحة:* الأربعاء 7:00 م\n` +
-        `• ⛪ *القداس الإلهي:* الخميس 7:00 ص\n` +
         `• 🕊️ *اجتماع الصلاة:* الجمعة 8:00 م\n\n` +
         `حضورك ولمتنا سوا بيفرّقوا جداً معانا ومستنيين نشوفك وسطنا دايماً! 🙏🤍`;
     }
