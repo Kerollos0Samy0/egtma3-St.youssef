@@ -5270,6 +5270,97 @@
     </div>
 
         <!-- ============================================== -->
+    <!-- TAB: YOUTH POINTS & LEADERBOARD (نظام النقاط) -->
+    <!-- ============================================== -->
+    <div class="tab-pane" id="tabPoints">
+      <!-- Header -->
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.15rem;flex-wrap:wrap;gap:0.85rem;">
+        <div>
+          <h2 style="font-size:1.35rem;font-weight:800;color:var(--accent-gold);display:flex;align-items:center;gap:0.5rem;margin:0;">
+            <span>⭐</span> نظام النقاط ولوحة الأوائل (شباب يوسف الصديق)
+          </h2>
+          <p style="font-size:0.85rem;color:var(--text-muted);margin-top:0.25rem;">
+            متابعة نقاط الحضور والقداسات والمسابقات، تكريم الأوائل، ورصد الألقاب التشجيعية (185 شاب وشابة).
+          </p>
+        </div>
+
+        <div style="display:flex;gap:0.55rem;align-items:center;flex-wrap:wrap;">
+          <button type="button" class="btn btn-sm btn-gold" id="btnOpenAddPointModal" onclick="openSinglePointModal()" title="إضافة أو خصم نقاط لعضو">
+            ➕ رصد نقاط لعضو
+          </button>
+          <button type="button" class="btn btn-sm" id="btnOpenBatchPointModal" onclick="openBatchPointModal()" style="background:rgba(245,158,11,0.15);color:#fbbf24;border:1px solid rgba(245,158,11,0.3);" title="إضافة بونص لجميع الحاضرين في لقاء اليوم">
+            ⚡ بونص جماعي للحاضرين
+          </button>
+          <button type="button" class="btn btn-sm" id="btnOpenGeneralPointsLogModal" onclick="openPointsLogModal()" style="border:1px solid var(--border);" title="عرض سجل كل العمليات">
+            📜 سجل العمليات
+          </button>
+          <button type="button" class="btn btn-sm btn-secondary" onclick="exportPointsLeaderboardToExcel()" title="تحميل شيت إكسيل بترتيب الأوائل">
+            📊 تصدير Excel
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Stats & Podium Section -->
+      <div class="points-podium-container" id="pointsPodiumContainer">
+        <!-- Rendered dynamically: Top 1, Top 2, Top 3 -->
+      </div>
+
+      <!-- Filters & Search Toolbar -->
+      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:0.85rem 1.15rem;margin-bottom:1.15rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.85rem;box-shadow:var(--shadow-sm);">
+        <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;flex:1;min-width:260px;">
+          <input type="text" id="pointsSearchInput" oninput="filterPointsLeaderboard()" class="search-input" style="max-width:280px;padding:0.45rem 0.85rem;font-size:0.85rem;" placeholder="🔍 ابحث بالاسم أو الكود...">
+          <select id="pointsStageFilter" onchange="filterPointsLeaderboard()" class="session-select-clean" style="font-size:0.82rem;padding:0.45rem 0.75rem;">
+            <option value="">جميع المراحل</option>
+            <option value="أولى كلية">أولى كلية</option>
+            <option value="تانية كلية">تانية كلية</option>
+            <option value="تالتة كلية">تالتة كلية</option>
+            <option value="رابعة كلية">رابعة كلية</option>
+            <option value="خامسة كلية">خامسة كلية</option>
+            <option value="خريج">خريجين</option>
+          </select>
+          <select id="pointsFamilyFilter" onchange="filterPointsLeaderboard()" class="session-select-clean" style="font-size:0.82rem;padding:0.45rem 0.75rem;">
+            <option value="">جميع الأسر</option>
+            <option value="أسرة 1">أسرة 1</option>
+            <option value="أسرة 2">أسرة 2</option>
+            <option value="أسرة 3">أسرة 3</option>
+          </select>
+          <select id="pointsRankFilter" onchange="filterPointsLeaderboard()" class="session-select-clean" style="font-size:0.82rem;padding:0.45rem 0.75rem;">
+            <option value="">جميع الرتب</option>
+            <option value="أسطورة">👑 أسطورة الاجتماع (300+)</option>
+            <option value="متميز">🏆 متميز (150-299)</option>
+            <option value="نشيط">🌟 نشيط (50-149)</option>
+            <option value="مبتدئ">🌱 مبتدئ (0-49)</option>
+          </select>
+        </div>
+
+        <div style="font-size:0.82rem;color:var(--text-muted);font-weight:700;">
+          إجمالي الشباب: <span id="pointsFilteredCount" style="color:var(--accent-gold);font-weight:900;">185</span>
+        </div>
+      </div>
+
+      <!-- Leaderboard Table -->
+      <div class="table-container" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-sm);">
+        <table class="data-table" id="pointsLeaderboardTable">
+          <thead>
+            <tr>
+              <th style="width:60px;text-align:center;">#</th>
+              <th>الشاب / الشابة</th>
+              <th>المرحلة الدراسية</th>
+              <th>الأسرة</th>
+              <th>الرتبة</th>
+              <th style="text-align:center;">مرات الحضور</th>
+              <th style="text-align:center;">إجمالي النقاط</th>
+              <th style="text-align:center;width:170px;">إجراءات</th>
+            </tr>
+          </thead>
+          <tbody id="pointsLeaderboardTbody">
+            <!-- Rendered by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ============================================== -->
     <!-- TAB: FAMILY EVALUATIONS & MONTHLY COMPETITION  -->
     <!-- ============================================== -->
     <div class="tab-pane" id="tabFamilyScores">
@@ -19274,6 +19365,9 @@
         const targetPane = document.getElementById(target);
         if (targetPane) targetPane.classList.add('active');
         if (typeof syncMobileNavActive === 'function') { syncMobileNavActive(target); }
+        if (target === 'tabPoints') {
+          renderPointsLeaderboard();
+        }
         if (target === 'tabVisitation') {
           setTimeout(() => {
             if (currentVisView === 'map') {
@@ -22763,6 +22857,9 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
         targetBtn.click();
       }
       syncMobileNavActive(tabId);
+      if (tabId === 'tabPoints') {
+        renderPointsLeaderboard();
+      }
       if (tabId === 'tabVisitation') {
         setTimeout(() => {
           if (currentVisView === 'map') {
