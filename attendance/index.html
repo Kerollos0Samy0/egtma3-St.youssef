@@ -6822,7 +6822,7 @@
           </div>
           <div>
             <label style="font-size:0.85rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:0.35rem;">السبب / المناسبة:</label>
-            <input type="text" id="ptReasonInput" class="search-input" value="حضور القداس الإلهي" required style="width:100%;font-size:0.9rem;">
+            <input type="text" id="ptReasonInput" class="search-input" value="مشاركة متميزة في الاجتماع" required style="width:100%;font-size:0.9rem;">
           </div>
         </div>
 
@@ -7045,19 +7045,22 @@
     function getVisibleSessions(allowAllForAdmin = false) {
       if (!appData || !Array.isArray(appData.sessions)) return [];
       
+      // Strictly filter out Thursday liturgy sessions everywhere
+      const validSessions = appData.sessions.filter(s => s && s.id && !s.id.startsWith('SES-LIT-') && s.meetingType !== 'liturgy');
+
       // Admin sees all in management table view if requested
       if (currentServantRole === 'admin' && allowAllForAdmin) {
-        return appData.sessions;
+        return validSessions;
       }
 
       // Cutoff limit applies to activeSessionSelect and non-admin servants (defaults to all approved sessions)
       const limit = authSettings.scheduleVisibleLimit || 'all';
       if (limit === 'all') {
-        return appData.sessions;
+        return validSessions;
       }
       const n = parseInt(limit, 10);
-      if (isNaN(n) || n <= 0) return appData.sessions;
-      return appData.sessions.slice(0, n);
+      if (isNaN(n) || n <= 0) return validSessions;
+      return validSessions.slice(0, n);
     }
 
     // Audio Synthesizer for instant feedback sounds (No audio files needed!)
@@ -15133,18 +15136,24 @@
         }
         appData.deletedSessionIds = Array.from(deletedSessionIds);
 
-        // 1.5 Auto-purge Thursday liturgy sessions (عايز اشيل قداس الخميس)
+        // 1.5 Permanent Purge of Thursday Liturgy from everywhere
         try {
-          const litIds = (appData.sessions || [])
-            .filter(s => s && (s.meetingType === 'liturgy' || (s.id && s.id.startsWith('SES-LIT-')) || (s.title && s.title.includes('قداس الخميس'))))
-            .map(s => s.id);
-          if (litIds.length > 0) {
-            litIds.forEach(id => deletedSessionIds.add(id));
-            if (!appData.deletedSessionIds) appData.deletedSessionIds = [];
-            litIds.forEach(id => {
-              if (!appData.deletedSessionIds.includes(id)) appData.deletedSessionIds.push(id);
-            });
-            localStorage.setItem('st_youssef_deleted_sessions', JSON.stringify(Array.from(deletedSessionIds)));
+          for (let i = 1; i <= 25; i++) {
+            const litId = 'SES-LIT-' + String(i).padStart(2, '0');
+            deletedSessionIds.add(litId);
+          }
+          if (!appData.deletedSessionIds) appData.deletedSessionIds = [];
+          deletedSessionIds.forEach(id => {
+            if (!appData.deletedSessionIds.includes(id)) appData.deletedSessionIds.push(id);
+          });
+          localStorage.setItem('st_youssef_deleted_sessions', JSON.stringify(appData.deletedSessionIds));
+
+          if (Array.isArray(appData.sessions)) {
+            appData.sessions = appData.sessions.filter(s => s && s.id && 
+              !s.id.startsWith('SES-LIT-') && 
+              s.meetingType !== 'liturgy' && 
+              !(s.day === 'الخميس' && s.title && s.title.includes('القداس'))
+            );
           }
         } catch(e) {}
 
@@ -15344,11 +15353,21 @@
           }, { merge: true }).catch(() => {});
         });
   
+        // Delete any existing SES-LIT-* sessions from Firestore cloud
+        for (let i = 1; i <= 25; i++) {
+          const litId = 'SES-LIT-' + String(i).padStart(2, '0');
+          sessionsCol.doc(litId).delete().catch(() => {});
+        }
+
         // 2. Real-time Listener for Sessions Attendance across ALL devices:
         sessionsCol.onSnapshot((querySnapshot) => {
           let hasNewChanges = false;
           querySnapshot.forEach((doc) => {
             const remoteSess = doc.data();
+            if (remoteSess && (remoteSess.meetingType === 'liturgy' || (remoteSess.id && remoteSess.id.startsWith('SES-LIT-')) || (remoteSess.day === 'الخميس' && remoteSess.title && remoteSess.title.includes('القداس')))) {
+              sessionsCol.doc(doc.id).delete().catch(() => {});
+              return;
+            }
             if (['SES-SUB-FAM-04', 'SES-SUB-FAM-05', 'SES-SUB-FAM-06'].includes(remoteSess.id)) return;
             let localSess = appData.sessions.find(s => s.id === remoteSess.id);
             if (localSess) {
@@ -15388,6 +15407,11 @@
               hasNewChanges = true;
             }
           });
+
+          // Ensure appData.sessions never retains any liturgy sessions from cloud
+          const preLen = appData.sessions.length;
+          appData.sessions = appData.sessions.filter(s => s && s.id && !s.id.startsWith('SES-LIT-') && s.meetingType !== 'liturgy');
+          if (appData.sessions.length !== preLen) hasNewChanges = true;
 
           if (hasNewChanges) {
             saveLocalData();
@@ -15815,6 +15839,18 @@
       return dateStr;
     }
 
+    function isLiturgySession(s) {
+      if (!s) return false;
+      const id = s.id || '';
+      const mtype = s.meetingType || '';
+      const title = s.title || '';
+      const day = s.day || '';
+      if (mtype === 'liturgy') return true;
+      if (id.startsWith('SES-LIT-') || id.includes('-LIT-')) return true;
+      if (title.includes('قداس') && (day.includes('خميس') || title.includes('خميس') || (s.date && new Date(s.date + 'T12:00:00Z').getDay() === 4))) return true;
+      return false;
+    }
+
     function getMeetingTypeMeta(session) {
       const mtype = session ? (session.meetingType || 'youth') : 'youth';
       if (mtype === 'family' || mtype === 'sub' || (session && session.isSubMeeting)) {
@@ -15829,7 +15865,6 @@
       if (mtype === 'youth') return { icon: '👥', label: 'اجتماع الشباب', short: 'الشباب', hasPoints: true };
       if (mtype === 'tasbeha') return { icon: '🎶', label: 'التسبحة الكنسية', short: 'التسبحة', hasPoints: true };
       if (mtype === 'bible') return { icon: '📖', label: 'محبي الكتاب المقدس', short: 'محبي الكتاب', hasPoints: true };
-      if (mtype === 'liturgy') return { icon: '⛪', label: 'صلاة القداس الإلهي', short: 'القداس', hasPoints: true };
       if (mtype === 'prayer') return { icon: '🕊️', label: 'اجتماع الصلاة', short: 'الصلاة', hasPoints: true };
       return { icon: '📅', label: session ? (session.title || 'لقاء') : 'لقاء', short: 'لقاء', hasPoints: true };
     }
@@ -15837,7 +15872,8 @@
     function getSessionsGroupedByWeek() {
       const grouped = {};
       (appData.sessions || []).forEach(s => {
-        if (isFamilySession(s)) return; // Strictly exclude family sessions from weekly groups
+        if (isFamilySession(s)) return;
+        if (typeof isLiturgySession === 'function' && isLiturgySession(s)) return;
         const wn = getSessionWeekNumber(s);
         if (!grouped[wn]) grouped[wn] = [];
         grouped[wn].push(s);
@@ -15847,26 +15883,19 @@
 
     function renderScannerWeekControls() {
       
-    // One-time purge of Thursday liturgy sessions
+    // Permanent purge of Thursday liturgy sessions on every render
     try {
-      if (localStorage.getItem('st_youssef_purged_liturgy_v3') !== 'true') {
-        const litIds = (appData.sessions || [])
-          .filter(s => s && (s.meetingType === 'liturgy' || (s.id && s.id.startsWith('SES-LIT-')) || (s.title && s.title.includes('قداس الخميس'))))
-          .map(s => s.id);
-        if (!appData.deletedSessionIds) appData.deletedSessionIds = [];
-        litIds.forEach(id => {
-          if (!appData.deletedSessionIds.includes(id)) appData.deletedSessionIds.push(id);
-        });
-        localStorage.setItem('st_youssef_deleted_sessions', JSON.stringify(appData.deletedSessionIds));
-        if (Array.isArray(appData.sessions)) {
-          appData.sessions = appData.sessions.filter(s => s && s.id && !litIds.includes(s.id) && s.meetingType !== 'liturgy' && !s.id.startsWith('SES-LIT-'));
-        }
-        if (!appData.sessions.some(s => s.id === currentSessionId)) {
-          const firstWeekly = appData.sessions.find(s => !isFamilySession(s)) || appData.sessions[0];
-          if (firstWeekly) currentSessionId = firstWeekly.id;
-        }
-        localStorage.setItem('st_youssef_purged_liturgy_v3', 'true');
-        saveLocalData();
+      if (Array.isArray(appData.sessions)) {
+        appData.sessions = appData.sessions.filter(s => s && s.id && 
+          !s.id.startsWith('SES-LIT-') && 
+          s.meetingType !== 'liturgy' && 
+          !(s.day === 'الخميس' && s.title && s.title.includes('القداس'))
+        );
+      }
+      const curS = getCurrentSession();
+      if (curS && (curS.meetingType === 'liturgy' || (curS.id && curS.id.startsWith('SES-LIT-')))) {
+        const firstWeekly = appData.sessions.find(s => !isFamilySession(s) && !s.id.startsWith('SES-LIT-')) || appData.sessions[0];
+        if (firstWeekly) currentSessionId = firstWeekly.id;
       }
     } catch(e) {}
 
@@ -21451,7 +21480,7 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
       document.getElementById('ptOperationType').value = opType;
       document.getElementById('ptCategorySelect').value = 'mass';
       document.getElementById('ptAmountInput').value = '10';
-      document.getElementById('ptReasonInput').value = 'حضور القداس الإلهي';
+      document.getElementById('ptReasonInput').value = 'مشاركة متميزة في الاجتماع';
       document.getElementById('ptNotesInput').value = '';
 
       onPtMemberSelectChange();
