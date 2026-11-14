@@ -388,7 +388,7 @@
       transform: translateY(-2px);
     }
 
-    /* Structured Filter Panel (Clean & Segmented Brand Design) */
+    /* Structured Filter Panel (Clean, Perfectly Aligned & Modern) */
     .members-filter-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -397,58 +397,103 @@
       margin-bottom: 1.25rem;
       display: flex;
       flex-direction: column;
-      gap: 0.85rem;
+      gap: 0.4rem;
       box-shadow: var(--shadow-lg);
     }
 
     .filter-row {
-      display: flex;
+      display: grid;
+      grid-template-columns: 130px 1fr;
       align-items: center;
       gap: 0.85rem;
-      flex-wrap: wrap;
+      padding: 0.45rem 0.5rem;
+      border-radius: var(--radius-md);
+      transition: all 0.2s ease;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .filter-row:last-child {
+      border-bottom: none;
+    }
+
+    .filter-row:hover {
+      background: rgba(255, 255, 255, 0.02);
     }
 
     .filter-row-label {
-      font-size: 0.82rem;
+      font-size: 0.84rem;
       font-weight: 800;
       color: var(--accent-gold);
-      min-width: 65px;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      white-space: nowrap;
     }
 
     .filter-pills-wrap {
       display: flex;
       align-items: center;
-      gap: 0.4rem;
+      gap: 0.45rem;
       flex-wrap: wrap;
     }
 
     .pill-btn {
-      padding: 0.3rem 0.75rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.35rem 0.8rem;
       border-radius: var(--radius-full);
       font-family: inherit;
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       font-weight: 700;
       cursor: pointer;
-      border: 1px solid rgba(148, 163, 184, 0.2);
-      background: rgba(15, 23, 42, 0.6);
-      color: var(--text-muted);
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      background: rgba(15, 23, 42, 0.65);
+      color: #cbd5e1;
       transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       outline: none;
+      user-select: none;
+      white-space: nowrap;
     }
 
     .pill-btn:hover {
-      background: rgba(255, 255, 255, 0.08);
-      color: var(--text-main);
-      border-color: rgba(16, 185, 129, 0.4);
+      background: rgba(30, 41, 59, 0.9);
+      color: #ffffff;
+      border-color: rgba(245, 158, 11, 0.45);
+      transform: translateY(-1px);
     }
 
-    /* Active Brand State (St. Youssef Emerald Green) */
-    .pill-btn.active, .btn.group-filter-btn.active, .btn.stage-filter-btn.active, .btn.badge-stage-btn.active, .btn.gender-filter-btn.active {
-      background: #1e293b !important;
-      color: #f8fafc !important;
-      border-color: var(--accent-gold) !important;
+    /* Active Brand State */
+    .pill-btn.active, 
+    .btn.group-filter-btn.active, 
+    .btn.stage-filter-btn.active, 
+    .btn.badge-stage-btn.active, 
+    .btn.gender-filter-btn.active,
+    .btn.main-fam-filter-btn.active,
+    .btn.sub-fam-filter-btn.active {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.22), rgba(217, 119, 6, 0.3)) !important;
+      color: #fbbf24 !important;
+      border-color: #f59e0b !important;
       font-weight: 800 !important;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25) !important;
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.25) !important;
+    }
+
+    .pill-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.72rem;
+      padding: 0.05rem 0.38rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: inherit;
+      pointer-events: none;
+    }
+
+    .pill-btn.active .pill-count {
+      background: rgba(245, 158, 11, 0.35);
+      color: #ffffff;
+      font-weight: 800;
     }
 
     body.light-theme .pill-btn.active, 
@@ -4955,7 +5000,7 @@
             <input type="text" id="badgeSearchInput" class="search-input" style="padding:0.6rem 1rem;font-size:0.9rem;" placeholder="🔍 ابحث بالاسم، الكود، الموبايل، أو العنوان...">
           </div>
           <div style="font-size:0.82rem;font-weight:700;color:var(--text-muted);">
-            المعروض: <strong id="displayedBadgesCount" style="color:var(--accent-gold);">157</strong> كارت
+            المعروض: <strong id="displayedBadgesCount" style="color:var(--accent-gold);">185</strong> كارت
           </div>
         </div>
 
@@ -4963,15 +5008,14 @@
           <!-- Group Filters -->
           <div class="pills-subgroup">
             <span class="pills-label" style="font-weight:800;color:var(--brand-gold);">المجموعة:</span>
-            <button class="pill-btn group-filter-btn active" data-grp="all">الكل</button>
-            <button class="pill-btn group-filter-btn" data-grp="خدام" style="border:1.5px solid rgba(245,158,11,0.6);color:var(--accent-gold);font-weight:800;background:rgba(245,158,11,0.08);">✝️ خُدام وخادمات الاجتماع</button>
-            <button class="pill-btn group-filter-btn" data-grp="خدام" style="border:1.5px solid rgba(245,158,11,0.6);color:var(--accent-gold);font-weight:800;background:rgba(245,158,11,0.08);">✝️ خُدام وخادمات الاجتماع</button>
-            <button class="pill-btn group-filter-btn" data-grp="A">A</button>
-            <button class="pill-btn group-filter-btn" data-grp="B">B</button>
-            <button class="pill-btn group-filter-btn" data-grp="C">C</button>
-            <button class="pill-btn group-filter-btn" data-grp="D">D</button>
-            <button class="pill-btn group-filter-btn" data-grp="E">E</button>
-            <button class="pill-btn group-filter-btn" data-grp="T">T (خارج القناطر)</button>
+            <button class="pill-btn group-filter-btn active" data-grp="all">الكل <span class="pill-count">185</span></button>
+            <button class="pill-btn group-filter-btn" data-grp="خدام" style="border:1.5px solid rgba(245,158,11,0.6);color:var(--accent-gold);font-weight:800;background:rgba(245,158,11,0.08);">✝️ خُدام الاجتماع <span class="pill-count">21</span></button>
+            <button class="pill-btn group-filter-btn" data-grp="A">منطقة A <span class="pill-count">17</span></button>
+            <button class="pill-btn group-filter-btn" data-grp="B">منطقة B <span class="pill-count">14</span></button>
+            <button class="pill-btn group-filter-btn" data-grp="C">منطقة C <span class="pill-count">22</span></button>
+            <button class="pill-btn group-filter-btn" data-grp="D">منطقة D <span class="pill-count">11</span></button>
+            <button class="pill-btn group-filter-btn" data-grp="E">منطقة E <span class="pill-count">21</span></button>
+            <button class="pill-btn group-filter-btn" data-grp="T">منطقة T <span class="pill-count">37</span></button>
           </div>
 
           <!-- Stage Filters -->
@@ -4999,7 +5043,7 @@
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.15rem;flex-wrap:wrap;gap:0.75rem;">
         <div>
           <h2 style="font-size:1.35rem;font-weight:800;color:var(--brand-gold);display:flex;align-items:center;gap:0.5rem;margin:0;">
-            <span>👥</span> دليل شباب وخُدام الاجتماع (<span id="totalMembersHeader">157</span>)
+            <span>👥</span> دليل شباب وخُدام الاجتماع (<span id="totalMembersHeader">185</span>)
           </h2>
           <p style="font-size:0.85rem;color:var(--text-muted);margin-top:0.2rem;">إدارة قاعدة بيانات المخدومين والمجموعات السكنية وأرقام التواصل.</p>
         </div>
@@ -5034,80 +5078,87 @@
 
       <!-- Organized Brand Filter Card -->
       <div class="members-filter-card">
-        <!-- Quick Search & Count -->
-        <div class="filter-search-row">
-          <div class="filter-search-wrap">
+        <!-- Quick Search & Count & Reset -->
+        <div class="filter-search-row" style="display:flex;align-items:center;justify-content:space-between;gap:0.75rem;flex-wrap:wrap;padding-bottom:0.25rem;">
+          <div class="filter-search-wrap" style="flex:1;min-width:260px;">
             <span class="search-icon">🔍</span>
             <input type="text" id="memberSearchInput" class="member-search-box" placeholder="ابحث بالاسم، الكود، التليفون، المنطقة، أو أب الاعتراف...">
           </div>
-          <div class="filter-count-badge">
-            المعروض: <strong id="displayedMembersCount" style="color:var(--accent-emerald);">157</strong> عضو
+          <div style="display:flex;align-items:center;gap:0.65rem;">
+            <button type="button" class="btn btn-sm" onclick="resetAllDirectoryFilters()" style="background:rgba(255,255,255,0.06);border:1px solid var(--border);color:var(--text-muted);font-weight:700;font-size:0.78rem;padding:0.4rem 0.75rem;border-radius:var(--radius-full);cursor:pointer;display:inline-flex;align-items:center;gap:0.35rem;" title="إعادة تعيين كافة الفلاتر والبحث">
+              🔄 إعادة ضبط
+            </button>
+            <div class="filter-count-badge">
+              المعروض: <strong id="displayedMembersCount" style="color:var(--accent-emerald);">185</strong> عضو
+            </div>
           </div>
         </div>
 
-        <div class="filter-divider"></div>
+        <div class="filter-divider" style="margin:0.25rem 0 0.5rem 0;"></div>
 
-        <!-- Filter Strips (Touch-swipeable on mobile) -->
+        <!-- Filter Rows (Grid aligned: 130px label + pills) -->
         <!-- Row 1: Area Filter (المناطق السكنية) -->
         <div class="filter-row">
-          <span class="filter-row-label">المنطقة:</span>
+          <span class="filter-row-label">📍 المنطقة:</span>
           <div class="filter-pills-wrap">
-            <button class="pill-btn group-filter-btn active" data-grp="all">الكل (157)</button>
-            <button class="pill-btn group-filter-btn" data-grp="A">منطقة A</button>
-            <button class="pill-btn group-filter-btn" data-grp="B">منطقة B</button>
-            <button class="pill-btn group-filter-btn" data-grp="C">منطقة C</button>
-            <button class="pill-btn group-filter-btn" data-grp="D">منطقة D</button>
-            <button class="pill-btn group-filter-btn" data-grp="E">منطقة E</button>
-            <button class="pill-btn group-filter-btn" data-grp="T">منطقة T (خارج القناطر)</button>
+            <button class="pill-btn group-filter-btn active" data-grp="all">الكل <span class="pill-count">185</span></button>
+            <button class="pill-btn group-filter-btn" data-grp="A">منطقة A <span class="pill-count">17</span></button>
+            <button class="pill-btn group-filter-btn" data-grp="B">منطقة B <span class="pill-count">14</span></button>
+            <button class="pill-btn group-filter-btn" data-grp="C">منطقة C <span class="pill-count">22</span></button>
+            <button class="pill-btn group-filter-btn" data-grp="D">منطقة D <span class="pill-count">11</span></button>
+            <button class="pill-btn group-filter-btn" data-grp="E">منطقة E <span class="pill-count">21</span></button>
+            <button class="pill-btn group-filter-btn" data-grp="T">منطقة T (خارج القناطر) <span class="pill-count">37</span></button>
+            <button class="pill-btn group-filter-btn" data-grp="خدام" style="border-color:rgba(245,158,11,0.5);color:var(--accent-gold);">✝️ خُدام الاجتماع <span class="pill-count">21</span></button>
+            <button class="pill-btn group-filter-btn" data-grp="Missing">غير محدد <span class="pill-count">42</span></button>
           </div>
         </div>
 
         <!-- Row 2: College Stages Filter -->
         <div class="filter-row">
-          <span class="filter-row-label">المرحلة:</span>
+          <span class="filter-row-label">🎓 المرحلة:</span>
           <div class="filter-pills-wrap">
-            <button class="pill-btn stage-filter-btn active" data-stage="all">الكل (185)</button>
-            <button class="pill-btn stage-filter-btn" data-stage="أولى كلية">أولى كلية (38)</button>
-            <button class="pill-btn stage-filter-btn" data-stage="تانية كلية">تانية كلية (29)</button>
-            <button class="pill-btn stage-filter-btn" data-stage="تالتة كلية">تالتة كلية (46)</button>
-            <button class="pill-btn stage-filter-btn" data-stage="رابعة كلية">رابعة كلية (19)</button>
-            <button class="pill-btn stage-filter-btn" data-stage="خامسة كلية">خامسة كلية (19)</button>
-            <button class="pill-btn stage-filter-btn" data-stage="خريج">خريجين (13)</button>
+            <button class="pill-btn stage-filter-btn active" data-stage="all">الكل <span class="pill-count">185</span></button>
+            <button class="pill-btn stage-filter-btn" data-stage="أولى كلية">أولى كلية <span class="pill-count">38</span></button>
+            <button class="pill-btn stage-filter-btn" data-stage="تانية كلية">تانية كلية <span class="pill-count">29</span></button>
+            <button class="pill-btn stage-filter-btn" data-stage="تالتة كلية">تالتة كلية <span class="pill-count">46</span></button>
+            <button class="pill-btn stage-filter-btn" data-stage="رابعة كلية">رابعة كلية <span class="pill-count">19</span></button>
+            <button class="pill-btn stage-filter-btn" data-stage="خامسة كلية">خامسة كلية <span class="pill-count">19</span></button>
+            <button class="pill-btn stage-filter-btn" data-stage="خريج" style="border-color:rgba(245,158,11,0.5);color:var(--accent-gold);">🎓 خريجين <span class="pill-count">13</span></button>
           </div>
         </div>
 
         <!-- Row 3: Gender Filter -->
         <div class="filter-row">
-          <span class="filter-row-label">النوع:</span>
+          <span class="filter-row-label">👥 النوع:</span>
           <div class="filter-pills-wrap">
-            <button class="pill-btn gender-filter-btn active" data-gen="all">الكل (185)</button>
-            <button class="pill-btn gender-filter-btn" data-gen="شاب">شباب (103)</button>
-            <button class="pill-btn gender-filter-btn" data-gen="شابة">شابات (82)</button>
+            <button class="pill-btn gender-filter-btn active" data-gen="all">الكل <span class="pill-count">185</span></button>
+            <button class="pill-btn gender-filter-btn" data-gen="شاب">👦 شباب <span class="pill-count">103</span></button>
+            <button class="pill-btn gender-filter-btn" data-gen="شابة">👧 شابات <span class="pill-count">82</span></button>
           </div>
         </div>
 
         <!-- Row 4: Main Family Filter (الأسر الرئيسية الثلاث) -->
         <div class="filter-row">
-          <span class="filter-row-label">الأسرة الرئيسية:</span>
+          <span class="filter-row-label">🏠 الأسرة:</span>
           <div class="filter-pills-wrap">
-            <button class="pill-btn main-fam-filter-btn active" data-mfam="all">الكل</button>
+            <button class="pill-btn main-fam-filter-btn active" data-mfam="all">الكل <span class="pill-count">185</span></button>
             <button class="pill-btn main-fam-filter-btn" data-mfam="أسرة 1">أسرة 1</button>
-            <button class="pill-btn main-fam-filter-btn" data-mfam="أسرة 2">أسرة 2</button>
+            <button class="pill-btn main-fam-filter-btn" data-mfam="أسرة 2">أسرة 2 <span class="pill-count">18</span></button>
             <button class="pill-btn main-fam-filter-btn" data-mfam="أسرة 3">أسرة 3</button>
-            <button class="pill-btn main-fam-filter-btn" data-mfam="لم تحدد بعد">لم تحدد بعد</button>
+            <button class="pill-btn main-fam-filter-btn" data-mfam="لم تحدد بعد">لم تحدد بعد <span class="pill-count">166</span></button>
           </div>
         </div>
 
         <!-- Row 5: Sub-Families Filter (الأسر الفرعية والأنشطة) -->
         <div class="filter-row" style="margin-bottom:0;">
-          <span class="filter-row-label">الأسر الفرعية:</span>
+          <span class="filter-row-label">🏷️ الأنشطة:</span>
           <div class="filter-pills-wrap">
             <button class="pill-btn sub-fam-filter-btn active" data-subfam="all">الكل</button>
-            <button class="pill-btn sub-fam-filter-btn" data-subfam="أسرة Revive">🏠 أسرة Revive</button>
-            <button class="pill-btn sub-fam-filter-btn" data-subfam="أسرة قلب واحد">🏠 أسرة قلب واحد</button>
-            <button class="pill-btn sub-fam-filter-btn" data-subfam="أسرة الميديا">أسرة الميديا</button>
-            <button class="pill-btn sub-fam-filter-btn" data-subfam="أسرة الأنشطة">أسرة الأنشطة</button>
-            <button class="pill-btn sub-fam-filter-btn" data-subfam="أسرة الافتقاد">أسرة الافتقاد</button>
+            <button class="pill-btn sub-fam-filter-btn" data-subfam="Revive">🏠 أسرة Revive <span class="pill-count">2</span></button>
+            <button class="pill-btn sub-fam-filter-btn" data-subfam="قلب واحد">🏠 أسرة قلب واحد <span class="pill-count">2</span></button>
+            <button class="pill-btn sub-fam-filter-btn" data-subfam="الميديا">🎨 أسرة الميديا <span class="pill-count">2</span></button>
+            <button class="pill-btn sub-fam-filter-btn" data-subfam="الأنشطة">⚽ أسرة الأنشطة <span class="pill-count">1</span></button>
+            <button class="pill-btn sub-fam-filter-btn" data-subfam="الافتقاد">🤝 أسرة الافتقاد <span class="pill-count">1</span></button>
           </div>
         </div>
       </div>
@@ -20984,47 +21035,74 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
     initTheme();
 
     
-    // Group and Gender Filter Event Listeners
+    // Reset All Directory Filters function
+    function resetAllDirectoryFilters() {
+      selectedGroupFilter = 'all';
+      selectedStageFilter = 'all';
+      selectedGenderFilter = 'all';
+      selectedMainFamilyFilter = 'all';
+      selectedSubFamilyFilter = 'all';
+      memberSearchQuery = '';
+      const searchInput = document.getElementById('memberSearchInput');
+      if (searchInput) searchInput.value = '';
+
+      document.querySelectorAll('.group-filter-btn').forEach(b => b.classList.toggle('active', b.getAttribute('data-grp') === 'all'));
+      document.querySelectorAll('.stage-filter-btn').forEach(b => b.classList.toggle('active', b.getAttribute('data-stage') === 'all'));
+      document.querySelectorAll('.gender-filter-btn').forEach(b => b.classList.toggle('active', b.getAttribute('data-gen') === 'all'));
+      document.querySelectorAll('.main-fam-filter-btn').forEach(b => b.classList.toggle('active', b.getAttribute('data-mfam') === 'all'));
+      document.querySelectorAll('.sub-fam-filter-btn').forEach(b => b.classList.toggle('active', b.getAttribute('data-subfam') === 'all'));
+
+      renderMembersTable();
+    }
+
+    // Group and Gender Filter Event Listeners (with closest() support for count spans)
     document.addEventListener('click', (e) => {
-      if (e.target.classList.contains('group-filter-btn')) {
+      const grpBtn = e.target.closest('.group-filter-btn');
+      if (grpBtn) {
         document.querySelectorAll('.group-filter-btn').forEach(b => b.classList.remove('btn-gold', 'active'));
-        e.target.classList.add('btn-gold', 'active');
-        selectedGroupFilter = e.target.getAttribute('data-grp');
+        grpBtn.classList.add('btn-gold', 'active');
+        selectedGroupFilter = grpBtn.getAttribute('data-grp');
         renderMembersTable();
         renderBadges();
       }
       
-      if (e.target.classList.contains('stage-filter-btn')) {
+      const stgBtn = e.target.closest('.stage-filter-btn');
+      if (stgBtn) {
         document.querySelectorAll('.stage-filter-btn').forEach(b => b.classList.remove('btn-gold', 'active'));
-        e.target.classList.add('btn-gold', 'active');
-        selectedStageFilter = e.target.getAttribute('data-stage');
+        stgBtn.classList.add('btn-gold', 'active');
+        selectedStageFilter = stgBtn.getAttribute('data-stage');
         renderMembersTable();
       }
-      if (e.target.classList.contains('badge-stage-btn')) {
+
+      const bStgBtn = e.target.closest('.badge-stage-btn');
+      if (bStgBtn) {
         document.querySelectorAll('.badge-stage-btn').forEach(b => b.classList.remove('btn-gold', 'active'));
-        e.target.classList.add('btn-gold', 'active');
-        selectedBadgeStageFilter = e.target.getAttribute('data-stage');
+        bStgBtn.classList.add('btn-gold', 'active');
+        selectedBadgeStageFilter = bStgBtn.getAttribute('data-stage');
         renderBadges();
       }
 
-      if (e.target.classList.contains('gender-filter-btn')) {
+      const genBtn = e.target.closest('.gender-filter-btn');
+      if (genBtn) {
         document.querySelectorAll('.gender-filter-btn').forEach(b => b.classList.remove('btn-gold', 'active'));
-        e.target.classList.add('btn-gold', 'active');
-        selectedGenderFilter = e.target.getAttribute('data-gen');
+        genBtn.classList.add('btn-gold', 'active');
+        selectedGenderFilter = genBtn.getAttribute('data-gen');
         renderMembersTable();
       }
 
-      if (e.target.classList.contains('main-fam-filter-btn')) {
+      const mFamBtn = e.target.closest('.main-fam-filter-btn');
+      if (mFamBtn) {
         document.querySelectorAll('.main-fam-filter-btn').forEach(b => b.classList.remove('btn-gold', 'active'));
-        e.target.classList.add('btn-gold', 'active');
-        selectedMainFamilyFilter = e.target.getAttribute('data-mfam');
+        mFamBtn.classList.add('btn-gold', 'active');
+        selectedMainFamilyFilter = mFamBtn.getAttribute('data-mfam');
         renderMembersTable();
       }
 
-      if (e.target.classList.contains('sub-fam-filter-btn')) {
+      const sFamBtn = e.target.closest('.sub-fam-filter-btn');
+      if (sFamBtn) {
         document.querySelectorAll('.sub-fam-filter-btn').forEach(b => b.classList.remove('btn-gold', 'active'));
-        e.target.classList.add('btn-gold', 'active');
-        selectedSubFamilyFilter = e.target.getAttribute('data-subfam');
+        sFamBtn.classList.add('btn-gold', 'active');
+        selectedSubFamilyFilter = sFamBtn.getAttribute('data-subfam');
         renderMembersTable();
       }
     });
