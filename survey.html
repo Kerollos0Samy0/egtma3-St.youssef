@@ -406,7 +406,7 @@
       <div class="success-icon">✓</div>
       <h2 class="success-title">عاش جداً يا بطل! تم تسجيل رغباتك 🤍</h2>
       <p class="success-msg" id="successCustomMsg">
-        تم حفظ اختيارك للأسرة ورأيك في الخروجات والمؤتمر بنجاح.<br>
+        تم حفظ رأيك واقتراحاتك في الخروجات والأنشطة والمؤتمر بنجاح.<br>
         صوتك هيساعدنا ننظم أحلى أوقات تفرّح قلوبنا كلنا مع بعض!
       </p>
       <button type="button" class="btn-submit" onclick="location.reload()" style="max-width:260px;margin:0 auto;font-size:0.95rem;padding:0.75rem;">
@@ -417,138 +417,13 @@
     <!-- Main Form -->
     <form id="youthSurveyForm" onsubmit="handleSurveySubmit(event)">
 
-      <!-- SECTION 1: Member Info -->
-      <section class="form-section">
-        <h2 class="section-title"><span>👤</span> بياناتك الأساسية</h2>
-        <p class="section-desc">اكتب اسمك أو ابحث عنه عشان نسجل رغباتك باسمك في سجلات الاجتماع.</p>
+      <!-- Hidden Member Data (Preserved if opened via personalized link) -->
+      <input type="hidden" id="inputMemberId" value="">
+      <input type="hidden" id="inputMemberCode" value="">
+      <input type="hidden" id="inputName" value="">
+      <input type="hidden" id="inputPhone" value="">
 
-        <div class="form-group autocomplete-wrap">
-          <label class="form-label" for="memberSearchInput">ابحث عن اسمك في دليل شباب الاجتماع:</label>
-          <input type="text" id="memberSearchInput" class="form-control" placeholder="اكتب اسمك أو رقم تليفونك..." autocomplete="off">
-          <div id="autocompleteDropdown" class="autocomplete-items" style="display:none;"></div>
-        </div>
-
-        <div id="manualInfoFields" style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
-          <div class="form-group" style="margin-bottom:0;">
-            <label class="form-label" for="inputName">الاسم بالكامل: *</label>
-            <input type="text" id="inputName" class="form-control" placeholder="مثال: يوسف ماجد فؤاد" required>
-          </div>
-          <div class="form-group" style="margin-bottom:0;">
-            <label class="form-label" for="inputPhone">رقم الموبايل (واتساب):</label>
-            <input type="tel" id="inputPhone" class="form-control" placeholder="01xxxxxxxxx">
-          </div>
-        </div>
-        <input type="hidden" id="inputMemberId" value="">
-        <input type="hidden" id="inputMemberCode" value="">
-      </section>
-
-      <!-- SECTION 2: Main Family (Single Choice) -->
-      <section class="form-section">
-        <h2 class="section-title"><span>🏛️</span> اختيار الأسرة الرئيسية (إجباري)</h2>
-        <p class="section-desc">الأسر الرئيسية تخدم بروح المنافسة الإيجابية وتنظيم الاجتماع. اختر أسرتك الأساسية:</p>
-
-        <div class="options-grid">
-          
-          <label class="option-card" onclick="selectRadioCard(this, 'mainFamily')">
-            <input type="radio" name="mainFamily" value="أسرة 1" required>
-            <div class="option-indicator"></div>
-            <div class="option-content">
-              <div class="option-title">🌟 أسرة 1</div>
-              <div class="option-desc">تنظيم، منافسات الأسر، والتفاعل الجماعي</div>
-            </div>
-          </label>
-
-          <label class="option-card" onclick="selectRadioCard(this, 'mainFamily')">
-            <input type="radio" name="mainFamily" value="أسرة 2" required>
-            <div class="option-indicator"></div>
-            <div class="option-content">
-              <div class="option-title">🌟 أسرة 2</div>
-              <div class="option-desc">حماس، مشاركة فعالة، وروح الفريق الواحد</div>
-            </div>
-          </label>
-
-          <label class="option-card" onclick="selectRadioCard(this, 'mainFamily')">
-            <input type="radio" name="mainFamily" value="أسرة 3" required>
-            <div class="option-indicator"></div>
-            <div class="option-content">
-              <div class="option-title">🌟 أسرة 3</div>
-              <div class="option-desc">إبداع، تحديات، وتقديم الاجتماع بروح المحبة</div>
-            </div>
-          </label>
-
-        </div>
-      </section>
-
-      <!-- SECTION 3: Sub-Families (Multiple Choice) -->
-      <section class="form-section">
-        <h2 class="section-title"><span>🌿</span> الأسر الفرعية ومجالات الخدمة</h2>
-        <p class="section-desc">ينفع تختار أكتر من أسرة فرعية حابب تخدم وتشارك فيها حسب موهبتك وشغفك:</p>
-
-        <div class="options-grid">
-
-          <label class="option-card" onclick="toggleCheckboxCard(this)">
-            <input type="checkbox" name="subFamilies" value="أسرة Revive">
-            <div class="option-indicator"></div>
-            <div class="option-content">
-              <div class="option-title">🎵 أسرة Revive</div>
-              <div class="option-desc">التسبيح، الكورال، سهرات الصلاة والترانيم</div>
-            </div>
-          </label>
-
-          <label class="option-card" onclick="toggleCheckboxCard(this)">
-            <input type="checkbox" name="subFamilies" value="أسرة الأنشطة">
-            <div class="option-indicator"></div>
-            <div class="option-content">
-              <div class="option-title">⚽ أسرة الأنشطة</div>
-              <div class="option-desc">الدورات الرياضية، تنظيم الرحلات، والمسابقات</div>
-            </div>
-          </label>
-
-          <label class="option-card" onclick="toggleCheckboxCard(this)">
-            <input type="checkbox" name="subFamilies" value="أسرة الميديا">
-            <div class="option-indicator"></div>
-            <div class="option-content">
-              <div class="option-title">📸 أسرة الميديا والتصميم</div>
-              <div class="option-desc">التصوير، المونتاج، الجرافيك ديزاين، والسوشيال ميديا</div>
-            </div>
-          </label>
-
-          <label class="option-card" onclick="toggleCheckboxCard(this)">
-            <input type="checkbox" name="subFamilies" value="دراسة الكتاب">
-            <div class="option-indicator"></div>
-            <div class="option-content">
-              <div class="option-title">📖 دراسة الكتاب المقدس</div>
-              <div class="option-desc">البحث الكنسي، المسابقات الإنجيلية، وورش الكلمة</div>
-            </div>
-          </label>
-
-          <label class="option-card" onclick="toggleCheckboxCard(this)">
-            <input type="checkbox" name="subFamilies" value="أسرة الافتقاد">
-            <div class="option-indicator"></div>
-            <div class="option-content">
-              <div class="option-title">🤝 أسرة الافتقاد والتواصل</div>
-              <div class="option-desc">السؤال عن الغائبين، الزيارات، وعلاقات المحبة الأخوية</div>
-            </div>
-          </label>
-
-          <label class="option-card" onclick="toggleCheckboxCard(this)">
-            <input type="checkbox" name="subFamilies" value="أسرة قلب واحد">
-            <div class="option-indicator"></div>
-            <div class="option-content">
-              <div class="option-title">❤️ أسرة قلب واحد</div>
-              <div class="option-desc">أعمال الرحمة، زيارات المسنين، الأيتام، والخدمات المجتمعية</div>
-            </div>
-          </label>
-
-        </div>
-
-        <div class="form-group" style="margin-top:1rem;margin-bottom:0;">
-          <label class="form-label" for="inputOtherSubFamily">💡 عندك موهبة أو فكرة خدمة تانية حابب تضيفها؟</label>
-          <input type="text" id="inputOtherSubFamily" class="form-control" placeholder="اكتب اقتراحك هنا...">
-        </div>
-      </section>
-
-      <!-- SECTION 4: Outings & Trips Vibe -->
+      <!-- SECTION 1: Outings & Trips Vibe -->
       <section class="form-section">
         <h2 class="section-title"><span>🏖️</span> دماغك في الخروجات والرحلات</h2>
         <p class="section-desc">عايزين نعمل خروجات تليق بيكم وتفرّغ طاقتكم بجد. جاوبنا بصراحة:</p>
@@ -686,7 +561,7 @@
         </div>
       </section>
 
-      <!-- SECTION 5: Upcoming Conference -->
+      <!-- SECTION 2: Upcoming Conference -->
       <section class="form-section">
         <h2 class="section-title"><span>⛺</span> كبسولة المؤتمر القادم</h2>
         <p class="section-desc">المؤتمر هو أحلى محطة روحية وإنسانية بنعيشها سوا في السنة:</p>
@@ -894,10 +769,10 @@
       btn.innerHTML = '<span>⏳</span> جاري حفظ رغباتك...';
 
       try {
-        const name = inputName.value.trim();
-        const phone = inputPhone.value.trim();
-        const memberId = inputMemberId.value.trim();
-        const memberCode = inputMemberCode.value.trim();
+        const name = (inputName && inputName.value ? inputName.value.trim() : '') || 'مشارك مجهول (تصويت عام)';
+        const phone = (inputPhone && inputPhone.value) ? inputPhone.value.trim() : '';
+        const memberId = (inputMemberId && inputMemberId.value) ? inputMemberId.value.trim() : '';
+        const memberCode = (inputMemberCode && inputMemberCode.value) ? inputMemberCode.value.trim() : '';
 
         // Main Family
         const mainFamilyRadio = document.querySelector('input[name="mainFamily"]:checked');
