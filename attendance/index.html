@@ -15953,10 +15953,19 @@
             if (s.id === currentSessionId) opt.selected = true;
             famSelect.appendChild(opt);
           });
-          // If currentSessionId is not in this family, select the first meeting of this family
-          if (!currentFamMeetings.some(m => m.id === currentSessionId)) {
-            currentSessionId = currentFamMeetings[0].id;
-            famSelect.value = currentSessionId;
+          // ONLY update currentSessionId if we are currently in FAMILY category and the current session is not from this family
+          if (currentScannerCategory === 'family') {
+            if (currentFamMeetings.some(m => m.id === currentSessionId)) {
+              famSelect.value = currentSessionId;
+            } else if (currentFamMeetings.length > 0) {
+              currentSessionId = currentFamMeetings[0].id;
+              famSelect.value = currentSessionId;
+            }
+          } else {
+            // In weekly mode: DO NOT modify currentSessionId!
+            if (currentFamMeetings.length > 0) {
+              famSelect.value = currentFamMeetings[0].id;
+            }
           }
         }
       }
@@ -16219,7 +16228,7 @@
           name: member.name,
           family: member.family,
           time: currentTime,
-          date: new Date().toISOString().split('T')[0]
+          date: session.date || new Date().toISOString().split('T')[0]
         };
         session.attendees.push(newAttendee);
         const isFamSess = isFamilySession(session);
