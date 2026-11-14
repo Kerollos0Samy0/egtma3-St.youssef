@@ -953,9 +953,7 @@
       "areaGroup": "خدام الاجتماع (دراسة الكتاب)",
       "points": 10,
       "mainFamily": "أسرة 2",
-      "subFamilies": [
-        "دراسة الكتاب"
-      ]
+      "subFamilies": []
     },
     {
       "id": "B20",

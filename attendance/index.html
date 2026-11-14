@@ -5106,7 +5106,6 @@
             <button class="pill-btn sub-fam-filter-btn" data-subfam="أسرة الميديا">أسرة الميديا</button>
             <button class="pill-btn sub-fam-filter-btn" data-subfam="أسرة الأنشطة">أسرة الأنشطة</button>
             <button class="pill-btn sub-fam-filter-btn" data-subfam="أسرة الافتقاد">أسرة الافتقاد</button>
-            <button class="pill-btn sub-fam-filter-btn" data-subfam="دراسة الكتاب">دراسة الكتاب</button>
           </div>
         </div>
       </div>
@@ -5848,7 +5847,6 @@
               <option value="أسرة الميديا">أسرة الميديا</option>
               <option value="أسرة الأنشطة">أسرة الأنشطة</option>
               <option value="أسرة الافتقاد">أسرة الافتقاد</option>
-              <option value="أسرة دراسة الكتاب">أسرة دراسة الكتاب</option>
             </optgroup>
             <optgroup label="👑 الإدارة والخدام">
               <option value="أمناء الاجتماع">أمناء الاجتماع (اجتماع خدام)</option>
@@ -5944,8 +5942,7 @@
                 <option value="أسرة الميديا">أسرة الميديا</option>
                 <option value="أسرة الأنشطة">أسرة الأنشطة</option>
                 <option value="أسرة الافتقاد">أسرة الافتقاد</option>
-                <option value="أسرة دراسة الكتاب">أسرة دراسة الكتاب</option>
-              </optgroup>
+                </optgroup>
               <optgroup label="👥 اجتماعات عامة ولجان">
                 <option value="عام / جميع الأسر والخدام">عام / جميع الأسر والخدام</option>
                 </optgroup>
@@ -6138,7 +6135,6 @@
             <label class="subfam-checkbox-label"><input type="checkbox" name="newSubFamily" value="أسرة الميديا"> <span>🏠 أسرة الميديا</span></label>
             <label class="subfam-checkbox-label"><input type="checkbox" name="newSubFamily" value="أسرة الأنشطة"> <span>🏠 أسرة الأنشطة</span></label>
             <label class="subfam-checkbox-label"><input type="checkbox" name="newSubFamily" value="أسرة الافتقاد"> <span>🏠 أسرة الافتقاد</span></label>
-            <label class="subfam-checkbox-label"><input type="checkbox" name="newSubFamily" value="دراسة الكتاب"> <span>📖 دراسة الكتاب</span></label>
           </div>
         </div>
         <div class="form-group">
@@ -6204,7 +6200,6 @@
             <option value="أسرة الافتقاد">أسرة الافتقاد</option>
             <option value="أسرة Revive">أسرة Revive</option>
             <option value="أسرة قلب واحد">أسرة قلب واحد</option>
-            <option value="دراسة الكتاب المقدس">دراسة الكتاب المقدس</option>
             <option value="أمناء الاجتماع">أمناء الاجتماع</option>
           </select>
         </div>
@@ -6664,7 +6659,6 @@
                 <label class="subfam-checkbox-label" style="padding:0.3rem 0.5rem;font-size:0.75rem;"><input type="checkbox" name="editSubFamily" value="أسرة الميديا"> <span>🏠 الميديا</span></label>
                 <label class="subfam-checkbox-label" style="padding:0.3rem 0.5rem;font-size:0.75rem;"><input type="checkbox" name="editSubFamily" value="أسرة الأنشطة"> <span>🏠 الأنشطة</span></label>
                 <label class="subfam-checkbox-label" style="padding:0.3rem 0.5rem;font-size:0.75rem;"><input type="checkbox" name="editSubFamily" value="أسرة الافتقاد"> <span>🏠 الافتقاد</span></label>
-                <label class="subfam-checkbox-label" style="padding:0.3rem 0.5rem;font-size:0.75rem;"><input type="checkbox" name="editSubFamily" value="دراسة الكتاب"> <span>📖 دراسة الكتاب</span></label>
               </div>
             </div>
           </div>
@@ -6870,7 +6864,6 @@
             <option value="family_أسرة الافتقاد">أسرة الافتقاد (الجميع)</option>
             <option value="family_أسرة Revive">أسرة Revive (الجميع)</option>
             <option value="family_أسرة قلب واحد">أسرة قلب واحد (الجميع)</option>
-            <option value="family_دراسة الكتاب المقدس">دراسة الكتاب المقدس (الجميع)</option>
             <option value="all_members">جميع الـ 157 عضواً في الاجتماع</option>
           </select>
           <div id="batchTargetCountInfo" style="margin-top:0.35rem;font-size:0.8rem;color:var(--accent-emerald);font-weight:700;"></div>
@@ -8060,9 +8053,7 @@
       "areaGroup": "خدام الاجتماع (دراسة الكتاب)",
       "points": 10,
       "mainFamily": "أسرة 2",
-      "subFamilies": [
-        "دراسة الكتاب"
-      ]
+      "subFamilies": []
     },
     {
       "id": "B20",
@@ -15391,13 +15382,12 @@
       { id: 'أسرة 1', name: 'أسرة 1', label: 'أسرة 1', type: 'main', icon: '🏠', seedId: 'SES-SUB-FAM-01' },
       { id: 'أسرة 2', name: 'أسرة 2', label: 'أسرة 2', type: 'main', icon: '🏠', seedId: 'SES-SUB-FAM-02' },
       { id: 'أسرة 3', name: 'أسرة 3', label: 'أسرة 3', type: 'main', icon: '🏠', seedId: 'SES-SUB-FAM-03' },
-      // 6 Sub-Families
+      // 5 Sub-Families
       { id: 'أسرة Revive', name: 'أسرة Revive', label: 'Revive', type: 'sub', icon: '🏠', seedId: 'SES-SUB-REV-01' },
       { id: 'أسرة قلب واحد', name: 'أسرة قلب واحد', label: 'قلب واحد', type: 'sub', icon: '🏠', seedId: 'SES-SUB-ONE-01' },
       { id: 'أسرة الميديا', name: 'أسرة الميديا', label: 'الميديا', type: 'sub', icon: '🏠', seedId: 'SES-SUB-MED-01' },
       { id: 'أسرة الأنشطة', name: 'أسرة الأنشطة', label: 'الأنشطة', type: 'sub', icon: '🏠', seedId: 'SES-SUB-ACT-01' },
       { id: 'أسرة الافتقاد', name: 'أسرة الافتقاد', label: 'الافتقاد', type: 'sub', icon: '🏠', seedId: 'SES-SUB-VIS-01' },
-      { id: 'أسرة دراسة الكتاب', name: 'أسرة دراسة الكتاب', label: 'دراسة الكتاب', type: 'sub', icon: '📖', seedId: 'SES-SUB-BBL-01' },
       // Leadership & Servants (أمناء الاجتماع)
       { id: 'أمناء الاجتماع', name: 'أمناء الاجتماع', label: 'أمناء الاجتماع', type: 'leadership', icon: '👑', seedId: 'SES-SUB-TRUSTEES-01' }
     ];
@@ -15427,7 +15417,6 @@
       if (id.includes('MED')) return 'أسرة الميديا';
       if (id.includes('ACT')) return 'أسرة الأنشطة';
       if (id.includes('VIS')) return 'أسرة الافتقاد';
-      if (id.includes('BBL')) return 'أسرة دراسة الكتاب';
 
       if (fam.includes('2') || title.includes('2')) return 'أسرة 2';
       if (fam.includes('3') || title.includes('3')) return 'أسرة 3';
@@ -16455,13 +16444,17 @@
     function getMemberSubFamilies(m) {
       if (!m) return [];
       const subs = new Set(Array.isArray(m.subFamilies) ? m.subFamilies : []);
-      const subNames = ['Revive', 'قلب واحد', 'الميديا', 'الأنشطة', 'الافتقاد', 'دراسة الكتاب'];
+      const subNames = ['Revive', 'قلب واحد', 'الميديا', 'الأنشطة', 'الافتقاد'];
       subNames.forEach(sn => {
         if ((m.family && m.family.includes(sn)) || (m.role && m.role.includes(sn)) || (m.areaGroup && m.areaGroup.includes(sn))) {
-          const canonical = sn === 'Revive' ? 'أسرة Revive' : (sn === 'قلب واحد' ? 'أسرة قلب واحد' : (sn === 'دراسة الكتاب' ? 'دراسة الكتاب' : ('أسرة ' + sn)));
+          const canonical = sn === 'Revive' ? 'أسرة Revive' : (sn === 'قلب واحد' ? 'أسرة قلب واحد' : ('أسرة ' + sn));
           subs.add(canonical);
         }
       });
+      subs.delete('دراسة الكتاب');
+      subs.delete('أسرة دراسة الكتاب');
+      subs.delete('دراسة الكتاب المقدس');
+      subs.delete('أسرة دراسة الكتاب المقدس');
       return Array.from(subs);
     }
 
@@ -23177,8 +23170,7 @@ ${winner.notes ? '💬 كلمة الأمناء: ' + winner.notes + '\n' : ''}
               <option value="أسرة الافتقاد">أسرة الافتقاد</option>
               <option value="أسرة Revive">أسرة Revive</option>
               <option value="أسرة قلب واحد">أسرة قلب واحد</option>
-              <option value="دراسة الكتاب المقدس">دراسة الكتاب المقدس</option>
-            </select>
+              </select>
           </div>
           <div class="form-group" style="margin:0;">
             <label style="font-size:0.85rem;font-weight:800;color:var(--text-muted);display:block;margin-bottom:0.35rem;">دورة التقييم:</label>
