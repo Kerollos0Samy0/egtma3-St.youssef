@@ -406,6 +406,16 @@
       <p class="survey-subtitle">اجتماع يوسف الصديق — عام 2026 / 2027<br>رأيك واختيارك هيصنع شكل يومنا وخروجاتنا الجاية!</p>
     </header>
 
+    <!-- Personalized Member Greeting Badge (When opened via ?id=...) -->
+    <div id="surveyUserBadge" style="display:none;background:rgba(212,175,55,0.12);border:1.5px solid rgba(212,175,55,0.4);border-radius:14px;padding:0.85rem 1.2rem;margin-bottom:1.5rem;text-align:center;">
+      <div style="font-size:1.05rem;font-weight:800;color:var(--text-main);">
+        منور يا <span id="surveyUserBadgeName" style="color:var(--accent-gold);"></span> 🤍
+      </div>
+      <div style="font-size:0.82rem;color:var(--text-muted);margin-top:4px;">
+        ✨ استمارتك مربوطة بحسابك تلقائياً — حدد رغباتك ودوس إرسال مباشرة
+      </div>
+    </div>
+
     <!-- Success Screen (Shown on submit) -->
     <div id="surveySuccessCard" class="success-card">
       <div class="success-icon">✓</div>
@@ -728,9 +738,21 @@
           inputPhone.value = found.phone || '';
           inputMemberId.value = found.id;
           inputMemberCode.value = found.code || '';
+          const badge = document.getElementById('surveyUserBadge');
+          const badgeName = document.getElementById('surveyUserBadgeName');
+          if (badge && badgeName) {
+            badgeName.textContent = found.name;
+            badge.style.display = 'block';
+          }
         }
       } else if (preName) {
         inputName.value = preName;
+        const badge = document.getElementById('surveyUserBadge');
+        const badgeName = document.getElementById('surveyUserBadgeName');
+        if (badge && badgeName) {
+          badgeName.textContent = preName;
+          badge.style.display = 'block';
+        }
       }
     });
 
