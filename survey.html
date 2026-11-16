@@ -670,75 +670,10 @@
       }
     }
 
-    // Autocomplete Logic
-    const searchInput = document.getElementById('memberSearchInput');
-    const dropdown = document.getElementById('autocompleteDropdown');
     const inputName = document.getElementById('inputName');
     const inputPhone = document.getElementById('inputPhone');
     const inputMemberId = document.getElementById('inputMemberId');
     const inputMemberCode = document.getElementById('inputMemberCode');
-
-    function normStr(str) {
-      if (!str) return '';
-      return str.trim().toLowerCase()
-        .replace(/[أإآ]/g, 'ا')
-        .replace(/ى/g, 'ي')
-        .replace(/ة/g, 'ه')
-        .replace(/[ً-ٟ]/g, '');
-    }
-
-    if (searchInput) {
-      searchInput.addEventListener('input', function() {
-        const val = normStr(this.value);
-        dropdown.innerHTML = '';
-        if (!val || val.length < 2) {
-          dropdown.style.display = 'none';
-          return;
-        }
-
-        const matches = MEMBERS_LIST.filter(m => {
-          const n = normStr(m.name);
-          const p = (m.phone || '').trim();
-          const c = (m.code || '').toLowerCase();
-          return n.includes(val) || p.includes(val) || c.includes(val);
-        }).slice(0, 8);
-
-        if (matches.length === 0) {
-          dropdown.innerHTML = `<div class="autocomplete-item" style="color:var(--text-muted);cursor:default;">لم يتم العثور على اسم مطابق — يمكنك كتابة اسمك مباشرة بالأسفل</div>`;
-          dropdown.style.display = 'block';
-          return;
-        }
-
-        matches.forEach(m => {
-          const item = document.createElement('div');
-          item.className = 'autocomplete-item';
-          item.innerHTML = `
-            <div>
-              <strong style="color:#fff;">${m.name}</strong>
-              <small style="display:block;color:var(--text-muted);font-size:0.75rem;">كود: ${m.code || m.id} ${m.phone ? '• ' + m.phone : ''}</small>
-            </div>
-            <span style="font-size:0.8rem;color:var(--accent-gold);font-weight:700;">اختيار 👈</span>
-          `;
-          item.onclick = function() {
-            inputName.value = m.name;
-            inputPhone.value = m.phone || '';
-            inputMemberId.value = m.id;
-            inputMemberCode.value = m.code || '';
-            searchInput.value = m.name;
-            dropdown.style.display = 'none';
-            searchInput.style.borderColor = 'var(--accent-emerald)';
-          };
-          dropdown.appendChild(item);
-        });
-        dropdown.style.display = 'block';
-      });
-
-      document.addEventListener('click', function(e) {
-        if (!searchInput.contains(e.target) && !dropdown.contains(e.target)) {
-          dropdown.style.display = 'none';
-        }
-      });
-    }
 
     // Check URL parameters for Pre-fill (e.g. ?id=E19 or ?code=E19 or ?name=...)
     window.addEventListener('DOMContentLoaded', () => {
@@ -769,22 +704,10 @@
       btn.innerHTML = '<span>⏳</span> جاري حفظ رغباتك...';
 
       try {
-        const name = (inputName && inputName.value ? inputName.value.trim() : '') || 'مشارك مجهول (تصويت عام)';
+        const name = (inputName && inputName.value ? inputName.value.trim() : '') || 'مشارك في الاستبيان';
         const phone = (inputPhone && inputPhone.value) ? inputPhone.value.trim() : '';
         const memberId = (inputMemberId && inputMemberId.value) ? inputMemberId.value.trim() : '';
         const memberCode = (inputMemberCode && inputMemberCode.value) ? inputMemberCode.value.trim() : '';
-
-        // Main Family
-        const mainFamilyRadio = document.querySelector('input[name="mainFamily"]:checked');
-        const mainFamily = mainFamilyRadio ? mainFamilyRadio.value : '';
-
-        // Sub Families
-        const subFamilies = [];
-        document.querySelectorAll('input[name="subFamilies"]:checked').forEach(c => {
-          subFamilies.push(c.value);
-        });
-        const otherSub = document.getElementById('inputOtherSubFamily').value.trim();
-        if (otherSub) subFamilies.push('أخرى: ' + otherSub);
 
         // Trips Vibe
         const tripStyleRadio = document.querySelector('input[name="tripStyle"]:checked');
@@ -796,14 +719,18 @@
         const budgetRadio = document.querySelector('input[name="budget"]:checked');
         const budget = budgetRadio ? budgetRadio.value : '';
 
-        const suggestedLocation = document.getElementById('suggestedTripLocation').value.trim();
+        const suggestedLocEl = document.getElementById('suggestedTripLocation');
+        const suggestedLocation = suggestedLocEl ? suggestedLocEl.value.trim() : '';
 
         // Conference
         const confDurRadio = document.querySelector('input[name="confDuration"]:checked');
         const confDuration = confDurRadio ? confDurRadio.value : '';
 
-        const confTopic = document.getElementById('confTopicSuggestion').value.trim();
-        const notes = document.getElementById('confGeneralNotes').value.trim();
+        const confTopicEl = document.getElementById('confTopicSuggestion');
+        const confTopic = confTopicEl ? confTopicEl.value.trim() : '';
+
+        const notesEl = document.getElementById('confGeneralNotes');
+        const notes = notesEl ? notesEl.value.trim() : '';
 
         const submissionId = 'SURV-' + Date.now();
         const submissionData = {
@@ -812,8 +739,6 @@
           phone,
           memberId,
           memberCode,
-          mainFamily,
-          subFamilies,
           tripStyle,
           preferredTime,
           budget,
@@ -825,49 +750,51 @@
         };
 
         // 1. Save Locally
-        const localSurveys = JSON.parse(localStorage.getItem('st_youssef_youth_surveys') || '[]');
-        localSurveys.unshift(submissionData);
-        localStorage.setItem('st_youssef_youth_surveys', JSON.stringify(localSurveys));
+        try {
+          const localSurveys = JSON.parse(localStorage.getItem('st_youssef_youth_surveys') || '[]');
+          localSurveys.unshift(submissionData);
+          localStorage.setItem('st_youssef_youth_surveys', JSON.stringify(localSurveys));
+        } catch (localErr) {
+          console.warn("LocalStorage save notice:", localErr);
+        }
 
-        // 2. Save to Firestore
-        if (db) {
-          await db.collection('survey_responses').doc(submissionId).set(submissionData);
-
-          // If member matched, update member's mainFamily and subFamilies in Firestore members_data
-          if (memberId && mainFamily) {
-            try {
-              const docSnap = await db.collection('app_config').doc('members_data').get();
-              if (docSnap.exists) {
-                const d = docSnap.data();
-                if (d && Array.isArray(d.members)) {
-                  let updated = false;
-                  const newMembers = d.members.map(m => {
-                    if (m.id === memberId || m.code === memberCode) {
-                      updated = true;
-                      return { ...m, family: mainFamily, mainFamily: mainFamily, subFamilies: subFamilies };
-                    }
-                    return m;
-                  });
-                  if (updated) {
-                    await db.collection('app_config').doc('members_data').update({ members: newMembers });
-                  }
+        // 2. Save to Firestore (Primary) + Fallback REST API
+        if (typeof db !== 'undefined' && db) {
+          try {
+            await db.collection('survey_responses').doc(submissionId).set(submissionData);
+            console.log("Survey saved to Firestore successfully!");
+          } catch (fireErr) {
+            console.warn("Firestore SDK write error, attempting REST fallback:", fireErr);
+            fetch(`https://firestore.googleapis.com/v1/projects/st-youssef/databases/(default)/documents/survey_responses/${submissionId}?key=AIzaSyCNAQmm5DBroA5rLMda-E85UFo3-7srg8s`, {
+              method: 'PATCH',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                fields: {
+                  id: { stringValue: submissionId },
+                  name: { stringValue: name },
+                  phone: { stringValue: phone },
+                  memberId: { stringValue: memberId },
+                  tripStyle: { stringValue: tripStyle },
+                  preferredTime: { stringValue: preferredTime },
+                  budget: { stringValue: budget },
+                  suggestedLocation: { stringValue: suggestedLocation },
+                  confDuration: { stringValue: confDuration },
+                  confTopic: { stringValue: confTopic },
+                  notes: { stringValue: notes },
+                  submittedAt: { stringValue: submissionData.submittedAt }
                 }
-              }
-            } catch (errMem) {
-              console.warn("Auto update member family in firestore:", errMem);
-            }
+              })
+            }).catch(e => console.warn("REST fallback notice:", e));
           }
         }
 
-        // Show Success
+        // 3. Show Success Screen
         document.getElementById('youthSurveyForm').style.display = 'none';
         const successMsg = document.getElementById('successCustomMsg');
         if (successMsg) {
           successMsg.innerHTML = `
-            أهلاً بك يا <strong>${name}</strong> 🌸<br>
-            تم تسجيلك بنجاح في <strong>${mainFamily}</strong><br>
-            ${subFamilies.length > 0 ? 'وفي مجالات الخدمة: <br><span style="color:var(--accent-gold);">' + subFamilies.join(' • ') + '</span><br>' : ''}
-            صوتك واقتراحاتك للخروجات والمؤتمر وصلت لخدامك بأمانة! 🤍
+            عاش جداً يا بطل! تم استلام رغباتك بنجاح 🤍✨<br>
+            صوتك واقتراحاتك للخروجات وتفاصيل المؤتمر وصلت لخدامك بأمانة!
           `;
         }
         document.getElementById('surveySuccessCard').style.display = 'block';
@@ -875,7 +802,7 @@
 
       } catch (err) {
         console.error("Survey submission error:", err);
-        alert("حدث خطأ أثناء الإرسال. يرجى التأكد من اتصال الإنترنت والمحاولة مرة أخرى.");
+        alert("حدث خطأ أثناء الإرسال: " + (err.message || "يرجى المحاولة مرة أخرى"));
         btn.disabled = false;
         btn.innerHTML = '<span>🚀</span> <span>إعادة المحاولة</span>';
       }
