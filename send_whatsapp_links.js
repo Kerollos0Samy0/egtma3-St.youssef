@@ -401,19 +401,25 @@ async function main() {
   }
 
   // Process Main Target List
+  const validTargets = targetList.filter(m => formatPhone(m.phone));
+  const skippedNoPhone = targetList.filter(m => !formatPhone(m.phone));
+
   console.log('\n=============================================================');
-  console.log(`🚀 بدء عملية الإرسال لـ ${targetList.length} عضو...`);
+  console.log(`🚀 بدء عملية الإرسال لـ ${validTargets.length} عضو مؤهل عبر واتساب...`);
+  if (skippedNoPhone.length > 0) {
+    console.log(`⚠️ تم استبعاد ${skippedNoPhone.length} عضو ليس لديهم رقم هاتف مسجل (متاحين في ملف روابط_الشباب_بدون_واتساب.txt)`);
+  }
   console.log('⚠️ تم ضبط فاصل زمني أمان (5 - 8 ثوانٍ) بين كل رسالة لحماية حسابك.');
   console.log('=============================================================\n');
 
   let successCount = 0;
   let failCount = 0;
 
-  for (let i = 0; i < targetList.length; i++) {
-    const m = targetList[i];
+  for (let i = 0; i < validTargets.length; i++) {
+    const m = validTargets[i];
     const globalIdx = members.findIndex(x => x.id === m.id) + 1;
 
-    console.log(`\n[${i + 1}/${targetList.length}] (عضو رقم ${globalIdx || i + 1} من ${members.length}) معالجة: ${m.name} (${m.id}) - تليفون: ${m.phone || 'بدون'}`);
+    console.log(`\n[${i + 1}/${validTargets.length}] (عضو رقم ${globalIdx || i + 1} من ${members.length}) معالجة: ${m.name} (${m.id}) - تليفون: ${m.phone || 'بدون'}`);
 
     const msg = buildMessage(m, templateChoice, customText);
     const success = await sendMessageToContact(page, m, msg, report);
@@ -422,7 +428,7 @@ async function main() {
     else failCount++;
 
     // Safety Delay (5 to 8 seconds)
-    if (i < targetList.length - 1) {
+    if (i < validTargets.length - 1) {
       const waitSeconds = Math.floor(Math.random() * 4) + 5;
       process.stdout.write(`   ⏳ انتظار أمان: `);
       for (let sec = waitSeconds; sec > 0; sec--) {
