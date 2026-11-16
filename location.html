@@ -309,9 +309,7 @@
           <div class="member-name" id="selectedMemberName">—</div>
           <div class="member-sub" id="selectedMemberArea">المنطقة: القناطر الخيرية</div>
         </div>
-        <button type="button" onclick="resetSelectedMember()" style="background:transparent;border:none;color:var(--text-muted);cursor:pointer;font-size:0.8rem;text-decoration:underline;">
-          تغيير
-        </button>
+        <div style="margin-right:auto;font-size:0.75rem;color:#34d399;background:rgba(52,211,153,0.1);border:1px solid rgba(52,211,153,0.25);border-radius:20px;padding:0.25rem 0.65rem;display:inline-flex;align-items:center;gap:0.3rem;">🔒 حساب مؤكد</div>
       </div>
 
       <div class="instruction-text">
@@ -470,6 +468,8 @@
         const found = ALL_MEMBERS.find(m => m.id === queryId || m.code === queryId || (m.phone && m.phone.includes(queryId)));
         if (found) {
           selectMember(found);
+          const sg = document.getElementById('searchGroup');
+          if (sg) sg.remove();
         }
       }
     });
